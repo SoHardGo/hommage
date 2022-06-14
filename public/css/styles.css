@@ -6,6 +6,7 @@
     --color-grey:rgb(180,180,180);
     --color-grey-soft:rgb(161, 161, 161);
     --color-grey-middle:rgb(125, 115, 125);
+    --color-grey-light:rgb(226, 224, 224);
 }
 /***************************Globals Class***************************/
 
@@ -13,6 +14,7 @@
     margin:0px;
     padding:0px;
     box-sizing:border-box;
+    font-family: 'Abel', sans-serif;
 }
 label {
     display:block;
@@ -21,10 +23,9 @@ input {
     width: 250px;
     height: 40px;
     border:1px solid var(--color-black);
-    border-radius:10px;
 }
 h1 {
-    font-size: 70px;
+    font-size: 30px;
     text-align:center;
 }
 h2 {
@@ -50,19 +51,15 @@ hr {
 	padding:7px 25px;
 	text-decoration:none;
 	text-align:center;
-	width: 200px;
 }
 .form {
-    background-color: var(--color-white);
     color:black;
-    border:5px solid var(--color-black);
     margin:0 auto;
     width: 80%;
     height: 600px;
 }
 .title {
     color:var(--color-black);
-    text-shadow: 10px 5px 2px rgba(0,0,0,0.37);
     font-size: 50px;
 }
 
@@ -70,7 +67,7 @@ hr {
 
 .page_header {
     height:150px;
-    background-color: var(--color-grey-soft);
+    border-bottom:1px solid var(--color-black);
 }
 .title_container {
     display:flex;
@@ -87,7 +84,7 @@ hr {
     z-index: 10;
     top: 0;
     right: -250px;
-    border:2px solid var(--color-black);
+    border:1px solid var(--color-black);
     background-color: var(--color-black);
     padding-top: 20px;
     transition: right 0.5s ease;
@@ -133,47 +130,56 @@ hr {
 .container_home {
     margin-top:50px;
 }
-.container_home .button {
-    font-size: 18px;
-    margin:30px;
-    width: 160px;
-}
-.container_home  h1 {
-    margin:15px;
-}
 .container_home p {
     text-align:justify;
+    font-size: 25px;
 }
 .container_home_photo, .container_home_text, .container_home_card, .container_home_flower {
-    display:flex;
-    justify-content:center;
     margin-bottom:45px;
 }
-.home_photo, .home_text {
-    display: flex;
-    flex-direction: column;
-    width: 48%;
-    height: 150px;
+.home_photo {
+    width: 90%;
+    height: 300px;
+    margin: 0 auto;
     padding:5px;
+}
+.home_text {
+    text-align:justify;
+    margin:30px auto;
+    width: 90%;
 }
 .home_start {
     margin:0 auto;
     width: 95%;
     text-align:center;
 }
+.home_start h1 {
+    font-size: 35px;
+    text-align: justify;
+    margin:15px;
+}
 .home_start_text {
-    border:3px solid var(--color-black);
-    border-radius:10px;
     padding: 10px;
     margin-bottom:20px;
+    font-size: 22px;
+}
+.home_button {
+    text-align:center;
+}
+.home_member h1, .home_write h1, .home_send h1, .home_flower h1 {
+    font-size: 30px;
+    margin:30px;
 }
 .container_explain {
-    margin:0 auto;
+    margin:25px;
     width: 90%;
 }
 .container_explain p {
-    margin:0 auto;
     padding: 10px;
+    margin-bottom:25px;
+}
+.container_explain h1 {
+    font-size: 30px;
 }
 .explain_input {
     text-align:center;
@@ -194,11 +200,9 @@ hr {
 
 /**********************Environnement Formulaires*********************************/
 /***Connexion -- Contact -- Register***/
-.container_connexion, .container_contact, .container_register, .container_createform, .container_profil {
-    height: 700px;
-}
+
 .title_connexion.title, .title_contact.title, .title_register.title, .title_createform.title, .title_profil.title {
-    margin:40px
+    margin:30px
 }
 .connexion.form, .contact.form, .register.form, .createform.form, .profil.form {
     height: 595px;
@@ -264,7 +268,7 @@ input[type="file"] {
 .container_user{
     display:flex;
     justify-content:center;
-    border:2px solid var(--color-black);
+    border:1px solid var(--color-black);
     height: 150px;
 }
 .fa-user {
@@ -273,7 +277,7 @@ input[type="file"] {
 }
 .container_user h3 {
     text-align:center;
-    font-size: 38px;
+    font-size: 25px;
     margin:50px 20px;
     color:rgb(var(--color-white));
 }
@@ -317,7 +321,7 @@ input[type="file"] {
     top: 81px;
     color:var(--color-white);
     margin-top:20px;
-    border: 2px solid white;
+    border: 1px solid white;
     border-radius: 50%;
     padding: 3px;
     background-color: black;
@@ -329,7 +333,7 @@ input[type="file"] {
     left:10px;
     width: 120px;
     height: 120px;
-    border:2px solid var(--color-black);
+    border:1px solid var(--color-black);
     border-radius:50%;
     overflow:hidden;
 }
@@ -343,24 +347,35 @@ input[type="file"] {
     left:-500px;
 }
 /**********************Home user***************************/
-
+.home_user_explain {
+    text-align:center;
+    margin:30px;
+}
+.defunct_home_user {
+    display:flex;
+    text-align:center;
+    margin:20px 10px;
+}
+.home_user_card {
+    width: 33%;
+    margin:5px;
+}
+.card_img {
+    height: 200px;
+}
+.card {
+    text-decoration:none;
+    color:var(--color-black);
+}
 .list_home_user {
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
     text-decoration:none;
     color:var(--color-black);
-    margin:10px;
+    margin:20px 10px;
 }
-.defunct_home_user {
-    display:flex;
-    justify-content:space-around;
-    border:1px solid var(--color-grey-middle);
-}
-.defunct_all_cards {
-    display:flex;
-    
-}
+
 
 /**********************Environnement utilisateur***************************/
 .env_defunct {
@@ -368,7 +383,7 @@ input[type="file"] {
 }
 #photo_defunct {
    min-height:50px;
-   border:2px solid var(--color-black);
+   border:1px solid var(--color-black);
 }
 .env_defunct h3 {
     color:var(--color-black);
@@ -381,7 +396,6 @@ input[type="file"] {
 }
 .div_photo{
     margin:0 auto;
-    width:80%;
 }
 .com_div {
     margin-top:10px;
@@ -393,10 +407,25 @@ input[type="file"] {
    margin-bottom:30px;
 }
 .comment_post {
-    border:.5px solid var(--color-black);
+
 }
-#comment {
+.comment {
     width: 100%;
+}
+.profil {
+    min-width: 50px;
+    height: 50px;
+    border-radius:50px;
+    overflow:hidden;
+}
+.container_com_user {
+    display:flex;
+    align-items:center;
+    background-color: var(--color-grey-light);
+    border-radius:20px;
+    padding:5px 10px;
+    margin:5px;
+    overflow: hidden;
 }
 #file_env {
     position:absolute;
@@ -410,16 +439,69 @@ label[for="comment"]{
     text-align:center;
 }
 .env_user_name {
-    font-size: 10px;
+    font-size: 15px;
 }
-
+/**************************help window**************************/
+@keyframes showHelp {
+    from {top:-100px;opacity: 0;}
+    to {top:0px;opacity:1;}
+}
+.container_help {
+    display: none; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.container_help:target {
+    display: table;
+    position: absolute;
+}
+.help-dialog {
+    display: table-cell;
+     vertical-align: middle;
+}
+.help-dialog .help-content {
+    margin: auto;
+    background-color: var(--color-white);
+    position: relative;
+    padding: 0;
+    outline: 0;
+    text-align: justify;
+    width: 80%;
+    animation-name: showHelp;
+    animation-duration: 0.5s;
+}
+.closebtn {
+    text-decoration: none;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    color: var(--color-black);
+}
+.closebtn:hover,
+.closebtn:focus {
+    color: var(--color-black);
+    text-decoration: none;
+    cursor: pointer;
+}
+.container_help_text {
+    font-size: 20px;
+    padding: 2px 16px;
+}
+.container_help_text p:first-child {
+    font-weight: bold;
+}
 /***********************Flowers*********************************/
 .flower_form {
     display:flex;
     flex-direction:column;
 }
 .flower_info {
-    border:2px solid var(--color-black);
+    border:1px solid var(--color-black);
     font-size: 25px;
     text-align:justify;
     margin:20px 0;
@@ -504,7 +586,6 @@ label[for="comment"]{
 .lost_inscription {
     text-decoration:none;
     border:1px solid rgb(0, 0, 0);
-    border-radius:5px;
     color:var(--color-blue-hard);
     padding: 3px;
 }
@@ -515,7 +596,7 @@ label[for="comment"]{
 .footer {
     text-align:center;
     height: 150px;
-    background-color: var(--color-grey-soft);
+    border-top:1px solid var(--color-black);
 }
 .icon{
     margin-left:258px;
@@ -562,7 +643,7 @@ label[for="comment"]{
         height: 250px;
     }
     .home_start {
-    width: 90%;
+        width: 90%;
     }
     .home_start_text {
         font-size: 23px;

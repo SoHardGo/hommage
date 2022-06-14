@@ -7,15 +7,6 @@ $defunct = new GetInfos();
 $tab = array();
 $id_def = $_GET['id']??0;
 
-///////////enregistrement des valeurs du formulaire de commentaire /////////////
-if (isset($_POST['comment']) && !empty($_POST['comment'])){
-    $data = ['comment'=>strip_tags($_POST['comment']),
-    'user_id'=>$_SESSION['user']['id'],
-    'photo_id'=>$_GET['photo_id'],
-    'defunct_id'=>$id_def];
-    $register->setComment($data);
-}
-
 ///////////enregistrement d'une photo télécharger //////////////////////
 if (isset($_FILES['file_env']) && $_FILES['file_env']['type']=='image/jpeg' && !empty($_FILES['file_env'])){
     
@@ -50,7 +41,7 @@ if($id_def) {
     $defunct_photos = $defunct->photoListDefunct($id_def);
     $defunct_photos = $defunct_photos->fetchAll();
     $div_env = [];
-    ///////////récupération des commentaires selon la photo///////////////
+    ///////////récupération des commentaires selon la photo du défunt///////////////
     if(count($defunct_photos)) {
         foreach($defunct_photos as $r) {
             $div_env[$r['id']] = $defunct->getListComment($r['id']);

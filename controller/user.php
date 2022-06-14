@@ -1,6 +1,4 @@
 <?php
-require_once 'model/Registration.php';
-$result = new Registration();
 require_once 'model/GetInfos.php';
 $defunct = new GetInfos();
 $def_id = $defunct->getUserDefunctList($_SESSION['user']['id']);
@@ -19,7 +17,7 @@ if ($nbr){
     $list_def.='</div>';
 } 
 
-// enregistrement d'un photo de profil pour l'utilsateur
+// enregistrement d'une photo de profil pour l'utilsateur dans son dossier
 if (isset($_FILES['photo']) && ($_FILES['photo']['type']=='image/jpeg' || $_FILES['photo']['type']=='image/png')){
 
 
@@ -44,6 +42,7 @@ if (isset($_FILES['photo']) && ($_FILES['photo']['type']=='image/jpeg' || $_FILE
 
     //update de mon enregistrement photo pour lui donner le bon nom
     move_uploaded_file ($_FILES['photo']['tmp_name'], $profil);
+
 }
 
 require 'view/user.php';

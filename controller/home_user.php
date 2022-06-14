@@ -55,7 +55,4 @@ foreach ($info_def as $value){
     $list = $info->getListComment($val);
 }
 
-
-
-
 require 'view/home_user.php';

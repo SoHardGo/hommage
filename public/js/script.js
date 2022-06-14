@@ -13,6 +13,84 @@ closeburger.addEventListener('click',function(){
     mynav.classList.remove("status");
 });
 
+//////////////////////////////Photo de profil User/////////////////////
+
+let photo_profil = document.querySelector('.user_icon');
+let input_profil = document.getElementById('photo_user');
+if(photo_profil!== null){
+photo_profil.addEventListener('click', function(){
+    input_profil.click();
+    input_profil.addEventListener('change', function(){
+        document.getElementById('form_user').submit();
+    });
+});
+}
+
+/////////////Gestion du bouton de liste des defunts du menu fiche//////////////
+
+let button = document.querySelector('.button_myDefuncts');
+let container = document.querySelector('.list_defuncts');
+if(button!==null){
+button.addEventListener('click', function(){
+    container.classList.toggle('hidden');
+});
+}
+
+//////////////Gestion des photos dans l'espace environnement/////////
+let camera = document.querySelector('.camera_env');
+let file = document.getElementById('file_env');
+if(camera!==null){
+    camera.addEventListener('click', function(){
+        file.click();
+        file.addEventListener('change', function(){
+            document.getElementById('form_env').submit();
+        });
+    });
+}
+
+/////////////// Gestion des commentaires /////////////////////////
+
+let comment_env = document.querySelectorAll('.comment_env');
+
+if(comment_env!=null) {
+    for(i of comment_env) {
+        i.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let com_div = this.parentNode.querySelector('.com_div');
+            let comment = this.querySelector('.comment');
+            let id_def = this.querySelector('.id_def');
+            let photo_id = this.querySelector('.photo_id');
+            let user_id = this.querySelector('.user_id');
+            let lastname = this.querySelector('.lastname');
+            let firstname = this.querySelector('.firstname');
+
+            
+            let formdata = new FormData();
+            formdata.append('comment',comment.value);
+            formdata.append('id_def',id_def.value);
+            formdata.append('photo_id',photo_id.value);
+            formdata.append('user_id',user_id.value);
+            formdata.append('lastname',lastname.value);
+            formdata.append('firstname',firstname.value);
+
+            let obj ={ 'method':'POST', 'body' :formdata};
+            fetch('ajax/recordcomment.php',obj)
+            .then(response => response.text()) 
+            .then(data=>{
+                let content = '<div class="container_com_user"><div class="profil"><a class ="env_user_name" title="'+lastname.value+' '+firstname.value+'"><img class="img" src="public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg" ></a></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
+                if(comment.value != '') {
+                    com_div.innerHTML += content;
+                }
+                comment.value = '';
+            })
+            .catch(err=>console.log(err)); 
+            
+        });
+    }
+}
+
+
+
 /************************Recherche Insee***************************************/
 /*
  
@@ -50,27 +128,8 @@ monnom.addEventListener('keyup', ()=> {
         }
 });
 */
-//////////////////////////////Photo de profil User/////////////////////
 
-let photo_profil = document.querySelector('.user_icon');
-let input_profil = document.getElementById('photo_user');
-if(photo_profil!== null){
-photo_profil.addEventListener('click', function(){
-    input_profil.click();
-    input_profil.addEventListener('change', function(){
-        document.getElementById('form_user').submit();
-    });
-});
-}
-/////////////Gestion du bouton de liste des defunts du menu fiche//////////////
-
-let button = document.querySelector('.button_myDefuncts');
-let container = document.querySelector('.list_defuncts');
-if(button!==null){
-button.addEventListener('click', function(){
-    container.classList.toggle('hidden');
-});
-}    
+    
 ////////////////Slick////////////////////
 $(document).ready(function(){
       $('.slider').slick({
@@ -110,45 +169,18 @@ $(document).ready(function(){
     });
 
 ///////////////Gestion des commentaires///////////////
-
+/*
 let comment = document.getElementById('comment');
-let form = document.getElementById('comment_env');
 if(comment!==null){
     comment.addEventListener('change',function(e){
         e.preventDefault();
-    console.log(comment.value);
-        //form.submit();
-        // const formdata = new FormData(form);
-        // let obj ={ 'method':'POST', 'body' :formdata};
-        // fetch('controller/environnement.php',obj)
-        //     .then(response => response.text()) 
-        //     .then(data=>{
-        //         comdiv.innerHTML+= data;
-        //     })
-        //     .catch(err=>console.log(err));  
     });
+}else{
+    comment='';
 }
+*/
 
 
-//////////////Gestion des photos dans l'espace environnement/////////
-let camera = document.querySelector('.camera_env');
-let file = document.getElementById('file_env');
-if(camera!==null){
-    camera.addEventListener('click', function(){
-        file.click();
-        file.addEventListener('change', function(){
-            document.getElementById('form_env').submit();
-            // const formdata = new FormData(form);
-            // let obj ={ 'method':'POST', 'body' :formdata};
-            // fetch('controller/environnement.php',obj)
-            //     .then(response => response.text()) 
-            //     .then(data=>{
-            //         comdiv.innerHTML+= data;
-            //     })
-            //     .catch(err=>console.log(err));  
-        });
-    });
-}
 ////////////////Gestion des bouquets de fleurs///////////////////
 /*
 let container_flower = document.querySelector('.container_flower');
@@ -176,23 +208,7 @@ function getFlower() {
 
 ////////////////Gestion des cartes////////////////////////////////
 
-////////Vérification du code pour valider le changement de mot de passe/////////
-
-let submit2 = document.getElementById('submit2');
-let verif_code = document.querySelector('.verif_code');
-
-submit2.addEventListener('click',()=>{
-
-    const formdata = new FormData(form);
-    let obj ={ 'method':'POST', 'body' :formdata};
-    fetch('controller/lost.php',obj)
-        .then(response => response.text()) 
-        .then(data=>{
-            verif_code.innerHTML+= data;
-        })
-        .catch(err=>console.log(err));  
-    });
-
+/////////////////Fonction Ajax Générique///////////////////////////
 function ajax(container,url){
     const formdata = new FormData(form);
     let obj ={ 'method':'POST', 'body' :formdata};
@@ -206,19 +222,6 @@ function ajax(container,url){
 */
 ////////////Vérifiaction du code pour changer son mot de passe///////
 
-// let verif_code = getElementById('code');
-// if(verif_code!==null){
-//     verif_code.addEventListener("change", function() {
-//       // Enregistrement de la saisie utilisateur dans le stockage de session
-//       let user_code = sessionStorage.setItem("user_code", verif_code.value);
-//       let ourcode =sessionStorage.getItem("code");
-//       if(user_code==ourcode){
-//           alert('code correct');
-//       }else{
-//           alert('code incorrect');
-//       }
-//     });
-// }
 
 });
   

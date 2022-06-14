@@ -5,13 +5,9 @@ ob_start();
 <section class="container_user">
     <form method="POST" action="index.php?page=home_user" enctype="multipart/form-data" id="form_user">
         <div class="container_photo_user">
-            <?php 
-            if(file_exists($profil)){
-            ?>
+            <?php if(file_exists($profil)) :?>
                 <img class="img_user" src="<?=$profil?>?<?=rand()?>" alt="photo de profil">
-            <?php
-            }
-            ?>
+            <?php endif ?>
         </div>
         <input type="file" name="photo" id="photo_user" accept=".jpg, .jpeg, .png">
         <i class="fas fa-camera user_icon"></i>
@@ -21,20 +17,14 @@ ob_start();
 </section>
 <section class="bouton_user">
         <a class="button" href="index.php?page=createform">Créer une fiche</a>
-        <?php
-        if (isset($_SESSION['user']['defunct'])){
-        ?>
+        <?php if (isset($_SESSION['user']['defunct'])) :?>
             <div class ="button button_myDefuncts">
                 Mes fiches
                 <?=$list_def?>
             </div>
-        <?php
-        } else {
-        ?>
+        <?php else :?>
             <a class="button" href="index.php?page=search">Rechercher une fiche</a>
-        <?php
-        }
-        ?>
+        <?php endif ?>
         <a class="button" href="index.php?page=profil">Mon compte</a>
         <a class="button" href="index.php?page=buy">Mes achats</a>
 </section>

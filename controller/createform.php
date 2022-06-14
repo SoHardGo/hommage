@@ -46,8 +46,6 @@ if (isset($_POST['submit'])){
         echo 'Cette fiche existe déjà, utiliser RECHERCHER pour la consulter';
     }else{
     // Enregistrement d'une fiche defunt
-    // récupération du dernier Id de defunt enregistré
-    //$id_def = 
     $register->setDefunct($data);
     
     // On met a jour la liste des defunts

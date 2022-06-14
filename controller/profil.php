@@ -1,11 +1,11 @@
 <?php
 require_once 'model/GetInfos.php';
-$result = new GetInfos();
+$getinfo = new GetInfos();
 require_once 'model/Registration.php';
-$update_user = new Registration();
+$register = new Registration();
 $id = $_SESSION['user']['id'];
-$info_user = $result->getInfoUser($id);
-$inf_d = $result->getUserDefunctList($id);
+$info_user = $getinfo->getInfoUser($id);
+$inf_d = $getinfo->getUserDefunctList($id);
 $info_def = $inf_d->fetchAll();
 $nbr = count($info_def);
 
@@ -16,6 +16,6 @@ if (isset($_POST['submit'])){
    $data['address'] = isset($_POST['address']) ? htmlspecialchars($_POST['address']) : $_POST['address'];
    $data['postal_code'] = isset($_POST['postal_code']) ? htmlspecialchars($_POST['postal_code']) : $_POST['postal_code'];
    $data['city'] = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : $_POST['city'];
-   $update_user->updateUser($data);
+   $register->updateUser($data);
 }
 require 'view/profil.php';

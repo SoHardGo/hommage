@@ -11,16 +11,13 @@ ob_start();
             <form method="POST" action="index.php?page=profil">
                 <label for="maj_email">Votre email :</label>
                 <input name="maj_email" id="maj_email" type="email" placeholder="<?=$info_user['email']?>"></input>
-                <?php
-                if ($info_user['pseudo']){?>
+                <?php if ($info_user['pseudo']): ?>
                 <label for="maj_pseudo">Votre pseudo :</label>
                 <input name="maj_pseudo" id="maj_pseudo" type="email" placeholder="<?=$info_user['pseudo']?>"></input>
-                <?php
-                } else {?>
+                <?php else :?>
                 <label for="maj_pseudo"></label>
                 <input name="maj_pseudo" id="maj_pseudo" type="text" placeholder="Vous n'avez pas de pseudo"></input>
-                <?php 
-                } ?>
+                <?php endif ?>
             
                 <label>Votre adresse :</label>
                 <input type="text" placeholder="<?=$info_user['number_road']?>"></input>
@@ -29,11 +26,9 @@ ob_start();
                 <input type="text" placeholder="<?=$info_user['city']?>"></input>
                 <fieldset>
                     <label>Vous administez ces <?=$nbr?> fiches :</label> 
-                    <?php
-                    for ($i=0; $i<$nbr; $i++){
-                    echo '<label>'.ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname']).'</label>';
-                    }
-                    ?>
+                    <?php for ($i=0; $i<$nbr; $i++) :?>
+                    <label><?=ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname'])?></label>
+                    <?php endfor ?>
                 </fieldset>
                 <label for="modify">Modifier mes informations</label>
                 <div class="buttons">

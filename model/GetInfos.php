@@ -65,7 +65,7 @@ class GetInfos extends Manage {
     }
     public function getListComment(int $id) :array {
         $data = ['photo_id'=>$id];
-        $query = "SELECT comment FROM comments WHERE photo_id=:photo_id";
+        $query = "SELECT comment, profil_user FROM comments WHERE photo_id=:photo_id";
         $result = $this->getQuery($query,$data);
         return $result->fetchAll();
     }

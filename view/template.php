@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?=$title?></title>
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="public/slick/slick/slick.css"/>
@@ -22,20 +23,17 @@
             <a id="close_burger" href="#" class="close">×</a>
             <ul>
                 <li><a href="index.php"><i class="fas fa-home"></i>&nbsp; Accueil</a></li>
-                <?php
-                if(empty($_SESSION['user']['id'])) {
-                ?>
+                <?php if(empty($_SESSION['user']['id'])) :?>
                 <li><a href="index.php?page=home_user"><i class="fas fa-power-off"></i>&nbsp;Espace membre</a>
                 </li>
-                <?php } else { ?>
+                <?php else :?>
                 <li><a href="index.php?deco"><i class="fas fa-power-off"></i>&nbsp;Deconnexion</a>
                 </li>
-                <?php } ?>
-                <?php
-                if(empty($_SESSION['user']['id'])) { ?>
+                <?php endif ?>
+                <?php if(empty($_SESSION['user']['id'])) :?>
                 <li><a href="index.php?page=registration"><i class="fas fa-user-circle"></i>&nbsp;S'inscrire</a>
                 </li>
-                <?php } ?>
+                <?php endif ?>
                 <li><a href="index.php?page=flower"><i class="fas fa-leaf"></i>&nbsp;Bouquets</a></li>
                 <li><a href="index.php?page=card"><i class="far fa-address-card"></i>&nbsp;Cartes</a></li>
                 <li><a href="index.php?page=search"><i class="fas fa-search"></i>&nbsp;Rechercher</a></li>

@@ -8,27 +8,20 @@ ob_start();
         <div class="contact_form">
             <form method="POST" action="index.php?page=contact">
                 <label for="lastname">Entrer votre nom</label>
-                <?php 
-                    if (isset($_SESSION['user']['lastname'])){ 
-                ?>
+                <?php if (isset($_SESSION['user']['lastname'])):?>
                 <label for ="lastname"></label>
                 <input type="text" name="lastname" id="lastname" placeholder="<?=ucfirst($_SESSION['user']['lastname'])?>" readonly>
-                <?php } else { ?>
+                <?php else :?>
                 <label for="lastname"></label>
                 <input type="text" name="lastname" id="lastname">
-                <?php }
-                     if (isset($_SESSION['user']['email'])){ 
-                ?>
+                <?php endif ?>
+                <?php if (isset($_SESSION['user']['email'])):?>
                 <label for="email">Entrer votre nom</label>
                 <input type="email" name="email" id="email" placeholder="<?=$_SESSION['user']['email']?>" readonly>
-                <?php 
-                } else { 
-                ?>
+                <?php else :?>
                 <label for="email">Entrer votre email</label>
                 <input type="email" name="email" id="email">
-                <?php
-                    }
-                ?>
+                <?php endif ?>
                 <label for="message">Entrer votre message</label>
                 <textarea name="message" id="message" rows="6" cols="21"></textarea>
                 <div class="buttons">

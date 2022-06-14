@@ -2,11 +2,18 @@
 require_once 'Manage.php';
 
 class Registration extends Manage {
+/////////////////////////////////////////////////SETTER////////////////////////////////////////////////////////////
     // inscritpion utilisateur dans la base de donnée + return LastId
     public function setRegister(array $recup) :int{
         $recup["password"]= password_hash($recup["password"], PASSWORD_BCRYPT);
         $query = "INSERT INTO users SET firstname=:firstname, lastname=:lastname, email=:email, number_road=:number_road, address=:address, postal_code=:postal_code, city=:city, date_crea=CURDATE(), password=:password, pseudo=:pseudo";
         return $this->setQueryLastId($query,$recup);
+    }
+    // enregistrement du jour de connexion
+    public function setLoginFirst(): void{
+        $data = ['id'=>$_SESSION['user']['id']];
+        $query = "UPDATE users SET last_log=CURDATE() WHERE id=:id";
+        $this->getQuery($query,$data);
     }
     // inscription d'un defunt + return LastId
     public function setDefunct(array $data) :int{
@@ -30,25 +37,20 @@ class Registration extends Manage {
         $query = "INSERT INTO photos SET user_id=:user_id, defunct_id=:defunct_id, name=:name";
         return $this->setQueryLastId($query,$data);
     }
-    
-    public function updatePhoto(array $data):void {
-        $query = "UPDATE photos SET name=:name WHERE id=:id";
+    // enregistrement des commentaires
+    public function setComment(array $data) :void{
+        $query = "INSERT INTO comments SET comment=:comment, user_id=:user_id, defunct_id=:defunct_id, photo_id=:photo_id, date_crea=CURDATE(), profil_user=:profil_user";
         $this->getQuery($query,$data);
     }
-    
+/////////////////////////////////////////////////UPDATER////////////////////////////////////////////////////////////
     // mise à jour du nom de la photo de defunt
-    public function majPhoto(array $data) :void{
-        $query = "UPDATE photos SET name=:name WHERE user_id=:user_id";
+    public function updatePhoto(array $data):void {
+        $query = "UPDATE photos SET name=:name WHERE id=:id";
         $this->getQuery($query,$data);
     }
     // mise à jour informations profil
     public function updateUser(array $data) :void{
         $query ="UPDATE users SET email=:email, number_road=:number_road, address=:address, postal_code=:postal_code, city=:city, pseudo=:pseudo WHERE user_id=:user_id";
-        $this->getQuery($query,$data);
-    }
-    // enregistrement des commentaires
-    public function setComment(array $data) :void{
-        $query = "INSERT INTO comments SET comment=:comment, user_id=:user_id, defunct_id=:defunct_id, photo_id=:photo_id, date_crea=CURDATE()";
         $this->getQuery($query,$data);
     }
     // mise à jour mot de pass
@@ -57,12 +59,8 @@ class Registration extends Manage {
         $query = "UPDATE users SET password=:password,id=:id";
         $this->getQuery($query,$recup);
     }
-    // enregistrement du jour de connexion
-    public function setLoginFirst(): void{
-        $data = ['id'=>$_SESSION['user']['id']];
-        $query = "UPDATE users SET last_log=CURDATE() WHERE id=:id";
-        $this->getQuery($query,$data);
-    }
+
+
     
     
 
