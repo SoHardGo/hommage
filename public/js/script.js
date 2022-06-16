@@ -64,7 +64,6 @@ if(comment_env!=null) {
             let lastname = this.querySelector('.lastname');
             let firstname = this.querySelector('.firstname');
 
-            
             let formdata = new FormData();
             formdata.append('comment',comment.value);
             formdata.append('id_def',id_def.value);
@@ -73,11 +72,12 @@ if(comment_env!=null) {
             formdata.append('lastname',lastname.value);
             formdata.append('firstname',firstname.value);
 
+
             let obj ={ 'method':'POST', 'body' :formdata};
             fetch('ajax/recordcomment.php',obj)
             .then(response => response.text()) 
             .then(data=>{
-                let content = '<div class="container_com_user"><div class="profil"><a class ="env_user_name" title="'+lastname.value+' '+firstname.value+'"><img class="img" src="public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg" ></a></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
+                let content = '<div class="container_com_user"><div class="profil"><a class ="env_user_name" title="'+lastname.value+' '+firstname.value+'"><img class="img" src="public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg" ></a></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="?page=environnement&id=3&idcom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
                 if(comment.value != '') {
                     com_div.innerHTML += content;
                 }
@@ -89,8 +89,16 @@ if(comment_env!=null) {
     }
 }
 
+/************************Dossier des photos d'un defunt************************/
 
-
+let listPhoto = document.querySelector('.folder_link');
+let folder = document.querySelector('.photos_list');
+if(listPhoto != null){
+listPhoto.addEventListener('click', function(e){
+    e.preventDefault();
+    folder.classList.toggle('hidden');
+});
+}
 /************************Recherche Insee***************************************/
 /*
  
@@ -167,19 +175,6 @@ $(document).ready(function(){
             }]
         });
     });
-
-///////////////Gestion des commentaires///////////////
-/*
-let comment = document.getElementById('comment');
-if(comment!==null){
-    comment.addEventListener('change',function(e){
-        e.preventDefault();
-    });
-}else{
-    comment='';
-}
-*/
-
 
 ////////////////Gestion des bouquets de fleurs///////////////////
 /*

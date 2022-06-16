@@ -9,10 +9,15 @@ if (count($info_def)){
     
     $list_def ='<div class="defunct_home_user">';
     for ($i=0; $i<count($info_def); $i++){
+        $path_photo = 'public/pictures/photos/'.$_SESSION['user']['id'].'/'.$info_def[$i]['id'].'-0.jpg';
         $list_def.= '
         <div class="home_user_card">
             <div><a class="card" href="index.php?page=environnement&id='.$info_def[$i]['id'].'">
-            <div class="card_img"><img class ="img" src="public/pictures/photos/'.$info_def[$i]['id'].'/'.$info_def[$i]['id'].'-1.jpg" alt="photo defunt"></div>
+            <div class="card_img">';
+            if ( !file_exists($path_photo) ){
+                $path_photo = 'public/pictures/site/noone.jpg';
+            }
+        $list_def.= '<img class ="img" src="'.$path_photo.'" alt="photo defunt"></div>
             <p>'.ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname']).'</p>
             </a></div>
         </div>';

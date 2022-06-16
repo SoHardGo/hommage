@@ -32,24 +32,6 @@ $user_content = $global_class->setUserEnv();
 $def_id = $info->getUserDefunctList($_SESSION['user']['id']);
 $info_def = $def_id->fetchAll();
 
-// 
-ob_start(); 
-    
-   foreach($info_def as $r){
-       $defunct_panel = '<div class="defunct_all_cards">';
-            echo '
-            <div class="defunct_item'.$r['id'].'">
-            <img src="public/pictures/photos/'.$_SESSION['user']['id'].'/'.$r['id'].'-1.jpg" alt="photo de '.$r['lastname'].'">
-            </div>
-            <h2>'.$r['lastname']." ".$r['firstname'].'</h2>
-            <a href="">Supprimer</a>';
-        $defunct_panel = '</div>';
-     }
-
-$defunct_card = ob_get_clean(); 
-
-//Listing des commentaires correspondant aux défunts de user
-
 foreach ($info_def as $value){
     $val = intval($value['id']);
     $list = $info->getListComment($val);

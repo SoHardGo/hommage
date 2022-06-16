@@ -26,7 +26,7 @@ ob_start();
             <a class="button" href="index.php?page=search">Rechercher une fiche</a>
         <?php endif ?>
         <a class="button" href="index.php?page=profil">Mon compte</a>
-        <a class="button" href="index.php?page=buy">Mes achats</a>
+        <a class="button" href="index.php?page=search">Rechercher</a>
 </section>
 <?php
 $user_content= ob_get_clean(); 

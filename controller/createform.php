@@ -25,7 +25,6 @@ if (isset($_POST['submit'])){
     $data['birthdate'] = isset($_POST['birthdate']) ? htmlspecialchars($_POST['birthdate']) : '';
     $data['death_date'] = isset($_POST['death_date']) ? htmlspecialchars($_POST['death_date']) : '';
     $data['cemetery'] = isset($_POST['cemetery']) ? htmlspecialchars($_POST['cemetery']) : '';
-    $data['photo_profil'] = isset($_POST['photo_profil']) ? htmlspecialchars($_POST['photo_profil']) : '';
     $data['city_birth'] = isset($_POST['city_birth']) ? htmlspecialchars($_POST['city_birth']) : '';
     $data['city_death'] = isset($_POST['city_death']) ? htmlspecialchars($_POST['city_death']) : '';
     $data['postal_code'] = isset($_POST['postal_code']) ? intval($_POST['postal_code']) : 0;
@@ -38,13 +37,17 @@ if (isset($_POST['submit'])){
     $info['user_id']= $_SESSION['user']['id'];
     
       // Test si la fiche du defunt existe déjà, return l'id si existe
-     $test = ['firstname'=>$_POST['firstname'],
-    'lastname'=>$_POST['lastname']];
+    $test = [
+        'firstname'=>$_POST['firstname'],
+        'lastname'=>$_POST['lastname'],
+        'birthdate'=>$_POST['birthdate']
+        ];
+        
     $result = $globalC->verifyDefunct($test);
     
-    if($result) {
+    if($result->rowCount()) {
         echo 'Cette fiche existe déjà, utiliser RECHERCHER pour la consulter';
-    }else{
+    } else {
     // Enregistrement d'une fiche defunt
     $register->setDefunct($data);
     

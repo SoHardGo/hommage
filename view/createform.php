@@ -6,7 +6,7 @@ ob_start();
     <div class="createform form">
     <h1 class="title_createform title">Créer une fiche</h1>
         <div class="createform_form">
-            <form method="POST" action="index.php?page=createform" enctype= multipart/form-data>
+            <form method="POST" action="index.php?page=createform" >
                     <label for="lastname">Nom du defunt :</label>
                     <input type="text" name="lastname" id="lastname"/>
                     <label for="firstname">Prenom du defunt :</label>
@@ -58,8 +58,7 @@ ob_start();
                         <option value="Collègue">Collègue</option>
                         <option value="Aucune">Aucune</option>
                     </select>
-                    <Label for="photo">Photo de profil :</Label>
-                    <input type="file" name="photo" id="photo">
+                    
                     <fieldset>
                         <h3 class="title_create_infos">Informations complémentaires</h3>
                         <label>Acceptez-vous de recevoir des cartes de condoléances ?</label>

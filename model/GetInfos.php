@@ -65,7 +65,7 @@ class GetInfos extends Manage {
     }
     public function getListComment(int $id) :array {
         $data = ['photo_id'=>$id];
-        $query = "SELECT comment, profil_user FROM comments WHERE photo_id=:photo_id";
+        $query = "SELECT id, comment, profil_user FROM comments WHERE photo_id=:photo_id";
         $result = $this->getQuery($query,$data);
         return $result->fetchAll();
     }
@@ -76,7 +76,17 @@ class GetInfos extends Manage {
         return $this->getQuery($query,$data);
     }
     
-
+    public function getSearchDefuncts(array $data) :object{
+        $query ="SELECT id, lastname, firstname FROM defuncts WHERE lastname=:lastname OR firstname=:firstname";
+        return $this->getQuery($query,$data);
+    }
+    
+    public function getPhotoDef(int $def_id):string {
+        $data = ['defunct_id'=>$def_id];
+        $query = "SELECT user_id, name FROM photos WHERE defunct_id=:defunct_id ORDER BY id LIMIT 1";
+        $result = $this->getQuery($query,$data)->fetch();
+        return 'public/pictures/photos/'.$result['user_id'].'/'.$result['name'];
+    }
     
     
 }

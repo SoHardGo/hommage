@@ -6,6 +6,30 @@ $defunct = new GetInfos();
 
 $tab = array();
 $id_def = $_GET['id']??0;
+$com_id = $_GET['idcom']??null;
+$idphoto = $_GET['idphoto']??null;
+
+
+
+////////supprimer une photo de l'environnement utilisateur//////
+
+if ($idphoto) {
+    $register->deletePhoto($idphoto);
+    $photoFile = 'public/pictures/photos/'.$_SESSION['user']['id'].'/'.$_SESSION['user']['id'].'-'.$idphoto.'.jpg';
+    if (file_exists($photoFile)){
+        unlink($photoFile);
+    }
+
+/////////supprimer les commentaires associés dans la BBD/////////
+    $register->deleteCommentsPhoto($idphoto);
+}
+
+///////////////supprimer un commentaire/////////////////////////
+
+if ($com_id) {
+    $register->deleteComment($com_id);
+}
+
 
 ///////////enregistrement d'une photo télécharger //////////////////////
 if (isset($_FILES['file_env']) && $_FILES['file_env']['type']=='image/jpeg' && !empty($_FILES['file_env'])){
@@ -35,13 +59,13 @@ if (isset($_FILES['file_env']) && $_FILES['file_env']['type']=='image/jpeg' && !
     $register->updatePhoto($data);
 }
 
-if($id_def) {
+if ($id_def) {
     $defunct_infos = $defunct->getInfoDefunct($id_def);
     $defunct_infos = $defunct_infos->fetch();
     $defunct_photos = $defunct->photoListDefunct($id_def);
     $defunct_photos = $defunct_photos->fetchAll();
     $div_env = [];
-    ///////////récupération des commentaires selon la photo du défunt///////////////
+    ///////////récupération des commentaires selon la photo du defunt///////////////
     if(count($defunct_photos)) {
         foreach($defunct_photos as $r) {
             $div_env[$r['id']] = $defunct->getListComment($r['id']);
@@ -51,6 +75,8 @@ if($id_def) {
 }else {
     echo 'Vous n\'avez pas crée de fiche pour pouvoir insérer des photos';
 }
+
+
 
 
 require 'view/environnement.php';

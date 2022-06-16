@@ -17,9 +17,10 @@ class Registration extends Manage {
     }
     // inscription d'un defunt + return LastId
     public function setDefunct(array $data) :int{
-        $query = "INSERT INTO defuncts SET firstname=:firstname, lastname=:lastname, birthdate=:birthdate, death_date=:death_date, cemetery=:cemetery, photo_profil=:photo_profil, city_birth=:city_birth, city_death=:city_death, postal_code=:postal_code, user_id=:user_id, date_crea=CURDATE()";
+        $query = "INSERT INTO defuncts SET firstname=:firstname, lastname=:lastname, birthdate=:birthdate, death_date=:death_date, cemetery=:cemetery, city_birth=:city_birth, city_death=:city_death, postal_code=:postal_code, user_id=:user_id, date_crea=CURDATE()";
         return $this->setQueryLastId($query,$data);
     }
+    
     // inscription d'un administrateur utilisateur de fiche défunt
     public function setUserAdmin(array $data) :void{
         $query = "INSERT INTO user_admin SET affinity=:affinity, card_virtuel=:card_virtuel, card_real=:card_real, new_user=:new_user, user_id=:user_id, date_crea=CURDATE()";
@@ -38,9 +39,9 @@ class Registration extends Manage {
         return $this->setQueryLastId($query,$data);
     }
     // enregistrement des commentaires
-    public function setComment(array $data) :void{
+    public function setComment(array $data) :int{
         $query = "INSERT INTO comments SET comment=:comment, user_id=:user_id, defunct_id=:defunct_id, photo_id=:photo_id, date_crea=CURDATE(), profil_user=:profil_user";
-        $this->getQuery($query,$data);
+        return $this->setQueryLastId($query,$data);
     }
 /////////////////////////////////////////////////UPDATER////////////////////////////////////////////////////////////
     // mise à jour du nom de la photo de defunt
@@ -58,6 +59,24 @@ class Registration extends Manage {
         $recup["password"]= password_hash($recup["password"], PASSWORD_BCRYPT);
         $query = "UPDATE users SET password=:password,id=:id";
         $this->getQuery($query,$recup);
+    }
+    // supprimer un commentaire
+    public function deleteComment(string $id) :void{
+        $data = ['id'=>$id];
+        $query = "DELETE FROM comments WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    // supprimer les commentaires lié à une photo
+    public function deleteCommentsPhoto(string $id) :void{
+        $data = ['photo_id'=>$id];
+        $query = "DELETE FROM comments WHERE photo_id=:photo_id";
+        $this->getQuery($query,$data);
+    }
+    // supprimer une photo
+    public function deletePhoto(string $id) :void{
+        $data = ['id'=>$id];
+        $query = "DELETE FROM photos WHERE id=:id";
+        $this->getQuery($query,$data);
     }
 
 

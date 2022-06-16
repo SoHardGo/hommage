@@ -28,7 +28,7 @@ class GlobalClass extends Manage {
     
     // fonction vérification fiche défunt existe ou pas
     public function verifyDefunct(array $data) :object {
-        $query = "SELECT id FROM defuncts WHERE lastname=:lastname AND firstname=:firstname";
+        $query = "SELECT id FROM defuncts WHERE lastname=:lastname AND firstname=:firstname AND birthdate=:birthdate";
         $result= $this->getQuery($query,$data);
         return $result;
     }
