@@ -36,10 +36,9 @@ class GetInfos extends Manage {
     // récup toutes les infos d'un défunt selon son Id
     public function getInfoDefunct(int $id) :object {
         $data = ['id'=>$id];
-        $query = "SELECT id, lastname, firstname, birthdate, death_date, cemetery, city_birth, postal_code FROM defuncts WHERE id=:id";
+        $query = "SELECT id, lastname, firstname, birthdate, death_date, cemetery, city_birth, postal_code, user_id FROM defuncts WHERE id=:id";
         return $this->getQuery($query,$data);
     }
-    
     
     // récup la liste des Id des defunts lié à un utilisateur
     public function getDefunctList():array {
@@ -65,27 +64,32 @@ class GetInfos extends Manage {
     }
     public function getListComment(int $id) :array {
         $data = ['photo_id'=>$id];
-        $query = "SELECT id, comment, profil_user FROM comments WHERE photo_id=:photo_id";
+        $query = "SELECT id, user_id, comment, profil_user FROM comments WHERE photo_id=:photo_id";
         $result = $this->getQuery($query,$data);
         return $result->fetchAll();
     }
     
     public function photoListDefunct(int $id) :object {
         $data = ['defunct_id'=>$id];
-        $query = "SELECT id, name FROM photos WHERE defunct_id=:defunct_id ORDER BY id DESC";
+        $query = "SELECT id, user_id, name FROM photos WHERE defunct_id=:defunct_id ORDER BY id DESC";
         return $this->getQuery($query,$data);
     }
     
     public function getSearchDefuncts(array $data) :object{
-        $query ="SELECT id, lastname, firstname FROM defuncts WHERE lastname=:lastname OR firstname=:firstname";
+        $query ="SELECT id, lastname, firstname, user_id FROM defuncts WHERE lastname=:lastname OR firstname=:firstname";
         return $this->getQuery($query,$data);
     }
     
     public function getPhotoDef(int $def_id):string {
         $data = ['defunct_id'=>$def_id];
         $query = "SELECT user_id, name FROM photos WHERE defunct_id=:defunct_id ORDER BY id LIMIT 1";
-        $result = $this->getQuery($query,$data)->fetch();
-        return 'public/pictures/photos/'.$result['user_id'].'/'.$result['name'];
+        $result = $this->getQuery($query,$data);
+        if($result->rowCount()) {
+            $result = $result->fetch();
+            return 'public/pictures/photos/'.$result['user_id'].'/'.$result['name'];
+        } else {
+            return '';
+        }
     }
     
     

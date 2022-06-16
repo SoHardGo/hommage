@@ -293,6 +293,9 @@ input[value="Rechercher"] {
 
 
 /**********************User***************************************/
+.user_form {
+    position:relative;
+}
 .form_user {
     position:relative;
 }
@@ -353,8 +356,8 @@ input[value="Rechercher"] {
 }
 .user_icon {
     position: absolute;
-    left: 110px;
-    top: 235px;
+    right: 23px;
+    bottom: 25px;
     color:var(--color-white);
     margin-top:20px;
     border: 1px solid white;
@@ -363,10 +366,8 @@ input[value="Rechercher"] {
     background-color: black;
 }
 .container_photo_user {
-    position:absolute;
     text-align:center;
     margin-top:12px;
-    left:10px;
     width: 120px;
     height: 120px;
     border:1px solid var(--color-black);
@@ -757,10 +758,6 @@ label[for="comment"]{
     .container_user h3 {
         margin:50px 145px;
     }
-    .user_icon{
-        left: 110px;
-        top: 295px;
-    }
     .fa-user {
         margin-right: -20px;
     }
@@ -798,14 +795,8 @@ label[for="comment"]{
     .bouton_user {
         justify-content: center;
     }
-    .user_icon{
-        top: 300px;
-        left: 125px;;
-    }
     .container_contact, .container_profil,.container_createform {
         margin-left: 220px;
-    }
-    .footer {
     }
     .fa-user {
         margin-right: -155px;
@@ -832,10 +823,6 @@ label[for="comment"]{
     .home_photo {
         height: 800px;
         padding:10px;
-    }
-    .user_icon{
-        top: 270px;
-        left: 125px;;
     }
     #photo_user {
     left: -800px;

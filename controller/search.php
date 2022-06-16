@@ -8,18 +8,23 @@ if(isset($_POST['submit'])){
     
     $result = $getinfo->getSearchDefuncts ($data);
     $tab = $result->fetchAll();
-    var_dump($tab);
-    $search .= '<a href="index.php?page=environnement&">';
     if(count($tab)) {
         foreach($tab as $t) {
+            var_dump($t['user_id']);
             $photo_def = $getinfo->getPhotoDef($t['id']);
-            $search .= '<div class="defunct_identity">
-                    <div class="defunct_img">
-                        <img class="img" src="'.$photo_def.'" alt="photo de profil '.$t['firstname'].' '.$t['lastname'].'">          
-                        <div class="defunct_name">
-                            <p>'.$t['firstname'].' '.$t['lastname'].'</p>
+            if($photo_def==='') {
+                $photo_def = 'public/pictures/site/noone.jpg';
+            }
+            $search .= '
+                <div class="defunct_identity">
+                    <a href="index.php?page=environnement&id_def='.$t['id'].'&user_create='.$t['user_id'].'">
+                        <div class="defunct_img">
+                            <img class="img" src="'.$photo_def.'" alt="photo de profil '.$t['firstname'].' '.$t['lastname'].'">          
+                            <div class="defunct_name">
+                                <p>'.$t['firstname'].' '.$t['lastname'].'</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>';
         }
         $search .= '</a>';

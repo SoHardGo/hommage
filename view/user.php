@@ -3,7 +3,7 @@ $profil = './public/pictures/users/'.$_SESSION['user']['id'].'/photo'.$_SESSION[
 ob_start(); 
 ?>
 <section class="container_user">
-    <form method="POST" action="index.php?page=home_user" enctype="multipart/form-data" id="form_user">
+    <form class="user_form" method="POST" action="index.php?page=home_user" enctype="multipart/form-data" id="form_user">
         <div class="container_photo_user">
             <?php if(file_exists($profil)) :?>
                 <img class="img_user" src="<?=$profil?>?<?=rand()?>" alt="photo de profil">
