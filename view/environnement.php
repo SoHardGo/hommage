@@ -31,6 +31,12 @@ if (isset($_SESSION['user']['defunct'])){
             <?php endif ?>
         </div>
         <hr>
+        <div class="env_listing">
+            <p class="new_comments">Commentaires ajoutés: </p>
+            <p class="new_photos">Photos ajoutées: </p>
+
+        </div>
+        <hr>
         <form method="POST" action="index.php?page=environnement&id=<?=$id_def?>" enctype="multipart/form-data" id="form_env">
                 <label for="file_env"></label>
                 <input type="file" name="file_env" id="file_env" accept=".jpg, .jpeg, .png">

@@ -7,6 +7,7 @@
     --color-grey-soft:rgb(161, 161, 161);
     --color-grey-middle:rgb(125, 115, 125);
     --color-grey-light:rgb(226, 224, 224);
+    --color-green:rgb(44, 114, 6);
 }
 /***************************Globals Class***************************/
 
@@ -90,8 +91,8 @@ hr {
     z-index: 10;
     top: 0;
     right: -250px;
-    border:1px solid var(--color-black);
-    background-color: var(--color-black);
+    border:1px solid var(--color-white);
+    background-color: var(--color-white);
     padding-top: 20px;
     transition: right 0.5s ease;
 }
@@ -99,13 +100,13 @@ hr {
     padding: 10px;
     text-decoration: none;
     font-size: 1em;
-    color: var(--color-white);
+    color: var(--color-green);
     display: block;
     transition: all 0.3s;
 }
 .navbar a:hover {
-    font-size: 1.2em;
-    color: var(--color-grey);
+    font-size: 1.3em;
+    color: var(--color-green);
 }
 .navbar ul {
     list-style: none;
@@ -289,6 +290,8 @@ input[value="Rechercher"] {
     width: 90%;
 }
 
+
+
 /**********************User***************************************/
 .form_user {
     position:relative;
@@ -296,11 +299,12 @@ input[value="Rechercher"] {
 .container_user{
     display:flex;
     justify-content:center;
-    border:1px solid var(--color-black);
+    border:1px solid var(--color-grey-light);
+    background-color: var(--color-grey-light);
     height: 150px;
 }
 .fa-user {
-    margin-right:20px;
+    margin-right:-10px;
     color:var(--color-grey-middle);
 }
 .container_user h3 {
@@ -312,6 +316,7 @@ input[value="Rechercher"] {
 .bouton_user {
     display:flex;
     justify-content:center;
+    margin-bottom: 20px;
     background-color: var(--color-black);
 }
 .button.button_myDefuncts {
@@ -377,6 +382,16 @@ input[value="Rechercher"] {
     position:relative;
     left:-500px;
 }
+.env_listing {
+    display:flex;
+    justify-content:center;
+    margin:10px;
+}
+.new_comments, .new_photos {
+    margin-right:27px;
+    margin-top:20px;
+}
+
 /**********************Home user***************************/
 .home_user_explain {
     text-align:center;
@@ -384,11 +399,12 @@ input[value="Rechercher"] {
 }
 .defunct_home_user {
     display:flex;
+    flex-wrap: wrap;
     text-align:center;
     margin:20px 10px;
 }
 .home_user_card {
-    width: 33%;
+    width: 31%;
     margin:5px;
 }
 .card_img{
@@ -425,7 +441,7 @@ input[value="Rechercher"] {
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-    padding: 10px;
+    padding: 25px;
     border:1px solid var(--color-black);
 }
 .min_photo {
@@ -707,6 +723,9 @@ label[for="comment"]{
     .page_header {
         height:210px;
     }
+    .button {
+        padding: 20px;
+    }
     .title_container h1 {
         margin-left: 270px;
         font-size: 70px;
@@ -723,8 +742,11 @@ label[for="comment"]{
         font-size: 25px;
         padding: 20px;
     }
-    .home_photo, .home_text {
-        height: 250px;
+    .home_photo {
+        height:460px;
+    }
+    .home_text {
+        height: 140px;
     }
     .home_start {
         width: 90%;
@@ -739,17 +761,28 @@ label[for="comment"]{
         left: 110px;
         top: 295px;
     }
-
+    .fa-user {
+        margin-right: -20px;
+    }
+    .card_img{
+        height: 280px;
+    }
+    .home_user_card {
+        width: 23%;
+    }
 }
 @media screen and (min-width:1024px){
     .page_header {
         height: 220px;
     }
     .title_container h1 {
-        margin-left: 385px;
-        font-size: 75px;
+        margin-left: 365px;
+        font-size: 95px;
     }
-     .home_photo {
+    .home_text {
+        height: 115px;
+    }
+    .home_photo {
         height: 600px;
         padding:10px;
     }
@@ -760,25 +793,25 @@ label[for="comment"]{
         width: 60%;
     }
     .container_photo_user {
-        margin-left:22px;
+        margin-left:10px;
     }
     .bouton_user {
-        justify-content: flex-end;
-        margin-right: 15px;
+        justify-content: center;
     }
     .user_icon{
-        top: 250px;
-        left: 135px;;
+        top: 300px;
+        left: 125px;;
     }
     .container_contact, .container_profil,.container_createform {
         margin-left: 220px;
     }
-    .env_defunct, .container_env_form {
-        width: 80%;
-        margin-left: 202px;
-    } 
     .footer {
-        
+    }
+    .fa-user {
+        margin-right: -155px;
+    }
+    .home_user_card {
+        width: 18%;
     }
 }
 @media screen and (min-width:1600px){
@@ -786,15 +819,26 @@ label[for="comment"]{
         height:200px;
         text-align:center;
     }
-    .img {
-        width: 60%;
+    .title_container h1 {
+        margin-left: 700px;
+        font-size: 95px;
     }
     .home_photo .img {
         width: 100%;
     }
-    .home_photo, .home_text {
-        height: 500px;
+    .home_text {
+        height: 115px;
+    }
+    .home_photo {
+        height: 800px;
         padding:10px;
+    }
+    .user_icon{
+        top: 270px;
+        left: 125px;;
+    }
+    #photo_user {
+    left: -800px;
     }
 
 }
