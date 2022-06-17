@@ -69,8 +69,6 @@ if(comment_env!=null) {
             formdata.append('id_def',id_def.value);
             formdata.append('photo_id',photo_id.value);
             formdata.append('user_id',user_id.value);
-            
-
 
             let obj ={ 'method':'POST', 'body' :formdata};
             fetch('ajax/recordcomment.php',obj)
@@ -98,6 +96,18 @@ listPhoto.addEventListener('click', function(e){
     folder.classList.toggle('hidden');
 });
 }
+/********************Gestion de l'éditeur de Cartes****************************/
+
+const elements = document.querySelectorAll('.button_edit');
+
+    elements.forEach( element =>{
+        element.addEventListener('click', ()=>{
+        let command = element.getAttribute('data-element');
+        document.execCommand(command,false,null);
+        });
+    });
+
+
 /************************Recherche Insee***************************************/
 /*
  

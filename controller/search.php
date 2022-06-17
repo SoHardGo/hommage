@@ -10,9 +10,8 @@ if(isset($_POST['submit'])){
     $tab = $result->fetchAll();
     if(count($tab)) {
         foreach($tab as $t) {
-            var_dump($t['user_id']);
             $photo_def = $getinfo->getPhotoDef($t['id']);
-            if($photo_def==='') {
+            if($photo_def == '') {
                 $photo_def = 'public/pictures/site/noone.jpg';
             }
             $search .= '

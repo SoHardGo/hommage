@@ -92,5 +92,17 @@ class GetInfos extends Manage {
         }
     }
     
+    public function getCardsList() :object {
+        $data = ['categories'=>'cartes'];
+        $query = "SELECT id, name, price FROM products WHERE categories=:categories";
+        $result = $this->getQuery($query,$data);
+        return $result;
+    }
+    
+    public function getCardInfo($id) :array {
+        $data = ['id'=>$id];
+        $query = "SELECT name, price, info FROM products WHERE id=:id";
+        return $this->getQuery($query,$data)->fetch();
+    }
     
 }

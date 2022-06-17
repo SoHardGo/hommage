@@ -8,7 +8,9 @@ $tab = array();
 //id du defunt dans l'environnement
 $id_def = $_GET['id']??0;
 //id du defunt suite à une recherche
-$id_def = !$id_def ? $_GET['id_def']:0;
+if(!$id_def) {
+    $id_def = $_GET['id_def']?? 0;
+}
 //id d'un commentaire
 $com_id = $_GET['idcom']??null;
 //id d'une photo
@@ -17,17 +19,10 @@ $idphoto = $_GET['idphoto']??null;
 $usercreate = $_GET['user_create']??null;
 
 
-if($usercreate){
- 
-}
-// prob : avec search -> si pas $_SESSION['user']['id'] -> on peut consulter
-// si $_SESSION['user']['id'] pas créateur de la fiche, on peut consulter
-// $usercreate -> créateur de la fiche
-
 ////////////// Si user connecté et créateur
 
 if(isset($_SESSION['user']['id'])) {
-    if($_SESSION['user']['id']==$usercreate) {
+    if($_SESSION['user']['id'] == $usercreate) {
 
         ////////supprimer une photo de l'environnement utilisateur//////
         if ($idphoto) {
@@ -75,15 +70,16 @@ if(isset($_SESSION['user']['id'])) {
         $register->updatePhoto($data);
     }
 }
-
-
+var_dump($id_def);
+///////////Récupération des infos et des photos associé au défunt///////////////
 if ($id_def) {
     $defunct_infos = $defunct->getInfoDefunct($id_def);
     $defunct_infos = $defunct_infos->fetch();
     $defunct_photos = $defunct->photoListDefunct($id_def);
     $defunct_photos = $defunct_photos->fetchAll();
     $div_env = [];
-    ///////////récupération des commentaires selon la photo du defunt///////////////
+    var_dump($defunct_photos);
+///////////récupération des commentaires selon la photo du defunt///////////////
     if(count($defunct_photos)) {
         foreach($defunct_photos as $r) {
             $div_env[$r['id']] = $defunct->getListComment($r['id']);

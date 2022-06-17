@@ -15,7 +15,7 @@
 </head>
 <body>
 <header class="page_header">
-    <img class="img" src="public/pictures/site/herbe.jpg" alt="photo du site">
+    <img class="img" src="public/pictures/site/fond2.jpg" alt="photo du site">
     <div class="title_container">
         <h1>Hommage</h1>
     </div>
@@ -47,6 +47,7 @@
       <span></span>
       <span></span>
       <span></span>
+      <p>Menu</p>
     </div>
 
 <main>
@@ -56,15 +57,20 @@
     </section>
 </main>
 <footer class="footer">
-    <div>
-        <p>Suivez-nous</p>
-        <div class="icon">
-        <a href="http://facebook.fr"><i class="fab fa-facebook-square fa-1x"></i></a>
-        <a href="http://instagram.fr"><i class="fab fa-instagram-square fa-1x"></i></a>
-        <a href="http://twitter.fr"><i class="fab fa-twitter-square fa-1x"></i></a>
-        </div>
-        <div class="contact">
-        <span>Hommage Copyright ©2022</span><a href="mailto:contact@hommage.fr">contact@hommage.fr</a>
+    <div class="menu_footer">
+        <a href="index.php?page=contact">Contact</a>
+        <a href="index.php?page=card">Nos cartes</a>
+        <a href="index.php?page=flower">Nos bouquets</a>
+        <a href="index.php?page=registration">S'inscrire</a>
+    </div>
+    <div class="network">
+        <div>
+            <div>Suivez-nous&emsp;
+            <a href="http://facebook.fr"><i class="fab fa-facebook-square fa-1x"></i></a>
+            <a href="http://instagram.fr"><i class="fab fa-instagram-square fa-1x"></i></a>
+            <a href="http://twitter.fr"><i class="fab fa-twitter-square fa-1x"></i></a>
+            </div>
+            <div>Hommage Copyright ©2022</div>
         </div>
     </div>
 </footer>

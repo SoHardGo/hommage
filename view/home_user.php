@@ -53,6 +53,18 @@ if (count($info_def)){
 <div class="list_home_user">
     <?=$list_def?>
 </div>
+<hr>
+<div class="myContact">
+    <div class="contacts">
+        <a href="index.php?page=home_user">
+            <img class="img" src="public/pictures/site/contact.png" alt="Dossier de contacts">
+        </a>
+        <h2>Mes Contacts</h2>
+    </div>
+    <div class="contacts_list">
+        
+    </div>
+</div>
 
 <?php
 $content = ob_get_clean();

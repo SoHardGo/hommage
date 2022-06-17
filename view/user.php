@@ -7,6 +7,8 @@ ob_start();
         <div class="container_photo_user">
             <?php if(file_exists($profil)) :?>
                 <img class="img_user" src="<?=$profil?>?<?=rand()?>" alt="photo de profil">
+            <?php else :?>
+                <img class="img_user" src="public/pictures/site/noone.jpg" alt="photo de profil non défini">
             <?php endif ?>
         </div>
         <input type="file" name="photo" id="photo_user" accept=".jpg, .jpeg, .png">

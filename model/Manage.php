@@ -54,7 +54,7 @@ class Manage {
     public function getOne( $table, $id )
     {
         $data = ['table' => $table, 'id' => $id];
-        $query = "SELECT * FROM :table WHERE id = :id";
+        $query = "SELECT * FROM table=:table WHERE id=:id";
         $result = $this->getQuery($query,$data);
         return $result->fetch();
     }
@@ -62,7 +62,7 @@ class Manage {
     public function getAll( $table, $columns )
     {
         $data = ['table' => $table, 'columns' => $columns];
-        $query = "SELECT :columns FROM :table";
+        $query = "SELECT columns=:columns FROM table=:table";
         $result = $this->getQuery($query,$data);
         return $result->fetchAll();
     }
