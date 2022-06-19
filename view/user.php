@@ -10,9 +10,9 @@ ob_start();
             <?php else :?>
                 <img class="img_user" src="public/pictures/site/noone.jpg" alt="photo de profil non défini">
             <?php endif ?>
-        </div>
         <input type="file" name="photo" id="photo_user" accept=".jpg, .jpeg, .png">
         <i class="fas fa-camera user_icon"></i>
+        </div>
     </form>
     <h3><?=ucfirst($_SESSION['user']['lastname']).' '.ucfirst($_SESSION['user']['firstname'])?></h3>
     <a href="index.php?page=home_user" class="user_home">

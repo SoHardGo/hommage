@@ -78,12 +78,12 @@ if ($id_def) {
     $defunct_infos = $defunct_infos->fetch();
     $defunct_photos = $getinfo->photoListDefunct($id_def);
     $defunct_photos = $defunct_photos->fetchAll();
-    $div_env = [];
+    $com_list = [];
 
 ///////////récupération des commentaires selon la photo du defunt///////////////
     if(count($defunct_photos)) {
         foreach($defunct_photos as $r) {
-            $div_env[$r['id']] = $getinfo->getListComment($r['id']);
+            $com_list[$r['id']] = $getinfo->getListComment($r['id']);
         }
     }
         

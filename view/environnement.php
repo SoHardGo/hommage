@@ -17,16 +17,11 @@ if (isset($id_def)){
             </div>
         </a>
         <div  class="photos_list hidden">
-
-             <?php var_dump($usercreate); ?>
-           
             <?php if($defunct_photos) :?>
                  <?php foreach($defunct_photos as $r): ?>
                 <div class="min_photo">
-                    <img class="img" src="public/pictures/photos/<?=$_SESSION['user']['id']?>'?'<?=$usercreate?>'/'<?=$r['name'] ?>" alt="<?=$r['name'] ?>">
-                   
+                    <img class="img" src="public/pictures/photos/<?=$_SESSION['user']['id']?>'&&'<?=$usercreate?>'/'<?=$r['name'] ?>" alt="<?=$r['name'] ?>">
                     <a download="image_<?=$r['id']?>.jpg" href="public/pictures/photos/<?=$r['user_id'].'/'.$r['name'] ?>"><i class="fas fa-download" title="Telecharger"></i></a>
-                    
                 </div>
                  <?php endforeach ?>
             <?php else :?>
@@ -39,7 +34,6 @@ if (isset($id_def)){
         <div class="env_listing">
             <p class="new_comments">Commentaires ajoutés: </p>
             <p class="new_photos">Photos ajoutées: </p>
-
         </div>
         <hr>
         <?php 
@@ -57,14 +51,13 @@ if (isset($id_def)){
             <!-- boucle pour récupérer chaque commentaire liés à sa photo-->
             <?php foreach($defunct_photos as $r): ?>
                 <div class="div_photo">
-                    <?php if(isset($_SESSION['user']['id']) && isset($comment['user_id']) && $_SESSION['user']['id']== $r['user_id']) { ?>
+                    <?php if(isset($_SESSION['user']['id']) && isset($comment['user_id']) && $_SESSION['user']['id'] == $r['user_id']) { ?>
                     <a class="delete_photo" href="index.php?page=environnement&idphoto=<?=$r['id']?>&id=<?=$id_def?>" title="Supprimer"><b>X</b></a>
                     <?php } ?>
                     <img class="img" src="public/pictures/photos/<?=$r['user_id'].'/'.$r['name']?>" alt="">
                     <!-- liste des commentaires de la photo -->
                     <div class="com_div">
-                        <?php foreach($div_env[$r['id']] as $comment): ?>
-                        
+                        <?php foreach($com_list[$r['id']] as $comment): ?>
                          <div class="comment_post">
                             <div class="container_com_user">
                                 <div class="profil"><a class ="env_user_name" title="<?=$comment['user_id']?>">

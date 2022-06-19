@@ -20,7 +20,6 @@ if ($nbr){
 // enregistrement d'une photo de profil pour l'utilsateur dans son dossier
 if (isset($_FILES['photo']) && ($_FILES['photo']['type']=='image/jpeg' || $_FILES['photo']['type']=='image/png')){
 
-
     // test dossier existe ou pas
     echo $destination = 'public/pictures/users/'.$_SESSION['user']['id'];
     if (!file_exists($destination) && !is_dir($destination)){ 

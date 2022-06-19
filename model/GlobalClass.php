@@ -45,7 +45,7 @@ class GlobalClass extends Manage {
         }
     }
     
-    //function vérification si l'utilisateur est un user_admin
+    //fonction vérification si l'utilisateur est un user_admin
     public function verifUserAdmin(int $id) :?object {
         $data = ['user_id'=>$id];
         $query = "SELECT id, add_share,card_virtuel, card_real, defunct_id FROM user_admin WHERE user_id=:user_id";
@@ -57,6 +57,7 @@ class GlobalClass extends Manage {
             return null;
         }
     }
+
   
 }
 

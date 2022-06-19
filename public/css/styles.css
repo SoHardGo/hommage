@@ -212,8 +212,12 @@ hr {
 /***********************************Slider**************************************/
 .container_slider{
     display:flex;
-    justify-content:center;
+    flex-direction:column;
+    align-content:center;
     margin:20px;
+}
+.container_slider h1 {
+    margin-bottom:20px;
 }
 .slider {
     width: 90%;
@@ -414,7 +418,7 @@ input[value="Rechercher"] {
 .container_user h3 {
     text-align:center;
     font-size: 30px;
-    margin:55px 15px;
+    margin:55px 45px;
     text-shadow: 0 0 3px white;
     color:var(--color-bgc-button);
 }
@@ -459,7 +463,7 @@ input[value="Rechercher"] {
 }
 .user_icon {
     position: absolute;
-    right: 23px;
+    right: -10px;
     bottom: 25px;
     color:var(--color-menu-user);
     margin-top:20px;
@@ -471,6 +475,7 @@ input[value="Rechercher"] {
 .container_photo_user {
     text-align:center;
     margin-top:12px;
+    margin-left: -20px;
     width: 120px;
     height: 120px;
     border:1px solid var(--color-black);
@@ -509,7 +514,7 @@ input[value="Rechercher"] {
     margin:20px 10px;
 }
 .home_user_card {
-    width: 31%;
+    min-width: 30%;
     margin:5px;
 }
 .card_img{
@@ -543,6 +548,7 @@ input[value="Rechercher"] {
 .folder {
     margin:0 auto;
     width: 150px;
+    height: 150px;
 }
 .folder_link {
     text-align:center;
@@ -617,7 +623,7 @@ input[value="Rechercher"] {
     width: 100%;
 }
 .profil {
-    min-width: 50px;
+    width: 50px;
     height: 50px;
     border-radius:50px;
     overflow:hidden;
@@ -768,6 +774,9 @@ label[for="comment"]{
         margin-left: 215px;
         font-size: 95px;
     }
+    .burger-icon {
+        right:40px;
+    }
     .burger-icon span {
         width: 50px;
         height: 6px;
@@ -790,7 +799,7 @@ label[for="comment"]{
         font-size: 23px;
     }
     .container_user h3 {
-        margin:50px 145px;
+        margin:50px 178px;
     }
     .fa-user {
         margin-right: -20px;
@@ -800,6 +809,9 @@ label[for="comment"]{
     }
     .home_user_card {
         width: 23%;
+    }
+    .icon_home {
+        margin-left: 50px;
     }
 }
 @media screen and (min-width:1024px){
@@ -821,7 +833,7 @@ label[for="comment"]{
         width: 60%;
     }
     .container_photo_user {
-        margin-left:10px;
+        margin-left: -194px;
     }
     .bouton_user {
         justify-content: center;
@@ -834,6 +846,12 @@ label[for="comment"]{
     }
     .home_user_card {
         width: 18%;
+    }
+    .icon_home {
+        margin-left: 225px;
+    }
+    .user_icon {
+        right:62px;
     }
 }
 @media screen and (min-width:1600px){

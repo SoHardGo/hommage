@@ -1,23 +1,39 @@
 <?php
 require_once 'model/GlobalClass.php';
-$globalclass= new GlobalClass();
-
-require_once 'model/GetInfos.php';
-$getinfo = new GetInfos();
-
+$globalclass = new GlobalClass();
 require_once 'model/Registration.php';
 $register = new Registration();
+require_once 'model/GetInfos.php';
+$getinfo = new GetInfos();
+$result = $getinfo->getDefunctByDate();
+$lastDef = $result->fetchAll();
 
-// Vérification de la validité de l'email 
+//Initialisation du slider des derniers défunts ajoutés
+$photo_def='';
+foreach($lastDef as $r){
+    //Récupération d'une photo correspondant aux défunts ajoutés récemment
+    $photo = $getinfo->getPhotoDef(intval($r['user_id']));
+    if ($photo){
+        // Récupération de la 1ère photo du créateur du défunt
+        $photo_def.='<div><img class="img" src="'.$photo.'"></div>';
+    }
+}
+
+$slider ='<div class="slider">';
+$slider .= $photo_def;
+$slider .= '</div>';
+
+// Vérification des informations de connexion
 if ( isset($_POST['email']) && isset($_POST['pwd']) ){
     $result = $globalclass->verifyAccount ($_POST['email'], $_POST['pwd']);
 
     if (!isset($result)){
         $message = "Identifiants incorrects";
     } else {
+// Initialisation des informations de Session, Enregistrement de la date de connexion
         $_SESSION['user'] = $result;
         $register->setLoginFirst();
-
+// Récupération des infos des défunts associées à l'utilisateur
         $_SESSION['user']['defunct'] = $getinfo->getDefunctList();
     }
 }

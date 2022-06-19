@@ -105,4 +105,12 @@ class GetInfos extends Manage {
         return $this->getQuery($query,$data)->fetch();
     }
     
+    public function getDefunctByDate() :object {
+        $query = "SELECT user_id FROM defuncts WHERE date_crea < NOW() limit 10";
+        $result = $this->getQuery($query);
+        return $result;
+    }
+    
+
+    
 }

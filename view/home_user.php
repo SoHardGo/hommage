@@ -53,6 +53,10 @@ if (count($info_def)){
     <?=$list_def?>
 </div>
 <hr>
+<section class="container_slider">
+    <h1>Photos récemment ajoutées</h1>
+    <?=$slider?>
+</section>
 <!-- A faire
 <div class="myContact">
     <div class="contacts">

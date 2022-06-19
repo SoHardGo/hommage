@@ -3,9 +3,9 @@ session_start();
 require_once 'config/config.php';
 require_once 'model/GlobalClass.php';
 require_once 'model/Manage.php';
-$global = new Manage();
-$global_class = new GlobalClass();
-$token = $global->setToken();
+$manage = new Manage();
+$globalclass = new GlobalClass();
+$token = $manage->setToken();
 $_SESSION['token'] = $token;
 
 if (isset($_GET['deco'])){
@@ -14,6 +14,6 @@ if (isset($_GET['deco'])){
 }
 $page = $_GET['page']??'';
 
-$user_content = $global_class->setUserEnv();
-require $global->router($page);
+$user_content = $globalclass->setUserEnv();
+require $manage->router($page);
 

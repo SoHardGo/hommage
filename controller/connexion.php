@@ -1,9 +1,8 @@
 <?php
 require_once 'model/GlobalClass.php';
 $globalclass= new GlobalClass();
-
 require_once 'model/GetInfos.php';
-$info = new GetInfos();
+$getinfo = new GetInfos();
 
 // Si le bouton s'inscrire à été validé renvoi vers le formulaire d'inscription
 if (isset($_GET['registration'])){
@@ -51,7 +50,7 @@ if ( isset($_POST['email']) && isset($_POST['pwd']) ){
         $r = $result['result'];
         $_SESSION['user']['id'] = $r['id'];
         $_SESSION['user'] = $r;
-        $_SESSION['user']['defunct'] = $info->getDefunctList();
+        $_SESSION['user']['defunct'] = $getinfo->getDefunctList();
         $user_content = $globalclass->setUserEnv();
     
         require 'view/environnement.php';

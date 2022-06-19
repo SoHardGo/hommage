@@ -88,11 +88,8 @@ ob_start();
         <hr>
     </section>
     <section class="container_slider">
-        <div class="slider">
-        <div><img class="img" src="public/pictures/photos/1/1-4.jpg" alt="Carte1"></div>
-        <div><img class="img" src="public/pictures/photos/2/2-2.jpg" alt="Carte2"></div>
-        <div><img class="img" src="public/pictures/photos/3/3-1.jpg" alt="Carte3"></div>
-    </div>
+        <h1>Photos récemment ajoutées</h1>
+        <?=$slider?>
     </section>
 </div>
 <?php
