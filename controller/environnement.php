@@ -2,7 +2,7 @@
 require_once 'model/Registration.php';
 $register = new Registration();
 require_once 'model/GetInfos.php';
-$defunct = new GetInfos();
+$getinfo = new GetInfos();
 
 $tab = array();
 //id du defunt dans l'environnement
@@ -15,6 +15,7 @@ if(!$id_def) {
 $com_id = $_GET['idcom']??null;
 //id d'une photo
 $idphoto = $_GET['idphoto']??null;
+var_dump($idphoto);
 //id de l'utilisateur à l'origine de la fiche du defunt
 $usercreate = $_GET['user_create']??null;
 
@@ -70,19 +71,19 @@ if(isset($_SESSION['user']['id'])) {
         $register->updatePhoto($data);
     }
 }
-var_dump($id_def);
+
 ///////////Récupération des infos et des photos associé au défunt///////////////
 if ($id_def) {
-    $defunct_infos = $defunct->getInfoDefunct($id_def);
+    $defunct_infos = $getinfo->getInfoDefunct($id_def);
     $defunct_infos = $defunct_infos->fetch();
-    $defunct_photos = $defunct->photoListDefunct($id_def);
+    $defunct_photos = $getinfo->photoListDefunct($id_def);
     $defunct_photos = $defunct_photos->fetchAll();
     $div_env = [];
-    var_dump($defunct_photos);
+
 ///////////récupération des commentaires selon la photo du defunt///////////////
     if(count($defunct_photos)) {
         foreach($defunct_photos as $r) {
-            $div_env[$r['id']] = $defunct->getListComment($r['id']);
+            $div_env[$r['id']] = $getinfo->getListComment($r['id']);
         }
     }
         

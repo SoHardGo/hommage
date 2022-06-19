@@ -2,7 +2,7 @@
 require_once 'model/Registration.php';
 require_once 'model/GlobalClass.php';
 $register = new Registration();
-$global = new GlobalClass();
+$globalclass = new GlobalClass();
 $data = array();
 
 if (isset($_POST['submit'])) {

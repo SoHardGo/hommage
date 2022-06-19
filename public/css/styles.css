@@ -65,6 +65,7 @@ hr {
 .title {
     color:var(--color-black);
     font-size: 40px;
+    margin:20px;
 }
 
 /*********************************Header***************************************/
@@ -200,6 +201,14 @@ hr {
     text-align:center;
     margin:10px;
 }
+.icon_home, .icon_help {
+    margin:0 auto;
+    width: 50px;
+}
+.icon_home {
+    margin-left:60px;
+}
+
 /***********************************Slider**************************************/
 .container_slider{
     display:flex;
@@ -256,6 +265,13 @@ input[type="file"] {
     width: 145px;
     height: 30px;
     margin-bottom:10px;
+}
+select[name="affinity"]{
+    margin: 20px;
+    width: 150px;
+}
+.more_info {
+    margin:20px;
 }
 /***Registration***/
 
@@ -368,6 +384,11 @@ input[value="Rechercher"] {
     width: 200px;
     margin:10px; 
 }
+.after_verif, .min_nophoto {
+    font-size: 20px;
+    font-weight: bold;
+    color:var(--color-red);
+}
 
 
 /**********************User***************************************/
@@ -384,10 +405,12 @@ input[value="Rechercher"] {
     background-color: var(--color-user);
     height: 150px;
 }
+/*
 .fa-user {
     margin-right:-10px;
     color:var(--color-menu-user);
 }
+*/
 .container_user h3 {
     text-align:center;
     font-size: 30px;
@@ -438,9 +461,9 @@ input[value="Rechercher"] {
     position: absolute;
     right: 23px;
     bottom: 25px;
-    color:var(--color-white);
+    color:var(--color-menu-user);
     margin-top:20px;
-    border: 1px solid white;
+    border: 1px solid var(--color-black);
     border-radius: 50%;
     padding: 3px;
     background-color: black;
@@ -474,6 +497,7 @@ input[value="Rechercher"] {
 }
 
 /**********************Home user***************************/
+
 .home_user_explain {
     text-align:center;
     margin:30px;
@@ -497,8 +521,10 @@ input[value="Rechercher"] {
 }
 .list_home_user {
     display:flex;
+    flex-direction: column;
+    align-content: center;
     flex-wrap:wrap;
-    justify-content:center;
+    text-align:center;
     text-decoration:none;
     color:var(--color-black);
     margin:20px 10px;
@@ -654,7 +680,6 @@ label[for="comment"]{
     background-color: var(--color-white);
     position: relative;
     padding: 0;
-    outline: 0;
     text-align: justify;
     width: 80%;
     animation-name: showHelp;
@@ -738,9 +763,6 @@ label[for="comment"]{
 @media screen and (min-width:768px){
     .page_header {
         height:210px;
-    }
-    .button {
-        padding: 20px;
     }
     .title_container h1 {
         margin-left: 215px;

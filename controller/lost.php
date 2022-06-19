@@ -1,6 +1,6 @@
 <?php
 require_once 'model/GetInfos.php';
-$getinfos = new GetInfos();
+$getinfo = new GetInfos();
 require_once 'model/Registration.php';
 $register = new Registration();
 var_dump($_SESSION);
@@ -10,7 +10,7 @@ $code = rand(10000,99999);
 if (isset($_POST['submit1'])){
     // vérification de la validité de l'email
     // récup l'id du user
-    $id_email = $getinfos->getEmail($_POST['email']);
+    $id_email = $getinfo->getEmail($_POST['email']);
     var_dump('id email : '.$id_email);
     if(isset($id_email)){
         $_SESSION['user']['id'] = $id_email; 

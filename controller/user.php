@@ -1,7 +1,7 @@
 <?php
 require_once 'model/GetInfos.php';
-$defunct = new GetInfos();
-$def_id = $defunct->getUserDefunctList($_SESSION['user']['id']);
+$getinfo = new GetInfos();
+$def_id = $getinfo->getUserDefunctList($_SESSION['user']['id']);
 $info_def = $def_id->fetchAll();
 $nbr = count($info_def);
 

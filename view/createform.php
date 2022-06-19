@@ -59,16 +59,16 @@ ob_start();
                         <option value="Aucune">Aucune</option>
                     </select>
                     
-                    <fieldset>
+                    <fieldset class="more_info">
                         <h3 class="title_create_infos">Informations complémentaires</h3>
-                        <label>Acceptez-vous de recevoir des cartes de condoléances ?</label>
+                        <label>Acceptez-vous de recevoir des cartes de condoléances pour ce defunt ?</label>
                         <label>Cartes par Email :</label> 
                         Oui<input type="radio" name="card_virtuel" value="1">
                         Non<input type="radio" name="card_virtuel" value="0">
                         <label>Cartes par adresse Postal :</label>
                         Oui<input type="radio" name="card_real" value="1">
                         Non<input type="radio" name="card_real" value="0">
-                        <label>Acceptez-vous de recevoir des bouquets de fleurs ?</label>
+                        <label>Acceptez-vous de recevoir des bouquets de fleurs pour ce defunt ?</label>
                         Oui<input type="radio" name="flower" value="1">
                         Non<input type="radio" name="flower" value="0">
                     </fieldset>

@@ -4,8 +4,7 @@ $content='';
 // Liste des defunts dans le home_user
 // Affichage des mini-cartes des defunts
 if (count($info_def)){
-    echo '<h1>Mes Fiches</h1>';
-    echo '<div class="home_user_explain"><p>Sélectionner une fiche pour ajouter des photos, consulter ou ajouter des commentaires</p></div>';
+    echo '<h1>Mes Fiches</h1><div class="home_user_explain"><p>Sélectionner une fiche pour ajouter des photos, consulter ou ajouter des commentaires</p></div>';
     
     $list_def ='<div class="defunct_home_user">';
     for ($i=0; $i<count($info_def); $i++){
@@ -25,17 +24,17 @@ if (count($info_def)){
     $list_def.='</div>';
 } else {
     $list_def ='<h2>Vous n\'avez pas encore créé de fiches</h2>
-                <p>Cliquer sur le lien pour commencer ->&emsp;</p>
-                
-    <a href="#help">AIDE</a>
-
+    <a href="#help">
+        <div class="icon_help">
+            <img class="img" src="public/pictures/site/help.png" alt="icone help">
+        </div>
+    </a>
+    <p>Cliquer sur l\'icône pour commencer</p>
     <div id="help" class="container_help">
       <div class="help-dialog">
         <div class="help-content">
-   
             <a href="#" class="closebtn">&nbsp;×&nbsp;</a>
             <h2>Bienvenue '.ucfirst($_SESSION['user']['firstname']).' dans votre espace membre</h2>
-    
           <div class="container_help_text">
             <p> Pour commencer :</p><br>  
             <p>-> Créer une Fiche de la personne auquel vous voulez rendre hommage</p>
@@ -54,6 +53,7 @@ if (count($info_def)){
     <?=$list_def?>
 </div>
 <hr>
+<!-- A faire
 <div class="myContact">
     <div class="contacts">
         <a href="index.php?page=home_user">
@@ -65,7 +65,7 @@ if (count($info_def)){
         
     </div>
 </div>
-
+-->
 <?php
 $content = ob_get_clean();
 

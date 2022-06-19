@@ -29,10 +29,35 @@ class GlobalClass extends Manage {
     // fonction vérification fiche défunt existe ou pas
     public function verifyDefunct(array $data) :object {
         $query = "SELECT id FROM defuncts WHERE lastname=:lastname AND firstname=:firstname AND birthdate=:birthdate";
-        $result= $this->getQuery($query,$data);
+        $result = $this->getQuery($query,$data);
         return $result;
     }
     
+    //fonction vérification utilisateur dans la base de donnée
+    public function verifyUser(array $data) :?object {
+        $query = "SELECT id, lastname, firstname, email, number_road, address, postal_code FROM users WHERE lastname=:lastname AND firstname=:firstname";
+        $result = $this->getQuery($query,$data);
+        $nb = $result->rowCount();
+        if ($nb){
+            return $result;
+            } else {
+        return null; 
+        }
+    }
+    
+    //function vérification si l'utilisateur est un user_admin
+    public function verifUserAdmin(int $id) :?object {
+        $data = ['user_id'=>$id];
+        $query = "SELECT id, add_share,card_virtuel, card_real, defunct_id FROM user_admin WHERE user_id=:user_id";
+        $result = $this->getQuery($query,$data);
+        $nb = $result->rowCount();
+        if ($nb){
+            return $result;
+            } else {
+            return null;
+        }
+    }
+  
 }
 
 ?>

@@ -17,21 +17,21 @@ if (isset($id_def)){
             </div>
         </a>
         <div  class="photos_list hidden">
-            <?php var_dump($id_def); ?>
-            <?php var_dump($usercreate); ?>
-            <?php var_dump($defunct_photos); ?>
+
+             <?php var_dump($usercreate); ?>
+           
             <?php if($defunct_photos) :?>
                  <?php foreach($defunct_photos as $r): ?>
                 <div class="min_photo">
-                    <img class="img" src="public/pictures/photos/<?=$_SESSION['user']['id']?>'?'<?=$usercreate?>'/'<?=$r['name'] ?>" alt="photos de defunt">
-                    <?php var_dump($usercreate); ?>
+                    <img class="img" src="public/pictures/photos/<?=$_SESSION['user']['id']?>'?'<?=$usercreate?>'/'<?=$r['name'] ?>" alt="<?=$r['name'] ?>">
+                   
                     <a download="image_<?=$r['id']?>.jpg" href="public/pictures/photos/<?=$r['user_id'].'/'.$r['name'] ?>"><i class="fas fa-download" title="Telecharger"></i></a>
                     
                 </div>
                  <?php endforeach ?>
             <?php else :?>
                 <div class="min_nophoto">
-                    <p><i class="fas fa-ban"></i>&nbsp;Aucune photo de <?=ucfirst($defunct_infos['firstname']).' '.ucfirst($defunct_infos['lastname']) ?>&nbsp;<i class="fas fa-ban"></i></p>
+                    <p><i class="fas fa-ban"></i>&nbsp;Aucune photos de <?=ucfirst($defunct_infos['firstname']).' '.ucfirst($defunct_infos['lastname']) ?>&nbsp;<i class="fas fa-ban"></i></p>
                 </div> 
             <?php endif ?>
         </div>

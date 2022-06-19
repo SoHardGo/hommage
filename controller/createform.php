@@ -2,7 +2,7 @@
 require_once 'model/Registration.php';
 require_once 'model/GetInfos.php';
 require_once 'model/GlobalClass.php';
-$globalC = new GlobalClass();
+$globalclass = new GlobalClass();
 $register = new Registration();
 // infos concernant chaque défunt relié à un utilisateur
 $getinfo = new GetInfos();
@@ -43,18 +43,19 @@ if (isset($_POST['submit'])){
         'birthdate'=>$_POST['birthdate']
         ];
         
-    $result = $globalC->verifyDefunct($test);
+    $result = $globalclass->verifyDefunct($test);
     
     if($result->rowCount()) {
         echo 'Cette fiche existe déjà, utiliser RECHERCHER pour la consulter';
     } else {
-    // Enregistrement d'une fiche defunt
-    $register->setDefunct($data);
+    // Enregistrement d'une fiche defunt et récupération de l'id du defunt
+    $defunct = $register->setDefunct($data);
     
-    // On met a jour la liste des defunts
+    // Mise a jour la liste des defunts de l'utilisateur
     $_SESSION['user']['defunct'] = $getinfo->getDefunctList();
 
-    // Enregistrement du user qui crée des fiches
+    // Enregistrement du user_admin qui crée la fiche
+    $info['defunct_id'] = intval($defunct);
     $register->setUserAdmin($info);
     require 'controller/home_user.php';
     exit;

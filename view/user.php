@@ -15,7 +15,11 @@ ob_start();
         <i class="fas fa-camera user_icon"></i>
     </form>
     <h3><?=ucfirst($_SESSION['user']['lastname']).' '.ucfirst($_SESSION['user']['firstname'])?></h3>
-    <a href="index.php?page=home_user" class="user_home"><i class="fas fa-user fa-2x"></i></a>
+    <a href="index.php?page=home_user" class="user_home">
+        <div class="icon_home">
+            <img class="img" src="public/pictures/site/home.png" alt="icone home">
+        </div>
+    </a>
 </section>
 <section class="bouton_user">
         <a class="button" href="index.php?page=createform">Créer une fiche</a>

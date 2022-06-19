@@ -3,8 +3,8 @@ require_once 'model/Manage.php';
 require_once 'model/Registration.php';
 require_once 'model/GlobalClass.php';
 require_once 'model/GetInfos.php';
-$info = new GetInfos();
-$global = new GlobalClass();
+$getinfo = new GetInfos();
+$globalclass = new GlobalClass();
 $register = new Registration();
 $manage = new Manage();
 $data = array();
@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
     
     if(isset($_POST['email']) && filter_var((htmlspecialchars($_POST['email'])), FILTER_VALIDATE_EMAIL)){
         $tab = $_POST['email'];
-        $result = $info->getEmail($tab);
+        $result = $getinfo->getEmail($tab);
         if($result){
             echo 'Vous êtes déjà inscrit sur notre site, connectez-vous';
             require 'view/connexion.php';
@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['user'] = $data;
             $user_id = $register->setRegister($data);
             $_SESSION['user']['id'] = $user_id;
-            $user_content = $global->setUserEnv();
+            $user_content = $globalclass->setUserEnv();
             
             // Vérif que le formulaire viens bien du site
             

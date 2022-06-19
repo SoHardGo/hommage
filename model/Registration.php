@@ -23,7 +23,7 @@ class Registration extends Manage {
     
     // inscription d'un administrateur utilisateur de fiche défunt
     public function setUserAdmin(array $data) :void{
-        $query = "INSERT INTO user_admin SET affinity=:affinity, card_virtuel=:card_virtuel, card_real=:card_real, new_user=:new_user, user_id=:user_id, date_crea=CURDATE()";
+        $query = "INSERT INTO user_admin SET affinity=:affinity, card_virtuel=:card_virtuel, card_real=:card_real, new_user=:new_user, user_id=:user_id, date_crea=CURDATE(), defunct_id=:defunct_id";
         $this->getQuery($query,$data);
     }
     // enregistrement des emails envoyés via contact

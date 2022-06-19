@@ -1,6 +1,6 @@
 <?php
 require_once 'model/GlobalClass.php';
-$global= new GlobalClass();
+$globalclass= new GlobalClass();
 
 require_once 'model/GetInfos.php';
 $info = new GetInfos();
@@ -18,7 +18,7 @@ if ( isset($_POST['email']) && isset($_POST['pwd']) ){
         exit;
     }
 
-    $result = $global->verifyEmail ($_POST['email']);
+    $result = $globalclass->verifyEmail ($_POST['email']);
     $hashedPass = $result['result']['password'];
 
     // vérification du mot de passe
@@ -52,7 +52,7 @@ if ( isset($_POST['email']) && isset($_POST['pwd']) ){
         $_SESSION['user']['id'] = $r['id'];
         $_SESSION['user'] = $r;
         $_SESSION['user']['defunct'] = $info->getDefunctList();
-        $user_content = $global->setUserEnv();
+        $user_content = $globalclass->setUserEnv();
     
         require 'view/environnement.php';
         exit;
