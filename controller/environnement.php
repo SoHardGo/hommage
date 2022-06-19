@@ -90,5 +90,14 @@ if ($id_def) {
 } else {
     echo 'Cette fiche n\'existe pas';
 }
+////////////nombre de photos et commentaires ajoutées depuis la dernière connexion
 
+$recentPhoto = $getinfo->getRecentPhotos($id_def, $_SESSION['user']['id']);
+$newphotos = $recentPhoto->fetchAll();
+print_r($newphotos);
+var_dump($recentPhoto);
+$recentComment = $getinfo->getRecentComments($id_def, $_SESSION['user']['id']);
+$newcomments = $recentComment->fetchAll();
+$nbcomments = count($newcomments);
+print_r($newcomments);
 require 'view/environnement.php';

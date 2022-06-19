@@ -20,11 +20,10 @@ class GetInfos extends Manage {
         return $result;
     }
     // récup l'id de l'utilisateur selon son email
-    public function getEmail(string $email) :int {
+    public function getEmail(string $email) :object {
         $data = ['email' => $email];
         $query = "SELECT id FROM users WHERE email=:email";
-        $result = $this->getQuery($query,$data);
-        return $result->rowCount();
+        return $this->getQuery($query,$data);;
     }
     // récup les infos de tout les défunts d'un utilisateur
     public function getUserDefunctList(int $user_id) :object {
@@ -99,7 +98,7 @@ class GetInfos extends Manage {
         return $result;
     }
     
-    public function getCardInfo($id) :array {
+    public function getCardInfo(int $id) :array {
         $data = ['id'=>$id];
         $query = "SELECT name, price, info FROM products WHERE id=:id";
         return $this->getQuery($query,$data)->fetch();
@@ -111,6 +110,20 @@ class GetInfos extends Manage {
         return $result;
     }
     
-
+    public function getRecentPhotos(int $id_def, int $id) :object {
+        $data = ['defunct_id'=>$id_def,
+            'id'=>$id];
+        $query = "SELECT id, name FROM photos WHERE defunct_id=:defunct_id AND date_crea > (SELECT last_log FROM users WHERE id=:id)";
+        $result = $this->getQuery($query,$data);
+        return $result;
+    }
     
+    public function getRecentComments(int $id_def, int $id) :object {
+        $data = ['defunct_id'=>$id_def,
+            'id'=>$id];
+        $query = "SELECT comment, photo_id FROM comments WHERE defunct_id=:defunct_id AND date_crea > (SELECT last_log FROM users WHERE id=:id)";
+        $result = $this->getQuery($query,$data);
+        return $result;
+    }
+
 }

@@ -25,7 +25,7 @@ ob_start();
                     <input type="text" name="city_death" id="city_death"/>
                     <label for="code_p">Code postal cimetière:</label>
                     <input type="text" name="code_p" id="code_p"/>
-                    <label>Sélectionner le lien avec le defunt</label>
+                    <label>Qui êtes-vous pour le defunt ?</label>
                     <select name="affinity">
                         <option>Affinité</option>
                         <option value="Père">Père</option>

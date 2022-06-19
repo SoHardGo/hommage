@@ -30,9 +30,9 @@ if ( isset($_POST['email']) && isset($_POST['pwd']) ){
     if (!isset($result)){
         $message = "Identifiants incorrects";
     } else {
-// Initialisation des informations de Session, Enregistrement de la date de connexion
+// Enregistrement de la date de connexion, Initialisation des informations de Session 
         $_SESSION['user'] = $result;
-        $register->setLoginFirst();
+        $register->updateLastLogin();
 // Récupération des infos des défunts associées à l'utilisateur
         $_SESSION['user']['defunct'] = $getinfo->getDefunctList();
     }

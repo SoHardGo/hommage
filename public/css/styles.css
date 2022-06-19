@@ -393,7 +393,17 @@ input[value="Rechercher"] {
     font-weight: bold;
     color:var(--color-red);
 }
-
+/*********************Lost****************************************/
+.message_email {
+    color: var(--color-red);
+    font-weight: bold;
+}
+.lost_form {
+    display:flex;
+    justify-content:center;
+    text-align:center;
+    margin:20px;
+}
 
 /**********************User***************************************/
 .user_form {

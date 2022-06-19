@@ -6,15 +6,10 @@ class Registration extends Manage {
     // inscritpion utilisateur dans la base de donnée + return LastId
     public function setRegister(array $recup) :int{
         $recup["password"]= password_hash($recup["password"], PASSWORD_BCRYPT);
-        $query = "INSERT INTO users SET firstname=:firstname, lastname=:lastname, email=:email, number_road=:number_road, address=:address, postal_code=:postal_code, city=:city, date_crea=CURDATE(), password=:password, pseudo=:pseudo";
+        $query = "INSERT INTO users SET firstname=:firstname, lastname=:lastname, email=:email, number_road=:number_road, address=:address, postal_code=:postal_code, city=:city, date_crea=CURDATE(), password=:password, pseudo=:pseudo, last_log=NOW()";
         return $this->setQueryLastId($query,$recup);
     }
-    // enregistrement du jour de connexion
-    public function setLoginFirst(): void{
-        $data = ['id'=>$_SESSION['user']['id']];
-        $query = "UPDATE users SET last_log=CURDATE() WHERE id=:id";
-        $this->getQuery($query,$data);
-    }
+
     // inscription d'un defunt + return LastId
     public function setDefunct(array $data) :int{
         $query = "INSERT INTO defuncts SET firstname=:firstname, lastname=:lastname, birthdate=:birthdate, death_date=:death_date, cemetery=:cemetery, city_birth=:city_birth, city_death=:city_death, postal_code=:postal_code, user_id=:user_id, date_crea=CURDATE()";
@@ -35,15 +30,23 @@ class Registration extends Manage {
     }
     // enregistrement des photos de defunts
     public function setPhoto(array $data):int {
-        $query = "INSERT INTO photos SET user_id=:user_id, defunct_id=:defunct_id, name=:name";
+        $query = "INSERT INTO photos SET user_id=:user_id, defunct_id=:defunct_id, name=:name, date_crea=NOW()";
         return $this->setQueryLastId($query,$data);
     }
     // enregistrement des commentaires
     public function setComment(array $data) :int{
-        $query = "INSERT INTO comments SET comment=:comment, user_id=:user_id, defunct_id=:defunct_id, photo_id=:photo_id, date_crea=CURDATE(), profil_user=:profil_user";
+        $query = "INSERT INTO comments SET comment=:comment, user_id=:user_id, defunct_id=:defunct_id, photo_id=:photo_id, date_crea=NOW(), profil_user=:profil_user";
         return $this->setQueryLastId($query,$data);
     }
 /////////////////////////////////////////////////UPDATER////////////////////////////////////////////////////////////
+
+    // miseà jour de la date et heure de connexion
+    public function updateLastLogin(): void{
+        $data = ['id'=>$_SESSION['user']['id']];
+        $query = "UPDATE users SET last_log=NOW() WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    
     // mise à jour du nom de la photo de defunt
     public function updatePhoto(array $data):void {
         $query = "UPDATE photos SET name=:name WHERE id=:id";

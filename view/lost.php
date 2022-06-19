@@ -10,35 +10,46 @@ ob_start();
         <div class="lost_form">
             <form method="POST" action="index.php?page=lost">
                 <?php if(!isset($_SESSION['user']['id'])):?>
+                    <?=$message_email?>
                     <label for="email_user">Entrez votre Email pour recevoir un code de réinitialisation :</label>
                     <input type="email" name="email" id="email_user">
                     <label for="submit1"></label>
-                    <input type="submit" name="submit1" id="submit1" value="Envoyer"><br>
+                    <input class="button" type="submit" name="submit1" id="submit1" value="Envoyer"><br>
                 <?php else :?>
                     <label for="email_user"></label>
                     <input type="email" name="email" id="email_user" placeholder="<?=$_SESSION['user']['email']?>" readonly>
                     <label for="submit1"></label>
-                    <input type="submit" name="submit1" id="submit1" value="Envoyer"><br>
+                    <input class="button" type="submit" name="submit1" id="submit1" value="Envoyer"><br>
+
+                    <?php if (isset($_SESSION['user']['identify'])): ?>
+                        <p>Vous êtes bien identifié dans notre base :</p>
+                        <h4>Votre code d'accès est : <?=$_SESSION['code']?></h4>
+                        <label for="code">Entrer le code réçu par email</label>
+                        <input type="text" name="code" id="code">
+                        <label for="verif_code"></label>
+                        <input class="button" type="submit" name="verif_code" id="verif_code" value="Valider">
+                        <label for="cancel"></label>
+                        <input class="button" type="submit" name="cancel" id="cancel" value="Annuler">
+                        <div class="form_new_pass">
+                    <?php endif ?>
+                    
+                    <?php if (isset($_SESSION['verif_code'])) :?>
+                        <label for="new_pass">Entrez votre nouveau mot de passe :</label>
+                        <input type="password" name="new_password" id="new_password" placeholder="Nouveau mot de passe">
+                        <label for="pass_again"></label>
+                        <input type="password" name="pass_again" id="pass_again" placeholder="Confirmer">
+                        <label for="submit3"></label>
+                        <input class="button" type="submit" name="submit3" id="submit3">
+                    <?php endif ?>
                 <?php endif ?>
-            </form>
-            <form method="POST" action="index.php?page=lost">
-                <?php if (isset($message) && $message == true): var_dump('mess'.$message);?>
-                    <p>Vous êtes bien identifié dans notre base :</p>
-                    <h4>Votre code d'accès est : <?=$code?></h4>
-                    <label for="code">Entrer le code réçu par email</label>
-                    <input type="text" name="code" id="code">
-                    <label for="submit2"></label>
-                    <input type="submit" name="submit2" id="submit2" value="Valider">
-                    <label for="cancel"></label>
-                    <input type="submit" name="cancel" id="cancel" value="Annuler">
-                    <div class="form_new_pass">
             </form>
             <div class="newpass">
             <?=$newpass?>
             </div>
-                <?php elseif (isset($message) && $message == false) :?>
-                        <h4>Vous n\'êtes pas un utilisateur identifié</h4>
-                        <a class="button lost_inscritpion" href="index.php?page=registration">Inscription</a>';
+                <?php if (isset($message) && $message == false) :?>
+                        <h4>Vous n'êtes pas un utilisateur identifié</h4>
+                        <a class="button lost_inscritpion" href="index.php?page=registration">Inscription</a>
+                        <a class="button cancel" href="index.php?page=home">Annuler</a>
                 <?php endif?>
         </div>
     </div>
