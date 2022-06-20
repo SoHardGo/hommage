@@ -57,7 +57,7 @@ if (count($info_def)){
     <h1>Photos récemment ajoutées</h1>
     <?=$slider?>
 </section>
-<!-- A faire
+<!-- A faire si j'ai le temps
 <div class="myContact">
     <div class="contacts">
         <a href="index.php?page=home_user">

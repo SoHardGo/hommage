@@ -201,12 +201,12 @@ hr {
     text-align:center;
     margin:10px;
 }
-.icon_home, .icon_help {
+.icon_home, .icon_help, .icon_log {
     margin:0 auto;
     width: 50px;
 }
 .icon_home {
-    margin-left:60px;
+    margin-left:10px;
 }
 
 /***********************************Slider**************************************/
@@ -311,8 +311,8 @@ input[value="Rechercher"] {
 }
 .profil.form {
      margin-top: 50px;
-     height: 750px;
 }
+
 /***Achat***/
 /***Cartes + Editor***/
 .container_card {
@@ -334,12 +334,20 @@ input[value="Rechercher"] {
     width: 130px;
     border:1px solid var(--color-grey-middle);
 }
-.cards_item .img:hover {
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    transform:scale(3);
+
+
+.card_image {
+    width: 130px;
+    height: 130px;
+    overflow:hidden;
 }
+
+.card_image .img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 .cards_button {
     text-align:center;
     text-decoration:none;
@@ -371,10 +379,12 @@ input[value="Rechercher"] {
 }
 .content {
     min-height:400px;
-    background-color: transparent;
     border:1px solid var(--color-grey-light);
     padding: 10px;
     z-index:1;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
     
 }
 .select_img {
@@ -402,6 +412,7 @@ input[value="Rechercher"] {
     display:flex;
     justify-content:center;
     text-align:center;
+    line-height: 40px;
     margin:20px;
 }
 
@@ -463,7 +474,7 @@ input[value="Rechercher"] {
 .name_defuncts:hover {
     color:var(--color-grey-soft);
 }
-.user_home {
+.user_home, .user_logoff {
     flex-direction: column;
     display: flex;
     justify-content: flex-end;
@@ -485,7 +496,7 @@ input[value="Rechercher"] {
 .container_photo_user {
     text-align:center;
     margin-top:12px;
-    margin-left: -20px;
+    margin-left: 10px;
     width: 120px;
     height: 120px;
     border:1px solid var(--color-black);
@@ -521,10 +532,10 @@ input[value="Rechercher"] {
     display:flex;
     flex-wrap: wrap;
     text-align:center;
-    margin:20px 10px;
+    margin:20px;
 }
 .home_user_card {
-    min-width: 30%;
+    min-width: 47%;
     margin:5px;
 }
 .card_img{
@@ -668,6 +679,9 @@ label[for="comment"]{
     font-size: 15px;
     color: var(--color-black);
 }
+.env_listing span {
+    color:var(--color-red);
+}
 /**************************help window**************************/
 @keyframes showHelp {
     from {top:-100px;opacity: 0;}
@@ -777,6 +791,9 @@ label[for="comment"]{
     
 }
 @media screen and (min-width:768px){
+    .navbar {
+        width: 200px;
+    }
     .page_header {
         height:210px;
     }
@@ -817,11 +834,8 @@ label[for="comment"]{
     .card_img{
         height: 280px;
     }
-    .home_user_card {
-        width: 23%;
-    }
     .icon_home {
-        margin-left: 50px;
+        margin-left: 15px;
     }
 }
 @media screen and (min-width:1024px){
@@ -853,9 +867,6 @@ label[for="comment"]{
     }
     .fa-user {
         margin-right: -155px;
-    }
-    .home_user_card {
-        width: 18%;
     }
     .icon_home {
         margin-left: 225px;

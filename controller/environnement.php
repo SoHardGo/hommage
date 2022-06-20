@@ -4,6 +4,9 @@ $register = new Registration();
 require_once 'model/GetInfos.php';
 $getinfo = new GetInfos();
 
+$nbphotos = '';
+$nbcomments = '';
+
 $tab = array();
 //id du defunt dans l'environnement
 $id_def = $_GET['id']??0;
@@ -15,7 +18,6 @@ if(!$id_def) {
 $com_id = $_GET['idcom']??null;
 //id d'une photo
 $idphoto = $_GET['idphoto']??null;
-var_dump($idphoto);
 //id de l'utilisateur à l'origine de la fiche du defunt
 $usercreate = $_GET['user_create']??null;
 
@@ -90,14 +92,13 @@ if ($id_def) {
 } else {
     echo 'Cette fiche n\'existe pas';
 }
-////////////nombre de photos et commentaires ajoutées depuis la dernière connexion
+////////////nombre de commentaires et photos ajoutées depuis la dernière connexion
+if(isset($_SESSION['user']['id']) && $defunct_infos['user_id']==$_SESSION['user']['id']) {
 
-$recentPhoto = $getinfo->getRecentPhotos($id_def, $_SESSION['user']['id']);
-$newphotos = $recentPhoto->fetchAll();
-print_r($newphotos);
-var_dump($recentPhoto);
-$recentComment = $getinfo->getRecentComments($id_def, $_SESSION['user']['id']);
-$newcomments = $recentComment->fetchAll();
-$nbcomments = count($newcomments);
-print_r($newcomments);
+    $recentComment = $getinfo->getRecentComments($id_def, $_SESSION['user']['last_log'])->rowCount();
+    
+    
+    $recentPhoto = $getinfo->getRecentPhotos($id_def, $_SESSION['user']['last_log'])->rowCount();
+}
+
 require 'view/environnement.php';

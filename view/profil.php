@@ -4,7 +4,7 @@ $title='Profil';
 ob_start();
 ?>
 <section class="container_profil">
-    <div class="profil form">
+    <div class="profil_account form">
         <h1 class="title_profil title">Mes informations</h1>
         <h2><?=ucfirst($_SESSION['user']['lastname']).' '.ucfirst($_SESSION['user']['firstname'])?></h2>
         <div class="profil_form">

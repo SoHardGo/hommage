@@ -20,7 +20,7 @@ if (isset($id_def)){
             <?php if($defunct_photos) :?>
                  <?php foreach($defunct_photos as $r): ?>
                 <div class="min_photo">
-                    <img class="img" src="public/pictures/photos/<?=$_SESSION['user']['id']?>'&&'<?=$usercreate?>'/'<?=$r['name'] ?>" alt="<?=$r['name'] ?>">
+                    <img class="img" src="public/pictures/photos/<?=$r['user_id']?>/<?=$r['name'] ?>" alt="<?=$r['name'] ?>">
                     <a download="image_<?=$r['id']?>.jpg" href="public/pictures/photos/<?=$r['user_id'].'/'.$r['name'] ?>"><i class="fas fa-download" title="Telecharger"></i></a>
                 </div>
                  <?php endforeach ?>
@@ -31,11 +31,16 @@ if (isset($id_def)){
             <?php endif ?>
         </div>
         <hr>
+        <?php if(isset($_SESSION['user']['id']) && $defunct_infos['user_id']==$_SESSION['user']['id']) { ?>
         <div class="env_listing">
-            <p class="new_comments">Commentaires ajoutés: </p>
-            <p class="new_photos">Photos ajoutées: </p>
+            <p>Depuis votre dernière connexion :</p>
+            <p class="new_photos">Photos ajoutées: <span><?=$recentPhoto?></span></p>
+            <p class="new_comments">Commentaires ajoutés: <span><?=$recentComment?></span></p>
         </div>
+        
         <hr>
+        <?php } ?>
+        
         <?php if(isset($_SESSION['user']['id'])) : ?>
         <form method="POST" action="index.php?page=environnement&id=<?=$id_def?>" enctype="multipart/form-data" id="form_env">
                 <label for="file_env"></label>
@@ -47,10 +52,16 @@ if (isset($id_def)){
         </form>
         <?php endif ?>
         <div class="container_environnement">
-            <!-- boucle pour récupérer chaque commentaire liés à sa photo-->
+            <!--Commentaire liés à sa photo-->
             <?php foreach($defunct_photos as $r): ?>
                 <div class="div_photo">
-                    <?php if(isset($_SESSION['user']['id']) && isset($comment['user_id']) && $_SESSION['user']['id'] == $r['user_id']) : ?>
+                    <?php if(isset($_SESSION['user']['last_log']) && isset($r['date_crea']) && $_SESSION['user']['last_log'] < $r['date_crea']): 
+                        
+                        echo '<div class=new>New</div>';
+                    
+                    endif; 
+                    
+                    if(isset($_SESSION['user']['id']) && isset($r['user_id']) && $_SESSION['user']['id'] == $r['user_id']): ?>
                     <a class="delete_photo" href="index.php?page=environnement&idphoto=<?=$r['id']?>&id=<?=$id_def?>" title="Supprimer"><b>X</b></a>
                     <?php endif ?>
                     <img class="img" src="public/pictures/photos/<?=$r['user_id'].'/'.$r['name']?>" alt="">
@@ -68,7 +79,7 @@ if (isset($id_def)){
                                     </a>
                                 </div>
                                 &emsp;<?=$comment['comment']?>
-                                <?php if(isset($_SESSION['user']['id']) && $_SESSION['user']['id']== $comment['user_id']) : ?>
+                                <?php if(isset($_SESSION['user']['id']) && $_SESSION['user']['id']== $comment['user_id']): ?>
                                 <div class="icon_delete">
                                     <a class ="env_user_name" href="index.php?page=environnement&id=<?=$id_def?>&idcom=<?=$comment['id']?>" title="Supprimer"><i class="fas fa-trash-alt"></i></a>
                                 </div>

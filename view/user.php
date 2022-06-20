@@ -15,9 +15,14 @@ ob_start();
         </div>
     </form>
     <h3><?=ucfirst($_SESSION['user']['lastname']).' '.ucfirst($_SESSION['user']['firstname'])?></h3>
-    <a href="index.php?page=home_user" class="user_home">
+    <a href="index.php?deco" class="user_logoff" title="Déconnecter">
+        <div class="icon_log">
+            <img class="img" src="public/pictures/site/logoff.png" alt="icone disconnect">
+        </div>
+    </a>
+    <a href="index.php?page=home_user" class="user_home" title="home">
         <div class="icon_home">
-            <img class="img" src="public/pictures/site/home.png" alt="icone home">
+            <img class="img" src="public/pictures/site/home1.png" alt="icone home">
         </div>
     </a>
 </section>

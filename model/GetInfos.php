@@ -93,7 +93,7 @@ class GetInfos extends Manage {
     
     public function getCardsList() :object {
         $data = ['categories'=>'cartes'];
-        $query = "SELECT id, name, price FROM products WHERE categories=:categories";
+        $query = "SELECT id, name, price, info FROM products WHERE categories=:categories";
         $result = $this->getQuery($query,$data);
         return $result;
     }
@@ -104,26 +104,23 @@ class GetInfos extends Manage {
         return $this->getQuery($query,$data)->fetch();
     }
     
-    public function getDefunctByDate() :object {
-        $query = "SELECT user_id FROM defuncts WHERE date_crea < NOW() limit 10";
-        $result = $this->getQuery($query);
-        return $result;
+    public function getHomeSlider(int $nb=10) :array {
+        $query = "SELECT MAX(user_id) as user_id, MAX(name) as name FROM photos GROUP BY defunct_id ORDER BY MAX(id) LIMIT $nb";
+        return $this->getQuery($query)->fetchAll();
     }
     
-    public function getRecentPhotos(int $id_def, int $id) :object {
+    public function getRecentPhotos(int $id_def, string $last_log) :object {
         $data = ['defunct_id'=>$id_def,
-            'id'=>$id];
-        $query = "SELECT id, name FROM photos WHERE defunct_id=:defunct_id AND date_crea > (SELECT last_log FROM users WHERE id=:id)";
-        $result = $this->getQuery($query,$data);
-        return $result;
+            'last_log'=>$last_log];
+        $query = "SELECT id FROM photos WHERE defunct_id=:defunct_id AND date_crea > :last_log";
+        return $this->getQuery($query,$data);
     }
     
-    public function getRecentComments(int $id_def, int $id) :object {
+    public function getRecentComments(int $id_def, string $last_log) :object {
         $data = ['defunct_id'=>$id_def,
-            'id'=>$id];
-        $query = "SELECT comment, photo_id FROM comments WHERE defunct_id=:defunct_id AND date_crea > (SELECT last_log FROM users WHERE id=:id)";
-        $result = $this->getQuery($query,$data);
-        return $result;
+            'last_log'=>$last_log];
+        $query = "SELECT id FROM comments WHERE defunct_id=:defunct_id AND date_crea > :last_log";
+        return $this->getQuery($query,$data);
     }
 
 }
