@@ -16,7 +16,7 @@
 </head>
 <body>
 <header class="page_header">
-    <img class="img" src="public/pictures/site/fond2.jpg" alt="photo du site">
+<!--    <img class="img" src="public/pictures/site/fond2.jpg" alt="photo du site">-->
     <div class="title_container">
         <h1>Hommage</h1>
     </div>

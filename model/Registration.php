@@ -3,6 +3,7 @@ require_once 'Manage.php';
 
 class Registration extends Manage {
 /////////////////////////////////////////////////SETTER////////////////////////////////////////////////////////////
+
     // inscritpion utilisateur dans la base de donnée + return LastId
     public function setRegister(array $recup) :int{
         $recup["password"]= password_hash($recup["password"], PASSWORD_BCRYPT);
@@ -38,6 +39,11 @@ class Registration extends Manage {
         $query = "INSERT INTO comments SET comment=:comment, user_id=:user_id, defunct_id=:defunct_id, photo_id=:photo_id, date_crea=NOW(), profil_user=:profil_user";
         return $this->setQueryLastId($query,$data);
     }
+    // enregistrement du contenu d'une carte
+    public function setContent(array $data) :int{
+        $query = "INSERT INTO content_card SET content=:content, user_id=:user_id, card=:card, date_crea=NOW()";
+        return $this->setQueryLastId($query,$data);
+    }
 /////////////////////////////////////////////////UPDATER////////////////////////////////////////////////////////////
 
     // miseà jour de la date et heure de connexion
@@ -63,6 +69,9 @@ class Registration extends Manage {
         $query = "UPDATE users SET password=:password,id=:id";
         $this->getQuery($query,$recup);
     }
+    
+///////////////////////////////////////////////DELETER////////////////////////////////////////////////////////////////
+
     // supprimer un commentaire
     public function deleteComment(string $id) :void{
         $data = ['id'=>$id];

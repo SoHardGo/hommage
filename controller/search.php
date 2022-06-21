@@ -1,16 +1,16 @@
 <?php
 require_once 'model/GetInfos.php';
-$getinfo = new GetInfos();
+$getInfo = new GetInfos();
 $search = '';
 if(isset($_POST['submit'])){
     $data['lastname'] = isset($_POST['lastname']) ? htmlspecialchars($_POST['lastname']) : '';
     $data['firstname'] = isset($_POST['firstname']) ? htmlspecialchars($_POST['firstname']) : '';
     
-    $result = $getinfo->getSearchDefuncts ($data);
+    $result = $getInfo->getSearchDefuncts ($data);
     $tab = $result->fetchAll();
     if(count($tab)) {
         foreach($tab as $t) {
-            $photo_def = $getinfo->getPhotoDef($t['id']);
+            $photo_def = $getInfo->getPhotoDef($t['id']);
             if($photo_def == '') {
                 $photo_def = 'public/pictures/site/noone.jpg';
             }

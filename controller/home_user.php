@@ -1,31 +1,26 @@
 <?php
 require_once 'model/GlobalClass.php';
-$globalclass = new GlobalClass();
+$globalClass = new GlobalClass();
 require_once 'model/Registration.php';
 $register = new Registration();
 require_once 'model/GetInfos.php';
-$getinfo = new GetInfos();
-$result = $getinfo->getDefunctByDate();
-$lastDef = $result->fetchAll();
+$getInfo = new GetInfos();
 
 //Initialisation du slider des derniers défunts ajoutés
-$photo_def='';
-foreach($lastDef as $r){
-    //Récupération d'une photo correspondant aux défunts ajoutés récemment
-    $photo = $getinfo->getPhotoDef(intval($r['user_id']));
-    if ($photo){
-        // Récupération de la 1ère photo du créateur du défunt
-        $photo_def.='<div><img class="img" src="'.$photo.'"></div>';
-    }
-}
+
+$lastDef = $getInfo->getHomeSlider();
 
 $slider ='<div class="slider">';
-$slider .= $photo_def;
+foreach($lastDef as $r){
+    $idDef = $getInfo->getIdDefPhoto($r['name']);
+ 
+    $slider.='<a href="index.php?page=environnement&id='.$idDef['defunct_id'].'"><div><img class="img" src="public/pictures/photos/'.$r['user_id'].'/'.$r['name'].'"></div></a>';
+}
 $slider .= '</div>';
 
 // Vérification des informations de connexion
 if ( isset($_POST['email']) && isset($_POST['pwd']) ){
-    $result = $globalclass->verifyAccount ($_POST['email'], $_POST['pwd']);
+    $result = $globalClass->verifyAccount ($_POST['email'], $_POST['pwd']);
 
     if (!isset($result)){
         $message = "Identifiants incorrects";
@@ -34,7 +29,7 @@ if ( isset($_POST['email']) && isset($_POST['pwd']) ){
         $_SESSION['user'] = $result;
         $register->updateLastLogin();
 // Récupération des infos des défunts associées à l'utilisateur
-        $_SESSION['user']['defunct'] = $getinfo->getDefunctList();
+        $_SESSION['user']['defunct'] = $getInfo->getDefunctList();
     }
 }
 // Si l'utilisateur n'existe pas -> redirection Connexion
@@ -43,14 +38,14 @@ if(!isset($_SESSION['user'])) {
     exit;
 }
 // Test si l'utilisateur à une session d'ouverte pour valider son $user_content
-$user_content = $globalclass->setUserEnv();
+$user_content = $globalClass->setUserEnv();
 // Liste des defunts par utilisateur
-$def_id = $getinfo->getUserDefunctList($_SESSION['user']['id']);
+$def_id = $getInfo->getUserDefunctList($_SESSION['user']['id']);
 $info_def = $def_id->fetchAll();
 
 foreach ($info_def as $value){
     $val = intval($value['id']);
-    $list = $getinfo->getListComment($val);
+    $list = $getInfo->getListComment($val);
 }
 
 require 'view/home_user.php';

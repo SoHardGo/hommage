@@ -1,13 +1,15 @@
 <?php
 require_once 'model/GetInfos.php';
-$getinfo = new GetInfos;
+$getInfo = new GetInfos;
 
 
-$lastDef = $getinfo->getHomeSlider();
+$lastDef = $getInfo->getHomeSlider();
 
 $slider ='<div class="slider">';
 foreach($lastDef as $r){
-    $slider.='<div><img class="img" src="public/pictures/photos/'.$r['user_id'].'/'.$r['name'].'"></div>';
+    $idDef = $getInfo->getIdDefPhoto($r['name']);
+ 
+    $slider.='<a href="index.php?page=environnement&id='.$idDef['defunct_id'].'"><div><img class="img" src="public/pictures/photos/'.$r['user_id'].'/'.$r['name'].'"></div></a>';
 }
 $slider .= '</div>';
 

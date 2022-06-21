@@ -2,10 +2,10 @@
 require_once 'model/Registration.php';
 $register = new Registration();
 require_once 'model/GetInfos.php';
-$getinfo = new GetInfos();
+$getInfo = new GetInfos();
 
-$nbphotos = '';
-$nbcomments = '';
+$nbPhotos = '';
+$nbComments = '';
 
 $tab = array();
 //id du defunt dans l'environnement
@@ -15,34 +15,34 @@ if(!$id_def) {
     $id_def = $_GET['id_def']?? 0;
 }
 //id d'un commentaire
-$com_id = $_GET['idcom']??null;
+$idCom = $_GET['idCom']??null;
 //id d'une photo
-$idphoto = $_GET['idphoto']??null;
+$idPhoto = $_GET['idPhoto']??null;
 //id de l'utilisateur à l'origine de la fiche du defunt
-$usercreate = $_GET['user_create']??null;
+$userCreate = $_GET['user_create']??null;
 
 
 ////////////// Si user connecté et créateur
 
 if(isset($_SESSION['user']['id'])) {
-    if($_SESSION['user']['id'] == $usercreate) {
+    if($_SESSION['user']['id'] == $userCreate) {
 
         ////////supprimer une photo de l'environnement utilisateur//////
-        if ($idphoto) {
-            $register->deletePhoto($idphoto);
-            $photoFile = 'public/pictures/photos/'.$_SESSION['user']['id'].'/'.$_SESSION['user']['id'].'-'.$idphoto.'.jpg';
+        if ($idPhoto) {
+            $register->deletePhoto($idPhoto);
+            $photoFile = 'public/pictures/photos/'.$_SESSION['user']['id'].'/'.$_SESSION['user']['id'].'-'.$idPhoto.'.jpg';
             if (file_exists($photoFile)){
                 unlink($photoFile);
             }
         
         /////////supprimer les commentaires associés dans la BBD/////////
-            $register->deleteCommentsPhoto($idphoto);
+            $register->deleteCommentsPhoto($idPhoto);
         }
     }
 
     ///////////////supprimer un commentaire/////////////////////////
-    if ($com_id) {
-        $register->deleteComment($com_id);
+    if ($idCom) {
+        $register->deleteComment($idCom);
     }
 
     ///////////enregistrement d'une photo télécharger //////////////////////
@@ -76,16 +76,16 @@ if(isset($_SESSION['user']['id'])) {
 
 ///////////Récupération des infos et des photos associé au défunt///////////////
 if ($id_def) {
-    $defunct_infos = $getinfo->getInfoDefunct($id_def);
+    $defunct_infos = $getInfo->getInfoDefunct($id_def);
     $defunct_infos = $defunct_infos->fetch();
-    $defunct_photos = $getinfo->photoListDefunct($id_def);
+    $defunct_photos = $getInfo->photoListDefunct($id_def);
     $defunct_photos = $defunct_photos->fetchAll();
     $com_list = [];
 
 ///////////récupération des commentaires selon la photo du defunt///////////////
     if(count($defunct_photos)) {
         foreach($defunct_photos as $r) {
-            $com_list[$r['id']] = $getinfo->getListComment($r['id']);
+            $com_list[$r['id']] = $getInfo->getListComment($r['id']);
         }
     }
         
@@ -95,10 +95,10 @@ if ($id_def) {
 ////////////nombre de commentaires et photos ajoutées depuis la dernière connexion
 if(isset($_SESSION['user']['id']) && $defunct_infos['user_id']==$_SESSION['user']['id']) {
 
-    $recentComment = $getinfo->getRecentComments($id_def, $_SESSION['user']['last_log'])->rowCount();
+    $recentComment = $getInfo->getRecentComments($id_def, $_SESSION['user']['last_log'])->rowCount();
     
     
-    $recentPhoto = $getinfo->getRecentPhotos($id_def, $_SESSION['user']['last_log'])->rowCount();
+    $recentPhoto = $getInfo->getRecentPhotos($id_def, $_SESSION['user']['last_log'])->rowCount();
 }
 
 require 'view/environnement.php';

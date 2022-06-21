@@ -12,38 +12,41 @@ ob_start();
                 </div>
                <p>Tarif : <?=$r['price']?>  Euros</p>
                <a class="cards_button" href = "index.php?page=card&id=<?=$r['id']?>">Selectionner</a>
-               </div>
+            </div>
     <?php endforeach ?>
     <?php endif ?>
 </section>
-
 <section>
+    <div class="container_editor">
     <h1>Ecrivez votre texte</h1>    
-    
-    <div class="main_editor">
-        <div class="editor_header">
-            <button type="button" class="button_edit" data-element="bold">
-                <i class="fas fa-bold"></i>
-            </button>
-            <button type="button" class="button_edit" data-element="italic">
-                <i class="fas fa-italic"></i>
-            </button>
-            <button type="button" class="button_edit" data-element="underline">
-                <i class="fas fa-underline"></i>
-            </button>
-            <button type="button" class="button_edit" data-element="justifyLeft">
-                <i class="fas fa-align-left"></i>
-            </button>
-            <button type="button" class="button_edit" data-element="justifyCenter">
-                <i class="fas fa-align-center"></i>
-            </button>
-            <button type="button" class="button_edit" data-element="justifyFull">
-                <i class="fas fa-align-justify"></i>
-            </button>
+        <div class="main_editor">
+            <div class="editor_header">
+                <button type="button" class="button_edit" data-element="bold">
+                    <i class="fas fa-bold"></i>
+                </button>
+                <button type="button" class="button_edit" data-element="italic">
+                    <i class="fas fa-italic"></i>
+                </button>
+                <button type="button" class="button_edit" data-element="underline">
+                    <i class="fas fa-underline"></i>
+                </button>
+                <button type="button" class="button_edit" data-element="justifyLeft">
+                    <i class="fas fa-align-left"></i>
+                </button>
+                <button type="button" class="button_edit" data-element="justifyCenter">
+                    <i class="fas fa-align-center"></i>
+                </button>
+                <button type="button" class="button_edit" data-element="justifyFull">
+                    <i class="fas fa-align-justify"></i>
+                </button>
+            </div>
+                <div id="card_id" class="hidden"><?=$id?></div>
+                <p class="content" contenteditable spellcheck="true" style="background-image : url('public/pictures/cards/<?=$cardInfo['name']?>');">
+                </p>
+                <button class="button" id ="card_val" type="button" value="ok">Confirmer</button>
+                
+                
         </div>
-        <div class="content" contenteditable="true" style="background-image : url('public/pictures/cards/<?=$cardInfo['name']?>');">
-   
-        </div>    
     </div>
 </section>
 <section class="card_select">
@@ -62,7 +65,7 @@ ob_start();
                 <input type="text" name="user_lastname" placeholder="Nom">
                 <input type="text" name="user_firstname" placeholder="Prenom">
                 <div class="after_verif">
-                    <?=$user_exist?>
+                    <?=$userExist?>
                 </div>
                 <hr>
                 <Label>Je préfère recevoir à mon adresse :</Label>
@@ -74,7 +77,6 @@ ob_start();
             </fieldset>
        </form>
     </div>
-
 </section>
 <?php
 $content= ob_get_clean(); 

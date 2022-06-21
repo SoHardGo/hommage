@@ -63,14 +63,14 @@ class GetInfos extends Manage {
     }
     public function getListComment(int $id) :array {
         $data = ['photo_id'=>$id];
-        $query = "SELECT id, user_id, comment, profil_user FROM comments WHERE photo_id=:photo_id";
+        $query = "SELECT id, user_id, comment, profil_user, date_crea FROM comments WHERE photo_id=:photo_id";
         $result = $this->getQuery($query,$data);
         return $result->fetchAll();
     }
     
     public function photoListDefunct(int $id) :object {
         $data = ['defunct_id'=>$id];
-        $query = "SELECT id, user_id, name FROM photos WHERE defunct_id=:defunct_id ORDER BY id DESC";
+        $query = "SELECT id, user_id, name, date_crea FROM photos WHERE defunct_id=:defunct_id ORDER BY id DESC";
         return $this->getQuery($query,$data);
     }
     
@@ -89,6 +89,11 @@ class GetInfos extends Manage {
         } else {
             return '';
         }
+    }
+    public function getIdDefPhoto (string $name) :array {
+        $data = ['name'=>$name];
+        $query = "SELECT defunct_id FROM photos WHERE name=:name";
+        return $this->getQuery($query,$data)->fetch();
     }
     
     public function getCardsList() :object {

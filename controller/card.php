@@ -2,69 +2,60 @@
 require_once 'model/Manage.php';
 require_once 'model/GetInfos.php';
 require_once 'model/GlobalClass.php';
-$globalclass = new GlobalClass();
-$getinfo = new GetInfos();
+$globalClass = new GlobalClass();
+$getInfo = new GetInfos();
 $manage = new Manage();
-$cardsList = $getinfo->getCardsList()->fetchAll();
+$cardsList = $getInfo->getCardsList()->fetchAll();
 $cardInfo = '';
-$user_exist ='';
+$userExist ='';
 $email = '';
-$cardvirtuel ='';
-$cardreal = '';
-var_dump($_SESSION);
-/*
-var_dump($_GET);
-$cardId = $_GET['id']??null;
-if(isset($_GET['id'])){
-$table = 'products';
-$request = $manage->getOne($table,$cardId);
-var_dump($request);
-}
-*/
-$cardId = $_GET['id']??null;
-if($cardId != null){
-    $cardInfo = $getinfo->getCardInfo($cardId);
+$cardVirtuel ='';
+$cardReal = '';
+
+$id = $_GET['id']??1;
+if($id != null){
+    $cardInfo = $getInfo->getCardInfo($id);
 }
 ////Récupération des informations utilisateurs si ce dernier est inscrit///
 ///Pour préremplir son adresse///
 if (isset($_SESSION['user']['id'])){
-        $infos_user = $getinfo->getInfoUser($_SESSION['user']['id']);
+        $infos_user = $getInfo->getInfoUser($_SESSION['user']['id']);
 } 
- var_dump($_SESSION);   
+ 
 /////// Vérification si l'utilisateur à qui envoyé une carte existe
 //Vérification si l'utilisateur existe
 if(isset($_POST['submit'])){
     if(isset($_POST['user_lastname']) && isset($_POST['user_firstname'])){
         $data = ['lastname'=>htmlspecialchars($_POST['user_lastname']),
             'firstname'=>htmlspecialchars($_POST['user_firstname'])];
-        $result = $globalclass->verifyUser($data);
+        $result = $globalClass->verifyUser($data);
 
         if ($result != null){
             $stmt = $result->fetchAll();
             ///vérification si cet utilisateur est un user_admin
             foreach($stmt as $r){
-                $verif = $globalclass->verifUserAdmin(intval($r['id']));
+                $verif = $globalClass->verifUserAdmin(intval($r['id']));
                 if ($verif != null){
                     foreach($verif as $infos){
                         if ($infos['add_share'] != null && $infos['add_share'] = '1'){
                             $email = 'ok';
                         }
                         if ($infos['card_virtuel'] != null && $infos['card_virtuel'] = '1'){
-                            $cardvirtuel = 'ok';
+                            $cardVirtuel = 'ok';
                         }
                         if ($infos['card_real'] != null && $infos['card_real'] = '1'){
-                            $cardreal = 'ok';
+                            $cardReal = 'ok';
                         }
                     }
                 } else {
-                    $user_exist = '<p> Cet utilisateur n\'ayant pas crée de fiche, il est impossible de lui envoyer une carte de condoléance. </p>';
+                    $userExist = '<p> Cet utilisateur n\'ayant pas crée de fiche, il est impossible de lui envoyer une carte de condoléance. </p>';
                 }
             }
         } else {
-        $user_exist = '<p> Cet utilisateur n\'est pas inscrit sur le site. </p>';
+        $userExist = '<p> Cet utilisateur n\'est pas inscrit sur le site. </p>';
         }
     }
 }
-echo $email, $cardvirtuel, $cardreal;
+echo $email, $cardVirtuel, $cardReal;
 
 require 'view/card.php';

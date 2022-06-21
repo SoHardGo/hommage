@@ -71,13 +71,11 @@ hr {
 /*********************************Header***************************************/
 
 .page_header {
-    position:relative;
+    background-image: url("../pictures/site/fond2.jpg");
+    background-size:cover;
     height:190px;
-    background-color: var(--color-black);
 }
 .title_container {
-    position:absolute;
-    top:0px;
     display:flex;
     justify-content:center;
 }
@@ -87,7 +85,6 @@ hr {
     font-weight: bold;
     font-size: 65px;
     margin-top:45px;
-    margin-left: 130px;
 }
 /**************************Navbar and Hamburger Menu***************************/
 
@@ -97,7 +94,7 @@ hr {
     z-index: 10;
     top: 0;
     right: -250px;
-    background-color: var(--color-bgc-button);
+    background-color: var(--color-white);
     padding-top: 20px;
     transition: right 0.5s ease;
 }
@@ -105,13 +102,14 @@ hr {
     padding: 10px;
     text-decoration: none;
     font-size: 1.1em;
-    color: var(--color-white);
+    color: var(--color-bgc-button);
     display: block;
     transition: all 0.3s;
 }
 .navbar a:hover {
-    font-size: 1.3em;
-    color: var(--color-white);
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--color-bgc-button);
 }
 .navbar ul {
     list-style: none;
@@ -355,7 +353,12 @@ input[value="Rechercher"] {
     color: var(--color-white);
     background-color: var(--color-grey-middle);
 }
+.container_editor {
+    margin:0 auto;
+    width: 574px;
+}
 .main_editor {
+    text-align:center;
     border:1px solid var(--color-grey-middle);
     margin:10px;
     padding: 5px;
@@ -503,11 +506,6 @@ input[value="Rechercher"] {
     border-radius:50%;
     overflow:hidden;
 }
-.img_user {
-    width: 100%;
-    height: 100%;
-    object-fit:cover; 
-}
 #photo_user {
     position:relative;
     left:-500px;
@@ -521,6 +519,8 @@ input[value="Rechercher"] {
     margin-right:27px;
     margin-top:20px;
 }
+
+
 
 /**********************Home user***************************/
 
@@ -616,9 +616,22 @@ input[value="Rechercher"] {
     top: -31px;
     left: 5px;
 }
-.div_photo{
+.div_photo, .div_comment{
     position:relative;
     margin:0 auto;
+}
+.container_last {
+    display:flex;
+    flex-wrap:wrap;
+    margin:20px auto;
+    justify-content:center;
+    width: 90%;
+    border:1px solid black;  
+}
+.last_photos, .last_comment {
+    width: 50px;
+    height: 50px;
+    margin:3px;
 }
 .delete_photo {
     position:absolute;
@@ -638,8 +651,23 @@ input[value="Rechercher"] {
    margin:30px;
 }
 .comment_post {
-
+    position: relative;
 }
+
+.new_comment {
+    position: absolute;
+    right: 11px;
+    top: 6px;
+    padding: 1px 6px;
+    background-color: #f00;
+    line-height: 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+}
+
+
 .comment {
     width: 100%;
 }
@@ -798,7 +826,6 @@ label[for="comment"]{
         height:210px;
     }
     .title_container h1 {
-        margin-left: 215px;
         font-size: 95px;
     }
     .burger-icon {
@@ -843,7 +870,6 @@ label[for="comment"]{
         height: 220px;
     }
     .title_container h1 {
-        margin-left: 365px;
         font-size: 95px;
     }
     .home_photo {
@@ -881,7 +907,6 @@ label[for="comment"]{
         text-align:center;
     }
     .title_container h1 {
-        margin-left: 700px;
         font-size: 95px;
     }
     .home_photo .img {

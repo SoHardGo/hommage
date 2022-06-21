@@ -6,9 +6,9 @@ ob_start();
     <form class="user_form" method="POST" action="index.php?page=home_user" enctype="multipart/form-data" id="form_user">
         <div class="container_photo_user">
             <?php if(file_exists($profil)) :?>
-                <img class="img_user" src="<?=$profil?>?<?=rand()?>" alt="photo de profil">
+                <img class="img" src="<?=$profil?>?<?=rand()?>" alt="photo de profil">
             <?php else :?>
-                <img class="img_user" src="public/pictures/site/noone.jpg" alt="photo de profil non défini">
+                <img class="img" src="public/pictures/site/noone.jpg" alt="photo de profil non défini">
             <?php endif ?>
         <input type="file" name="photo" id="photo_user" accept=".jpg, .jpeg, .png">
         <i class="fas fa-camera user_icon"></i>

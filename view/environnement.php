@@ -31,16 +31,16 @@ if (isset($id_def)){
             <?php endif ?>
         </div>
         <hr>
-        <?php if(isset($_SESSION['user']['id']) && $defunct_infos['user_id']==$_SESSION['user']['id']) { ?>
+<!--Nombre de commentaires et photos depuis la dernière connexion-->
+        <?php if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['user']['id']) { ?>
         <div class="env_listing">
             <p>Depuis votre dernière connexion :</p>
             <p class="new_photos">Photos ajoutées: <span><?=$recentPhoto?></span></p>
             <p class="new_comments">Commentaires ajoutés: <span><?=$recentComment?></span></p>
         </div>
-        
         <hr>
         <?php } ?>
-        
+<!--Ajouter une photo dans le fil de l'environnement utilisateur-->        
         <?php if(isset($_SESSION['user']['id'])) : ?>
         <form method="POST" action="index.php?page=environnement&id=<?=$id_def?>" enctype="multipart/form-data" id="form_env">
                 <label for="file_env"></label>
@@ -51,26 +51,35 @@ if (isset($id_def)){
                 </div>
         </form>
         <?php endif ?>
+<!--Liste des nouvelles photos depuis la dernière connexion-->
         <div class="container_environnement">
-            <!--Commentaire liés à sa photo-->
             <?php foreach($defunct_photos as $r): ?>
                 <div class="div_photo">
-                    <?php if(isset($_SESSION['user']['last_log']) && isset($r['date_crea']) && $_SESSION['user']['last_log'] < $r['date_crea']): 
-                        
-                        echo '<div class=new>New</div>';
-                    
-                    endif; 
-                    
-                    if(isset($_SESSION['user']['id']) && isset($r['user_id']) && $_SESSION['user']['id'] == $r['user_id']): ?>
-                    <a class="delete_photo" href="index.php?page=environnement&idphoto=<?=$r['id']?>&id=<?=$id_def?>" title="Supprimer"><b>X</b></a>
+                    <?php if(isset($_SESSION['user']['last_log']) && isset($r['date_crea']) && $_SESSION['user']['last_log'] < $r['date_crea']): ?>
+                        <div class="container_lastP hidden" >
+                            <div class="last_photos">
+                                <a href="#<?=$r['id']?>">
+                                    <img class="img" src="public/pictures/photos/<?=$r['user_id']?>/<?=$r['name']?>" alt="<?=$r['name']?>">
+                                </a>
+                            </div>
+                        </div>
                     <?php endif ?>
-                    <img class="img" src="public/pictures/photos/<?=$r['user_id'].'/'.$r['name']?>" alt="">
-            <!-- liste des commentaires de la photo + photo de profil miniature-->
+                    
+<!--Supprimer une photo dont on est l'auteur-->                  
+                    <?php if(isset($_SESSION['user']['id']) && isset($r['user_id']) && $_SESSION['user']['id'] == $r['user_id']): ?>
+                    <a class="delete_photo" href="index.php?page=environnement&idPhoto=<?=$r['id']?>&id=<?=$id_def?>" title="Supprimer"><b>X</b></a>
+                    <?php endif ?>
+<!--Affichage des photos-->
+                    <div id="<?=$r['id']?>">
+                        <img class="img" src="public/pictures/photos/<?=$r['user_id'].'/'.$r['name']?>" alt="<?=$r['name']?>">
+                    </div>
+<!--Liste des commentaires de la photo + photo de profil miniature des auteurs  du commentaire-->
                     <div class="com_div">
                         <?php foreach($com_list[$r['id']] as $comment): ?>
                          <div class="comment_post">
                             <div class="container_com_user">
-                                <div class="profil"><a class ="env_user_name" title="<?=$comment['user_id']?>">
+                                <div class="profil">
+                                    <a class ="env_user_name" title="<?=$comment['user_id']?>">
                                     <?php if(file_exists('public/pictures/users/'.$comment['user_id'].'/'.$comment['profil_user'])) : ?>
                                     <img class="img" src="public/pictures/users/<?=$comment['user_id'].'/'.$comment['profil_user'].'?'.date('s')?>" alt="photo de profil">
                                     <?php else : ?>
@@ -78,18 +87,23 @@ if (isset($id_def)){
                                     <?php endif ?>
                                     </a>
                                 </div>
+<!--Supprimer un commentaire dont on est à l'origine-->
                                 &emsp;<?=$comment['comment']?>
                                 <?php if(isset($_SESSION['user']['id']) && $_SESSION['user']['id']== $comment['user_id']): ?>
                                 <div class="icon_delete">
-                                    <a class ="env_user_name" href="index.php?page=environnement&id=<?=$id_def?>&idcom=<?=$comment['id']?>" title="Supprimer"><i class="fas fa-trash-alt"></i></a>
+                                    <a class ="env_user_name" href="index.php?page=environnement&id=<?=$id_def?>&idCom=<?=$comment['id']?>" title="Supprimer"><i class="fas fa-trash-alt"></i>
+                                    </a>
                                 </div>
                                 <?php endif ?>
                             </div>
+<!--Affichage d'une pastille rouge pour les nouveaux commentaires-->
+                            <?php if((isset($_SESSION['user']['last_log']) && isset($comment['date_crea']) && $_SESSION['user']['last_log'] < $comment['date_crea']) && (isset($_SESSION['user']['id']) && isset($r['defunct_id']) && $_SESSION['user']['id'] == $r['defunct_id'])): ?>
+                            <div class="new_comment">New</div>
+                            <?php endif ?>
                         </div>
                         <?php endforeach ?>
                     </div>
-                    <!-- ajouter un commentaire à cette photo -->
-                    <!-- associer l'utilisateur à ce commentaire -->
+<!--Formulaire ajout de commentaire -->
                 <?php if(isset($_SESSION['user']['id'])) : ?>
                 <form class="comment_env">
                     <input type="text" name="comment" class="comment">

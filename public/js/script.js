@@ -17,7 +17,7 @@ closeburger.addEventListener('click',function(){
 
 let photo_profil = document.querySelector('.user_icon');
 let input_profil = document.getElementById('photo_user');
-if(photo_profil!== null){
+if(photo_profil !== null){
 photo_profil.addEventListener('click', function(){
     input_profil.click();
     input_profil.addEventListener('change', function(){
@@ -30,7 +30,7 @@ photo_profil.addEventListener('click', function(){
 
 let button = document.querySelector('.button_myDefuncts');
 let container = document.querySelector('.list_defuncts');
-if(button!==null){
+if(button !== null){
 button.addEventListener('click', function(){
     container.classList.toggle('hidden');
 });
@@ -39,7 +39,7 @@ button.addEventListener('click', function(){
 //////////////Gestion des photos dans l'espace environnement/////////
 let camera = document.querySelector('.camera_env');
 let file = document.getElementById('file_env');
-if(camera!==null){
+if(camera !== null){
     camera.addEventListener('click', function(){
         file.click();
         file.addEventListener('change', function(){
@@ -52,8 +52,8 @@ if(camera!==null){
 
 let comment_env = document.querySelectorAll('.comment_env');
 
-if(comment_env!=null) {
-    for(i of comment_env) {
+if(comment_env != null) {
+    for(let i of comment_env) {
         i.addEventListener('submit', function(e) {
             e.preventDefault();
             let com_div = this.parentNode.querySelector('.com_div');
@@ -71,7 +71,7 @@ if(comment_env!=null) {
             formdata.append('user_id',user_id.value);
 
             let obj ={ 'method':'POST', 'body' :formdata};
-            fetch('ajax/recordcomment.php',obj)
+            fetch('ajax/recordComment.php',obj)
             .then(response => response.text()) 
             .then(data=>{
                 let content = '<div class="container_com_user"><div class="profil"><a class ="env_user_name"><img class="img" src="public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg" ></a></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="?page=environnement&id=3&idcom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
@@ -146,6 +146,39 @@ monnom.addEventListener('keyup', ()=> {
 });
 */
 
+////////////////Récupération du texte d'une carte////////////////
+
+let edit_btn = document.getElementById('card_val');
+let content = document.querySelector('.content');
+
+if (edit_btn != null){
+    edit_btn.addEventListener('click',()=>{
+        let card_text = content.textContent;
+        let card_id = document.getElementById('card_id').innerHTML;
+        let formdata = new FormData();
+        formdata.append('content', card_text);
+        formdata.append('id', card_id);
+        
+        let obj = { 'method':'POST', 'body':formdata };
+        fetch('ajax/recordCard.php', obj)
+                        .then(response => response.text())
+                        .then(data=>{
+                            alert('C\'est OK');
+                        })
+                        .catch(err=>console.error(err));
+    });
+}
+
+////////////Gestion des nouvelles photos et des nouveaux commentaire///////////////
+
+let new_photos = document.querySelector('.new_photos');
+let container_lastP = document.querySelector('.container_lastP');
+
+new_photos.addEventListener('click',()=>{
+    container_lastP.classList.toggle('hidden');
+});
+
+
     
 ////////////////Slick////////////////////
 $(document).ready(function(){
@@ -184,6 +217,7 @@ $(document).ready(function(){
             }]
         });
     });
+
 
 ////////////////Gestion des bouquets de fleurs///////////////////
 /*
@@ -224,7 +258,8 @@ function ajax(container,url){
         .catch(err=>console.log(err)); 
 }
 */
-////////////Vérifiaction du code pour changer son mot de passe///////
+
+
 
 
 });
