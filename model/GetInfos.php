@@ -109,7 +109,7 @@ class GetInfos extends Manage {
         return $this->getQuery($query,$data)->fetch();
     }
     
-    public function getHomeSlider(int $nb=10) :array {
+    public function getHomeSlider(int $nb=8) :array {
         $query = "SELECT MAX(user_id) as user_id, MAX(name) as name FROM photos GROUP BY defunct_id ORDER BY MAX(id) LIMIT $nb";
         return $this->getQuery($query)->fetchAll();
     }

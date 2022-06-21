@@ -74,7 +74,7 @@ if(comment_env != null) {
             fetch('ajax/recordComment.php',obj)
             .then(response => response.text()) 
             .then(data=>{
-                let content = '<div class="container_com_user"><div class="profil"><a class ="env_user_name"><img class="img" src="public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg" ></a></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="?page=environnement&id=3&idcom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
+                let content = '<div class="container_com_user"><div class="profil"><a class ="env_user_name"><img class="img" src="public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg" ></a></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="index.php?page=environnement&id='+user_id.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
                 if(comment.value != '') {
                     com_div.innerHTML += content;
                 }
@@ -173,11 +173,11 @@ if (edit_btn != null){
 
 let new_photos = document.querySelector('.new_photos');
 let container_lastP = document.querySelector('.container_lastP');
-
+if (new_photos != null){
 new_photos.addEventListener('click',()=>{
     container_lastP.classList.toggle('hidden');
 });
-
+}
 
     
 ////////////////Slick////////////////////

@@ -95,9 +95,10 @@ if (isset($id_def)){
                                     </a>
                                 </div>
                                 <?php endif ?>
+                                
                             </div>
-<!--Affichage d'une pastille rouge pour les nouveaux commentaires-->
-                            <?php if((isset($_SESSION['user']['last_log']) && isset($comment['date_crea']) && $_SESSION['user']['last_log'] < $comment['date_crea']) && (isset($_SESSION['user']['id']) && isset($r['defunct_id']) && $_SESSION['user']['id'] == $r['defunct_id'])): ?>
+<!--Affichage d'un "New" rouge pour les nouveaux commentaires-->
+                            <?php if((isset($_SESSION['user']['last_log']) && isset($comment['date_crea']) && $_SESSION['user']['last_log'] < $comment['date_crea']) && (isset($_SESSION['user']['id']) && isset($comment['user_id']) && $_SESSION['user']['id'] !== $comment['user_id'])): ?>
                             <div class="new_comment">New</div>
                             <?php endif ?>
                         </div>
