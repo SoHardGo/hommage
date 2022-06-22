@@ -39,18 +39,10 @@ class Manage {
         return realpath($controller);
     }
     public function setToken():string{
-        $token = bin2hex(random_bytes(10)); // + conversion en HEX
+        $token = bin2hex(random_bytes(10)); 
         $_SESSION['token'] = $token;
         return $token;
     }
-    function verifyToken($token):bool {
-        if(isset($_SESSION['token']) && $_SESSION['token']==$token){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    
     public function getOne( $table, $id )
     {
         $data = ['table' => $table, 'id' => $id];

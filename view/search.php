@@ -4,9 +4,10 @@ ob_start();
 ?>
 <section class="container_search">
     <div class=" search">
+        <h1>Personne recherché</h1>
         <form method="POST" action="index.php?page=search">
             <div class="search_form">
-                <laber for="search_lastname">Personne recherché :</laber><br>
+                <laber for="search_lastname"></laber>
                 <input type="text" name="lastname" id="search_lastname" placeholder="Nom"/>
                 <input type="text" name="firstname" placeholder="Prenom"/>
             </div>

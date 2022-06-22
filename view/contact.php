@@ -23,11 +23,14 @@ ob_start();
                 <input type="email" name="email" id="email">
                 <?php endif ?>
                 <label for="message">Entrer votre message</label>
-                <textarea name="message" id="message" rows="6" cols="21"></textarea>
-                <div class="buttons">
-                    <input class="submit button" type="submit" name="submit" value="Envoyer">
-                </div>
+                <textarea name="message" id="message" rows="6" cols="33"></textarea>
+                <input type="hidden" name="token" value="<?=$token?>">
+                <label for="submit"></label>
+                <input class="submit button" id="submit" type="submit" name="submit" value="Envoyer">
             </form>
+        </div>
+        <div class="confirm">
+            <?=$confirm?>
         </div>
     </div>
 </section>

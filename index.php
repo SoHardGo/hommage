@@ -5,8 +5,6 @@ require_once 'model/GlobalClass.php';
 require_once 'model/Manage.php';
 $manage = new Manage();
 $globalclass = new GlobalClass();
-$token = $manage->setToken();
-$_SESSION['token'] = $token;
 
 if (isset($_GET['deco'])){
     session_destroy();

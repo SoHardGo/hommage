@@ -37,7 +37,7 @@ button.addEventListener('click', function(){
 }
 
 //////////////Gestion des photos dans l'espace environnement/////////
-let camera = document.querySelector('.camera_env');
+let camera = document.querySelector('.camera');
 let file = document.getElementById('file_env');
 if(camera !== null){
     camera.addEventListener('click', function(){
@@ -74,7 +74,7 @@ if(comment_env != null) {
             fetch('ajax/recordComment.php',obj)
             .then(response => response.text()) 
             .then(data=>{
-                let content = '<div class="container_com_user"><div class="profil"><a class ="env_user_name"><img class="img" src="public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg" ></a></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="index.php?page=environnement&id='+user_id.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
+                let content = '<div class="container_com_user"><div class="profil"><a class ="env_user_name"><img class="img" src="public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg" ></a></div><div class="comment_post">'+'&emsp;'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="index.php?page=environnement&id='+user_id.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
                 if(comment.value != '') {
                     com_div.innerHTML += content;
                 }
@@ -146,7 +146,7 @@ monnom.addEventListener('keyup', ()=> {
 });
 */
 
-////////////////Récupération du texte d'une carte////////////////
+////////////////Récupération du texte d'une carte ////////////////
 
 let edit_btn = document.getElementById('card_val');
 let content = document.querySelector('.content');
@@ -179,7 +179,13 @@ new_photos.addEventListener('click',()=>{
 });
 }
 
-    
+
+
+
+
+
+
+
 ////////////////Slick////////////////////
 $(document).ready(function(){
       $('.slider').slick({

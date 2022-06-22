@@ -53,6 +53,7 @@ hr {
 	color:var(--color-white);
 	background-color: var(--color-bgc-button);
 	padding:7px 25px;
+	margin:30px;
 	text-decoration:none;
 	text-align:center;
 }
@@ -200,11 +201,10 @@ hr {
     margin:10px;
 }
 .icon_home, .icon_help, .icon_log {
-    margin:0 auto;
     width: 50px;
 }
 .icon_home {
-    margin-left:10px;
+    margin: 0 10px;
 }
 
 /***********************************Slider**************************************/
@@ -231,17 +231,17 @@ hr {
     margin:30px
 }
 .connexion_form, .contact_form, .register_form, .createform_form, .profil_form {
-    display:flex;
-    justify-content:center;
     text-align:center;
     margin-bottom:20px;
 }
 .buttons {
     display:flex;
     flex-direction:column;
-    line-height:60px;
-    align-items:center;
-    margin-top:50px;
+    align-content:center;
+    align-items: center;
+}
+.contact_form .button {
+    margin-top:20px;
 }
 /***Contact***/
 .contact_form .buttons {
@@ -307,8 +307,16 @@ input[value="Rechercher"] {
 .title_profil.title {
     font-size: 38px;
 }
+.profil_icon {
+    width: 50px;
+    height: 50px;
+    margin:0 auto;
+}
 .profil.form {
      margin-top: 50px;
+}
+.profil_admin {
+    margin:20px;
 }
 
 /***Achat***/
@@ -332,8 +340,6 @@ input[value="Rechercher"] {
     width: 130px;
     border:1px solid var(--color-grey-middle);
 }
-
-
 .card_image {
     width: 130px;
     height: 130px;
@@ -345,7 +351,6 @@ input[value="Rechercher"] {
     height: 100%;
     object-fit: contain;
 }
-
 .cards_button {
     text-align:center;
     text-decoration:none;
@@ -353,9 +358,12 @@ input[value="Rechercher"] {
     color: var(--color-white);
     background-color: var(--color-grey-middle);
 }
+.card_no_user {
+    text-align:center;
+    margin: 20px;
+}
 .container_editor {
     margin:0 auto;
-    width: 574px;
 }
 .main_editor {
     text-align:center;
@@ -388,7 +396,6 @@ input[value="Rechercher"] {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    
 }
 .select_img {
     opacity:.5;
@@ -401,9 +408,13 @@ input[value="Rechercher"] {
     width: 200px;
     margin:10px; 
 }
-.after_verif, .min_nophoto {
+.card_address, .min_nophoto {
     font-size: 20px;
-    font-weight: bold;
+}
+.card_price input{
+    width: 50px;
+}
+.verif_send {
     color:var(--color-red);
 }
 /*********************Lost****************************************/
@@ -420,6 +431,9 @@ input[value="Rechercher"] {
 }
 
 /**********************User***************************************/
+.main_user {
+    margin:0 auto;
+}
 .user_form {
     position:relative;
 }
@@ -431,7 +445,6 @@ input[value="Rechercher"] {
     justify-content:center;
     border:1px solid var(--color-blue-hard);
     background-color: var(--color-user);
-    height: 150px;
 }
 /*
 .fa-user {
@@ -442,7 +455,7 @@ input[value="Rechercher"] {
 .container_user h3 {
     text-align:center;
     font-size: 30px;
-    margin:55px 45px;
+    margin:55px auto;
     text-shadow: 0 0 3px white;
     color:var(--color-bgc-button);
 }
@@ -482,7 +495,6 @@ input[value="Rechercher"] {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    width: 100px;
     margin-bottom:20px;
 }
 .user_icon {
@@ -565,6 +577,7 @@ input[value="Rechercher"] {
     width: 200px;
     margin-bottom: 20px;
 }
+
 /**********************Environnement utilisateur***************************/
 .folder {
     margin:0 auto;
@@ -596,8 +609,19 @@ input[value="Rechercher"] {
     display:block;
     text-align:center;
 }
-.container_environnemen {
+.container_environnement {
     margin-top:20px;
+}
+.delete {
+    width: 20px;
+    height: 20px;
+}
+.env_date {
+    display:flex;
+    justify-content:center;
+}
+.cross {
+    width: 50px;
 }
 .env_defunct {
     margin:50px;
@@ -606,15 +630,13 @@ input[value="Rechercher"] {
    min-height:50px;
    border:1px solid var(--color-black);
 }
-.env_defunct h3 {
+.env_defunct h2 {
     text-align:center;
     color:var(--color-black);
+    margin-bottom:40px;
 }
-.env_name_def {
-    position:relative;
-    color:var(--color-white);
-    top: -31px;
-    left: 5px;
+.env_no_user{
+    text-align:center;
 }
 .div_photo, .div_comment{
     position:relative;
@@ -646,9 +668,17 @@ input[value="Rechercher"] {
     min-height:50px;
 }
 .icon_env {
-   display:flex;
-   justify-content:flex-end;
-   margin:30px;
+    display:flex;
+    justify-content:flex-end;
+    align-items: center;
+    margin:30px;
+}
+.camera {
+    width: 50px;
+    height: 50px;
+}
+.fa-trash-alt {
+    color:var(--color-blue-hard);
 }
 .comment_post {
     position: relative;
@@ -656,18 +686,14 @@ input[value="Rechercher"] {
 
 .new_comment {
     position: absolute;
-    right: 11px;
-    top: 6px;
-    padding: 1px 6px;
-    background-color: #f00;
-    line-height: 16px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
+    right: 5px;
+    top: -2px;
+    width: 50px;
+    height: 50px;
 }
-
-
+.blur {
+    filter: blur(5px);
+}
 .comment {
     width: 100%;
 }
@@ -763,8 +789,6 @@ label[for="comment"]{
 .container_help_text p:first-child {
     font-weight: bold;
 }
-/***********************Cartes*********************************/
-
 
 /**********************Lost**************************************/
 .lost_inscription {
@@ -772,6 +796,86 @@ label[for="comment"]{
     border:1px solid rgb(0, 0, 0);
     color:var(--color-blue-hard);
     padding: 3px;
+}
+/***********************Flowers*********************************/
+.flower_form {
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    margin:0 auto;
+}
+.box_flower {
+    width: 200px;
+}
+.container_flower input[type="checkbox"] {
+    width: 20px;
+}
+.container_flower {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    margin:20px;
+}
+.fleur1 {
+    grid-column:1;
+    grid-row:1;
+}
+.fleur2 {
+    grid-column:2;
+    grid-row:1;    
+}
+.fleur3 {
+    grid-column:1;
+    grid-row:2;    
+}
+.fleur4 {
+    grid-column:2;
+    grid-row:2;    
+}
+.fleur5 {
+    grid-column:1;
+    grid-row:3;     
+}
+.fleur6 {
+    grid-column:2;
+    grid-row:3;     
+}
+.fleur7 {
+    grid-column:1;
+    grid-row:4;     
+}
+.fleur8 {
+    grid-column:2;
+    grid-row:4;     
+}
+.fleur9 {
+    grid-column:1;
+    grid-row:5;     
+}
+.fleur10 {
+    grid-column:2;
+    grid-row:5;     
+}
+.fleur11 {
+    grid-column:1;
+    grid-row:6;     
+}
+.fleur12 {
+    grid-column:2;
+    grid-row:6;     
+}
+.fleur13 {
+    grid-column:1;
+    grid-row:7;     
+}
+.fleur14 {
+    grid-column:2;
+    grid-row:7;     
+}
+.fleur15 {
+     
 }
 
 
@@ -782,13 +886,6 @@ label[for="comment"]{
 }
 .icon{
     margin-left:258px;
-}
-.contact {
-    text-decoration:none;
-    margin-top:35px;
-    color:var(--color-white);
-    text-align:center;
-    font-size: 1em;
 }
 .fa-facebook-square, .fa-instagram-square, .fa-twitter-square{
     margin:2px;
@@ -835,6 +932,12 @@ label[for="comment"]{
         width: 50px;
         height: 6px;
     }
+    .container_photo_user {
+        margin-top: 10px;
+        margin-left: 15px;
+        width: 130px;
+        height: 130px;
+    }
     .container_home  h1 {
         font-size: 35px;
         margin:20px;
@@ -842,6 +945,10 @@ label[for="comment"]{
     .container_home p {
         font-size: 25px;
         padding: 20px;
+    }
+    .list_defuncts {
+        top: 37px;
+        left: -12px;
     }
     .home_photo {
         height:460px;
@@ -852,8 +959,8 @@ label[for="comment"]{
     .home_start_text {
         font-size: 23px;
     }
-    .container_user h3 {
-        margin:50px 178px;
+    .div_photo, .div_comment {
+        width: 90%;
     }
     .fa-user {
         margin-right: -20px;
@@ -864,63 +971,71 @@ label[for="comment"]{
     .icon_home {
         margin-left: 15px;
     }
+    .container_editor {
+        width: 574px;
+    }
 }
 @media screen and (min-width:1024px){
     .page_header {
-        height: 220px;
+        height: 300px;
     }
     .title_container h1 {
-        font-size: 95px;
+        font-size: 110px;
+        margin-top: 85px;
     }
-    .home_photo {
-        height: 600px;
-        padding:10px;
+    .burger-icon {
+        top: 138px;
+        font-size: 25px;
     }
-    .home_text {
-        height: 200px;
+    .burger-icon span {
+        width: 67px;
+        height: 8px;
+    }
+    .navbar {
+        width: 210px;
+    }
+    .navbar ul {
+        list-style: none;
+        font-size: 20px;
+    }
+    .container_photo_user {
+        width: 140px;
+        height: 140px;
+        margin: 10px;
+    }
+    .container_home h1 {
+        font-size: 40px;
+        margin: 40px;
+    }
+    .first_photo, .second_photo, .third_photo, .four_photo {
+        display:flex;
+        margin: 60px;
+    }
+    .container_home p {
+        font-size: 30px;
+        padding: 30px;
+    }
+    .list_defuncts {
+        top: 40px;
     }
     .form {
         width: 60%;
     }
-    .container_photo_user {
-        margin-left: -194px;
+    .div_photo, .div_comment {
+        width: 80%;
     }
     .bouton_user {
         justify-content: center;
     }
-    .container_contact, .container_profil,.container_createform {
-        margin-left: 220px;
-    }
     .fa-user {
         margin-right: -155px;
     }
-    .icon_home {
-        margin-left: 225px;
-    }
     .user_icon {
-        right:62px;
+        right:-2px;
     }
+    .container_editor {
+        width: 595px;
+    }
+    
 }
-@media screen and (min-width:1600px){
-    .page_header {
-        height:200px;
-        text-align:center;
-    }
-    .title_container h1 {
-        font-size: 95px;
-    }
-    .home_photo .img {
-        width: 100%;
-    }
-    .home_text {
-        height: 115px;
-    }
-    .home_photo {
-        height: 800px;
-        padding:10px;
-    }
-    #photo_user {
-    left: -800px;
-    }
 
-}

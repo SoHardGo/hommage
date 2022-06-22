@@ -77,10 +77,12 @@ ob_start();
                         <label>Identifier par son Email ou son Pseudo:</label>
                         <input type="text" name="new_user" id="new_user">
                     </fieldset>
-                    <div class="buttons"></div>
-                        <input class="button" type="submit" name="submit" value="Valider">
-                    </div>
+                    <input class="submit button" id="submit" type="submit" name="submit" value="Envoyer">
+                    <input class="button" type="submit" name="submit" value="Valider">
             </form>
+        </div>
+        <div class="confirm">
+            <?=$confirm?>
         </div>
     </div>
 </section>

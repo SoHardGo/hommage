@@ -13,7 +13,6 @@ const ROUTES = [
     'contact' => 'contact.php',
     'createform' => 'createform.php',
     'flower' => 'flower.php',
-    'modifyform' => 'modifyform.php',
     'payement' => 'payement.php',
     'registration' => 'registration.php',
     'search' => 'search.php',

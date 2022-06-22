@@ -15,17 +15,9 @@ if(isset($message)) echo '<h3>'.$message.'</h3>';
                 <label for="pwd_user">Votre mot de passe<label>
                 <input type="password" id="pwd_user" name="pwd">
                 <div class="buttons">
-                    <div class="first">
                     <input class="button" type="submit" name="submit" value="Valider">
-                    </div>
-                    <div class="second">
-                        <a class="button" href="index.php?page=lost">Mot de passe oublié</a>
-                    </div>
-                    <div class="third">
-                        <a class="button" class="connexion_a" href="index.php?page=registration">S'inscrire</a><br>
-                    </div>
-                    <div class="lost_pass">
-                    </div>
+                    <a class="button" href="index.php?page=lost">Mot de passe oublié</a>
+                    <a class="button" class="connexion_a" href="index.php?page=registration">S'inscrire</a>
                 </div>
             <form>
         </div>

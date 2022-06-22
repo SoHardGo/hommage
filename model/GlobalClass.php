@@ -46,16 +46,10 @@ class GlobalClass extends Manage {
     }
     
     //fonction vérification si l'utilisateur est un user_admin
-    public function verifUserAdmin(int $id) :?object {
+    public function verifUserAdmin(int $id) :object {
         $data = ['user_id'=>$id];
         $query = "SELECT id, add_share,card_virtuel, card_real, defunct_id FROM user_admin WHERE user_id=:user_id";
-        $result = $this->getQuery($query,$data);
-        $nb = $result->rowCount();
-        if ($nb){
-            return $result;
-            } else {
-            return null;
-        }
+        return $this->getQuery($query,$data);
     }
 
   

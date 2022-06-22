@@ -6,7 +6,14 @@ if (isset($id_def)){
 ?>
 <!--Dossier de téléchargement des photos du defunt sélectionné/-->
     <div class="env_defunct">
-        <h3 class="env_name_def" ><?=ucfirst($defunct_infos['firstname']).' '.ucfirst($defunct_infos['lastname']) ?></h3>
+        <h2 class="env_name_def" ><?=ucfirst($defunct_infos['firstname']).' '.ucfirst($defunct_infos['lastname']) ?></h2>
+        <div class="env_date">
+            <h4><?=$defunct_infos['birthdate']?>&ensp;</h4>
+            <div class="cross">
+                <img class="img" src="public/pictures/site/croix.png" alt="croix">
+            </div>
+            <h4>&ensp;<?=$defunct_infos['death_date']?></h4>
+        </div>
         <hr>
         <a class="folder_link" href="" title="Dossier de stockage des photos">
             <div class="folder">
@@ -46,8 +53,10 @@ if (isset($id_def)){
                 <label for="file_env"></label>
                 <input type="file" name="file_env" id="file_env" accept=".jpg, .jpeg, .png">
                 <div class="icon_env">
-                    <label>Ajouter une photo&emsp;</label>
-                    <i class="fas fa-camera camera_env"></i>
+                    <label>Ajouter une photo ->&emsp;</label>
+                    <div class="camera">
+                         <img class="img" src="public/pictures/site/camera.png" alt="camera">   
+                    </div>
                 </div>
         </form>
         <?php endif ?>
@@ -65,11 +74,11 @@ if (isset($id_def)){
                         </div>
                     <?php endif ?>
                     
-<!--Supprimer une photo dont on est l'auteur-->                  
+    <!--Supprimer une photo dont on est l'auteur-->                  
                     <?php if(isset($_SESSION['user']['id']) && isset($r['user_id']) && $_SESSION['user']['id'] == $r['user_id']): ?>
-                    <a class="delete_photo" href="index.php?page=environnement&idPhoto=<?=$r['id']?>&id=<?=$id_def?>" title="Supprimer"><b>X</b></a>
+                    <a class="delete_photo" href="index.php?page=environnement&idPhoto=<?=$r['id']?>&id=<?=$id_def?>" title="Supprimer"><div class="delete"><img class="img" src="public/pictures/site/suppr.png" alt="Supprimer"></div></a>
                     <?php endif ?>
-<!--Affichage des photos-->
+    <!--Affichage des photos-->
                     <div id="<?=$r['id']?>">
                         <img class="img" src="public/pictures/photos/<?=$r['user_id'].'/'.$r['name']?>" alt="<?=$r['name']?>">
                     </div>
@@ -77,7 +86,11 @@ if (isset($id_def)){
                     <div class="com_div">
                         <?php foreach($com_list[$r['id']] as $comment): ?>
                          <div class="comment_post">
-                            <div class="container_com_user">
+                             <?php if (!isset($_SESSION['user']['id'])) :?>
+                                <div class="container_com_user blur">
+                                <?php else :?>
+                                <div class="container_com_user">
+                            <?php endif ?>
                                 <div class="profil">
                                     <a class ="env_user_name" title="<?=$comment['user_id']?>">
                                     <?php if(file_exists('public/pictures/users/'.$comment['user_id'].'/'.$comment['profil_user'])) : ?>
@@ -87,8 +100,8 @@ if (isset($id_def)){
                                     <?php endif ?>
                                     </a>
                                 </div>
-<!--Supprimer un commentaire dont on est à l'origine-->
                                 &emsp;<?=$comment['comment']?>
+    <!--Supprimer un commentaire dont on est à l'origine-->                                
                                 <?php if(isset($_SESSION['user']['id']) && $_SESSION['user']['id']== $comment['user_id']): ?>
                                 <div class="icon_delete">
                                     <a class ="env_user_name" href="index.php?page=environnement&id=<?=$id_def?>&idCom=<?=$comment['id']?>" title="Supprimer"><i class="fas fa-trash-alt"></i>
@@ -97,9 +110,9 @@ if (isset($id_def)){
                                 <?php endif ?>
                                 
                             </div>
-<!--Affichage d'un "New" rouge pour les nouveaux commentaires-->
+    <!--Affichage d'un "New" rouge pour les nouveaux commentaires-->
                             <?php if((isset($_SESSION['user']['last_log']) && isset($comment['date_crea']) && $_SESSION['user']['last_log'] < $comment['date_crea']) && (isset($_SESSION['user']['id']) && isset($comment['user_id']) && $_SESSION['user']['id'] !== $comment['user_id'])): ?>
-                            <div class="new_comment">New</div>
+                            <div class="new_comment"><img class="img" src="public/pictures/site/new.png" alt="New"></div>
                             <?php endif ?>
                         </div>
                         <?php endforeach ?>
@@ -118,6 +131,13 @@ if (isset($id_def)){
             </div>
             <?php endforeach ?>
         </div>
+        <?php if (!isset($_SESSION['user']['id'])) :?>
+            <div class="env_no_user">
+                <h2>Pour visualiser les commentaires, vous devez être inscrit ou connecté.</h2>
+                <a class="button" href="index.php?page=registration">S'inscire</a>
+                <a class="button" href="index.php?page=connexion">Connexion</a>
+            </div>
+        <?php endif ?>
     </div>
 <?php
     $content = ob_get_clean();

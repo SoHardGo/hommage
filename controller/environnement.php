@@ -19,13 +19,12 @@ $idCom = $_GET['idCom']??null;
 //id d'une photo
 $idPhoto = $_GET['idPhoto']??null;
 //id de l'utilisateur à l'origine de la fiche du defunt
-$userCreate = $_GET['user_create']??null;
+//$userCreate = $_GET['user_create']??null;
 
 
 ////////////// Si user connecté et créateur
 
 if(isset($_SESSION['user']['id'])) {
-    if($_SESSION['user']['id'] == $userCreate) {
 
         ////////supprimer une photo de l'environnement utilisateur//////
         if ($idPhoto) {
@@ -37,7 +36,7 @@ if(isset($_SESSION['user']['id'])) {
         
         /////////supprimer les commentaires associés dans la BBD/////////
             $register->deleteCommentsPhoto($idPhoto);
-        }
+       // }
     }
 
     ///////////////supprimer un commentaire/////////////////////////
@@ -93,11 +92,9 @@ if ($id_def) {
     echo 'Cette fiche n\'existe pas';
 }
 ////////////nombre de commentaires et photos ajoutées depuis la dernière connexion
-if(isset($_SESSION['user']['id']) && $defunct_infos['user_id']==$_SESSION['user']['id']) {
+if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['user']['id']){
 
     $recentComment = $getInfo->getRecentComments($id_def, $_SESSION['user']['last_log'])->rowCount();
-    
-    
     $recentPhoto = $getInfo->getRecentPhotos($id_def, $_SESSION['user']['last_log'])->rowCount();
 }
 

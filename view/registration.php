@@ -1,7 +1,8 @@
 <?php
 $title='Inscription';
 $user_content='';
-ob_start(); 
+ob_start();
+
 ?>
 <section class="container_register form_Y">
     <div class="register form">
@@ -31,6 +32,9 @@ ob_start();
                     <input class="button" type="submit" name="submit" value="Valider">
                 </div>
             <form>
+        </div>
+        <div class="confirm">
+            <?=$confirm?>
         </div>
     </div>
 </section>

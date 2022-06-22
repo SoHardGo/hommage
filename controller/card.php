@@ -6,13 +6,12 @@ $globalClass = new GlobalClass();
 $getInfo = new GetInfos();
 $manage = new Manage();
 $cardsList = $getInfo->getCardsList()->fetchAll();
-$cardInfo = '';
-$userExist ='';
 $email = '';
-$cardVirtuel ='';
-$cardReal = '';
-
+$cardInfo = '';
+$verifInfoSend = '';
+$nb='';
 $id = $_GET['id']??1;
+// Initialisation de la carte par défaut dans l'éditeur 
 if($id != null){
     $cardInfo = $getInfo->getCardInfo($id);
 }
@@ -21,41 +20,37 @@ if($id != null){
 if (isset($_SESSION['user']['id'])){
         $infos_user = $getInfo->getInfoUser($_SESSION['user']['id']);
 } 
- 
-/////// Vérification si l'utilisateur à qui envoyé une carte existe
+/////// Vérification de l'utilisateur à qui envoyé une carte existe
 //Vérification si l'utilisateur existe
 if(isset($_POST['submit'])){
     if(isset($_POST['user_lastname']) && isset($_POST['user_firstname'])){
         $data = ['lastname'=>htmlspecialchars($_POST['user_lastname']),
             'firstname'=>htmlspecialchars($_POST['user_firstname'])];
-        $result = $globalClass->verifyUser($data);
+        $userVerif = $globalClass->verifyUser($data);
+    //Vérification si l'utisateur existe et à crée une fiche
+        if ($userVerif != null){
+                $userVerif = $userVerif->fetch();
+                $userAdmin = $globalClass->verifUserAdmin($userVerif['id']);
+                $userAdmin = $userAdmin->fetch();
+                if ($userAdmin){
+                    if ($userAdmin['card_real'] = '1'){
+                            $verifInfoSend = '<p>Cet utilisateur n\'a pas souhaité communiquer son adresse.</p>';
 
-        if ($result != null){
-            $stmt = $result->fetchAll();
-            ///vérification si cet utilisateur est un user_admin
-            foreach($stmt as $r){
-                $verif = $globalClass->verifUserAdmin(intval($r['id']));
-                if ($verif != null){
-                    foreach($verif as $infos){
-                        if ($infos['add_share'] != null && $infos['add_share'] = '1'){
-                            $email = 'ok';
-                        }
-                        if ($infos['card_virtuel'] != null && $infos['card_virtuel'] = '1'){
-                            $cardVirtuel = 'ok';
-                        }
-                        if ($infos['card_real'] != null && $infos['card_real'] = '1'){
-                            $cardReal = 'ok';
-                        }
+                    } else {
+                        $verifInfoSend = '<p>Nous avons bien les coordonnées postal de cet utilisateur</p>';
                     }
+                    if ($userAdmin['card_virtuel'] = '1'){
+                            $verifInfoSend .= '<p>Cet utilisateur ne souhaite pas recevoir de cartes par email.</p>';
+                        } else {
+                            $verifInfoSend.= '<p>Cet utilisateur a accepter de recevoir une carte par email</p>';
+                        }
                 } else {
-                    $userExist = '<p> Cet utilisateur n\'ayant pas crée de fiche, il est impossible de lui envoyer une carte de condoléance. </p>';
+                $verifInfoSend = '<p> Cet utilisateur n\'ayant pas crée de fiche, il est impossible de lui envoyer une carte de condoléance. </p>';
                 }
-            }
         } else {
-        $userExist = '<p> Cet utilisateur n\'est pas inscrit sur le site. </p>';
+        $verifInfoSend = '<p> Cet utilisateur n\'est pas inscrit sur le site. </p>';
         }
-    }
+    } 
 }
-echo $email, $cardVirtuel, $cardReal;
 
 require 'view/card.php';

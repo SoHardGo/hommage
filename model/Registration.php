@@ -60,7 +60,7 @@ class Registration extends Manage {
     }
     // mise à jour informations profil
     public function updateUser(array $data) :void{
-        $query ="UPDATE users SET email=:email, number_road=:number_road, address=:address, postal_code=:postal_code, city=:city, pseudo=:pseudo WHERE user_id=:user_id";
+        $query ="UPDATE users SET email=:email, number_road=:number_road, address=:address, postal_code=:postal_code, city=:city, pseudo=:pseudo WHERE id=:id";
         $this->getQuery($query,$data);
     }
     // mise à jour mot de pass

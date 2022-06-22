@@ -16,6 +16,7 @@ ob_start();
     <?php endforeach ?>
     <?php endif ?>
 </section>
+<?php if(isset($_SESSION['user']['id'])) :?>
 <section>
     <div class="container_editor">
     <h1>Ecrivez votre texte</h1>    
@@ -43,9 +44,7 @@ ob_start();
                 <div id="card_id" class="hidden"><?=$id?></div>
                 <p class="content" contenteditable spellcheck="true" style="background-image : url('public/pictures/cards/<?=$cardInfo['name']?>');">
                 </p>
-                <button class="button" id ="card_val" type="button" value="ok">Confirmer</button>
-                
-                
+                <button class="button" id ="card_val" type="button" value="1">Confirmer</button>
         </div>
     </div>
 </section>
@@ -53,31 +52,49 @@ ob_start();
     <div class="card_info">
        <form method="POST" action="index.php?page=card">
             <fieldset>
-                <div class="card_price">
-                    <label for="number">Nombre de cartes :</label>
-                    <input type="number" name="number" id="number">
-                </div>
-            </fieldset>
-            <fieldset>
                 <Label>Souhaitez-vous envoyer cette carte à un utilisateur du site ?</Label>
                 <label>Nous nous chargerons de lui envoyer</label>
                 <label>Entrer les coordonnées de la personne :</label>
                 <input type="text" name="user_lastname" placeholder="Nom">
                 <input type="text" name="user_firstname" placeholder="Prenom">
-                <div class="after_verif">
-                    <?=$userExist?>
+                <div class="verif_send">
+                    <?=$verifInfoSend?>
                 </div>
-                <hr>
-                <Label>Je préfère recevoir à mon adresse :</Label>
-                <input type="text" name="user_number_road" placeholder="N° de rue: ">
-                <input type="text" name="user_address" placeholder="Adresse : ">
-                <input type="text" name="user_cd_postal" placeholder="Code postal : ">
-                <input type="text" name="user_city" placeholder="Ville : ">
-                <input class="button" type="submit" name="submit" value="Valider">
+                <div class="card_address">
+                    <hr>
+                    <Label>Je préfère recevoir à mon adresse :</Label>
+                    <input type="text" name="user_number_road" value="<?=$infos_user['number_road']?>">
+                    <input type="text" name="user_address" value="<?=$infos_user['address']?>">
+                    <input type="text" name="user_cd_postal" value="<?=$infos_user['postal_code']?>">
+                    <input type="text" name="user_city" value="<?=$infos_user['city']?>">
+                    <label for="valid_add"></label>
+                    <input class="button" id="valid_add" type="submit" name="submit" value="Valider">
+                </div>
             </fieldset>
        </form>
+        <div class="card_price">
+            <div class="nb_card">
+                <p>Nombre de cartes avec texte intégré enregisteés:</p>
+            </div>
+            <div class="info_price_card">
+                <p>Tarif des cartes avec texte:</p>
+                <form method="post" action="index.php?page=card">
+                    <label for="package">Cartes vendu par paquets de 5 :</label>
+                    
+                </form>
+                
+            </div>
+            
+        </div>
     </div>
 </section>
+<?php else : ?>
+    <div class="card_no_user">
+        <h2>Inscrivez-vous ou connectez-vous pour bénéficier de ce service.</h2>
+        <a class="button" href="index.php?page=registration">S'inscrire</a>
+        <a class="button" href="index.php?page=connexion">Connexion</a>
+    </div>
+<?php endif ?>
 <?php
 $content= ob_get_clean(); 
 require 'template.php';
