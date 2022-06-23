@@ -150,20 +150,28 @@ monnom.addEventListener('keyup', ()=> {
 
 let edit_btn = document.getElementById('card_val');
 let content = document.querySelector('.content');
+let container_tab = document.getElementById('container_tab')
 
 if (edit_btn != null){
     edit_btn.addEventListener('click',()=>{
         let card_text = content.textContent;
         let card_id = document.getElementById('card_id').innerHTML;
         let formdata = new FormData();
+        let card_nb = document.getElementById('card_nb');
+        let container_tab = document.getElementById('container_tab');
+        let total = document.getElementById('total');
+        
         formdata.append('content', card_text);
         formdata.append('id', card_id);
-        
+
         let obj = { 'method':'POST', 'body':formdata };
         fetch('ajax/recordCard.php', obj)
-                        .then(response => response.text())
+                        .then(response => response.json())
                         .then(data=>{
-                            alert('C\'est OK');
+                            console.log(data);
+                            card_nb.innerHTML = data.carte;
+                            container_tab.innerHTML += data.tab;
+                            total.innerHTML = data.total;
                         })
                         .catch(err=>console.error(err));
     });

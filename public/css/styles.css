@@ -53,9 +53,11 @@ hr {
 	color:var(--color-white);
 	background-color: var(--color-bgc-button);
 	padding:7px 25px;
-	margin:30px;
 	text-decoration:none;
 	text-align:center;
+}
+#submit {
+    margin:30px;
 }
 .form {
     color:black;
@@ -135,7 +137,7 @@ hr {
     display: block;
     width: 40px;
     height: 5px;
-    background-color: var(--color-bgc-button);
+    background-color: var(--color-white);
     margin: 6px 0;
 }
 .burger-icon p {
@@ -211,8 +213,6 @@ hr {
 .container_slider{
     display:flex;
     flex-direction:column;
-    align-content:center;
-    margin:20px;
 }
 .container_slider h1 {
     margin-bottom:20px;
@@ -224,6 +224,9 @@ hr {
     height: 200px;
 }
 
+.home_slick {
+    height:200px;
+}
 /**********************Environnement Formulaires*********************************/
 /***Connexion -- Contact -- Register***/
 
@@ -339,11 +342,11 @@ input[value="Rechercher"] {
     margin: 10px;
     width: 130px;
     border:1px solid var(--color-grey-middle);
+    overflow:hidden;
 }
 .card_image {
     width: 130px;
     height: 130px;
-    overflow:hidden;
 }
 
 .card_image .img {
@@ -362,6 +365,15 @@ input[value="Rechercher"] {
     text-align:center;
     margin: 20px;
 }
+
+.tab_card {
+    width: 75%;
+}
+
+.tab_price {
+    width: 25%;
+}
+
 .container_editor {
     margin:0 auto;
 }
@@ -411,11 +423,21 @@ input[value="Rechercher"] {
 .card_address, .min_nophoto {
     font-size: 20px;
 }
+.card_price {
+    width: 100%;
+    margin: 25px;
+}
 .card_price input{
     width: 50px;
 }
 .verif_send {
     color:var(--color-red);
+}
+table,th,tr,td {
+    border-collapse:collapse;
+    border:1px solid var(--color-black);
+    width: 400px;
+    margin:0 auto;
 }
 /*********************Lost****************************************/
 .message_email {
@@ -431,9 +453,6 @@ input[value="Rechercher"] {
 }
 
 /**********************User***************************************/
-.main_user {
-    margin:0 auto;
-}
 .user_form {
     position:relative;
 }
@@ -966,7 +985,7 @@ label[for="comment"]{
         margin-right: -20px;
     }
     .card_img{
-        height: 280px;
+        width: 180px;
     }
     .icon_home {
         margin-left: 15px;

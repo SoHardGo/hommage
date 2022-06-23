@@ -2,15 +2,20 @@
 require_once 'model/Manage.php';
 require_once 'model/GetInfos.php';
 require_once 'model/GlobalClass.php';
+
 $globalClass = new GlobalClass();
 $getInfo = new GetInfos();
 $manage = new Manage();
-$cardsList = $getInfo->getCardsList()->fetchAll();
+
 $email = '';
 $cardInfo = '';
 $verifInfoSend = '';
-$nb='';
+$nb ='';
 $id = $_GET['id']??1;
+
+// Initialisation pour le nombre de cartes
+if(!isset($_SESSION['nbCard'])) $_SESSION['nbCard'] = array();
+
 // Initialisation de la carte par défaut dans l'éditeur 
 if($id != null){
     $cardInfo = $getInfo->getCardInfo($id);
@@ -50,7 +55,15 @@ if(isset($_POST['submit'])){
         } else {
         $verifInfoSend = '<p> Cet utilisateur n\'est pas inscrit sur le site. </p>';
         }
-    } 
+    }
 }
 
+$tab_card = $getInfo->getCardTab();
+$total_card = $getInfo->getCardTotal();
+
+if(isset($package)){
+    
+}
+
+$cardsList = $getInfo->getCardsList()->fetchAll();
 require 'view/card.php';

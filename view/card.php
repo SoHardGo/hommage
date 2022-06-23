@@ -72,17 +72,37 @@ ob_start();
                 </div>
             </fieldset>
        </form>
-        <div class="card_price">
+        <div class="info_price">
             <div class="nb_card">
-                <p>Nombre de cartes avec texte intégré enregisteés:</p>
+                <h4>Nombre de cartes avec texte intégré enregisteés: <span id="card_nb"><?=count($_SESSION['nbCard'])?></span></h4>
+                
             </div>
-            <div class="info_price_card">
-                <p>Tarif des cartes avec texte:</p>
+            <div class="form_price_card">
                 <form method="post" action="index.php?page=card">
                     <label for="package">Cartes vendu par paquets de 5 :</label>
-                    
+                    <input type="number" id="package" name="number">
+                    <input type="submit" name="package">
                 </form>
-                
+            </div>
+            <div class="card_price">
+                <h4>Montant de vos achats :</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="tab_card">Cartes</th>
+                            <th class="tab_price">Prix</th>
+                        </tr>
+                    </thead>
+                    <tbody id="container_tab">
+                        <?=$tab_card?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                           <td>Total</td> 
+                           <td id="total"><?=$total_card?></td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
             
         </div>

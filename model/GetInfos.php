@@ -103,6 +103,37 @@ class GetInfos extends Manage {
         return $result;
     }
     
+    public function getCardTab():string {
+        $tab = '';
+        if(isset($_SESSION['nbCard'])) {
+            foreach($_SESSION['nbCard'] as $c) {
+                $id_card = $this->getOrderCardId($c);
+                $cardInfo = $this->getCardInfo($id_card);
+                $tab .= '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].'</td></tr>';
+            }
+        }
+        return $tab;
+    }
+    
+    public function getOrderCardId(int $id):int {
+        $data = ['id'=>$id];
+        $query = "SELECT card FROM content_card WHERE id=:id";
+        $result = $this->getQuery($query,$data)->fetch();
+        return $result['card'];
+    }
+    
+    public function getCardTotal() {
+        $total = 0;
+        if(isset($_SESSION['nbCard'])) {
+            foreach($_SESSION['nbCard'] as $c) {
+                $id_card = $this->getOrderCardId($c);
+                $cardInfo = $this->getCardInfo($id_card);
+                $total += $cardInfo['price'];
+            }
+        }
+        return $total;
+    }
+    
     public function getCardInfo(int $id) :array {
         $data = ['id'=>$id];
         $query = "SELECT name, price, info FROM products WHERE id=:id";
