@@ -10,6 +10,11 @@ class Registration extends Manage {
         $query = "INSERT INTO users SET firstname=:firstname, lastname=:lastname, email=:email, number_road=:number_road, address=:address, postal_code=:postal_code, city=:city, date_crea=CURDATE(), password=:password, pseudo=:pseudo, last_log=NOW()";
         return $this->setQueryLastId($query,$recup);
     }
+    // inscription des amis
+    public function setFriends(array $data) :void{
+        $query = "INSERT INTO friends SET friend_id=:friend_id, user_id=:user_id";
+        $this->getQuery($query,$data);
+    }
 
     // inscription d'un defunt + return LastId
     public function setDefunct(array $data) :int{
@@ -44,6 +49,7 @@ class Registration extends Manage {
         $query = "INSERT INTO content_card SET content=:content, user_id=:user_id, card=:card, date_crea=NOW()";
         return $this->setQueryLastId($query,$data);
     }
+
 /////////////////////////////////////////////////UPDATER////////////////////////////////////////////////////////////
 
     // miseà jour de la date et heure de connexion
@@ -60,9 +66,10 @@ class Registration extends Manage {
     }
     // mise à jour informations profil
     public function updateUser(array $data) :void{
-        $query ="UPDATE users SET email=:email, number_road=:number_road, address=:address, postal_code=:postal_code, city=:city, pseudo=:pseudo WHERE id=:id";
+        $query = "UPDATE users SET email=:email, number_road=:number_road, address=:address, postal_code=:postal_code, city=:city, pseudo=:pseudo WHERE id=:id";
         $this->getQuery($query,$data);
     }
+
     // mise à jour mot de pass
     public function updatePassword(string $recup) :void{
         $recup["password"]= password_hash($recup["password"], PASSWORD_BCRYPT);

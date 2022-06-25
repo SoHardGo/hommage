@@ -1,5 +1,7 @@
 <?php
+$title='Home_user';
 $content='';
+ob_start(); 
 
 // Liste des defunts dans le home_user
 // Affichage des mini-cartes des defunts
@@ -11,7 +13,7 @@ if (count($info_def)){
         $path_photo = 'public/pictures/photos/'.$_SESSION['user']['id'].'/'.$info_def[$i]['id'].'-0.jpg';
         $list_def.= '
         <div class="home_user_card">
-            <div><a class="card" href="index.php?page=environnement&id='.$info_def[$i]['id'].'">
+            <div><a class="card" href="?page=environnement&id='.$info_def[$i]['id'].'">
             <div class="card_img">';
             if ( !file_exists($path_photo) ){
                 $path_photo = 'public/pictures/site/noone.jpg';
@@ -53,23 +55,27 @@ if (count($info_def)){
     <?=$list_def?>
 </div>
 <hr>
+<section>
+    <div class="myContact">
+        <div class="contacts" id="contacts">
+            <a href="?page=home_user#contacts">
+                <img class="img" src="public/pictures/site/contact.png" alt="Dossier de contacts">
+                
+                <div class="contacts_list hidden">
+                   <?=$friends?>
+                </div>
+            </a>
+        </div>
+    </div>
+    <img class="img dim_contact" src="public/pictures/site/arrow_up.png" alt="flèche haut">
+    <h2>Mes Contacts</h2>
+</section>
+<hr>
 <section class="container_slider">
     <h1>Photos récemment ajoutées</h1>
     <?=$slider?>
 </section>
-<!-- A faire si j'ai le temps
-<div class="myContact">
-    <div class="contacts">
-        <a href="index.php?page=home_user">
-            <img class="img" src="public/pictures/site/contact.png" alt="Dossier de contacts">
-        </a>
-        <h2>Mes Contacts</h2>
-    </div>
-    <div class="contacts_list">
-        
-    </div>
-</div>
--->
+
 <?php
 $content = ob_get_clean();
 

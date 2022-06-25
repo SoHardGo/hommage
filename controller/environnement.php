@@ -6,14 +6,16 @@ $getInfo = new GetInfos();
 
 $nbPhotos = '';
 $nbComments = '';
-
+$admin_def ='';
 $tab = array();
+$useradmin = $_GET['useradmin']?? '';
 //id du defunt dans l'environnement
 $id_def = $_GET['id']??0;
 //id du defunt suite à une recherche
 if(!$id_def) {
     $id_def = $_GET['id_def']?? 0;
 }
+
 //id d'un commentaire
 $idCom = $_GET['idCom']??null;
 //id d'une photo
@@ -34,10 +36,9 @@ if(isset($_SESSION['user']['id'])) {
                 unlink($photoFile);
             }
         
-        /////////supprimer les commentaires associés dans la BBD/////////
+    /////////supprimer les commentaires associés dans la BBD/////////
             $register->deleteCommentsPhoto($idPhoto);
-       // }
-    }
+        }
 
     ///////////////supprimer un commentaire/////////////////////////
     if ($idCom) {
@@ -79,6 +80,7 @@ if ($id_def) {
     $defunct_infos = $defunct_infos->fetch();
     $defunct_photos = $getInfo->photoListDefunct($id_def);
     $defunct_photos = $defunct_photos->fetchAll();
+    $user_admin = $getInfo->getUserAdminInfo($id_def);
     $com_list = [];
 
 ///////////récupération des commentaires selon la photo du defunt///////////////
@@ -97,5 +99,17 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
     $recentComment = $getInfo->getRecentComments($id_def, $_SESSION['user']['last_log'])->rowCount();
     $recentPhoto = $getInfo->getRecentPhotos($id_def, $_SESSION['user']['last_log'])->rowCount();
 }
+
+//////////////////////ajouter un contact///////////////////////////////////
+
+if ($useradmin){
+    $result = $getInfo->getFriendsList($_SESSION['user']['id']);
+    foreach($result as $r){
+        if($r['user_id'] != intval($useradmin)){
+          $register->setFriends(['user_id'=>$_SESSION['user']['id'], 'friend_id'=>intval($useradmin)]);
+        }
+    }
+}
+
 
 require 'view/environnement.php';

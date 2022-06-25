@@ -37,6 +37,7 @@ button.addEventListener('click', function(){
 }
 
 //////////////Gestion des photos dans l'espace environnement/////////
+
 let camera = document.querySelector('.camera');
 let file = document.getElementById('file_env');
 if(camera !== null){
@@ -187,12 +188,30 @@ new_photos.addEventListener('click',()=>{
 });
 }
 
+/////////////Message d'Alerte pour la suppression de photo/////////////////////////
 
+let delete_p = document.getElementsByClassName('delete_photo');
+if(delete_p!=null) {
+    for(d of delete_p) {
+        d.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.confirm("Attention les commentaires liés à cette photo seront également supprimés !!!")) {
+                window.location.href = this.href;
+            }
+        });
+    }
+}
 
+/////////////////////////Dossier des contacts//////////////////////////////
 
-
-
-
+let link_contact = document.getElementById('contacts');
+let folder_contact = document.querySelector('.contacts_list');
+if(link_contact!=null){
+    link_contact.addEventListener('click',function(e){
+        e.preventDefault;
+        folder_contact.classList.toggle('hidden');
+    });
+}
 
 ////////////////Slick////////////////////
 $(document).ready(function(){

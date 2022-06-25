@@ -5,7 +5,7 @@ class GetInfos extends Manage {
     
     public function getInfoUser(int $id) :array {
         $data = ['id' => $id];
-        $query = "SELECT email, number_road, address, city, postal_code, pseudo FROM users WHERE id=:id";
+        $query = "SELECT email, firstname, lastname, number_road, address, city, postal_code, pseudo FROM users WHERE id=:id";
         $result1 = $this->getQuery($query,$data);
         $tab1 = $result1->fetch();
         
@@ -61,24 +61,25 @@ class GetInfos extends Manage {
         $tab1 = array_merge($tab,$result1);
         return $tab1;
     }
+    // récupération de les liste des commentaires liés à une photo
     public function getListComment(int $id) :array {
         $data = ['photo_id'=>$id];
         $query = "SELECT id, user_id, comment, profil_user, date_crea FROM comments WHERE photo_id=:photo_id";
         $result = $this->getQuery($query,$data);
         return $result->fetchAll();
     }
-    
+    // liste des photos liés à un defunt pour l'environnement
     public function photoListDefunct(int $id) :object {
         $data = ['defunct_id'=>$id];
         $query = "SELECT id, user_id, name, date_crea FROM photos WHERE defunct_id=:defunct_id ORDER BY id DESC";
         return $this->getQuery($query,$data);
     }
-    
+    // recherche d'un défunt
     public function getSearchDefuncts(array $data) :object{
         $query ="SELECT id, lastname, firstname, user_id FROM defuncts WHERE lastname=:lastname OR firstname=:firstname";
         return $this->getQuery($query,$data);
     }
-    
+    // affichage de la photo miniature d'un defunt
     public function getPhotoDef(int $def_id):string {
         $data = ['defunct_id'=>$def_id];
         $query = "SELECT user_id, name FROM photos WHERE defunct_id=:defunct_id ORDER BY id LIMIT 1";
@@ -90,19 +91,20 @@ class GetInfos extends Manage {
             return '';
         }
     }
+    // récupération du nom d'un defunt par son Id
     public function getIdDefPhoto (string $name) :array {
         $data = ['name'=>$name];
         $query = "SELECT defunct_id FROM photos WHERE name=:name";
         return $this->getQuery($query,$data)->fetch();
     }
-    
+    // liste des cartes
     public function getCardsList() :object {
         $data = ['categories'=>'cartes'];
         $query = "SELECT id, name, price, info FROM products WHERE categories=:categories";
         $result = $this->getQuery($query,$data);
         return $result;
     }
-    
+    // infos pour le tableau des cartes
     public function getCardTab():string {
         $tab = '';
         if(isset($_SESSION['nbCard'])) {
@@ -114,14 +116,14 @@ class GetInfos extends Manage {
         }
         return $tab;
     }
-    
+    // récupération des info d'un carte
     public function getOrderCardId(int $id):int {
         $data = ['id'=>$id];
         $query = "SELECT card FROM content_card WHERE id=:id";
         $result = $this->getQuery($query,$data)->fetch();
         return $result['card'];
     }
-    
+    // calcul du total du prix des cartes
     public function getCardTotal() {
         $total = 0;
         if(isset($_SESSION['nbCard'])) {
@@ -133,7 +135,7 @@ class GetInfos extends Manage {
         }
         return $total;
     }
-    
+    // récupération de la liste des infos d'une carte
     public function getCardInfo(int $id) :array {
         $data = ['id'=>$id];
         $query = "SELECT name, price, info FROM products WHERE id=:id";
@@ -157,6 +159,22 @@ class GetInfos extends Manage {
             'last_log'=>$last_log];
         $query = "SELECT id FROM comments WHERE defunct_id=:defunct_id AND date_crea > :last_log";
         return $this->getQuery($query,$data);
+    }
+    
+    public function getUserAdminInfo(int $def_id) :?array {
+        $data = ['defunct_id'=>$def_id];
+        $query = "SELECT user_id FROM user_admin WHERE defunct_id=:defunct_id";
+        $result = $this->getQuery($query,$data)->fetch();
+        $user_id = $result['user_id'];
+        $user_admin = $this->getInfoUser($user_id);
+        $tab = ['user_id'=>$user_id, 'admin'=>$user_admin];
+        return $tab;
+    }
+    // liste des amis 
+    public function getFriendsList(int $id) :array{
+        $data = ['user_id'=>$id];
+        $query = "SELECT friend_id FROM friends WHERE user_id=:user_id";
+        return $this->getQuery($query,$data)->fetchAll();
     }
 
 }

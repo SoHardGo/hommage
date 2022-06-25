@@ -60,15 +60,15 @@ ob_start();
                 <div class="verif_send">
                     <?=$verifInfoSend?>
                 </div>
+                <label for="valid_user"></label>
+                <input class="button" id="valid_add" type="submit" name="submit" value="Valider">
                 <div class="card_address">
                     <hr>
                     <Label>Je préfère recevoir à mon adresse :</Label>
-                    <input type="text" name="user_number_road" value="<?=$infos_user['number_road']?>">
-                    <input type="text" name="user_address" value="<?=$infos_user['address']?>">
-                    <input type="text" name="user_cd_postal" value="<?=$infos_user['postal_code']?>">
-                    <input type="text" name="user_city" value="<?=$infos_user['city']?>">
-                    <label for="valid_add"></label>
-                    <input class="button" id="valid_add" type="submit" name="submit" value="Valider">
+                    <p><?=$infos_user['number_road'].' '?><?=$infos_user['address'].' '?><?=$infos_user['postal_code'].' '?><?=$infos_user['city']?></p>
+                    <label></label>
+                    Oui<input type="radio"  class="button" name="valid_add" value="1">
+                    Non<input type="radio"  class="button" name="valid_add" value="0">
                 </div>
             </fieldset>
        </form>

@@ -15,7 +15,7 @@ ob_start();
         </div>
     </form>
     <h3><?=ucfirst($_SESSION['user']['lastname']).' '.ucfirst($_SESSION['user']['firstname'])?></h3>
-    <a href="index.php?deco" class="user_logoff" title="Déconnecter">
+    <a href="?deco" class="user_logoff" title="Déconnecter">
         <div class="icon_log">
             <img class="img" src="public/pictures/site/logoff.png" alt="icone disconnect">
         </div>
@@ -27,7 +27,7 @@ ob_start();
     </a>
 </section>
 <section class="bouton_user">
-        <a class="button" href="index.php?page=createform">Créer une fiche</a>
+        <a class="button" href="?page=createform">Créer une fiche</a>
         <?php if (isset($_SESSION['user']['defunct'])) :?>
             <div class ="button button_myDefuncts">
                 Mes fiches

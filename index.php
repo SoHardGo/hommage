@@ -4,7 +4,7 @@ require_once 'config/config.php';
 require_once 'model/GlobalClass.php';
 require_once 'model/Manage.php';
 $manage = new Manage();
-$globalclass = new GlobalClass();
+$globalClass = new GlobalClass();
 
 if (isset($_GET['deco'])){
     session_destroy();
@@ -12,6 +12,6 @@ if (isset($_GET['deco'])){
 }
 $page = $_GET['page']??'';
 
-$user_content = $globalclass->setUserEnv();
+$user_content = $globalClass->setUserEnv();
 require $manage->router($page);
 
