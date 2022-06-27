@@ -20,6 +20,9 @@ ob_start();
     <div class="container_result_search">
         <?=$search?>
     </div>
+    <div class="search_mess">
+        <?=$message?>
+    </div>
 </section>
 <?php
 $content= ob_get_clean(); 

@@ -34,10 +34,11 @@ ob_start();
                         <?php endfor ?>
                     </fieldset>
                 </div>
-                <label for="modify">Modifier mes informations</label>
-                <div class="buttons">
-                    <input type="submit" name="submit" class="button" id="modify" value="Modifier">
-                </div>
+                <label for="modify" class="message">- Modifier les champs que vous souhaitez mettre à jour -</label>
+                <input type="submit" name="submit" class="button m20" id="modify" value="Modifier">
+                <label class="m20">- Désincription -</label>
+                <a class="button ahref m20" id="signoff" href="?page=profil&signoff=true#modify">Se désinscire</a>
+                <?=$message?>
             </form>
         </div>
     </div>

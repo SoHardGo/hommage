@@ -3,8 +3,8 @@ require_once 'model/Manage.php';
 require_once 'model/Registration.php';
 require_once 'model/GlobalClass.php';
 require_once 'model/GetInfos.php';
-$getinfo = new GetInfos();
-$globalclass = new GlobalClass();
+$getInfo = new GetInfos();
+$globalClass = new GlobalClass();
 $register = new Registration();
 $manage = new Manage();
 $confirm='';
@@ -15,8 +15,7 @@ if (isset($_POST['submit'])) {
     if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token']===$_POST['token']) {
         //Vérification de la validité du format de l'émail
         if(isset($_POST['email']) && filter_var((htmlspecialchars($_POST['email'])), FILTER_VALIDATE_EMAIL)){
-            $tab = $_POST['email'];
-            $result = $getinfo->getEmail($tab);
+            $result = $getInfo->getEmail($_POST['email'])->fetch();
             if($result){
                 echo 'Vous êtes déjà inscrit sur notre site, connectez-vous';
                 require 'view/connexion.php';
@@ -36,7 +35,7 @@ if (isset($_POST['submit'])) {
                 $_SESSION['user'] = $data;
                 $user_id = $register->setRegister($data);
                 $_SESSION['user']['id'] = $user_id;
-                $user_content = $globalclass->setUserEnv();
+                $user_content = $globalClass->setUserEnv();
             }
             require 'view/home.php';
             exit;

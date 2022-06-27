@@ -12,7 +12,7 @@ class GlobalClass extends Manage {
         return $user_content;
     }
     
-    // fonction de vérification de l'Email
+    // fonction de vérification des identifiants de compte
     public function verifyAccount(string $email, $pwd) :?array {
         $data = ['email'=> $email];
         $query = "SELECT id, lastname, firstname, email, password, last_log FROM users WHERE email=:email";
@@ -51,6 +51,7 @@ class GlobalClass extends Manage {
         $query = "SELECT id, add_share,card_virtuel, card_real, defunct_id FROM user_admin WHERE user_id=:user_id";
         return $this->getQuery($query,$data);
     }
+    
 
   
 }

@@ -57,7 +57,10 @@ hr {
 	text-decoration:none;
 	text-align:center;
 }
-
+.ahref {
+    width: 250px;
+    height: 40px;
+}
 #submit {
     margin:30px;
 }
@@ -71,6 +74,35 @@ hr {
     color:var(--color-black);
     font-size: 40px;
     margin:20px;
+}
+.m20 {
+    margin: 20px;
+}
+.message {
+    text-align:center;
+    color: var(--color-red);
+    font-weight: bold;
+}
+/************************Global dimension**************************************/
+.dim100 {
+    display:flex;
+    justify-content: center;
+}
+.dim50 {
+    width: 50px;
+    height: 50px;
+}
+.dim40 {
+    width: 40px;
+    height: 40px;
+}
+.dim_contact {
+    width: 30px;
+    height: 30px;
+}
+.dim10 {
+    width: 10px;
+    height: 10px;
 }
 
 /*********************************Header***************************************/
@@ -92,7 +124,6 @@ hr {
     margin-top:45px;
 }
 /**************************Navbar and Hamburger Menu***************************/
-
 .navbar {
     width: 185px;
     position: fixed;
@@ -164,8 +195,7 @@ hr {
 }
 .home_text {
     text-align:justify;
-    margin:30px auto;
-    width: 90%;
+    width: 80%;
 }
 .home_start {
     margin:0 auto;
@@ -204,9 +234,10 @@ hr {
     text-align:center;
     margin:10px;
 }
-.icon_home, .icon_help, .icon_log {
+/*.icon_home, .icon_help, .icon_log {
     width: 50px;
 }
+*/
 .icon_home {
     margin: 0 10px;
 }
@@ -239,6 +270,7 @@ hr {
     text-align:center;
     margin-bottom:20px;
 }
+
 .buttons {
     display:flex;
     flex-direction:column;
@@ -259,9 +291,6 @@ hr {
 .container_createform{
     margin-top: 40px;
 }
-.createform.form {
-    height: 1360px;
-}
 #code_p {
     margin-bottom:20px;
 }
@@ -280,11 +309,6 @@ select[name="affinity"]{
 .more_info {
     margin:20px;
 }
-/***Registration***/
-
-.register.form {
-    height: 1030px;
-}
 /***Search***/
 .search_form {
     line-height:60px;
@@ -292,6 +316,12 @@ select[name="affinity"]{
 }
 .search_form input {
     width: 210px;
+}
+.search_mess {
+    text-align:center;
+    margin:20px;
+    color:var(--color-red);
+    font-weight: bold;
 }
 input[value="Rechercher"] {
     margin-bottom:30px;
@@ -441,18 +471,6 @@ table,th,tr,td {
     width: 400px;
     margin:0 auto;
 }
-/*********************Lost****************************************/
-.message_email {
-    color: var(--color-red);
-    font-weight: bold;
-}
-.lost_form {
-    display:flex;
-    justify-content:center;
-    text-align:center;
-    line-height: 40px;
-    margin:20px;
-}
 
 /**********************User***************************************/
 .user_form {
@@ -461,24 +479,66 @@ table,th,tr,td {
 .form_user {
     position:relative;
 }
+/*
 .container_user{
+    position:relative;
     display:flex;
     justify-content:center;
     border:1px solid var(--color-blue-hard);
     background-color: var(--color-user);
 }
-/*
-.fa-user {
-    margin-right:-10px;
-    color:var(--color-menu-user);
-}
-*/
 .container_user h3 {
+    position:absolute;
+    top:-35px;
+    left:170px;
     text-align:center;
     font-size: 30px;
     margin:55px auto;
     text-shadow: 0 0 3px white;
     color:var(--color-bgc-button);
+}*/
+.container_user {
+    display:grid;
+    grid-template-areas: "user title title title" 
+        "user . icon_n icon_f";
+    grid-template-rows:80px 80px;
+    grid-template-columns:25% 25% 25% 25%;
+    justify-items: center;
+}
+.container_photo_user {
+    grid-area:user;
+    margin: 20px 0 0 20px;
+    width: 120px;
+    height: 120px;
+    border:1px solid var(--color-black);
+    border-radius:50%;
+    overflow:hidden;
+}
+#photo_user {
+    position:relative;
+    left:-500px;
+}
+.container_user h3 {
+    grid-area:title;
+    align-self: center;
+    margin-right: 80px;
+}
+.user_new {
+    grid-area:icon_n;
+}
+.user_fix {
+    grid-area:icon_f;
+}
+.user_icon {
+    position: absolute;
+    right: -10px;
+    bottom: -55px;
+    color:var(--color-menu-user);
+    margin-top:20px;
+    border: 1px solid var(--color-black);
+    border-radius: 50%;
+    padding: 3px;
+    background-color: black;
 }
 .bouton_user {
     display:flex;
@@ -489,7 +549,6 @@ table,th,tr,td {
 .button.button_myDefuncts {
     position:relative;
     text-align:center;
-    font-size: 18px;
     text-decoration:none;
     color:var(--color-white);
 }
@@ -511,37 +570,12 @@ table,th,tr,td {
 .name_defuncts:hover {
     color:var(--color-grey-soft);
 }
-.user_home, .user_logoff {
+.user_home, .user_logoff, .user_message, .user_friend {
     flex-direction: column;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    margin-bottom:20px;
-}
-.user_icon {
-    position: absolute;
-    right: -10px;
-    bottom: 25px;
-    color:var(--color-menu-user);
-    margin-top:20px;
-    border: 1px solid var(--color-black);
-    border-radius: 50%;
-    padding: 3px;
-    background-color: black;
-}
-.container_photo_user {
-    text-align:center;
-    margin-top:12px;
-    margin-left: 10px;
-    width: 120px;
-    height: 120px;
-    border:1px solid var(--color-black);
-    border-radius:50%;
-    overflow:hidden;
-}
-#photo_user {
-    position:relative;
-    left:-500px;
+    margin: 20px 10px;
 }
 .env_listing {
     display:flex;
@@ -555,7 +589,11 @@ table,th,tr,td {
 .admin_user {
     text-align:center;
 }
-
+.friend_mess {
+    text-align:center;
+    color:var(--color-red);
+    font-weight: bold;
+}
 
 
 /**********************Home user***************************/
@@ -599,7 +637,6 @@ table,th,tr,td {
 }
 .contacts {
     width: 200px;
-    margin-bottom: 20px;
 }
 .contacts_list {
     display:flex;
@@ -611,8 +648,9 @@ table,th,tr,td {
     color:var(--color-black);
 }
 .friend_list {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
+    margin: 10px 10px 0px 10px
 }
 .friend_name a{
     text-decoration:none;
@@ -622,15 +660,9 @@ table,th,tr,td {
     display:flex;
     justify-content:center;
 }
-.add {
-    width: 10px;
-    height: 10px;
+.add_mess {
+    text-align: center;
 }
-.dim_contact {
-    width: 30px;
-    height: 30px;
-}
-
 /**********************Environnement utilisateur***************************/
 .folder {
     margin:0 auto;
@@ -748,7 +780,7 @@ table,th,tr,td {
     filter: blur(5px);
 }
 .comment {
-    width: 100%;
+    width: 95%;
     border-radius: 10px;
 }
 .profil {
@@ -845,6 +877,20 @@ label[for="comment"]{
 }
 
 /**********************Lost**************************************/
+.message_email {
+    color: var(--color-red);
+    font-weight: bold;
+}
+.lost_form {
+    display:flex;
+    flex-direction:column;
+    align-content:center;
+    text-align:center;
+    margin:20px;
+}
+
+
+/*
 .lost_inscription {
     text-decoration:none;
     border:1px solid rgb(0, 0, 0);
@@ -992,6 +1038,10 @@ label[for="comment"]{
         width: 130px;
         height: 130px;
     }
+    .container_home {
+        width: 90%;
+        margin:0 auto;
+    }
     .container_home  h1 {
         font-size: 35px;
         margin:20px;
@@ -1067,7 +1117,6 @@ label[for="comment"]{
     }
     .container_home p {
         font-size: 30px;
-        padding: 30px;
     }
     .list_defuncts {
         top: 40px;

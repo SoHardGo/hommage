@@ -6,7 +6,10 @@ ob_start();
 // Liste des defunts dans le home_user
 // Affichage des mini-cartes des defunts
 if (count($info_def)){
-    echo '<h1>Mes Fiches</h1><div class="home_user_explain"><p>Sélectionner une fiche pour ajouter des photos, consulter ou ajouter des commentaires</p></div>';
+    echo '<h1>Mes Fiches</h1>
+          <div class="home_user_explain">
+            <p>Sélectionner une fiche pour ajouter des photos, consulter ou ajouter des commentaires</p>
+          </div>';
     
     $list_def ='<div class="defunct_home_user">';
     for ($i=0; $i<count($info_def); $i++){
@@ -28,7 +31,7 @@ if (count($info_def)){
     $list_def ='<h2>Vous n\'avez pas encore créé de fiches</h2>
     <a href="#help">
         <div class="icon_help">
-            <img class="img" src="public/pictures/site/help.png" alt="icone help">
+            <img class="img dim40" src="public/pictures/site/help.png" alt="icone help">
         </div>
     </a>
     <p>Cliquer sur l\'icône pour commencer</p>
@@ -60,16 +63,16 @@ if (count($info_def)){
         <div class="contacts" id="contacts">
             <a href="?page=home_user#contacts">
                 <img class="img" src="public/pictures/site/contact.png" alt="Dossier de contacts">
-                
-                <div class="contacts_list hidden">
-                   <?=$friends?>
-                </div>
             </a>
         </div>
-    </div>
+        <div class="contacts_list hidden">
+                   <?=$friends?>
+         </div>
     <img class="img dim_contact" src="public/pictures/site/arrow_up.png" alt="flèche haut">
     <h2>Mes Contacts</h2>
+    </div>
 </section>
+
 <hr>
 <section class="container_slider">
     <h1>Photos récemment ajoutées</h1>

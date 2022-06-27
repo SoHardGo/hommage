@@ -23,7 +23,7 @@ class GetInfos extends Manage {
     public function getEmail(string $email) :object {
         $data = ['email' => $email];
         $query = "SELECT id FROM users WHERE email=:email";
-        return $this->getQuery($query,$data);;
+        return $this->getQuery($query,$data);
     }
     // récup les infos de tout les défunts d'un utilisateur
     public function getUserDefunctList(int $user_id) :object {
@@ -160,7 +160,7 @@ class GetInfos extends Manage {
         $query = "SELECT id FROM comments WHERE defunct_id=:defunct_id AND date_crea > :last_log";
         return $this->getQuery($query,$data);
     }
-    
+    // récupération des info d'un useradmin
     public function getUserAdminInfo(int $def_id) :?array {
         $data = ['defunct_id'=>$def_id];
         $query = "SELECT user_id FROM user_admin WHERE defunct_id=:defunct_id";
@@ -173,7 +173,7 @@ class GetInfos extends Manage {
     // liste des amis 
     public function getFriendsList(int $id) :array{
         $data = ['user_id'=>$id];
-        $query = "SELECT friend_id FROM friends WHERE user_id=:user_id";
+        $query = "SELECT friend_id, date_crea FROM friends WHERE user_id=:user_id";
         return $this->getQuery($query,$data)->fetchAll();
     }
 

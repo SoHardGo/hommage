@@ -1,9 +1,11 @@
 <?php
+// Dossier de la photo de profil de l'utilisateur
 $profil = './public/pictures/users/'.$_SESSION['user']['id'].'/photo'.$_SESSION['user']['id'].'.jpg';
 ob_start(); 
 ?>
 <section class="container_user">
-    <form class="user_form" method="POST" action="index.php?page=home_user" enctype="multipart/form-data" id="form_user">
+    <h3><?=ucfirst($_SESSION['user']['lastname']).' '.ucfirst($_SESSION['user']['firstname'])?></h3>
+    <form class="user_form" method="POST" action="?page=home_user" enctype="multipart/form-data" id="form_user">
         <div class="container_photo_user">
             <?php if(file_exists($profil)) :?>
                 <img class="img" src="<?=$profil?>?<?=rand()?>" alt="photo de profil">
@@ -14,17 +16,22 @@ ob_start();
         <i class="fas fa-camera user_icon"></i>
         </div>
     </form>
-    <h3><?=ucfirst($_SESSION['user']['lastname']).' '.ucfirst($_SESSION['user']['firstname'])?></h3>
-    <a href="?deco" class="user_logoff" title="Déconnecter">
-        <div class="icon_log">
-            <img class="img" src="public/pictures/site/logoff.png" alt="icone disconnect">
-        </div>
-    </a>
-    <a href="index.php?page=home_user" class="user_home" title="home">
-        <div class="icon_home">
-            <img class="img" src="public/pictures/site/home1.png" alt="icone home">
-        </div>
-    </a>
+    <div class="user_new dim100">
+        <a href="" class="user_friend" title="Demande d'ami">
+            <img class="img dim40 hidden" src="public/pictures/site/friend.png" alt="icone demande d'ami">
+        </a>
+        <a href="" class="user_message" title="Nouveau message">
+            <img class="img dim40 hidden" src="public/pictures/site/chat.png" alt="icone nouveau message">
+        </a>
+    </div>
+    <div class="user_fix dim100">
+        <a href="?deco" class="user_logoff" title="Déconnecter">
+                <img class="img dim40" src="public/pictures/site/logoff.png" alt="icone disconnect">
+        </a>
+        <a href="?page=home_user" class="user_home" title="Accueil utilisateur">
+                <img class="img dim40" src="public/pictures/site/home1.png" alt="icone home">
+        </a>
+    </div>
 </section>
 <section class="bouton_user">
         <a class="button" href="?page=createform">Créer une fiche</a>
@@ -34,10 +41,10 @@ ob_start();
                 <?=$list_def?>
             </div>
         <?php else :?>
-            <a class="button" href="index.php?page=search">Rechercher une fiche</a>
+            <a class="button" href="?page=search">Rechercher une fiche</a>
         <?php endif ?>
-        <a class="button" href="index.php?page=profil">Mon compte</a>
-        <a class="button" href="index.php?page=search">Rechercher</a>
+        <a class="button" href="?page=profil">Mon compte</a>
+        <a class="button" href="?page=search">Rechercher</a>
 </section>
 <?php
 $user_content= ob_get_clean(); 

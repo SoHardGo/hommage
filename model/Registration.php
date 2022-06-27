@@ -12,7 +12,7 @@ class Registration extends Manage {
     }
     // inscription des amis
     public function setFriends(array $data) :void{
-        $query = "INSERT INTO friends SET friend_id=:friend_id, user_id=:user_id";
+        $query = "INSERT INTO friends SET friend_id=:friend_id, user_id=:user_id, date_crea=NOW()";
         $this->getQuery($query,$data);
     }
 
@@ -97,7 +97,15 @@ class Registration extends Manage {
         $query = "DELETE FROM photos WHERE id=:id";
         $this->getQuery($query,$data);
     }
-
+    // supprimer un compte utilisateur
+    public function deleteUserAccount(int $id) :void{
+        $data = ['id'=>$id];
+        $query = "DELETE FROM users WHERE id=:id";
+        $this->getQuery($query,$data);
+        $data = ['user_id',$id];
+        $query = "DELETE FROM user_admin WHERE user_id=:user_id";
+        $this->getQuery($query,$data);
+    }
 
     
     

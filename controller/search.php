@@ -2,6 +2,7 @@
 require_once 'model/GetInfos.php';
 $getInfo = new GetInfos();
 $search = '';
+$message ='';
 if(isset($_POST['submit'])){
     $data['lastname'] = isset($_POST['lastname']) ? htmlspecialchars($_POST['lastname']) : '';
     $data['firstname'] = isset($_POST['firstname']) ? htmlspecialchars($_POST['firstname']) : '';
@@ -27,9 +28,8 @@ if(isset($_POST['submit'])){
                 </div>';
         }
         $search .= '</a>';
-        echo 'La personne est bien identifié';
     } else {
-        echo 'La personne n\'existe pas sur le site';
+        $message = 'La personne n\'existe pas sur le site';
     }
 }
 
