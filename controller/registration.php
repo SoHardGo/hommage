@@ -7,7 +7,8 @@ $getInfo = new GetInfos();
 $globalClass = new GlobalClass();
 $register = new Registration();
 $manage = new Manage();
-$confirm='';
+$confirm = '';
+$connectEmail = '';
 $data = array();
 
 if (isset($_POST['submit'])) {

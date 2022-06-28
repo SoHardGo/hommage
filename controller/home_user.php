@@ -7,6 +7,7 @@ require_once 'model/GetInfos.php';
 $getInfo = new GetInfos();
 $friends ='';
 
+
 // Initialisation de la personne ajouté aux contacts ->environnement
 $useradmin['user_id'] = $_GET['useradmin']??'';
 
@@ -23,6 +24,7 @@ $slider .= '</div>';
 
       
 // Vérification des informations de connexion
+
 try {
     if ( isset($_POST['email']) && isset($_POST['pwd']) ){
         // Vérification de la validité du format d'émail
@@ -47,14 +49,15 @@ try {
             header('Location: index.php?page=connexion&error=' . $errorMsg);
             exit();
 }
-   
+
 // Si l'utilisateur n'existe pas -> redirection Connexion
 if(!isset($_SESSION['user'])) {
     require 'view/connexion.php';
     exit;
 }
-// Test si l'utilisateur à une session d'ouverte pour valider son contenu->$user_content
-$user_content = $globalClass->setUserEnv();
+// Validation du contenu utilisateur->$user_content
+$user_content = $globalClass->setUserEnv();  
+
 // Liste des defunts par utilisateur
 $def_id = $getInfo->getUserDefunctList($_SESSION['user']['id']);
 $info_def = $def_id->fetchAll();

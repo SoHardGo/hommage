@@ -11,7 +11,7 @@ ob_start();
                    <img class="img" src="public/pictures/cards/<?=$r['name']?>" alt="<?=$r['info']?>">
                 </div>
                <p>Tarif : <?=$r['price']?>  Euros</p>
-               <a class="cards_button" href = "index.php?page=card&id=<?=$r['id']?>">Selectionner</a>
+               <a class="cards_button" href = "?page=card&id=<?=$r['id']?>">Selectionner</a>
             </div>
     <?php endforeach ?>
     <?php endif ?>
@@ -44,13 +44,13 @@ ob_start();
                 <div id="card_id" class="hidden"><?=$id?></div>
                 <p class="content" contenteditable spellcheck="true" style="background-image : url('public/pictures/cards/<?=$cardInfo['name']?>');">
                 </p>
-                <button class="button" id ="card_val" type="button" value="1">Confirmer</button>
+                <button class="button ahref" id ="card_val" type="button" value="1">Confirmer</button>
         </div>
     </div>
 </section>
 <section class="card_select">
     <div class="card_info">
-       <form method="POST" action="index.php?page=card">
+       <form method="POST" action="?page=card">
             <fieldset>
                 <Label>Souhaitez-vous envoyer cette carte à un utilisateur du site ?</Label>
                 <label>Nous nous chargerons de lui envoyer</label>
@@ -61,14 +61,14 @@ ob_start();
                     <?=$verifInfoSend?>
                 </div>
                 <label for="valid_user"></label>
-                <input class="button" id="valid_add" type="submit" name="submit" value="Valider">
+                <input class="button ahref" id="valid_add" type="submit" name="submit" value="Valider">
                 <div class="card_address">
                     <hr>
                     <Label>Je préfère recevoir à mon adresse :</Label>
                     <p><?=$infos_user['number_road'].' '?><?=$infos_user['address'].' '?><?=$infos_user['postal_code'].' '?><?=$infos_user['city']?></p>
-                    <label></label>
-                    Oui<input type="radio"  class="button" name="valid_add" value="1">
-                    Non<input type="radio"  class="button" name="valid_add" value="0">
+                    <label class="radio">Oui&emsp;&emsp;Non</label>
+                    <input type="radio"  class="button" name="valid_add" value="1">
+                    <input type="radio"  class="button" name="valid_add" value="0">
                 </div>
             </fieldset>
        </form>
@@ -76,13 +76,6 @@ ob_start();
             <div class="nb_card">
                 <h4>Nombre de cartes avec texte intégré enregisteés: <span id="card_nb"><?=count($_SESSION['nbCard'])?></span></h4>
                 
-            </div>
-            <div class="form_price_card">
-                <form method="post" action="index.php?page=card">
-                    <label for="package">Cartes vendu par paquets de 5 :</label>
-                    <input type="number" id="package" name="number">
-                    <input type="submit" name="package">
-                </form>
             </div>
             <div class="card_price">
                 <h4>Montant de vos achats :</h4>
@@ -104,15 +97,16 @@ ob_start();
                     </tfoot>
                 </table>
             </div>
-            
+            <label for="confirm">Confirmer votre panier.</label>
+            <input class="button" type="text" name="confirm" id="confirm" value="Acheter">
         </div>
     </div>
 </section>
 <?php else : ?>
     <div class="card_no_user">
         <h2>Inscrivez-vous ou connectez-vous pour bénéficier de ce service.</h2>
-        <a class="button" href="index.php?page=registration">S'inscrire</a>
-        <a class="button" href="index.php?page=connexion">Connexion</a>
+        <a class="button ahref" href="?page=registration">S'inscrire</a>
+        <a class="button ahref" href="?page=connexion">Connexion</a>
     </div>
 <?php endif ?>
 <?php

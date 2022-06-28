@@ -119,9 +119,9 @@ class GetInfos extends Manage {
     // récupération des info d'un carte
     public function getOrderCardId(int $id):int {
         $data = ['id'=>$id];
-        $query = "SELECT card FROM content_card WHERE id=:id";
+        $query = "SELECT card_id FROM content_card WHERE id=:id";
         $result = $this->getQuery($query,$data)->fetch();
-        return $result['card'];
+        return $result['card_id'];
     }
     // calcul du total du prix des cartes
     public function getCardTotal() {

@@ -13,43 +13,39 @@ ob_start();
                     <?=$message_email?>
                     <label for="email_user">Entrez votre Email pour recevoir un code de réinitialisation :</label>
                     <input type="email" name="email" id="email_user">
-                    <label for="submit1"></label>
-                    <input class="button email" type="submit" name="submit1" id="submit1" value="Envoyer"><br>
-                    <?php else :?>
+                    <label for="subemail"></label>
+                    <input class="button" type="submit" name="subemail" id="subemail" value="Envoyer">
+                <?php else :?>
                     <label for="email_user"></label>
                     <input type="email" name="email" id="email_user" placeholder="<?=$_SESSION['user']['email']?>" readonly>
-                    <label for="submit1"></label>
-                    <input class="button" type="submit" name="submit1" id="submit1" value="Envoyer"><br>
-
+                    <label for="subemail"></label>
+                    <input class="button" type="submit" name="subemail" id="subemail" value="Envoyer">
                         <?php if (isset($_SESSION['user']['identify'])): ?>
                             <p class="message">Vous êtes bien identifié sur le site :</p>
                             <h4>Votre code d'accès est : <?=$_SESSION['code']?></h4>
+                            <?=$message?>
                             <label for="code">Entrer le code réçu par email</label>
                             <input type="text" name="code" id="code">
-                            <label for="verif_code"></label>
-                            <input class="button" type="submit" name="verif_code" id="verif_code" value="Valider">
+                            <label for="subcode"></label>
+                            <input class="button" type="submit" name="subcode" id="subcode" value="Valider">
                             <label for="cancel"></label>
                             <input class="button" type="submit" name="cancel" id="cancel" value="Annuler">
                         <?php endif ?>
                     
-                    <?php if (isset($_SESSION['verif_code'])) :?>
-                            <label for="new_pass">Entrez votre nouveau mot de passe :</label>
+                        <?php if (isset($_SESSION['verif_code'])) :?>
+                            <label for="new_password">Entrez votre nouveau mot de passe :</label>
+                            <?=$passMess?>
                             <input type="password" name="new_password" id="new_password" placeholder="Nouveau mot de passe">
                             <label for="pass_again"></label>
                             <input type="password" name="pass_again" id="pass_again" placeholder="Confirmer">
-                            <label for="submit3"></label>
-                            <input class="button" type="submit" name="submit3" id="submit3">
-                    <?php endif ?>
+                            <label for="subpass"></label>
+                            <input class="button" type="submit" name="subpass" id="subpass">
+                        <?php endif ?>
                 <?php endif ?>
             </form>
-            <div class="newpass">
-            <?=$newpass?>
-            </div>
-                <?php if (isset($message) && $message == false) :?>
-                        <h4>Vous n'êtes pas un utilisateur identifié</h4>
-                        <a class="button" href="?page=registration">Inscription</a>
-                        <a class="button" href="?page=home">Annuler</a>
-                <?php endif?>
+            <hr>
+            <a class="button ahref" href="?page=registration">Inscription</a>
+            <a class="button ahref" href="?page=home">Accueil</a>
         </div>
     </div>
 </section>

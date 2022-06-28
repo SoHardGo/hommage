@@ -60,6 +60,8 @@ hr {
 .ahref {
     width: 250px;
     height: 40px;
+    margin: 20px;
+    border: 2px outset #7a7474;
 }
 #submit {
     margin:30px;
@@ -368,6 +370,9 @@ input[value="Rechercher"] {
     margin:20px;
     transition:1s all;
 }
+.radio {
+    margin: 20px 0px -30px 5px;
+}
 .cards_item {
     display:flex;
     flex-direction: column;
@@ -448,16 +453,12 @@ input[value="Rechercher"] {
 .card_info {
     text-align:center;
 }
-.card_info input {
-    width: 200px;
-    margin:10px; 
-}
 .card_address, .min_nophoto {
     font-size: 20px;
 }
 .card_price {
     width: 100%;
-    margin: 25px;
+    margin: 25px auto;
 }
 .card_price input{
     width: 50px;
@@ -884,11 +885,13 @@ label[for="comment"]{
 .lost_form {
     display:flex;
     flex-direction:column;
-    align-content:center;
+    align-items:center;
     text-align:center;
     margin:20px;
 }
-
+.newpass {
+    text-align:center;
+}
 
 /*
 .lost_inscription {

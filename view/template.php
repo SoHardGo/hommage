@@ -24,7 +24,7 @@
             <a id="close_burger" href="#" class="close">×</a>
             <ul>
                 <li><a href="index.php"><i class="fas fa-home"></i>&nbsp; Accueil</a></li>
-                <?php if(empty($_SESSION['user']['id'])) :?>
+                <?php if(empty($_SESSION['user']['id']) && !isset($_SESSION['user']['identify']) || isset($_SESSION['user']['identify']) && $_SESSION['user']['identify'] == true) :?>
                 <li><a href="index.php?page=home_user"><i class="fas fa-power-off"></i>&nbsp;Espace membre</a>
                 </li>
                 <?php else :?>

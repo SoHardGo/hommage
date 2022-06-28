@@ -46,7 +46,8 @@ class Registration extends Manage {
     }
     // enregistrement du contenu d'une carte
     public function setContent(array $data) :int{
-        $query = "INSERT INTO content_card SET content=:content, user_id=:user_id, card=:card, date_crea=NOW()";
+        var_dump($data);
+        $query = "INSERT INTO content_card SET content=:content, user_id=:user_id, card_id=:card_id, user_send_add=:user_send_add, date_crea=NOW()";
         return $this->setQueryLastId($query,$data);
     }
 
@@ -71,10 +72,11 @@ class Registration extends Manage {
     }
 
     // mise à jour mot de pass
-    public function updatePassword(string $recup) :void{
-        $recup["password"]= password_hash($recup["password"], PASSWORD_BCRYPT);
-        $query = "UPDATE users SET password=:password,id=:id";
-        $this->getQuery($query,$recup);
+    public function updatePassword(string $pass, int $id) :void{
+        $pass = password_hash($pass, PASSWORD_BCRYPT);
+        $data = ['id'=>$id, 'password'=>$pass];
+        $query = "UPDATE users SET password=:password WHERE id=:id";
+        $this->getQuery($query,$data);
     }
     
 /////////////////////////////DELETER////////////////////////////////////////////

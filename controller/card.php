@@ -63,8 +63,6 @@ if(isset($_POST['submit'])){
 
 $tab_card = $getInfo->getCardTab();
 $total_card = $getInfo->getCardTotal();
-
-
-
 $cardsList = $getInfo->getCardsList()->fetchAll();
+
 require 'view/card.php';

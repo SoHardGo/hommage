@@ -149,33 +149,34 @@ monnom.addEventListener('keyup', ()=> {
 
 ////////////////Récupération du texte d'une carte ////////////////
 
-let edit_btn = document.getElementById('card_val');
-let content = document.querySelector('.content');
-let container_tab = document.getElementById('container_tab')
+let edit_btn = document.getElementById('card_val'); // bouton confirmer
+let content = document.querySelector('.content');   // contenu du texte
 
 if (edit_btn != null){
     edit_btn.addEventListener('click',()=>{
-        let card_text = content.textContent;
-        let card_id = document.getElementById('card_id').innerHTML;
-        let formdata = new FormData();
-        let card_nb = document.getElementById('card_nb');
-        let container_tab = document.getElementById('container_tab');
-        let total = document.getElementById('total');
         
+        let card_text = content.textContent;                         // contenu du text
+        let card_id = document.getElementById('card_id').innerHTML;  // id de la carte sélectionné
+        let card_nb = document.getElementById('card_nb');            // span où s'affiche le nombre de cartes
+        let container_tab = document.getElementById('container_tab');// tableau
+        let total = document.getElementById('total');                // total du tableau
+        
+        let formdata = new FormData();
         formdata.append('content', card_text);
-        formdata.append('id', card_id);
+        formdata.append('card_id', card_id);
 
         let obj = { 'method':'POST', 'body':formdata };
+        
         fetch('ajax/recordCard.php', obj)
-                        .then(response => response.json())
+                        .then(response => response.text())
                         .then(data=>{
-                            console.log(data);
-                            card_nb.innerHTML = data.carte;
-                            container_tab.innerHTML += data.tab;
-                            total.innerHTML = data.total;
+                            console.log(data['carte']);
+                            card_nb.innerHTML = data['carte'];
+                            container_tab.innerHTML += data['tab'];
+                            total.innerHTML = data['total'];
                         })
                         .catch(err=>console.error(err));
-    });
+        });
 }
 
 ////////////Gestion des nouvelles photos et des nouveaux commentaire///////////////

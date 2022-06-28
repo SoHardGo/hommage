@@ -1,10 +1,9 @@
 <?php
 require_once 'model/GetInfos.php';
-$getinfo = new GetInfos();
-$def_id = $getinfo->getUserDefunctList($_SESSION['user']['id']);
+$getInfo = new GetInfos();
+$def_id = $getInfo->getUserDefunctList(intval($_SESSION['user']['id']));
 $info_def = $def_id->fetchAll();
 $nbr = count($info_def);
-
 
 // sous menu dans Modifier fiche avec la liste des defunts
 $list_def = "";
