@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-/********************Gestion du menu Hamburger*******************************/
+///////////////////Gestion du menu Hamburger/////////////////////////////////
 
 let mynav = document.getElementById("my_navbar");
 let openburger = document.getElementById("open_burger");
@@ -13,7 +13,7 @@ closeburger.addEventListener('click',function(){
     mynav.classList.remove("status");
 });
 
-//////////////////////////////Photo de profil User/////////////////////
+///////////////////////Photo de profil utilisateur////////////////////////////
 
 let photo_profil = document.querySelector('.user_icon');
 let input_profil = document.getElementById('photo_user');
@@ -26,7 +26,7 @@ photo_profil.addEventListener('click', function(){
 });
 }
 
-/////////////Gestion du bouton de liste des defunts du menu fiche//////////////
+///////////Gestion du bouton de liste des defunts du menu fiche//////////////
 
 let button = document.querySelector('.button_myDefuncts');
 let container = document.querySelector('.list_defuncts');
@@ -49,7 +49,7 @@ if(camera !== null){
     });
 }
 
-/////////////// Gestion des commentaires /////////////////////////
+/////////////// Gestion des commentaires //////////////////////////
 
 let comment_env = document.querySelectorAll('.comment_env');
 
@@ -87,7 +87,7 @@ if(comment_env != null) {
     }
 }
 
-/************************Dossier des photos d'un defunt************************/
+/////////////////Dossier des photos d'un defunt/////////////////////////////////
 
 let listPhoto = document.querySelector('.folder_link');
 let folder = document.querySelector('.photos_list');
@@ -97,7 +97,7 @@ listPhoto.addEventListener('click', function(e){
     folder.classList.toggle('hidden');
 });
 }
-/********************Gestion de l'éditeur de Cartes****************************/
+/////////////////Gestion de l'éditeur de Cartes/////////////////////////////////
 
 const elements = document.querySelectorAll('.button_edit');
 
@@ -147,7 +147,7 @@ monnom.addEventListener('keyup', ()=> {
 });
 */
 
-////////////////Récupération du texte d'une carte ////////////////
+//////////////////Récupération du texte d'une carte ////////////////////////////
 
 let edit_btn = document.getElementById('card_val'); // bouton confirmer
 let content = document.querySelector('.content');   // contenu du texte
@@ -155,7 +155,7 @@ let content = document.querySelector('.content');   // contenu du texte
 if (edit_btn != null){
     edit_btn.addEventListener('click',()=>{
         
-        let card_text = content.textContent;                         // contenu du text
+        let card_text = content.textContent;                         // contenu du texte
         let card_id = document.getElementById('card_id').innerHTML;  // id de la carte sélectionné
         let card_nb = document.getElementById('card_nb');            // span où s'affiche le nombre de cartes
         let container_tab = document.getElementById('container_tab');// tableau
@@ -168,18 +168,18 @@ if (edit_btn != null){
         let obj = { 'method':'POST', 'body':formdata };
         
         fetch('ajax/recordCard.php', obj)
-                        .then(response => response.text())
+                        .then(response => response.json())
                         .then(data=>{
-                            console.log(data['carte']);
-                            card_nb.innerHTML = data['carte'];
-                            container_tab.innerHTML += data['tab'];
-                            total.innerHTML = data['total'];
+                            console.log(data);
+                            card_nb.innerHTML = data.carte;
+                            container_tab.innerHTML += data.tab;
+                            total.innerHTML = data.total;
                         })
                         .catch(err=>console.error(err));
         });
 }
 
-////////////Gestion des nouvelles photos et des nouveaux commentaire///////////////
+////////////////////////Gestion des nouvelles photos////////////////////////////
 
 let new_photos = document.querySelector('.new_photos');
 let container_lastP = document.querySelector('.container_lastP');
@@ -203,7 +203,7 @@ if(delete_p!=null) {
     }
 }
 
-/////////////////////////Dossier des contacts//////////////////////////////
+/////////////////////////Dossier des contacts///////////////////////////////////
 
 let link_contact = document.getElementById('contacts');
 let folder_contact = document.querySelector('.contacts_list');
@@ -214,7 +214,7 @@ if(link_contact!=null){
     });
 }
 
-////////////////Slick////////////////////
+/////////////////////////////Slider/////////////////////////////////////////////
 $(document).ready(function(){
       $('.slider').slick({
         autoplay: true,
@@ -250,8 +250,7 @@ $(document).ready(function(){
               }
             }]
         });
-    });
-
+});
 
 ////////////////Gestion des bouquets de fleurs///////////////////
 /*
@@ -277,24 +276,7 @@ function getFlower() {
     });
     select_flower.innerHTML = JSON.stringify(result); // récupère le JSON 
 };
-
-////////////////Gestion des cartes////////////////////////////////
-
-/////////////////Fonction Ajax Générique///////////////////////////
-function ajax(container,url){
-    const formdata = new FormData(form);
-    let obj ={ 'method':'POST', 'body' :formdata};
-    fetch(url,obj)
-        .then(response => response.text()) 
-        .then(data=>{
-            container.innerHTML+= data;
-        })
-        .catch(err=>console.log(err)); 
-}
 */
-
-
-
 
 });
   

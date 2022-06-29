@@ -48,9 +48,10 @@ ob_start();
         </div>
     </div>
 </section>
+
 <section class="card_select">
     <div class="card_info">
-       <form method="POST" action="?page=card">
+        <form method="POST" action="?page=card">
             <fieldset>
                 <Label>Souhaitez-vous envoyer cette carte à un utilisateur du site ?</Label>
                 <label>Nous nous chargerons de lui envoyer</label>
@@ -60,18 +61,21 @@ ob_start();
                 <div class="verif_send">
                     <?=$verifInfoSend?>
                 </div>
-                <label for="valid_user"></label>
-                <input class="button ahref" id="valid_add" type="submit" name="submit" value="Valider">
+                <hr>
                 <div class="card_address">
-                    <hr>
-                    <Label>Je préfère recevoir à mon adresse :</Label>
-                    <p><?=$infos_user['number_road'].' '?><?=$infos_user['address'].' '?><?=$infos_user['postal_code'].' '?><?=$infos_user['city']?></p>
-                    <label class="radio">Oui&emsp;&emsp;Non</label>
+                    <Label class="m20">---- Je préfère recevoir à mon adresse ----</Label>
+                    <p class="message"><?=$infos_user['number_road'].' '?><?=$infos_user['address'].' '?><?=$infos_user['postal_code'].' '?><?=$infos_user['city']?></p>
+                    <label class="labelRadio">Oui&emsp;&emsp;Non</label>
                     <input type="radio"  class="button" name="valid_add" value="1">
                     <input type="radio"  class="button" name="valid_add" value="0">
                 </div>
+                <label for="valid_user"></label>
+                <input class="button ahref" id="valid_add" type="submit" name="submit" value="Valider">
             </fieldset>
-       </form>
+        </form>
+        <div class="choice_send">
+            <?=$sendPrefered?>
+        </div>
         <div class="info_price">
             <div class="nb_card">
                 <h4>Nombre de cartes avec texte intégré enregisteés: <span id="card_nb"><?=count($_SESSION['nbCard'])?></span></h4>
@@ -98,7 +102,7 @@ ob_start();
                 </table>
             </div>
             <label for="confirm">Confirmer votre panier.</label>
-            <input class="button" type="text" name="confirm" id="confirm" value="Acheter">
+            <input class="button" type="text" name="confirm" id="confirm" value="Confirmer">
         </div>
     </div>
 </section>

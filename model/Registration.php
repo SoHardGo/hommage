@@ -46,7 +46,6 @@ class Registration extends Manage {
     }
     // enregistrement du contenu d'une carte
     public function setContent(array $data) :int{
-        var_dump($data);
         $query = "INSERT INTO content_card SET content=:content, user_id=:user_id, card_id=:card_id, user_send_add=:user_send_add, date_crea=NOW()";
         return $this->setQueryLastId($query,$data);
     }

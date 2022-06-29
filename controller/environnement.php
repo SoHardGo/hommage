@@ -6,6 +6,7 @@ $getInfo = new GetInfos();
 require_once 'model/GlobalClass.php';
 $globalClas = new GlobalClass();
 
+// déclaration des variables
 $nbPhotos = '';
 $nbComments = '';
 $admin_def ='';
@@ -13,7 +14,7 @@ $message ='';
 $tab = array();
 $tabFriend = [];
 
-//id du user origine de la fiche défunt et futur ami
+//id du user à l'origine de la fiche du défunt et ami potentiel
 $friend_add = $_GET['friend_add']??0;
 //id du defunt dans l'environnement
 $id_def = $_GET['id']??0;

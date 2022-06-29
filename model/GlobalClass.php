@@ -2,7 +2,7 @@
 require_once 'Manage.php';
 
 class GlobalClass extends Manage {
-   
+    // initialisation du bandeau utilisateur
     public function setUserEnv():string {
         if(isset($_SESSION['user']['id'])){
             require 'controller/user.php'; 

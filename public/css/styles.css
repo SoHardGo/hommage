@@ -298,6 +298,7 @@ hr {
 }
 input[type="radio"] {
     width: 15px;
+    height: 15px;
 }
 input[type="file"] {
     width: 145px;
@@ -370,8 +371,8 @@ input[value="Rechercher"] {
     margin:20px;
     transition:1s all;
 }
-.radio {
-    margin: 20px 0px -30px 5px;
+.labelRadio {
+    margin: 20px 0px -20px 5px;
 }
 .cards_item {
     display:flex;
@@ -471,6 +472,9 @@ table,th,tr,td {
     border:1px solid var(--color-black);
     width: 400px;
     margin:0 auto;
+}
+table tr:nth-child(odd){
+    background-color: var(--color-grey-light);
 }
 
 /**********************User***************************************/

@@ -1,7 +1,7 @@
 <?php
 
 class Manage {
-
+    // connexion à la base de donnée
     protected function db_connect():object {
 
             try {
@@ -14,7 +14,7 @@ class Manage {
             }
             return $db;
         }
-        
+    // envoi des requêtes à la base de donnée    
     protected function getQuery($query,$data=[]):object {
             $db = $this->db_connect();
             $stmt = $db->prepare($query);
@@ -29,7 +29,7 @@ class Manage {
              $stmt->execute($data);
              return $db->lastInsertId();
     }
-    
+    // fonction de routage
     public function router(string $page):string {
         if( in_array ($page, array_keys(ROUTES))) {
             $controller = CONTROLLER_FOLDER.ROUTES[$page];
@@ -38,11 +38,13 @@ class Manage {
         }
         return realpath($controller);
     }
+    // initialisation d'un jeton pour vérifier la validité d'un formulaire
     public function setToken():string{
         $token = bin2hex(random_bytes(10)); 
         $_SESSION['token'] = $token;
         return $token;
     }
+    // fonction générique pour récupérer toute les informations d'une table selon un Id
     public function getOne( $table, $id )
     {
         $data = ['table' => $table, 'id' => $id];
@@ -50,7 +52,7 @@ class Manage {
         $result = $this->getQuery($query,$data);
         return $result->fetch();
     }
-    
+    // fonction générique pour récupérer les informations d'une colonne dans une table
     public function getAll( $table, $columns )
     {
         $data = ['table' => $table, 'columns' => $columns];

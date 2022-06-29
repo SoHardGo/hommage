@@ -5,26 +5,31 @@ require_once '../model/Registration.php';
 require_once '../model/GetInfos.php';
 $register = new Registration();
 $getInfo = new GetInfos();
-// enregistrement du contenu de la carte et récup l'Id de l'enregistrement
-if (isset($_POST['content']) && $_POST['content']!=''){
-    $data = [
+
+// gestion de récupération du contenu d'une carte
+
+if (isset($_POST['content']) && !empty($_POST['content'])){
+    $content = [
         'content'=>strip_tags($_POST['content']),
         'user_id'=>$_SESSION['user']['id'],
         'card_id'=>$_POST['card_id'],
-        'user_send_add'=>10,
+        'user_send_add'=>10
         ];
-    $lastId = $register->setContent($data);
-    var_dump($lastId);
+    // enregistrement du texte + retour de l'Id d'enregistrement
+    $lastId = $register->setContent($content);
     $_SESSION['nbCard'][] = $lastId;
     $nb = count($_SESSION['nbCard']);
-    var_dump($_SESSION['nbCard']);
+    //echo $nb;
     // récupération du nom, du prix et du libellé de la carte
     $cardInfo = $getInfo->getCardInfo(intval($_POST['card_id']));
-    // récupération du total de la liste des cartes
+
     $total = $getInfo->getCardTotal();
-    // initialisation du tableau d'affichage de l'achat client
+    //echo $total;
+    // initialisation du tableau d'affichage de la sélection des cartes
     $tab = '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].'</td></tr>';
-    $result = ['carte'=>$nb,'tab'=>$tab,'total'=>$total];
-    print_r($result) ;
+    
+    $result = json_encode(['carte'=>$nb,'tab'=>$tab,'total'=>$total]);
+    echo $result;
 }   
+
 

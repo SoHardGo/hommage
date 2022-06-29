@@ -2,7 +2,7 @@
 require_once 'Manage.php';
 
 class GetInfos extends Manage {
-    
+    // récupération de toutes les informations concernant un utilisateur
     public function getInfoUser(int $id) :array {
         $data = ['id' => $id];
         $query = "SELECT email, firstname, lastname, number_road, address, city, postal_code, pseudo FROM users WHERE id=:id";
@@ -19,13 +19,13 @@ class GetInfos extends Manage {
         }
         return $result;
     }
-    // récup l'id de l'utilisateur selon son email
+    // récupération l'id de l'utilisateur selon son email
     public function getEmail(string $email) :object {
         $data = ['email' => $email];
         $query = "SELECT id FROM users WHERE email=:email";
         return $this->getQuery($query,$data);
     }
-    // récup les infos de tout les défunts d'un utilisateur
+    // récupération les infos de tout les défunts d'un utilisateur
     public function getUserDefunctList(int $user_id) :object {
         $data = ['user_id'=>$user_id];
         $query = "SELECT id, lastname, firstname, birthdate, death_date, cemetery, city_birth, postal_code FROM defuncts WHERE user_id=:user_id";
@@ -49,7 +49,7 @@ class GetInfos extends Manage {
         }
         return $liste;
     }
-    
+    // affichage à faire de la ville et code postal dans recherche
     public function getTown(string $ville) :array {
         $data = ['nom'=>$res.'%',
         'cp'=>$res .'%'];
@@ -104,7 +104,7 @@ class GetInfos extends Manage {
         $result = $this->getQuery($query,$data);
         return $result;
     }
-    // infos pour le tableau des cartes
+    // information récupérée pour le tableau des cartes
     public function getCardTab():string {
         $tab = '';
         if(isset($_SESSION['nbCard'])) {
@@ -116,8 +116,8 @@ class GetInfos extends Manage {
         }
         return $tab;
     }
-    // récupération des info d'un carte
-    public function getOrderCardId(int $id):int {
+    // récupération de l'Id d'une carte lié à un texte
+    public function getOrderCardId(int $id) :int {
         $data = ['id'=>$id];
         $query = "SELECT card_id FROM content_card WHERE id=:id";
         $result = $this->getQuery($query,$data)->fetch();
@@ -135,25 +135,25 @@ class GetInfos extends Manage {
         }
         return $total;
     }
-    // récupération de la liste des infos d'une carte
+    // récupération de la liste des information d'une carte
     public function getCardInfo(int $id) :array {
         $data = ['id'=>$id];
         $query = "SELECT name, price, info FROM products WHERE id=:id";
         return $this->getQuery($query,$data)->fetch();
     }
-    
+    // récupération des 8 dernières photos pour le slider
     public function getHomeSlider(int $nb=8) :array {
         $query = "SELECT MAX(user_id) as user_id, MAX(name) as name FROM photos GROUP BY defunct_id ORDER BY MAX(id) LIMIT $nb";
         return $this->getQuery($query)->fetchAll();
     }
-    
+    // récupération des nouvelles photos ajoutées depuis la dernière connexion
     public function getRecentPhotos(int $id_def, string $last_log) :object {
         $data = ['defunct_id'=>$id_def,
             'last_log'=>$last_log];
         $query = "SELECT id FROM photos WHERE defunct_id=:defunct_id AND date_crea > :last_log";
         return $this->getQuery($query,$data);
     }
-    
+    // récupération des nouveaux commentaires depuis la dernière connexion
     public function getRecentComments(int $id_def, string $last_log) :object {
         $data = ['defunct_id'=>$id_def,
             'last_log'=>$last_log];
