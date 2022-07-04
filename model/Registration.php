@@ -46,8 +46,18 @@ class Registration extends Manage {
     }
     // enregistrement du contenu d'une carte
     public function setContent(array $data) :int{
-        $query = "INSERT INTO content_card SET content=:content, user_id=:user_id, card_id=:card_id, user_send_add=:user_send_add, date_crea=NOW()";
+        $query = "INSERT INTO content_card SET content=:content, user_id=:user_id, card_id=:card_id, user_send_id=:user_send_id, date_crea=NOW()";
         return $this->setQueryLastId($query,$data);
+    }
+    // enregistrement des cartes achetées
+    public function setCards(array $data) :void{
+        $query = "INSERT INTO orders SET user_id=:user_id, cards_id=:cards_id, flowers_id=:flowers_id, total=:total, user_send_id=:user_send_id, date_crea=NOW()";
+        $this->getQuery($query,$data);
+    }
+    // enregistrement des messages du chat
+    public function setChat(array $data) :void{
+        $query = "INSERT INTO messages SET user_id=:user_id, content=:content, date_crea=NOW()";
+        $this->getQuery($query,$data);
     }
 
 /////////////////////////////////////////////////UPDATER////////////////////////////////////////////////////////////

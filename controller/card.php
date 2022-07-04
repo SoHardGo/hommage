@@ -7,17 +7,28 @@ $globalClass = new GlobalClass();
 $getInfo = new GetInfos();
 $manage = new Manage();
 
+$message = '';
+$mess_buy = '';
+$mess_send ='';
+$buy = '';
 $email = '';
 $cardInfo = '';
 $verifInfoSend = '';
 $sendPrefered = '';
 $nb ='';
+
+// Carte par défaut dans l'éditeur
 $id = $_GET['id']??1;
 
-// Initialisation pour le nombre de cartes
+// Vider le tableau
+if (isset($_GET['empty']) && $_GET['empty']){
+    unset($_SESSION['nbCard']);
+} 
+
+// Initialisation d'un tableau pour les Id d'enregistrement des cartes
 if(!isset($_SESSION['nbCard'])) $_SESSION['nbCard'] = array();
 
-// Initialisation de la carte par défaut dans l'éditeur 
+// Initialisation des information la carte 
 if($id != null){
     $cardInfo = $getInfo->getCardInfo($id);
 }
@@ -27,33 +38,16 @@ if (isset($_SESSION['user']['id'])){
         $infos_user = $getInfo->getInfoUser($_SESSION['user']['id']);
 } 
 
-/////// Vérification de l'utilisateur à qui envoyé une carte
-// Choix de l'envoi à soi-même
-if(isset($_POST['valid_add']) && $_POST['valid_add'] == '1'){
-    echo 'ok chez vous';
-    $_SESSION['user_send'] = $_SESSION['user']['id'];
-}
-/*
-/////// Choix d'envoi à un utilisateur ayant accepté l'envoi par Email et Adresse Postal
-if(isset($_POST['sendPrefered']) && $_POST['sendPrefered']!=null && $_POST['sendPrefered'] == 'address'){
-    echo 'addr ok';
-    $_SESSION['address'] = true;
-    $_SESSION['email'] = false;
-} elseif (isset($_POST['sendPrefered']) && $_POST['sendPrefered']!=null && $_POST['sendPrefered'] == 'email') {
-    echo 'email ok';
-    $_SESSION['email'] = true;
-    $_SESSION['address'] = false;
-}
-*/
 // Vérification si l'utilisateur existe
-if(isset($_POST['submit'])){
-    if(isset($_POST['user_lastname']) && isset($_POST['user_firstname'])){
+if (isset($_POST['submit'])){
+    if (isset($_POST['user_lastname']) && isset($_POST['user_firstname']) && !empty($_POST['user_lastname']) && !empty($_POST['user_firstname'])){
         $data = ['lastname'=>htmlspecialchars($_POST['user_lastname']),
             'firstname'=>htmlspecialchars($_POST['user_firstname'])];
         $userVerif = $globalClass->verifyUser($data)->fetch();
-    //Vérification si l'utisateur existe et à crée une fiche
+    //Vérification si l'utisateur existe, si il crée une fiche et accepté l'envoi par email et/ou par adresse postale
         if ($userVerif != null){
             $_SESSION['user_send'] = $userVerif['id'];
+            $_SESSION['user_send_name'] = ucfirst($_POST['user_lastname']).' '.ucfirst($_POST['user_firstname']);
             $userAdmin = $globalClass->verifUserAdmin($userVerif['id'])->fetch();
             if ($userAdmin){
                 if ($userAdmin['card_real'] == 0){
@@ -79,9 +73,42 @@ if(isset($_POST['submit'])){
         }
     }
 }
+/////// Vérification de l'utilisateur à qui envoyé une carte
+// Choix de l'envoi à l'auteur de la carte
+if (isset($_POST['valid_add']) && $_POST['valid_add'] == '1' && !empty($_POST['valid_add'])){
+    $message = '<p class="message">Confirmation de l\'envoi à votre adresse.</p>';
+    $_SESSION['user_send'] = $_SESSION['user']['id'];
+} elseif (!isset($_POST['valid_add']) || $_POST['valid_add'] == '0' && !isset($_POST['sendPrefered'])) {
+    $message = '<p class="message">Vous n\'avez pas encore sélectionné de destinataire</p>';
+}
+// Choix d'envoi à un utilisateur ayant accepté l'envoi par Email et Adresse Postal
+if(isset($_POST['sendPrefered']) && $_POST['sendPrefered']!=null && $_POST['sendPrefered'] == 'address'){
+    $mess_send = '<p>Confirmation de l\'envoi postal à '.$_SESSION['user_send_name'].'</p>';
+    $message = '';
+    $address_send = true;
+} elseif (isset($_POST['sendPrefered']) && $_POST['sendPrefered']!=null && $_POST['sendPrefered'] == 'email') {
+    $mess_send = '<p>Confirmation de l\'envoi par email à '.$_SESSION['user_send_name'].'</p>';
+    $message = '';
+    $email_send = true;
+}
 
 $tab_card = $getInfo->getCardTab();
 $total_card = $getInfo->getCardTotal();
 $cardsList = $getInfo->getCardsList()->fetchAll();
+
+
+// Affichage de la partie paiement avec liste des cartes validé
+// Découpage des lignes du tableau
+if (isset($_POST['confirm'])){
+    if ($total_card == '0'){
+        $mess_buy = '<p class="message">Vous n\'avez rien sélectionné pour le moment.</p>';
+    } else {
+    // variable pour récupérer dans buy.php
+    $_SESSION['buy'] = true;
+    $_SESSION['tab_card'] = $tab_card;
+    $_SESSION['total_card'] = $total_card;
+    $buy = $globalClass->setBuyEnv();
+    }
+}
 
 require 'view/card.php';

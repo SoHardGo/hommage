@@ -38,7 +38,7 @@
                 <li><a href="index.php?page=flower"><i class="fas fa-leaf"></i>&nbsp;Bouquets</a></li>
                 <li><a href="index.php?page=card"><i class="far fa-address-card"></i>&nbsp;Cartes</a></li>
                 <li><a href="index.php?page=search"><i class="fas fa-search"></i>&nbsp;Rechercher</a></li>
-                <li><a href="index.php?page=cart"><i class="fas fa-shopping-basket"></i>&nbsp;Panier</a></li>
+                <li><a href="index.php?page=buy"><i class="fas fa-shopping-basket"></i>&nbsp;Panier</a></li>
                 <li><a href="index.php?page=contact"><i class="far fa-envelope"></i>&nbsp;Contact</a>
                 </li>
             </ul>
@@ -52,8 +52,12 @@
 
 <main>
     <section class="main_user">
+        <div id="begin">
+        <a href="#end" title="Bas de page"><img class="img dim40" src="public/pictures/site/down.png" alt="ancre vers bas de page"></a>
+        </div>
        <?=$user_content?>
        <?=$content?>
+        <a id="end" href="#begin" title="Haut de page"><img class="img dim40" src="public/pictures/site/up.png" alt="ancre vers haut de page"></a>
     </section>
 </main>
 <footer class="footer">

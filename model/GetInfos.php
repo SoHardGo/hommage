@@ -104,7 +104,7 @@ class GetInfos extends Manage {
         $result = $this->getQuery($query,$data);
         return $result;
     }
-    // information récupérée pour le tableau des cartes
+    // information récupérée pour le tableau des cartes et les Id des cartes
     public function getCardTab():string {
         $tab = '';
         if(isset($_SESSION['nbCard'])) {
@@ -141,6 +141,27 @@ class GetInfos extends Manage {
         $query = "SELECT name, price, info FROM products WHERE id=:id";
         return $this->getQuery($query,$data)->fetch();
     }
+    // liste des achats d'un utilisateur
+    public function getOrdersList(int $user_id) :array {
+        $data = ['user_id'=>$user_id];
+        $query = "SELECT date_crea, total, user_send_id, cards_id,flowers_id FROM orders WHERE user_id=:user_id";
+        return $this->getQuery($query,$data)->fetchAll();
+    }
+    // liste des contenus de cartes par Id d'enregistrement 
+    public function getContentList(int $id) :array {
+        $data = ['id'=>$id];
+        $query = "SELECT user_id, content, card_id, date_crea, user_send_id FROM content_card WHERE id=:id";
+        return $this->getQuery($query,$data)->fetchAll();
+    }
+    // liste des achats par utilisateur
+    public function getListBuyUser(int $id) : array {
+        $listing = $this->getOrdersList($id);
+        foreach ($listing as $l){
+            $listcards = json_decode($l['cards_id']);
+            $cards['idcards'][] = $listcards;
+        }
+        return $cards;
+    }
     // récupération des 8 dernières photos pour le slider
     public function getHomeSlider(int $nb=8) :array {
         $query = "SELECT MAX(user_id) as user_id, MAX(name) as name FROM photos GROUP BY defunct_id ORDER BY MAX(id) LIMIT $nb";
@@ -160,7 +181,7 @@ class GetInfos extends Manage {
         $query = "SELECT id FROM comments WHERE defunct_id=:defunct_id AND date_crea > :last_log";
         return $this->getQuery($query,$data);
     }
-    // récupération des info d'un useradmin
+    // récupération des info d'un useradmin selon l'ID du défunt
     public function getUserAdminInfo(int $def_id) :?array {
         $data = ['defunct_id'=>$def_id];
         $query = "SELECT user_id FROM user_admin WHERE defunct_id=:defunct_id";
@@ -171,10 +192,17 @@ class GetInfos extends Manage {
         return $tab;
     }
     // liste des amis 
-    public function getFriendsList(int $id) :array{
+    public function getFriendsList(int $id) :array {
         $data = ['user_id'=>$id];
-        $query = "SELECT friend_id, date_crea FROM friends WHERE user_id=:user_id";
+        $query = "SELECT friend_id, date_crea, waiting FROM friends WHERE user_id=:user_id";
         return $this->getQuery($query,$data)->fetchAll();
+    }
+    // récupération des 20 derniers messages
+    public function getChat(int $id) :array {
+        $data = ['user_id'=>$id];
+        $query = "SELECT content FROM messages ORDER BY date_crea DESC LIMIT 20";
+        $result = $this->getQuery($query,$data)->fetchAll();
+        return $result;
     }
 
 }

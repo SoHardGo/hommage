@@ -31,7 +31,6 @@ if (isset($_POST['submit'])) {
                 $data['postal_code'] = isset($_POST['cp']) ? htmlspecialchars($_POST['cp']) : '';
                 $data['city'] = isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
                 $data['password'] = isset($_POST['pwd']) ? htmlspecialchars($_POST['pwd']) : '';
-                $data['friend'] = "";
                 // Enregistrement d'un user et initialisation environnement user
                 $_SESSION['user'] = $data;
                 $user_id = $register->setRegister($data);

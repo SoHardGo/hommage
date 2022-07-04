@@ -41,6 +41,12 @@ hr {
     margin:0 auto;
     width: 90%;
 }
+nav {
+    font-weight: bold;
+}
+#begin {
+    background-color: var(--color-bgc-button);
+}
 .hidden {
     display:none !important;
 }
@@ -86,9 +92,19 @@ hr {
     font-weight: bold;
 }
 /************************Global dimension**************************************/
+.dim200 {
+    width: 200px;
+}
 .dim100 {
     display:flex;
-    justify-content: center;
+}
+.dim80 {
+    width: 80px;
+    height: 80px;
+}
+.dim60 {
+    width: 60px;
+    height: 60px;
 }
 .dim50 {
     width: 50px;
@@ -98,9 +114,13 @@ hr {
     width: 40px;
     height: 40px;
 }
-.dim_contact {
-    width: 30px;
-    height: 30px;
+.dim35 {
+    width: 35px;
+    height: 35px;
+}
+.dim20 {
+    width: 20px;
+    height: 20px;
 }
 .dim10 {
     width: 10px;
@@ -112,7 +132,7 @@ hr {
 .page_header {
     background-image: url("../pictures/site/fond2.jpg");
     background-size:cover;
-    height:190px;
+    height:165px;
 }
 .title_container {
     display:flex;
@@ -263,12 +283,12 @@ hr {
     height:200px;
 }
 /**********************Environnement Formulaires*********************************/
-/***Connexion -- Contact -- Register***/
+/***Connexion -- Contact -- Register -- Payement***/
 
-.title_connexion.title, .title_contact.title, .title_register.title, .title_createform.title, .title_profil.title {
+.title_connexion.title, .title_register.title, .title_createform.title, .title_profil.title {
     margin:30px
 }
-.connexion_form, .contact_form, .register_form, .createform_form, .profil_form {
+.connexion_form, .register_form, .createform_form, .profil_form {
     text-align:center;
     margin-bottom:20px;
 }
@@ -278,9 +298,6 @@ hr {
     flex-direction:column;
     align-content:center;
     align-items: center;
-}
-.contact_form .button {
-    margin-top:20px;
 }
 /***Contact***/
 .contact_form .buttons {
@@ -310,14 +327,14 @@ select[name="affinity"]{
     width: 150px;
 }
 .more_info {
-    margin:20px;
+    margin-bottom:20px;
 }
 /***Search***/
 .search_form {
     line-height:60px;
     text-align:center;
 }
-.search_form input {
+.search_form input, .search_insee input {
     width: 210px;
 }
 .search_mess {
@@ -328,6 +345,14 @@ select[name="affinity"]{
 }
 input[value="Rechercher"] {
     margin-bottom:30px;
+}
+.container_insee {
+    display:flex;
+    justify-content:center;
+}
+.search_insee {
+    text-align:center;
+    width: 90%;
 }
 .defunct_identity {
     display:flex;
@@ -340,6 +365,9 @@ input[value="Rechercher"] {
     flex-direction:column;
     height: 200px;
     width: 150px;
+}
+.result_insee {
+    width: 90%;
 }
 /***Profil***/
 .title_profil.title {
@@ -354,10 +382,36 @@ input[value="Rechercher"] {
      margin-top: 50px;
 }
 .profil_admin {
-    margin:20px;
+    margin-bottom:20px;
 }
 
-/***Achat***/
+/***Buy***/
+.pay {
+    text-align:center;
+    width: 70%;
+    margin: 0 auto;
+}
+.form_pay {
+    margin: 20px;
+}
+.buy_mess {
+    text-align:center;
+}
+.table_buy, .table_death {
+    border-collapse:collapse;
+    border:1px solid var(--color-black);
+    text-align:center;
+    width: 90%;
+    margin: 20px auto;
+}
+.table_buy tr, .table_buy td, .table_death td, .table_death tr {
+     border:1px solid var(--color-black);
+}
+.tab_content {
+    overflow-x: scroll;
+    height: 50px;
+}
+
 /***Cartes + Editor***/
 .container_card {
     display:flex;
@@ -411,7 +465,13 @@ input[value="Rechercher"] {
 .tab_price {
     width: 25%;
 }
-
+.tab_empty {
+    padding: 2px 5px;
+}
+.empty_cart {
+    text-align:center;
+    font-size: 30px;
+}
 .container_editor {
     margin:0 auto;
 }
@@ -458,7 +518,7 @@ input[value="Rechercher"] {
     font-size: 20px;
 }
 .card_price {
-    width: 100%;
+    text-align: center;
     margin: 25px auto;
 }
 .card_price input{
@@ -467,13 +527,17 @@ input[value="Rechercher"] {
 .verif_send {
     color:var(--color-red);
 }
-table,th,tr,td {
+.table_card {
     border-collapse:collapse;
     border:1px solid var(--color-black);
-    width: 400px;
+    text-align:center;
+    width: 80%;
     margin:0 auto;
 }
-table tr:nth-child(odd){
+.table_card th, .table_card td {
+    border:1px solid var(--color-black);
+}
+.table_card tr:nth-child(odd) {
     background-color: var(--color-grey-light);
 }
 
@@ -506,9 +570,10 @@ table tr:nth-child(odd){
     display:grid;
     grid-template-areas: "user title title title" 
         "user . icon_n icon_f";
-    grid-template-rows:80px 80px;
+    grid-template-rows:75px 75px;
     grid-template-columns:25% 25% 25% 25%;
     justify-items: center;
+    background-color: rgba(81, 102, 123,.5);
 }
 .container_photo_user {
     grid-area:user;
@@ -525,7 +590,7 @@ table tr:nth-child(odd){
 }
 .container_user h3 {
     grid-area:title;
-    align-self: center;
+    align-self: end;
     margin-right: 80px;
 }
 .user_new {
@@ -538,12 +603,12 @@ table tr:nth-child(odd){
     position: absolute;
     right: -10px;
     bottom: -55px;
-    color:var(--color-menu-user);
+
     margin-top:20px;
-    border: 1px solid var(--color-black);
+
     border-radius: 50%;
     padding: 3px;
-    background-color: black;
+
 }
 .bouton_user {
     display:flex;
@@ -584,15 +649,15 @@ table tr:nth-child(odd){
 }
 .env_listing {
     display:flex;
-    justify-content:center;
-    margin:10px;
+    flex-direction:column;
+    align-items:center;
 }
 .new_comments, .new_photos {
-    margin-right:27px;
-    margin-top:20px;
+    font-size: 18px;
 }
 .admin_user {
     text-align:center;
+    font-size: 20px;
 }
 .friend_mess {
     text-align:center;
@@ -638,19 +703,25 @@ table tr:nth-child(odd){
     display:flex;
     flex-direction:column;
     align-items: center;
-    text-align: center;
 }
-.contacts {
-    width: 200px;
+.contact_title{
+    text-align:center;
 }
 .contacts_list {
     display:flex;
     justify-content:center;
+    width: 80%;
     border:1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px auto;
 }
 .friend {
     text-decoration:none;
     color:var(--color-black);
+}
+.friend_container {
+    position:relative;
 }
 .friend_list {
     width: 80px;
@@ -668,6 +739,11 @@ table tr:nth-child(odd){
 .add_mess {
     text-align: center;
 }
+.icon_mark{
+    position:absolute;
+    left:10px;
+    top: 40px;
+}
 /**********************Environnement utilisateur***************************/
 .folder {
     margin:0 auto;
@@ -678,9 +754,6 @@ table tr:nth-child(odd){
     text-align:center;
     text-decoration:none;
     color: var(--color-black);
-}
-.env_defunct p {
-    margin-bottom:20px;
 }
 .photos_list {
     display:flex;
@@ -701,10 +774,6 @@ table tr:nth-child(odd){
 }
 .container_environnement {
     margin-top:20px;
-}
-.delete {
-    width: 20px;
-    height: 20px;
 }
 .env_date {
     display:flex;
@@ -759,13 +828,9 @@ table tr:nth-child(odd){
 }
 .icon_env {
     display:flex;
-    justify-content:flex-end;
+    justify-content:center;
     align-items: center;
     margin:30px;
-}
-.camera {
-    width: 50px;
-    height: 50px;
 }
 .fa-trash-alt {
     color:var(--color-blue-hard);
@@ -985,8 +1050,6 @@ label[for="comment"]{
      
 }
 
-
-
 /**********************Footer************************************/
 .footer {
     background-color: var(--color-bgc-button);
@@ -1009,13 +1072,43 @@ label[for="comment"]{
 .menu_footer, .network {
     display:flex;
     flex-direction:column;
-    align-items: flex-start;
+    align-items: flex-end;
     margin:15px;
     width: 40%;
+}
+.menu_footer {
+    align-items: flex-start;
 }
 .menu_footer a {
     text-decoration:none;
     color: var(--color-white);
+}
+/***********************Animation icones Ajout Contact et Message**************/
+.icon_anim {
+    animation: myIcons 2s ease 0s infinite normal none;
+}
+@keyframes myIcons {
+	0% {
+		animation-timing-function: ease-out;
+		transform: scale(1);
+		transform-origin: center center;
+	}
+	10% {
+		animation-timing-function: ease-in;
+		transform: scale(0.90);
+	}
+	17% {
+		animation-timing-function: ease-out;
+		transform: scale(0.98);
+	}
+	33% {
+		animation-timing-function: ease-in;
+		transform: scale(0.85);
+	}
+	45% {
+		animation-timing-function: ease-out;
+		transform: scale(1);
+	}
 }
 
 /**********************Media Queries******************************/
@@ -1027,7 +1120,7 @@ label[for="comment"]{
         width: 200px;
     }
     .page_header {
-        height:210px;
+        height:265px;
     }
     .title_container h1 {
         font-size: 95px;
@@ -1046,7 +1139,7 @@ label[for="comment"]{
         height: 130px;
     }
     .container_home {
-        width: 90%;
+        width: 80%;
         margin:0 auto;
     }
     .container_home  h1 {
@@ -1085,10 +1178,25 @@ label[for="comment"]{
     .container_editor {
         width: 574px;
     }
+    .container_user h3 {
+        margin-right: 160px;
+        font-size: 30px;
+    }
+    .user_new {
+        margin-left: 155px;
+    }
+    .user_fix {
+        margin-left: 20px;
+    }
+    .env_listing {
+        flex-direction:row;
+        justify-content:space-around;
+        margin: 20px;
+    }
 }
 @media screen and (min-width:1024px){
     .page_header {
-        height: 300px;
+        height: 350px;
     }
     .title_container h1 {
         font-size: 110px;
@@ -1113,6 +1221,16 @@ label[for="comment"]{
         width: 140px;
         height: 140px;
         margin: 10px;
+    }
+    .container_user h3 {
+        margin-right: 225px;
+        font-size: 40px;
+    }
+    .user_new {
+        margin-left: 320px;
+    }
+    .user_fix {
+        margin-left: 55px;
     }
     .container_home h1 {
         font-size: 40px;
@@ -1141,10 +1259,14 @@ label[for="comment"]{
         margin-right: -155px;
     }
     .user_icon {
-        right:-2px;
+        right: -2px;
     }
     .container_editor {
         width: 595px;
+    }
+    .list_home_user {
+        width: 70%;
+        margin: 20px auto;
     }
     
 }

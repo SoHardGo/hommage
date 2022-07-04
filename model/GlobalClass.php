@@ -3,13 +3,25 @@ require_once 'Manage.php';
 
 class GlobalClass extends Manage {
     // initialisation du bandeau utilisateur
-    public function setUserEnv():string {
-        if(isset($_SESSION['user']['id'])){
+    public function setUserEnv() :string {
+        if (isset($_SESSION['user']['id'])){
             require 'controller/user.php'; 
         } else {
             $user_content = '';
         }
         return $user_content;
+    }
+    
+    // initialisation du formulaire de paiements
+    public function setBuyEnv() :string {
+        if (isset($_SESSION['buy'])){
+        $user_content = $this->setUserEnv();
+        require 'controller/buy.php';
+        exit;
+        } else {
+            $payement = '';
+        }
+        return $payement;
     }
     
     // fonction de vérification des identifiants de compte
@@ -52,6 +64,7 @@ class GlobalClass extends Manage {
         return $this->getQuery($query,$data);
     }
     
+
 
   
 }

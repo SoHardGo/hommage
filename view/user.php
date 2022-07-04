@@ -12,27 +12,28 @@ ob_start();
             <?php else :?>
                 <img class="img" src="public/pictures/site/noone.jpg" alt="photo de profil non défini">
             <?php endif ?>
-        <input type="file" name="photo" id="photo_user" accept=".jpg, .jpeg, .png">
-        <i class="fas fa-camera user_icon"></i>
+                <input type="file" name="photo" id="photo_user" accept=".jpg, .jpeg, .png">
+                <img class="img dim35 user_icon" src="public/pictures/site/camera-icon.png" alt="icone home utilisateur">
         </div>
     </form>
     <div class="user_new dim100">
         <a href="" class="user_friend" title="Demande d'ami">
-            <img class="img dim40 hidden" src="public/pictures/site/friend.png" alt="icone demande d'ami">
+            <img class="img dim40 icon_anim" src="public/pictures/site/friend.png" alt="icone demande d'ami">
         </a>
         <a href="" class="user_message" title="Nouveau message">
-            <img class="img dim40 hidden" src="public/pictures/site/chat.png" alt="icone nouveau message">
+            <img class="img dim40 icon_anim" src="public/pictures/site/chat.png" alt="icone nouveau message">
         </a>
     </div>
     <div class="user_fix dim100">
         <a href="?deco" class="user_logoff" title="Déconnecter">
-                <img class="img dim40" src="public/pictures/site/logoff.png" alt="icone disconnect">
+                <img class="img dim40" src="public/pictures/site/power-icon.png" alt="icone deconnexion">
         </a>
         <a href="?page=home_user" class="user_home" title="Accueil utilisateur">
-                <img class="img dim40" src="public/pictures/site/home1.png" alt="icone home">
+                <img class="img dim40" src="public/pictures/site/home-icon.png" alt="icone home utilisateur">
         </a>
     </div>
 </section>
+    <div><?=$messFile?></div>
 <section class="bouton_user">
         <a class="button" href="?page=createform">Créer une fiche</a>
         <?php if (isset($_SESSION['user']['defunct'])) :?>

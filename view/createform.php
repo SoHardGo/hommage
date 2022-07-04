@@ -72,13 +72,7 @@ ob_start();
                         Oui<input type="radio" name="flower" value="1">
                         Non<input type="radio" name="flower" value="0">
                     </fieldset>
-                    <fieldset>
-                        <label for ="new_user">Transférer vos droits d'accès à un autre utilisateur</label>
-                        <label>Identifier par son Email ou son Pseudo:</label>
-                        <input type="text" name="new_user" id="new_user">
-                    </fieldset>
-                    <input class="submit button" id="submit" type="submit" name="submit" value="Envoyer">
-                    <input class="button" type="submit" name="submit" value="Valider">
+                    <input class="submit button" id="submit" type="submit" name="submit" value="Valider">
             </form>
         </div>
         <div class="confirm">

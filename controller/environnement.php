@@ -97,6 +97,7 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
 }
 
 //////////////////////ajouter un contact///////////////////////////////////
+// liste des amis déjà existant
 $friendList = $getInfo->getFriendsList($_SESSION['user']['id']);
 if ($friend_add){
     foreach ($friendList as $key =>$f){
@@ -104,8 +105,8 @@ if ($friend_add){
     }
     $result = array_search($friend_add,$tabFriend);
     if (!$result){
-        $register->setFriends(['user_id'=>$_SESSION['user']['id'], 'friend_id'=>intval($f['friend_id'])]);
-        $message = 'Nouveau contact enregistré.';  
+        $register->setFriends(['user_id'=>$_SESSION['user']['id'], 'friend_id'=>intval($friend_add)], );
+        $message = 'Nouveau contact enregistré. En attente de confirmation...';  
     } else {
         $message = 'Vous avez déjà cet utilisateur en ami.';
     }

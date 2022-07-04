@@ -13,18 +13,16 @@ if (isset($_POST['content']) && !empty($_POST['content'])){
         'content'=>strip_tags($_POST['content']),
         'user_id'=>$_SESSION['user']['id'],
         'card_id'=>$_POST['card_id'],
-        'user_send_add'=>10
+        'user_send_id'=>$_SESSION['user_send']
         ];
     // enregistrement du texte + retour de l'Id d'enregistrement
     $lastId = $register->setContent($content);
     $_SESSION['nbCard'][] = $lastId;
     $nb = count($_SESSION['nbCard']);
-    //echo $nb;
     // récupération du nom, du prix et du libellé de la carte
     $cardInfo = $getInfo->getCardInfo(intval($_POST['card_id']));
-
+    // calcul du total des cartes sélectionnées
     $total = $getInfo->getCardTotal();
-    //echo $total;
     // initialisation du tableau d'affichage de la sélection des cartes
     $tab = '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].'</td></tr>';
     

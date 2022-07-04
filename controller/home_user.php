@@ -55,7 +55,7 @@ if(!isset($_SESSION['user'])) {
     require 'view/connexion.php';
     exit;
 }
-// Validation du contenu utilisateur->$user_content
+// Validation du bandeau utilisateur->$user_content
 $user_content = $globalClass->setUserEnv();  
 
 // Liste des defunts par utilisateur
@@ -69,12 +69,15 @@ foreach ($info_def as $value){
 $friendList = $getInfo->getFriendsList($_SESSION['user']['id']);
 foreach ($friendList as $f){
     $userFriend = $getInfo->getInfoUser($f['friend_id']);
-    $folder = 'public/pictures/users/photo'.$f['friend_id'].'.jpg';
+    $folder = 'public/pictures/users/'.$f['friend_id'].'/photo'.$f['friend_id'].'.jpg';
+    var_dump($f['waiting']);
     if (file_exists($folder)){
-        $friends .='<div><img class="img friend_list" src="'.$folder.'" alt="photo d\'un ami"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p><div>';
+        $friends .='<div class="friend_container"><img class="img friend_list" src="'.$folder.'" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/mark.png" title="En attente de confirmation"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div>';
     } else {
         $friends .='<div class="friend_name"><img class="img friend_list" src="public/pictures/site/noone.jpg" alt="photo d\'un ami"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div>';
     }
 }
+// Vérification si un contact a été accepté
+// avec getFriendsList, vérifier le "waiting"
 
 require 'view/home_user.php';

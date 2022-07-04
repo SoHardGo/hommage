@@ -110,43 +110,33 @@ const elements = document.querySelectorAll('.button_edit');
 
 
 /************************Recherche Insee***************************************/
-/*
- 
-let monnom = document.getElementById('search_nom');
-let madiv = document.querySelector('.madiv');
-let ville = document.getElementById('ville');
-let maville = document.querySelector('.maville');
+// recherche par le nom de famille
+let nom = document.getElementById('lastname_insee');
+let madiv = document.querySelector('.result_insee');
 
-monnom.addEventListener('keyup', ()=> {
-    let result= monnom.value;
-        if (result.length>2) {
-        
-            fetch('https://insee.arbre.app/persons?surname='+result)
+if ( nom != null){
+nom.addEventListener('keyup', ()=> {
+    let search = nom.value;
+        if (search.length>3) {
+            fetch('https://insee.arbre.app/persons?surname='+search)
             .then(response => response.json())
             .then(data=>{ 
                 let nb = data.count;
-                
                 for(let i=0; i<nb; i+=10){
-                    fetch('https://insee.arbre.app/persons?offset='+i+'&surname='+result)
+                    fetch('https://insee.arbre.app/persons?offset='+i+'&surname='+search)
                     .then(response => response.json())
                     .then(data=>{ 
                         for(let i of data.results) {
-                            console.log(i.prenom);
-                            console.log(i.birthDate);
-                            console.log(i.deathDate);
-                            console.log(i.deathPlace);
-                            madiv.innerHTML="<select><option value="+i+">"+i.prenom+"</option></select>";
+                            madiv.innerHTML += "<option value="+i+">"+i.prenom+"  -Né(e) le : "+i.birthDate+"  -Décédé(e) le : "+i.deathDate+"-  à : "+i.deathPlace+"</option>";
                         }
                     })
                     .catch(err=>console.error(err));
                 }
-                  
                 })
             .catch(err=>console.error(err));
         }
 });
-*/
-
+}
 //////////////////Récupération du texte d'une carte ////////////////////////////
 
 let edit_btn = document.getElementById('card_val'); // bouton confirmer
@@ -170,7 +160,6 @@ if (edit_btn != null){
         fetch('ajax/recordCard.php', obj)
                         .then(response => response.json())
                         .then(data=>{
-                            console.log(data);
                             card_nb.innerHTML = data.carte;
                             container_tab.innerHTML += data.tab;
                             total.innerHTML = data.total;
@@ -214,6 +203,37 @@ if(link_contact!=null){
     });
 }
 
+///////////////////////Gestion des messages du chat/////////////////////////////
+/*
+let edit_btn = document.getElementById('card_val'); // bouton confirmer
+let content = document.querySelector('.content');   // contenu du texte
+
+if (edit_btn != null){
+    edit_btn.addEventListener('click',()=>{
+        
+        let card_text = content.textContent;                         // contenu du texte
+        let card_id = document.getElementById('card_id').innerHTML;  // id de la carte sélectionné
+        let card_nb = document.getElementById('card_nb');            // span où s'affiche le nombre de cartes
+        let container_tab = document.getElementById('container_tab');// tableau
+        let total = document.getElementById('total');                // total du tableau
+        
+        let formdata = new FormData();
+        formdata.append('content', card_text);
+        formdata.append('card_id', card_id);
+
+        let obj = { 'method':'POST', 'body':formdata };
+        
+        fetch('ajax/recordChat.php', obj)
+                        .then(response => response.json())
+                        .then(data=>{
+                            card_nb.innerHTML = data.carte;
+                            container_tab.innerHTML += data.tab;
+                            total.innerHTML = data.total;
+                        })
+                        .catch(err=>console.error(err));
+        });
+}
+*/
 /////////////////////////////Slider/////////////////////////////////////////////
 $(document).ready(function(){
       $('.slider').slick({

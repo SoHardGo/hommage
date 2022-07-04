@@ -22,7 +22,7 @@ if (isset($id_def)){
                 <img class="img" src="public/pictures/site/folder.png" alt="Dossier de stockage photos">
             </div>
             <div>
-                <p>Cliquez sur le Dossier pour telecharger les photos de <?=ucfirst($defunct_infos['firstname']).' '.ucfirst($defunct_infos['lastname']) ?></p>
+                <p class="m20">Cliquez sur le Dossier pour telecharger les photos de <?=ucfirst($defunct_infos['firstname']).' '.ucfirst($defunct_infos['lastname']) ?></p>
             </div>
         </a>
         <?php 
@@ -30,21 +30,23 @@ if (isset($id_def)){
         if(isset($defunct_infos['user_id']) && $defunct_infos['user_id'] != $_SESSION['user']['id']) :?>
                 <a class="friend" href="?page=environnement&id_def=<?=$id_def?>&friend_add=<?=$defunct_infos['user_id']?>" title="Ajouter aux contacts">
                 <div class="add_friend">
-                    <p class="admin_user">Gestionnaire de la fiche : <?=ucfirst($user_admin['admin']['lastname']).' '.ucfirst($user_admin['admin']['firstname'])?></p>
-                    <img class="img dim10" src="public/pictures/site/addand.png" alt="icone ajouter">
+                    <p class="admin_user">Gestionnaire de la fiche : <?=ucfirst($user_admin['admin']['lastname']).' '.ucfirst($user_admin['admin']['firstname'])?>&emsp;</p>
+                    <img class="img dim20" src="public/pictures/site/friend.png" alt="icone ajouter">
                 </div>
                 </a>
                 <div class="friend_mess">
                     <?=$message?>
                 </div>               
         <?php endif ?>
-    <?php endif ?>
+    <?php 
+        // Dossier caché contenant toutes les photos du défunt
+        endif ?>
     <div  class="photos_list hidden">
     <?php if($defunct_photos) :?>
             <?php foreach($defunct_photos as $r): ?>
         <div class="min_photo">
             <img class="img" src="public/pictures/photos/<?=$r['user_id']?>/<?=$r['name'] ?>" alt="<?=$r['name'] ?>">
-            <a download="image_<?=$r['id']?>.jpg" href="public/pictures/photos/<?=$r['user_id'].'/'.$r['name'] ?>"><i class="fas fa-download" title="Telecharger"></i></a>
+            <a title="Telecharger" download="image_<?=$r['id']?>.jpg" href="public/pictures/photos/<?=$r['user_id'].'/'.$r['name'] ?>"><img class="img dim20" src="public/pictures/site/download.png" alt="icone téléchargement"></a>
         </div>
             <?php endforeach ?>
         <?php else :?>
@@ -58,7 +60,7 @@ if (isset($id_def)){
 // Nombre de commentaires et photos depuis la dernière connexion
     if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['user']['id']) : ?>
         <div class="env_listing">
-            <p>Depuis votre dernière connexion :</p>
+            <p class="new_comments">Depuis votre dernière connexion :</p>
             <p class="new_photos">Photos ajoutées: <span><?=$recentPhoto?></span></p>
             <p class="new_comments">Commentaires ajoutés: <span><?=$recentComment?></span></p>
         </div>
@@ -72,9 +74,7 @@ if (isset($id_def)){
         <input type="file" name="file_env" id="file_env" accept=".jpg, .jpeg, .png">
         <div class="icon_env">
             <label>Ajouter une photo ->&emsp;</label>
-            <div class="camera">
-                 <img class="img" src="public/pictures/site/camera.png" alt="camera">   
-            </div>
+                <img class="img dim60" src="public/pictures/site/photo-icon.png" alt="appareil photo">   
         </div>
     </form>
     <?php endif ?>
@@ -95,7 +95,7 @@ if (isset($id_def)){
         <?php
 //Supprimer une photo dont on est l'auteur
             if(isset($_SESSION['user']['id']) && isset($r['user_id']) && $_SESSION['user']['id'] == $r['user_id']): ?>
-            <a class="delete_photo" href="?page=environnement&idPhoto=<?=$r['id']?>&id=<?=$id_def?>" title="Supprimer"><img class="delete" src="public/pictures/site/suppr.png" alt="Supprimer"></a>
+            <a class="delete_photo" href="?page=environnement&idPhoto=<?=$r['id']?>&id=<?=$id_def?>" title="Supprimer"><img class="dim35" src="public/pictures/site/suppr-icon.png" alt="Supprimer"></a>
         <?php endif 
 // Affichage des photos               
             ?>

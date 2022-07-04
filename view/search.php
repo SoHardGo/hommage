@@ -4,10 +4,10 @@ ob_start();
 ?>
 <section class="container_search">
     <div class=" search">
-        <h1>Personne recherché</h1>
+        <h1>Personne recherchée sur le site.</h1>
         <form method="POST" action="index.php?page=search">
             <div class="search_form">
-                <laber for="search_lastname"></laber>
+                <laber for="search_lastname"></label>
                 <input type="text" name="lastname" id="search_lastname" placeholder="Nom"/>
                 <input type="text" name="firstname" placeholder="Prenom"/>
             </div>
@@ -22,6 +22,16 @@ ob_start();
     </div>
     <div class="search_mess">
         <?=$message?>
+    </div>
+</section>
+<section class="container_insee">
+    <div class="search_insee">
+        <h2>Personne recherchée dans la liste des défunts de l'INSEE.</h2>
+        <label for="lastname_insee"></label>
+        <input type="text" name="lastname_insee" id="lastname_insee" placeholder="Nom de famille">
+        <select class="result_insee"></select>
+        <p>Les données de l'INSEE sont actualisées mensuellement.</p>
+        <p>Elles sont ici à titre indicatif.</p>
     </div>
 </section>
 <?php

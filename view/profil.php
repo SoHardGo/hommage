@@ -28,13 +28,20 @@ ob_start();
                 <input type="text" name="city" value="<?=$info_user['city']?>"></input>
                 <div class="profil_admin">
                     <fieldset>
-                        <label>Vous administez ces <?=$nbr?> fiches :</label> 
+                        <label>Vous administez ces <?=$nbr?> fiches :</label>
                         <?php for ($i=0; $i<$nbr; $i++) :?>
-                        <label><?=ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname'])?></label>
+                        <p><?=ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname'])?></p>
                         <?php endfor ?>
+                        </select>
                     </fieldset>
                 </div>
-                <label for="modify" class="message">- Modifier les champs que vous souhaitez mettre à jour -</label>
+                <fieldset>
+                    <label for ="new_user">Transférer vos droits d'accès à un autre utilisateur</label>
+                    <label>Entrer son Email :</label>
+                    <input type="text" name="new_user" placeholder="email@delapersonne.merci">
+                    <input class="button" type="submit" name="new_admin" id="new_user">
+                </fieldset>
+                <label for="modify" class="message">- Modifier les champs que vous souhaitez mettre à jour.</label>
                 <input type="submit" name="submit" class="button m20" id="modify" value="Modifier">
                 <label class="m20">- Désincription -</label>
                 <a class="button ahref m20" id="signoff" href="?page=profil&signoff=true#modify">Se désinscire</a>
