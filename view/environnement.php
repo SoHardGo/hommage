@@ -26,14 +26,16 @@ if (isset($id_def)){
             </div>
         </a>
         <?php 
-        // Identifiant du créateur de la fiche + ajout à la liste d'amis
+        // Identifiant du créateur de la fiche + ajout icone ami si pas dans la liste de l'utilisateur
         if(isset($defunct_infos['user_id']) && $defunct_infos['user_id'] != $_SESSION['user']['id']) :?>
-                <a class="friend" href="?page=environnement&id_def=<?=$id_def?>&friend_add=<?=$defunct_infos['user_id']?>" title="Ajouter aux contacts">
                 <div class="add_friend">
                     <p class="admin_user">Gestionnaire de la fiche : <?=ucfirst($user_admin['admin']['lastname']).' '.ucfirst($user_admin['admin']['firstname'])?>&emsp;</p>
+                    <?php if($friendOk == false) :?>
+                    <a class="friend" href="?page=environnement&id_def=<?=$id_def?>&friend_add=<?=$defunct_infos['user_id']?>" title="Ajouter aux contacts">
                     <img class="img dim20" src="public/pictures/site/friend.png" alt="icone ajouter">
+                    </a>
+                    <?php endif ?>
                 </div>
-                </a>
                 <div class="friend_mess">
                     <?=$message?>
                 </div>               

@@ -77,6 +77,9 @@ if (count($info_def)){
     <h1>Photos récemment ajoutées</h1>
     <?=$slider?>
 </section>
+<section class="container_tchat">
+    <?=$tchat?>
+</section>
 
 <?php
 $content = ob_get_clean();

@@ -4,7 +4,12 @@ $getInfo = new GetInfos();
 $def_id = $getInfo->getUserDefunctList(intval($_SESSION['user']['id']));
 $info_def = $def_id->fetchAll();
 $nbr = count($info_def);
+$icon_anim_f = '';
+$icon_anim_m = '';
+$number_f = null;
+$number_m = null;
 $messFile = '';
+$ask = '';
 
 // sous menu dans Modifier fiche avec la liste des defunts
 $list_def = "";
@@ -22,19 +27,16 @@ if (isset($_FILES['photo']) && ($_FILES['photo']['type']=='image/jpeg' || $_FILE
 
     // test taille fichier
     $taille = $_FILES['photo']['size'];
-    var_dump($taille);
-    if ($taille > 1000000){
-        $messFile = '<p class="message">Fichier trop volumineux, il doit être inférieur à 1Mo</p>';
+    if ($taille > 1024000){
+        $_SESSION['message'] = '<p class="message">Fichier trop volumineux, il doit être inférieur à 1Mo</p>';
         unset($_FILES['photo']);
     }
-    
+    var_dump ($_SESSION['message']);
     // test dossier existe ou pas
     $destination = 'public/pictures/users/'.$_SESSION['user']['id'];
     if (!file_exists($destination) && !is_dir($destination)){ 
     mkdir($destination , 0755);
     }
-    
-    
     
     //enregistre la photo de profil de l'utilisateur
     
@@ -45,6 +47,15 @@ if (isset($_FILES['photo']) && ($_FILES['photo']['type']=='image/jpeg' || $_FILE
     if(isset($_FILES['photo'])){
     move_uploaded_file ($_FILES['photo']['tmp_name'], $profil);
     }
+}
+// Liste des demandes d'amis depuis la dernière connexion
+$result = $getInfo->getAskFriend($_SESSION['user']['id']);
+foreach ($result as $r){
+    if ($r['validate'] == null){
+        $icon_anim_f = 'icon_anim';
+        $number_f+= 1;
+        $_SESSION['number_f'] = $number_f;
+    } 
 }
 
 require 'view/user.php';

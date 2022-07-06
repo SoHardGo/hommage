@@ -3,12 +3,12 @@ require_once 'Manage.php';
 
 class GetInfos extends Manage {
     // récupération de toutes les informations concernant un utilisateur
+    // jointure impossible car pas forcément de concordance entre id de users et user_id de user_admin
     public function getInfoUser(int $id) :array {
         $data = ['id' => $id];
         $query = "SELECT email, firstname, lastname, number_road, address, city, postal_code, pseudo FROM users WHERE id=:id";
         $result1 = $this->getQuery($query,$data);
         $tab1 = $result1->fetch();
-        
         $query = "SELECT affinity, add_share, email_share, card_real, card_virtuel, flower, new_user FROM user_admin WHERE user_id=:id";
         $result2 = $this->getQuery($query,$data);
         $tab2 = $result2->fetch();
@@ -164,7 +164,9 @@ class GetInfos extends Manage {
     }
     // récupération des 8 dernières photos pour le slider
     public function getHomeSlider(int $nb=8) :array {
-        $query = "SELECT MAX(user_id) as user_id, MAX(name) as name FROM photos GROUP BY defunct_id ORDER BY MAX(id) LIMIT $nb";
+        $query = "SELECT MAX(user_id) as user_id, MAX(name) as name FROM photos 
+                  GROUP BY defunct_id 
+                  ORDER BY MAX(id) LIMIT $nb";
         return $this->getQuery($query)->fetchAll();
     }
     // récupération des nouvelles photos ajoutées depuis la dernière connexion
@@ -194,13 +196,29 @@ class GetInfos extends Manage {
     // liste des amis 
     public function getFriendsList(int $id) :array {
         $data = ['user_id'=>$id];
-        $query = "SELECT friend_id, date_crea, waiting FROM friends WHERE user_id=:user_id";
+        $query = "SELECT friend_id, date_crea, validate FROM friends WHERE user_id=:user_id";
+        return $this->getQuery($query,$data)->fetchAll();
+    }
+    // liste des demande d'amis depuis la dernière connexion avec jointure pour ses informations
+    public function getAskFriend(int $id) :array {
+        // récupération de la desnière connexion
+        $data = ['id'=>$id];
+        $query = "SELECT last_log FROM users WHERE id=:id";
+        $lastLog = $this->getQuery($query,$data)->fetch();
+        $data = ['friend_id'=>$id,
+                 'last_log'=>$lastLog['last_log']];
+        $query ="SELECT user_id, validate, users.lastname, users.firstname 
+                    FROM friends 
+                INNER JOIN users 
+                    ON users.id=friends.user_id 
+                WHERE friend_id=:friend_id AND friends.date_crea < :last_log";
         return $this->getQuery($query,$data)->fetchAll();
     }
     // récupération des 20 derniers messages
-    public function getChat(int $id) :array {
-        $data = ['user_id'=>$id];
-        $query = "SELECT content FROM messages ORDER BY date_crea DESC LIMIT 20";
+    public function getTchat(array $data) :array {
+        $query = "SELECT user_id, date_crea, content ,friend_id FROM tchat
+                  WHERE (friend_id=:friend_id AND user_id=:user_id) OR (friend_id=:user_id AND user_id=:friend_id) 
+                  ORDER BY date_crea DESC LIMIT 50";
         $result = $this->getQuery($query,$data)->fetchAll();
         return $result;
     }

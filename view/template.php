@@ -19,6 +19,12 @@
     <div class="title_container">
         <h1>Hommage</h1>
     </div>
+    <div>
+        <?php if(isset($_SESSION['message'])) : ?>
+            <?= $_SESSION['message'] ?>
+            <?php unset($_SESSION['message']) ?>
+        <?php endif; ?>
+    </div>
 </header>
     <nav id="my_navbar" class="navbar">
             <a id="close_burger" href="#" class="close">×</a>

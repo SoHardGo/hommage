@@ -548,24 +548,6 @@ input[value="Rechercher"] {
 .form_user {
     position:relative;
 }
-/*
-.container_user{
-    position:relative;
-    display:flex;
-    justify-content:center;
-    border:1px solid var(--color-blue-hard);
-    background-color: var(--color-user);
-}
-.container_user h3 {
-    position:absolute;
-    top:-35px;
-    left:170px;
-    text-align:center;
-    font-size: 30px;
-    margin:55px auto;
-    text-shadow: 0 0 3px white;
-    color:var(--color-bgc-button);
-}*/
 .container_user {
     display:grid;
     grid-template-areas: "user title title title" 
@@ -603,12 +585,9 @@ input[value="Rechercher"] {
     position: absolute;
     right: -10px;
     bottom: -55px;
-
     margin-top:20px;
-
     border-radius: 50%;
     padding: 3px;
-
 }
 .bouton_user {
     display:flex;
@@ -643,6 +622,8 @@ input[value="Rechercher"] {
 .user_home, .user_logoff, .user_message, .user_friend {
     flex-direction: column;
     display: flex;
+    position:relative;
+    text-decoration:none;
     justify-content: flex-end;
     align-items: flex-end;
     margin: 20px 10px;
@@ -664,7 +645,17 @@ input[value="Rechercher"] {
     color:var(--color-red);
     font-weight: bold;
 }
-
+.ask_friend {
+    text-align:center;
+    width: 75%;
+    margin:0 auto;
+}
+.number_f, .number_m {
+    position:absolute;
+    color:var(--color-red);
+    font-weight: bold;
+    left: 25px;
+}
 
 /**********************Home user***************************/
 
@@ -704,17 +695,21 @@ input[value="Rechercher"] {
     flex-direction:column;
     align-items: center;
 }
+.container_contact {
+    display:flex;
+    justify-content:center;
+    text-align:center;
+}
 .contact_title{
     text-align:center;
 }
 .contacts_list {
     display:flex;
     justify-content:center;
-    width: 80%;
+    margin: 15px 45px;
     border:1px solid black;
     border-radius: 10px;
     padding: 10px;
-    margin: 10px auto;
 }
 .friend {
     text-decoration:none;
@@ -722,9 +717,9 @@ input[value="Rechercher"] {
 }
 .friend_container {
     position:relative;
+    margin: 10px;
 }
 .friend_list {
-    width: 80px;
     height: 80px;
     margin: 10px 10px 0px 10px
 }
@@ -1049,7 +1044,45 @@ label[for="comment"]{
 .fleur15 {
      
 }
+/***************************Tchat*********************************/
 
+.tchat {
+    display:flex;
+    flex-direction:column;
+    text-align:center;
+}
+.dest_tchat {
+    background-color: var(--color-grey-light);
+    border:1px solid var(--color-black);
+    width: 60%;
+    margin: 0 auto;
+}
+.container_tchat {
+    text-align:left;
+    margin:0 auto;
+    border:1px solid var(--color-black);
+    border-radius: 0px 0px 10px 10px;
+    width: 80%;
+}
+.content_tchat {
+    display:flex;
+    justify-content:center;
+}
+.tchat_user {
+    text-align:center;
+}
+#content_tchat {
+    border-radius:20px;
+    width: 380px;
+    padding-left: 10px;
+}
+.my_tchat {
+    background-color: var(--color-grey-light);
+    border-radius:10px;
+    width: 80%;
+    padding: 3px;
+    margin: 3px;
+}
 /**********************Footer************************************/
 .footer {
     background-color: var(--color-bgc-button);
@@ -1095,7 +1128,7 @@ label[for="comment"]{
 	}
 	10% {
 		animation-timing-function: ease-in;
-		transform: scale(0.90);
+		transform: scale(0.88);
 	}
 	17% {
 		animation-timing-function: ease-out;
@@ -1107,7 +1140,7 @@ label[for="comment"]{
 	}
 	45% {
 		animation-timing-function: ease-out;
-		transform: scale(1);
+		transform: scale(1.3);
 	}
 }
 
@@ -1193,6 +1226,13 @@ label[for="comment"]{
         justify-content:space-around;
         margin: 20px;
     }
+    .container_tchat {
+        width: 60%;
+    }
+    #content_tchat {
+        width: 460px;
+        padding-left: 20px;
+    }
 }
 @media screen and (min-width:1024px){
     .page_header {
@@ -1268,6 +1308,9 @@ label[for="comment"]{
         width: 70%;
         margin: 20px auto;
     }
+    #content_tchat {
+    width: 610px;
+    padding-left: 30px;
     
 }
 

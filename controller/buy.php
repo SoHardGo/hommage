@@ -107,5 +107,4 @@ if ($list){
     
 }
 
-
 require 'view/buy.php';

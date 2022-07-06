@@ -21,7 +21,7 @@ const ROUTES = [
     'environnement' => 'environnement.php',
     'buy' => 'buy.php',
     'home_user' => 'home_user.php',
-    'message' => 'message.php'
+    'tchat' => 'tchat.php'
     ];
 const DEFAULT_ROUTE = ROUTES ['home'];
     

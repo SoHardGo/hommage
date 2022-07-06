@@ -19,11 +19,21 @@ class GlobalClass extends Manage {
         require 'controller/buy.php';
         exit;
         } else {
-            $payement = '';
+            $buy = '';
         }
-        return $payement;
+        return $buy;
     }
-    
+  /*  // initialisation de la messagerie
+    public function setTchatEnv() :string {
+        if (isset($_SESSION['tchat'])){
+        //$user_content = $this->setUserEnv();
+        require 'controller/tchat.php';
+        exit;
+        } else {
+            $tchat = '';
+        }
+        return $tchat;
+   }*/ 
     // fonction de vérification des identifiants de compte
     public function verifyAccount(string $email, $pwd) :?array {
         $data = ['email'=> $email];

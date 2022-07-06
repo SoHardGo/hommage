@@ -6,10 +6,25 @@ $register = new Registration();
 require_once 'model/GetInfos.php';
 $getInfo = new GetInfos();
 $friends ='';
-
+$tchat = '';
 
 // Initialisation de la personne ajouté aux contacts ->environnement
 $useradmin['user_id'] = $_GET['useradmin']??'';
+
+// Enregistrement du contact <- user
+$newFriend = $_GET['id_friend']??null;
+if (isset($_POST['friend'])){
+    switch($_POST['friend']){
+        case 0 : $register->updateFriend(0, $_SESSION['user']['id'], intval($newFriend));
+                 $_SESSION['number_f'] = $_SESSION['number_f'] -1;
+            break;
+        case 1 : $register->updateFriend(1, $_SESSION['user']['id'], intval($newFriend));
+                 $_SESSION['number_f'] = $_SESSION['number_f'] -1;
+            break;
+        default : $newFriend = null;
+            break;
+    }
+}
 
 // Initialisation du slider des derniers défunts ajoutés
 
@@ -45,7 +60,6 @@ try {
     }
 } catch(Exception $e) {
             $errorMsg = $e->getMessage();
-            var_dump($errorMsg);
             header('Location: index.php?page=connexion&error=' . $errorMsg);
             exit();
 }
@@ -65,19 +79,31 @@ foreach ($info_def as $value){
     $val = intval($value['id']);
     $list = $getInfo->getListComment($val);
 }
-// Liste des amis->affichage dans le dossier contact
+
+// Liste des amis->affichage dans le dossier contact avec status sur les demandes d'amis
 $friendList = $getInfo->getFriendsList($_SESSION['user']['id']);
 foreach ($friendList as $f){
     $userFriend = $getInfo->getInfoUser($f['friend_id']);
     $folder = 'public/pictures/users/'.$f['friend_id'].'/photo'.$f['friend_id'].'.jpg';
-    var_dump($f['waiting']);
     if (file_exists($folder)){
-        $friends .='<div class="friend_container"><img class="img friend_list" src="'.$folder.'" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/mark.png" title="En attente de confirmation"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div>';
+        switch($f['validate']){
+            case '0' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="'.$folder.'" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/forbidden.png" title="Demande refusée"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+                break;
+            case '1' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="'.$folder.'" alt="photo d\'un ami"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+                break;
+            default : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="'.$folder.'" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/mark.png" title="En attente de confirmation"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+                break;
+        }
     } else {
-        $friends .='<div class="friend_name"><img class="img friend_list" src="public/pictures/site/noone.jpg" alt="photo d\'un ami"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div>';
+        switch($f['validate']){
+            case '0' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="public/pictures/site/noone.jpg" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/forbidden.png" title="Demande refusée"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+                break;
+            case '1' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="public/pictures/site/noone.jpg" alt="photo d\'un ami"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+                break;
+            default : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="public/pictures/site/noone.jpg" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/mark.png" title="En attente de confirmation"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+                break;
+        }
     }
 }
-// Vérification si un contact a été accepté
-// avec getFriendsList, vérifier le "waiting"
 
 require 'view/home_user.php';

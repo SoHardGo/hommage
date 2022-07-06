@@ -55,8 +55,8 @@ class Registration extends Manage {
         $this->getQuery($query,$data);
     }
     // enregistrement des messages du chat
-    public function setChat(array $data) :void{
-        $query = "INSERT INTO messages SET user_id=:user_id, content=:content, date_crea=NOW()";
+    public function setTchat(array $data) :void{
+        $query = "INSERT INTO tchat SET user_id=:user_id, friend_id=:friend_id, content=:content, date_crea=NOW()";
         $this->getQuery($query,$data);
     }
 
@@ -86,6 +86,16 @@ class Registration extends Manage {
         $data = ['id'=>$id, 'password'=>$pass];
         $query = "UPDATE users SET password=:password WHERE id=:id";
         $this->getQuery($query,$data);
+    }
+    
+    // mise à jour de la validation d'une demande d'ami + ajout dans sa liste de contact
+    public function updateFriend(int $val, int $user_id, int $friend_id) :void{
+        $data = ['validate'=>$val, 'user_id'=>$user_id, 'friend_id'=>$friend_id];
+        $query = "UPDATE friends SET validate=:validate, date_crea=NOW() WHERE user_id=:friend_id AND friend_id=:user_id ";
+        $this->getQuery($query,$data);
+        $query = "INSERT INTO friends SET user_id=:user_id, friend_id=:friend_id, validate=:validate, date_crea=NOW()";
+        $this->getQuery($query,$data);
+        
     }
     
 /////////////////////////////DELETER////////////////////////////////////////////

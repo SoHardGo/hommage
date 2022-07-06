@@ -203,37 +203,67 @@ if(link_contact!=null){
     });
 }
 
-///////////////////////Gestion des messages du chat/////////////////////////////
-/*
-let edit_btn = document.getElementById('card_val'); // bouton confirmer
-let content = document.querySelector('.content');   // contenu du texte
+///////////////////////Gestion des demandes d'amis//////////////////////////////
 
-if (edit_btn != null){
-    edit_btn.addEventListener('click',()=>{
-        
-        let card_text = content.textContent;                         // contenu du texte
-        let card_id = document.getElementById('card_id').innerHTML;  // id de la carte sélectionné
-        let card_nb = document.getElementById('card_nb');            // span où s'affiche le nombre de cartes
-        let container_tab = document.getElementById('container_tab');// tableau
-        let total = document.getElementById('total');                // total du tableau
+let btn_friend = document.getElementById('newFriend');
+let ask_friend = document.querySelector('.ask_friend');
+
+if(btn_friend!=null){
+    btn_friend.addEventListener('click', (e)=>{
+        e.preventDefault();
+        let user_id = document.querySelector('.ajax_id').innerHTML; // récupération de l'Id de l'utilisateur
+        let test = document.getElementById('newFriend').getElementsByClassName('icon_anim');
+        if (test){
+            let formdata = new FormData();
+            formdata.append('user_id', user_id);
+            let obj = { 'method':'POST', 'body':formdata };
+            
+            fetch('ajax/friendList.php', obj)
+                            .then(response => response.json())
+                            .then(data=>{
+                                console.log(data);
+                                let count = data.length;
+                                console.log(count);
+                                if (count > 0 ) {
+                                    for (let i=0; i<count; i++){
+                                        ask_friend.innerHTML='<form method="POST" action="?page=home_user&id_friend='+data[i].user_id+'"><label>Acceptez-vous la demande d\'ami de '+data[i].lastname+' '+data[i].firstname+' ?</label>Oui<input type="radio" name="friend" value="1">Non<input type="radio" name="friend" value="0"><br><input class="button" type="submit" name="submit" value="Valider"></form>';
+                                    }
+                                }
+                            })
+                            .catch(err=>console.error(err));
+        }
+    });
+}
+
+///////////////////////Gestion des messages du chat/////////////////////////////
+
+let form = document.querySelector('.form_tchat');
+
+if (form != null){
+    form.addEventListener('submit',(e)=>{
+        e.preventDefault();
+        let tchat = document.getElementById('content_tchat'); 
+        let mycontent = document.querySelector('.my_content');
+        let friend_id = document.querySelector('.friend_id');
         
         let formdata = new FormData();
-        formdata.append('content', card_text);
-        formdata.append('card_id', card_id);
-
+        formdata.append('content', tchat.value); 
+        formdata.append('friend_id',friend_id.value);
         let obj = { 'method':'POST', 'body':formdata };
         
         fetch('ajax/recordChat.php', obj)
-                        .then(response => response.json())
+                        .then(response => response.text())
                         .then(data=>{
-                            card_nb.innerHTML = data.carte;
-                            container_tab.innerHTML += data.tab;
-                            total.innerHTML = data.total;
+                            console.log(data);
+                            tchat.value = '';
+                            tchat.focus();
+                            mycontent.innerHTML='<p>'+data+'</p>';
+                       
                         })
                         .catch(err=>console.error(err));
         });
 }
-*/
+
 /////////////////////////////Slider/////////////////////////////////////////////
 $(document).ready(function(){
       $('.slider').slick({

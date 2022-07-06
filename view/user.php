@@ -2,6 +2,7 @@
 // Dossier de la photo de profil de l'utilisateur
 $profil = './public/pictures/users/'.$_SESSION['user']['id'].'/photo'.$_SESSION['user']['id'].'.jpg';
 ob_start(); 
+// Affichage du bandeau utilisateur
 ?>
 <section class="container_user">
     <h3><?=ucfirst($_SESSION['user']['lastname']).' '.ucfirst($_SESSION['user']['firstname'])?></h3>
@@ -16,12 +17,15 @@ ob_start();
                 <img class="img dim35 user_icon" src="public/pictures/site/camera-icon.png" alt="icone home utilisateur">
         </div>
     </form>
+    <div class="hidden ajax_id"><?=$_SESSION['user']['id']?></div>
     <div class="user_new dim100">
-        <a href="" class="user_friend" title="Demande d'ami">
-            <img class="img dim40 icon_anim" src="public/pictures/site/friend.png" alt="icone demande d'ami">
+        <a href="" class="user_friend" id="newFriend" title="Demande d'ami">
+            <img class="img dim40 <?=$icon_anim_f?>" src="public/pictures/site/friend.png" alt="icone demande d'ami">
+            <span class="number_f"><?=$number_f?></span>
         </a>
-        <a href="" class="user_message" title="Nouveau message">
-            <img class="img dim40 icon_anim" src="public/pictures/site/chat.png" alt="icone nouveau message">
+        <a href="" class="user_message" id="newMessage" title="Nouveau message">
+            <img class="img dim40 <?=$icon_anim_m?>" src="public/pictures/site/chat.png" alt="icone nouveau message">
+            <span class="number_m"><?=$number_m?></span>
         </a>
     </div>
     <div class="user_fix dim100">
@@ -33,7 +37,6 @@ ob_start();
         </a>
     </div>
 </section>
-    <div><?=$messFile?></div>
 <section class="bouton_user">
         <a class="button" href="?page=createform">Créer une fiche</a>
         <?php if (isset($_SESSION['user']['defunct'])) :?>
@@ -47,6 +50,11 @@ ob_start();
         <a class="button" href="?page=profil">Mon compte</a>
         <a class="button" href="?page=search">Rechercher</a>
 </section>
+<section>
+        <div><?=$messFile?></div>
+        <div class="ask_friend"><?=$ask?></div>
+</section>
+
 <?php
 $user_content= ob_get_clean(); 
 

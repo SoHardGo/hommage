@@ -11,11 +11,12 @@ $nbPhotos = '';
 $nbComments = '';
 $admin_def ='';
 $message ='';
+$friendOk = '';
 $tab = array();
 $tabFriend = [];
 
 //id du user à l'origine de la fiche du défunt et ami potentiel
-$friend_add = $_GET['friend_add']??0;
+$friend_add = $_GET['friend_add']??null;
 //id du defunt dans l'environnement
 $id_def = $_GET['id']??0;
 //id du defunt suite à une recherche
@@ -61,8 +62,8 @@ if(isset($_SESSION['user']['id'])) {
         // test taille fichier
         $taille = $_FILES['file_env']['size'];
         if ($taille > 1024000){
-            echo 'la taille ne doit pas dépasser 1Mo, merci';
-            exit;
+            session_start();
+            $_SESSION['message'] =  'La taille ne doit pas dépasser 1Mo, merci';
         }
         
         //enregistre la photo dans la BBD
@@ -99,17 +100,16 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
 //////////////////////ajouter un contact///////////////////////////////////
 // liste des amis déjà existant
 $friendList = $getInfo->getFriendsList($_SESSION['user']['id']);
-if ($friend_add){
-    foreach ($friendList as $key =>$f){
-            array_push($tabFriend, $f['friend_id']);
+foreach ($friendList as $key =>$f){
+    // affichage de l'icone Ajouter un contact si non dans la liste
+    if ($defunct_infos['user_id'] == $f['friend_id']){
+        $friendOk = true;
     }
-    $result = array_search($friend_add,$tabFriend);
-    if (!$result){
-        $register->setFriends(['user_id'=>$_SESSION['user']['id'], 'friend_id'=>intval($friend_add)], );
-        $message = 'Nouveau contact enregistré. En attente de confirmation...';  
-    } else {
-        $message = 'Vous avez déjà cet utilisateur en ami.';
-    }
+}
+//$_GET['friend_add']<-enregistrement du contact
+if ($friend_add){ 
+    $register->setFriends(['user_id'=>$_SESSION['user']['id'], 'friend_id'=>intval($friend_add)]);
+    $message = 'Nouveau contact enregistré. En attente de confirmation...';  
 }
 
 require 'view/environnement.php';
