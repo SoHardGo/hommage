@@ -34,6 +34,15 @@ class GlobalClass extends Manage {
         }
         return $tchat;
    }*/ 
+    // Vérification de l'existance d'une photo de profil
+    public function verifyPhotoProfil(int $id) :string{
+        $profil = 'public/pictures/users/'.$id.'/photo'.$id.'.jpg';
+        if (!file_exists($profil)){
+            $profil = 'public/pictures/site/noone.jpg';
+        }
+        return $profil;
+    }
+    
     // fonction de vérification des identifiants de compte
     public function verifyAccount(string $email, $pwd) :?array {
         $data = ['email'=> $email];
@@ -74,7 +83,18 @@ class GlobalClass extends Manage {
         return $this->getQuery($query,$data);
     }
     
-
+    // Vérification du status en ligne d'un utilisateur pour le tchat
+    public function verifyOnline(int $id) :bool {
+        $data = ['id'=>$id];
+        $query = "SELECT online FROM users WHERE id=:id";
+        $result = $this->getQuery($query,$data)->fetch();
+        if ($result['online'] == 1){
+            $status = true;
+        } else {
+            $status = false;
+        }
+        return $status;
+    }
 
   
 }

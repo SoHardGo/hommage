@@ -22,4 +22,4 @@ $data = ['user_id'=>$_SESSION['user']['id'],
         
 $result = $getInfo->getTchat($data);
 
-var_dump ($result);
+echo json_encode($result);

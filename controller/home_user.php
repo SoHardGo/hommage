@@ -51,9 +51,11 @@ try {
         if (!isset($result)){
             throw new Exception("Identifiants incorrects.");
         } else {
-        // Enregistrement de la date de connexion, Initialisation des informations de Session 
+        // Enregistrement de la date de connexion, Initialisation des informations de Session
             $_SESSION['user'] = $result;
             $register->updateLastLogin();
+        // mise à jour du status "online=1" pour le tchat
+            $register->updateOnline($_SESSION['user']['id'],1);
         // Récupération des infos des défunts associées à l'utilisateur
             $_SESSION['user']['defunct'] = $getInfo->getDefunctList();
         }
@@ -75,6 +77,7 @@ $user_content = $globalClass->setUserEnv();
 // Liste des defunts par utilisateur
 $def_id = $getInfo->getUserDefunctList($_SESSION['user']['id']);
 $info_def = $def_id->fetchAll();
+
 foreach ($info_def as $value){
     $val = intval($value['id']);
     $list = $getInfo->getListComment($val);
@@ -82,28 +85,22 @@ foreach ($info_def as $value){
 
 // Liste des amis->affichage dans le dossier contact avec status sur les demandes d'amis
 $friendList = $getInfo->getFriendsList($_SESSION['user']['id']);
+
 foreach ($friendList as $f){
     $userFriend = $getInfo->getInfoUser($f['friend_id']);
-    $folder = 'public/pictures/users/'.$f['friend_id'].'/photo'.$f['friend_id'].'.jpg';
-    if (file_exists($folder)){
+    $profil = $globalClass->verifyPhotoProfil($f['friend_id']);
+
+    if (file_exists($profil)){
         switch($f['validate']){
-            case '0' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="'.$folder.'" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/forbidden.png" title="Demande refusée"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+            case '0' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/forbidden.png" title="Demande refusée"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
                 break;
-            case '1' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="'.$folder.'" alt="photo d\'un ami"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+            case '1' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="'.$profil.'" alt="photo d\'un ami"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
                 break;
-            default : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="'.$folder.'" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/mark.png" title="En attente de confirmation"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
-                break;
-        }
-    } else {
-        switch($f['validate']){
-            case '0' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="public/pictures/site/noone.jpg" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/forbidden.png" title="Demande refusée"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
-                break;
-            case '1' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="public/pictures/site/noone.jpg" alt="photo d\'un ami"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
-                break;
-            default : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="public/pictures/site/noone.jpg" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/mark.png" title="En attente de confirmation"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+            default : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/mark.png" title="En attente de confirmation"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
                 break;
         }
     }
 }
+
 
 require 'view/home_user.php';

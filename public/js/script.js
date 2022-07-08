@@ -38,7 +38,7 @@ button.addEventListener('click', function(){
 
 //////////////Gestion des photos dans l'espace environnement/////////
 
-let camera = document.querySelector('.camera');
+let camera = document.querySelector('.icon_env');
 let file = document.getElementById('file_env');
 if(camera !== null){
     camera.addEventListener('click', function(){
@@ -226,7 +226,7 @@ if(btn_friend!=null){
                                 console.log(count);
                                 if (count > 0 ) {
                                     for (let i=0; i<count; i++){
-                                        ask_friend.innerHTML='<form method="POST" action="?page=home_user&id_friend='+data[i].user_id+'"><label>Acceptez-vous la demande d\'ami de '+data[i].lastname+' '+data[i].firstname+' ?</label>Oui<input type="radio" name="friend" value="1">Non<input type="radio" name="friend" value="0"><br><input class="button" type="submit" name="submit" value="Valider"></form>';
+                                        ask_friend.innerHTML += '<form method="POST" action="?page=home_user&id_friend='+data[i].user_id+'"><label>Acceptez-vous la demande d\'ami de '+data[i].lastname+' '+data[i].firstname+' ?</label>Oui<input type="radio" name="friend" value="1">Non<input type="radio" name="friend" value="0"><br><input class="button" type="submit" name="submit" value="Valider"></form>';
                                     }
                                 }
                             })
@@ -239,12 +239,13 @@ if(btn_friend!=null){
 
 let form = document.querySelector('.form_tchat');
 
+
 if (form != null){
     form.addEventListener('submit',(e)=>{
         e.preventDefault();
         let tchat = document.getElementById('content_tchat'); 
-        let mycontent = document.querySelector('.my_content');
         let friend_id = document.querySelector('.friend_id');
+        let mycontent = document.getElementById('my_content');
         
         let formdata = new FormData();
         formdata.append('content', tchat.value); 
@@ -252,13 +253,23 @@ if (form != null){
         let obj = { 'method':'POST', 'body':formdata };
         
         fetch('ajax/recordChat.php', obj)
-                        .then(response => response.text())
+                        .then(response => response.json())
                         .then(data=>{
-                            console.log(data);
                             tchat.value = '';
                             tchat.focus();
-                            mycontent.innerHTML='<p>'+data+'</p>';
-                       
+                            mycontent.innerHTML = '';
+                            let count = data.length;
+                            if (count > 0) {
+                                    for (let i=0; i<count; i++){
+                                        console.log(data[0]);
+                                        if (data[0].user_id != data[i].friend_id){
+                                            mycontent.innerHTML += '<span class="tchat_return">'+data[i].content+'</span><p class="tchat_date">'+data[i].date_crea+'</p>';
+                                        } else {
+                                            mycontent.innerHTML += '<span class="tchat_friend">'+data[i].content+'</span><p class="tchat_date">'+data[i].date_crea+'</p>';
+                                        }
+                                    }
+                            }
+                            
                         })
                         .catch(err=>console.error(err));
         });

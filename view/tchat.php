@@ -3,12 +3,26 @@ $title='Message';
 ob_start();
 ?>
 <section>
+    <p class="dest_tchat"><?=ucfirst($infos['lastname']).' '.ucfirst($infos['firstname'])?></p>
     <div class="tchat">
-        <p class="dest_tchat"><?=ucfirst($infos['lastname']).' '.ucfirst($infos['firstname'])?></p>
+        <div class="recipient">
+            <?php if($status) :?>
+            <div class="online"></div>
+                <?php else :?>
+            <div class="offline"></div>
+            <?php endif ?>
+            <img class="img dim200" src="<?=$photo_friend?>" alt="photo de profil">
+        </div>
         <div class="container_tchat">
-            <p class="m20 author_chat"></p>
-            <p class="m20 content_author"><?=$tchat?></p>
-            <div class="my_content"></div>
+            <div id="my_content">
+                <?php foreach ($result as $r) :?>
+                    <?php if ($_SESSION['user']['id'] != $r['friend_id']) :?>
+                        <span class="tchat_return"><?=$r['content']?></span><p class="tchat_date"><?=$r['date_crea']?></p>
+                    <?php else :?>
+                        <span class="tchat_friend"><?=$r['content']?></span><p class="tchat_date"><?=$r['date_crea']?></p>
+                    <?php endif ?>
+                <?php endforeach ?>
+            </div>
         </div>
     </div>
     <div class="tchat_user">

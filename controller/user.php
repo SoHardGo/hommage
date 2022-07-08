@@ -1,5 +1,7 @@
 <?php
 require_once 'model/GetInfos.php';
+require_once 'model/GlobalClass.php';
+$globalClass = new GlobalClass();
 $getInfo = new GetInfos();
 $def_id = $getInfo->getUserDefunctList(intval($_SESSION['user']['id']));
 $info_def = $def_id->fetchAll();
@@ -23,15 +25,13 @@ if ($nbr){
 } 
 
 // enregistrement d'une photo de profil pour l'utilsateur dans son dossier
-if (isset($_FILES['photo']) && ($_FILES['photo']['type']=='image/jpeg' || $_FILES['photo']['type']=='image/png')){
+if (!empty($_FILES['photo']) && ($_FILES['photo']['type']=='image/jpeg' || $_FILES['photo']['type']=='image/png')){
 
-    // test taille fichier
-    $taille = $_FILES['photo']['size'];
-    if ($taille > 1024000){
-        $_SESSION['message'] = '<p class="message">Fichier trop volumineux, il doit être inférieur à 1Mo</p>';
-        unset($_FILES['photo']);
+    // test taille fichier, valide pour les fichiers < 2Mo, restriction du serveur
+    if ($_FILES['photo']['size'] > 1024000){
+        $messFile = '<p class="message">Attention, la limitation de la taille du fichier est de 2Mo</p>';
     }
-    var_dump ($_SESSION['message']);
+    
     // test dossier existe ou pas
     $destination = 'public/pictures/users/'.$_SESSION['user']['id'];
     if (!file_exists($destination) && !is_dir($destination)){ 
@@ -44,10 +44,13 @@ if (isset($_FILES['photo']) && ($_FILES['photo']['type']=='image/jpeg' || $_FILE
     $profil = $destination.'/'.$nom; 
 
     //update de mon enregistrement photo pour lui donner le bon nom
-    if(isset($_FILES['photo'])){
+    if(!empty($_FILES['photo'])){
     move_uploaded_file ($_FILES['photo']['tmp_name'], $profil);
     }
 }
+
+// vérification de la photo de profil
+$profil = $globalClass->verifyPhotoProfil($_SESSION['user']['id']);
 // Liste des demandes d'amis depuis la dernière connexion
 $result = $getInfo->getAskFriend($_SESSION['user']['id']);
 foreach ($result as $r){

@@ -3,7 +3,7 @@ require_once 'Manage.php';
 
 class GetInfos extends Manage {
     // récupération de toutes les informations concernant un utilisateur
-    // jointure impossible car pas forcément de concordance entre id de users et user_id de user_admin
+    // jointure impossible car pas forcément de concordance entre id de "users" et user_id de "user_admin"
     public function getInfoUser(int $id) :array {
         $data = ['id' => $id];
         $query = "SELECT email, firstname, lastname, number_road, address, city, postal_code, pseudo FROM users WHERE id=:id";
@@ -32,14 +32,14 @@ class GetInfos extends Manage {
         return $this->getQuery($query,$data);
     }
     
-    // récup toutes les infos d'un défunt selon son Id
+    // récupération toutes les infos d'un défunt selon son Id
     public function getInfoDefunct(int $id) :object {
         $data = ['id'=>$id];
         $query = "SELECT id, lastname, firstname, birthdate, death_date, cemetery, city_birth, postal_code, user_id FROM defuncts WHERE id=:id";
         return $this->getQuery($query,$data);
     }
     
-    // récup la liste des Id des defunts lié à un utilisateur
+    // récupération la liste des Id des defunts lié à un utilisateur
     public function getDefunctList():array {
         $resultList = $this->getInfoDefunct($_SESSION['user']['id']);
         $resultList = $resultList->fetchAll();
@@ -61,7 +61,7 @@ class GetInfos extends Manage {
         $tab1 = array_merge($tab,$result1);
         return $tab1;
     }
-    // récupération de les liste des commentaires liés à une photo
+    // récupération de la liste des commentaires liés à une photo
     public function getListComment(int $id) :array {
         $data = ['photo_id'=>$id];
         $query = "SELECT id, user_id, comment, profil_user, date_crea FROM comments WHERE photo_id=:photo_id";
@@ -91,7 +91,7 @@ class GetInfos extends Manage {
             return '';
         }
     }
-    // récupération du nom d'un defunt par son Id
+    // récupération de l'Id d'un defunt lié à une photo
     public function getIdDefPhoto (string $name) :array {
         $data = ['name'=>$name];
         $query = "SELECT defunct_id FROM photos WHERE name=:name";
@@ -162,25 +162,27 @@ class GetInfos extends Manage {
         }
         return $cards;
     }
-    // récupération des 8 dernières photos pour le slider
-    public function getHomeSlider(int $nb=8) :array {
+    // récupération des 10 dernières photos pour le slider
+    public function getHomeSlider(int $nb=10) :array {
         $query = "SELECT MAX(user_id) as user_id, MAX(name) as name FROM photos 
                   GROUP BY defunct_id 
                   ORDER BY MAX(id) LIMIT $nb";
         return $this->getQuery($query)->fetchAll();
     }
     // récupération des nouvelles photos ajoutées depuis la dernière connexion
-    public function getRecentPhotos(int $id_def, string $last_log) :object {
+    public function getRecentPhotos(int $id_def, string $last_log, int $user_id) :object {
         $data = ['defunct_id'=>$id_def,
-            'last_log'=>$last_log];
-        $query = "SELECT id FROM photos WHERE defunct_id=:defunct_id AND date_crea > :last_log";
+                'last_log'=>$last_log,
+                'user_id'=>$user_id];
+        $query = "SELECT id FROM photos WHERE defunct_id=:defunct_id AND date_crea >:last_log AND user_id!=:user_id";
         return $this->getQuery($query,$data);
     }
     // récupération des nouveaux commentaires depuis la dernière connexion
-    public function getRecentComments(int $id_def, string $last_log) :object {
+    public function getRecentComments(int $id_def, string $last_log, int $user_id) :object {
         $data = ['defunct_id'=>$id_def,
-            'last_log'=>$last_log];
-        $query = "SELECT id FROM comments WHERE defunct_id=:defunct_id AND date_crea > :last_log";
+                'last_log'=>$last_log,
+                'user_id'=>$user_id];
+        $query = "SELECT id FROM comments WHERE defunct_id=:defunct_id AND date_crea >:last_log AND user_id!=:user_id";
         return $this->getQuery($query,$data);
     }
     // récupération des info d'un useradmin selon l'ID du défunt
@@ -193,7 +195,7 @@ class GetInfos extends Manage {
         $tab = ['user_id'=>$user_id, 'admin'=>$user_admin];
         return $tab;
     }
-    // liste des amis 
+    // liste des amis enregistrée
     public function getFriendsList(int $id) :array {
         $data = ['user_id'=>$id];
         $query = "SELECT friend_id, date_crea, validate FROM friends WHERE user_id=:user_id";
@@ -201,7 +203,7 @@ class GetInfos extends Manage {
     }
     // liste des demande d'amis depuis la dernière connexion avec jointure pour ses informations
     public function getAskFriend(int $id) :array {
-        // récupération de la desnière connexion
+        // récupération de la date de dernière connexion
         $data = ['id'=>$id];
         $query = "SELECT last_log FROM users WHERE id=:id";
         $lastLog = $this->getQuery($query,$data)->fetch();
@@ -214,11 +216,11 @@ class GetInfos extends Manage {
                 WHERE friend_id=:friend_id AND friends.date_crea < :last_log";
         return $this->getQuery($query,$data)->fetchAll();
     }
-    // récupération des 20 derniers messages
+    // récupération des 30 derniers messages
     public function getTchat(array $data) :array {
         $query = "SELECT user_id, date_crea, content ,friend_id FROM tchat
                   WHERE (friend_id=:friend_id AND user_id=:user_id) OR (friend_id=:user_id AND user_id=:friend_id) 
-                  ORDER BY date_crea DESC LIMIT 50";
+                  ORDER BY date_crea LIMIT 30";
         $result = $this->getQuery($query,$data)->fetchAll();
         return $result;
     }

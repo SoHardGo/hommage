@@ -11,6 +11,7 @@ $nbPhotos = '';
 $nbComments = '';
 $admin_def ='';
 $message ='';
+$messFile ='';
 $friendOk = '';
 $tab = array();
 $tabFriend = [];
@@ -28,7 +29,7 @@ $idCom = $_GET['idCom']??null;
 //id d'une photo
 $idPhoto = $_GET['idPhoto']??null;
 
-////////////// Si user connecté et créateur
+////////////// Si user connecté et créateur d'une fiche
 
 if(isset($_SESSION['user']['id'])) {
 
@@ -60,10 +61,8 @@ if(isset($_SESSION['user']['id'])) {
         } 
         
         // test taille fichier
-        $taille = $_FILES['file_env']['size'];
-        if ($taille > 1024000){
-            session_start();
-            $_SESSION['message'] =  'La taille ne doit pas dépasser 1Mo, merci';
+        if ($_FILES['file_env']['size'] > 1024000){
+            $_messFile =  '<p class="message">Attention, la limitation de la taille du fichier est de 2Mo</p>';
         }
         
         //enregistre la photo dans la BBD
@@ -93,8 +92,8 @@ if ($id_def) {
 }
 ////////////nombre de commentaires et photos ajoutées depuis la dernière connexion
 if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['user']['id']){
-    $recentComment = $getInfo->getRecentComments($id_def, $_SESSION['user']['last_log'])->rowCount();
-    $recentPhoto = $getInfo->getRecentPhotos($id_def, $_SESSION['user']['last_log'])->rowCount();
+    $recentComment = $getInfo->getRecentComments($id_def, $_SESSION['user']['last_log'], $_SESSION['user']['id'])->rowCount();
+    $recentPhoto = $getInfo->getRecentPhotos($id_def, $_SESSION['user']['last_log'], $_SESSION['user']['id'])->rowCount();
 }
 
 //////////////////////ajouter un contact///////////////////////////////////

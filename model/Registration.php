@@ -60,6 +60,7 @@ class Registration extends Manage {
         $this->getQuery($query,$data);
     }
 
+
 /////////////////////////////////////////////////UPDATER////////////////////////////////////////////////////////////
 
     // miseà jour de la date et heure de connexion
@@ -80,7 +81,7 @@ class Registration extends Manage {
         $this->getQuery($query,$data);
     }
 
-    // mise à jour mot de pass
+    // mise à jour mot de passe
     public function updatePassword(string $pass, int $id) :void{
         $pass = password_hash($pass, PASSWORD_BCRYPT);
         $data = ['id'=>$id, 'password'=>$pass];
@@ -88,16 +89,19 @@ class Registration extends Manage {
         $this->getQuery($query,$data);
     }
     
-    // mise à jour de la validation d'une demande d'ami + ajout dans sa liste de contact
+    // mise à jour de la validation d'une demande d'ami 
     public function updateFriend(int $val, int $user_id, int $friend_id) :void{
         $data = ['validate'=>$val, 'user_id'=>$user_id, 'friend_id'=>$friend_id];
         $query = "UPDATE friends SET validate=:validate, date_crea=NOW() WHERE user_id=:friend_id AND friend_id=:user_id ";
         $this->getQuery($query,$data);
-        $query = "INSERT INTO friends SET user_id=:user_id, friend_id=:friend_id, validate=:validate, date_crea=NOW()";
-        $this->getQuery($query,$data);
-        
     }
-    
+    // mise à jour du status "online" pour le tchat
+    public function updateOnline(int $id, int $online) :void{
+        $data = ['id'=>$id, 'online'=>$online];
+        $query = "UPDATE users SET online=:online WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+
 /////////////////////////////DELETER////////////////////////////////////////////
 
     // supprimer un commentaire
