@@ -1,5 +1,5 @@
 <?php
-$title='Contact';
+$title='Nous contacter';
 ob_start(); 
 ?>
 <section class="container_contact">

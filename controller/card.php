@@ -15,6 +15,7 @@ $email = '';
 $cardInfo = '';
 $verifInfoSend = '';
 $sendPrefered = '';
+$confirmDest = false;
 $nb ='';
 
 // Carte par défaut dans l'éditeur
@@ -77,6 +78,7 @@ if (isset($_POST['submit'])){
 // Choix de l'envoi à l'auteur de la carte
 if (isset($_POST['valid_add']) && $_POST['valid_add'] == '1' && !empty($_POST['valid_add'])){
     $message = '<p class="message">Confirmation de l\'envoi à votre adresse.</p>';
+    $confirmDest = true;
     $_SESSION['user_send'] = $_SESSION['user']['id'];
 } elseif (!isset($_POST['valid_add']) || $_POST['valid_add'] == '0' && !isset($_POST['sendPrefered'])) {
     $message = '<p class="message">Vous n\'avez pas encore sélectionné de destinataire</p>';
@@ -86,15 +88,17 @@ if(isset($_POST['sendPrefered']) && $_POST['sendPrefered']!=null && $_POST['send
     $mess_send = '<p>Confirmation de l\'envoi postal à '.$_SESSION['user_send_name'].'</p>';
     $message = '';
     $address_send = true;
+    $confirmDest = true;
 } elseif (isset($_POST['sendPrefered']) && $_POST['sendPrefered']!=null && $_POST['sendPrefered'] == 'email') {
     $mess_send = '<p>Confirmation de l\'envoi par email à '.$_SESSION['user_send_name'].'</p>';
     $message = '';
     $email_send = true;
+    $confirmDest = true;
 }
-
+$categories = 'cartes';
 $tab_card = $getInfo->getCardTab();
 $total_card = $getInfo->getCardTotal();
-$cardsList = $getInfo->getCardsList()->fetchAll();
+$cardsList = $getInfo->getProductsList($categories)->fetchAll();
 
 
 // Affichage de la partie paiement avec liste des cartes validé

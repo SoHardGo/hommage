@@ -3,6 +3,12 @@ require_once 'model/GetInfos.php';
 $getInfo = new GetInfos();
 $search = '';
 $message ='';
+/*
+$select = '';
+
+// Sélecteur des défunts
+$select = $getInfo->selectDefuncts();
+*/
 if(isset($_POST['submit'])){
     $data['lastname'] = isset($_POST['lastname']) ? htmlspecialchars($_POST['lastname']) : '';
     $data['firstname'] = isset($_POST['firstname']) ? htmlspecialchars($_POST['firstname']) : '';

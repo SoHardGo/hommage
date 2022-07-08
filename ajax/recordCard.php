@@ -7,7 +7,7 @@ $register = new Registration();
 $getInfo = new GetInfos();
 
 // gestion de récupération du contenu d'une carte
-
+$user_send = $_SESSION['user_send']??null;
 if (isset($_POST['content']) && !empty($_POST['content'])){
     $content = [
         'content'=>strip_tags($_POST['content']),
@@ -19,7 +19,7 @@ if (isset($_POST['content']) && !empty($_POST['content'])){
     $lastId = $register->setContent($content);
     $_SESSION['nbCard'][] = $lastId;
     $nb = count($_SESSION['nbCard']);
-    // récupération du nom, du prix et du libellé de la carte
+    // récupération du nom, du prix et du libellé de la carte sélectionnée
     $cardInfo = $getInfo->getCardInfo(intval($_POST['card_id']));
     // calcul du total des cartes sélectionnées
     $total = $getInfo->getCardTotal();

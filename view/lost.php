@@ -1,5 +1,5 @@
 <?php
-$title='Réinitialisation mot de passe';
+$title='Réinitialisation du mot de passe';
 $user_content='';
 $newpass='';
 ob_start();

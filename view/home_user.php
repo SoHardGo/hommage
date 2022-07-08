@@ -1,5 +1,5 @@
 <?php
-$title='Home_user';
+$title='Espace membre';
 $content='';
 ob_start(); 
 
@@ -16,14 +16,14 @@ if (count($info_def)){
         $path_photo = 'public/pictures/photos/'.$_SESSION['user']['id'].'/'.$info_def[$i]['id'].'-0.jpg';
         $list_def.= '
         <div class="home_user_card">
-            <div><a class="card" href="?page=environnement&id='.$info_def[$i]['id'].'">
+            <a class="card" href="?page=environnement&id='.$info_def[$i]['id'].'">
             <div class="card_img">';
             if ( !file_exists($path_photo) ){
                 $path_photo = 'public/pictures/site/noone.jpg';
             }
         $list_def.= '<img class ="img" src="'.$path_photo.'" alt="photo defunt"></div>
             <p>'.ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname']).'</p>
-            </a></div>
+            </a>
         </div>';
     }
     $list_def.='</div>';
@@ -65,6 +65,7 @@ if (count($info_def)){
             </a>
     </div>
     <div class="contacts_list hidden">
+        <h3>Cliquez pour commencer un Tchat</h3>
                <?=$friends?>
     </div>
     <div class="contact_title">
@@ -76,9 +77,6 @@ if (count($info_def)){
 <section class="container_slider">
     <h1>Photos récemment ajoutées</h1>
     <?=$slider?>
-</section>
-<section class="container_tchat">
-    <?=$tchat?>
 </section>
 
 <?php

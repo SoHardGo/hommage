@@ -29,6 +29,9 @@ input {
     height: 40px;
     margin:20px;
 }
+input:invalid {
+    background-color: var(--color-red);
+}
 h1 {
     font-size: 30px;
     text-align:center;
@@ -206,7 +209,7 @@ nav {
     text-align:justify;
     font-size: 25px;
 }
-.container_home_photo, .container_home_text, .container_home_card, .container_home_flower {
+.container_home_photo, .container_home_text, .container_home_card{
     margin-bottom:45px;
 }
 .home_photo {
@@ -237,7 +240,7 @@ nav {
 .home_button {
     text-align:center;
 }
-.home_member h1, .home_write h1, .home_send h1, .home_flower h1 {
+.home_member h1, .home_write h1, .home_send h1 {
     font-size: 30px;
     margin:30px;
 }
@@ -367,7 +370,7 @@ input[value="Rechercher"] {
     width: 150px;
 }
 .result_insee {
-    width: 90%;
+    width: 80%;
 }
 /***Profil***/
 .title_profil.title {
@@ -397,14 +400,14 @@ input[value="Rechercher"] {
 .buy_mess {
     text-align:center;
 }
-.table_buy, .table_death {
+.table_buy, .table_death, .table_flower {
     border-collapse:collapse;
     border:1px solid var(--color-black);
     text-align:center;
     width: 90%;
     margin: 20px auto;
 }
-.table_buy tr, .table_buy td, .table_death td, .table_death tr {
+.table_buy tr, .table_buy td, .table_death td, .table_death tr, .table_flower td, .table_flower tr{
      border:1px solid var(--color-black);
 }
 .tab_content {
@@ -666,7 +669,6 @@ input[value="Rechercher"] {
 .defunct_home_user {
     display:flex;
     flex-wrap: wrap;
-    text-align:center;
     justify-content: center;
     margin:20px;
 }
@@ -674,6 +676,7 @@ input[value="Rechercher"] {
     margin:5px;
 }
 .card_img{
+    width: 200px;
     height: 200px;
 }
 .card {
@@ -705,11 +708,16 @@ input[value="Rechercher"] {
 }
 .contacts_list {
     display:flex;
+    flex-wrap: wrap;
     justify-content:center;
-    margin: 15px 45px;
+    margin: 15px 30px;
     border:1px solid black;
     border-radius: 10px;
     padding: 10px;
+}
+.contacts_list a{
+    text-decoration:none;
+    color: var(--color-black);
 }
 .friend {
     text-decoration:none;
@@ -717,10 +725,12 @@ input[value="Rechercher"] {
 }
 .friend_container {
     position:relative;
+    text-align: center;
     margin: 10px;
 }
 .friend_list {
-    height: 80px;
+    width: 100px;
+    height: 100px;
     margin: 10px 10px 0px 10px
 }
 .friend_name a{
@@ -969,22 +979,39 @@ label[for="comment"]{
 .flower_form {
     display:flex;
     flex-direction:column;
+    text-align: center;
     align-items: center;
-    width: 200px;
-    height: 200px;
-    margin:0 auto;
 }
-.box_flower {
-    width: 200px;
+.flower_price {
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
 .container_flower input[type="checkbox"] {
     width: 20px;
+    margin: 0px;
 }
 .container_flower {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(7, 1fr);
     margin:20px;
+}
+.flower_info {
+    text-align: justify;
+    margin: 30px;
+    font-size: 25px;
+}
+.container_flower_dest {
+    text-align:center;
+    margin: 30px;
+}
+.container_flower_tab  {
+   text-align:center; 
+}
+#select_name_defunct {
+    text-align:center;
+    width: 200px;
 }
 .fleur1 {
     grid-column:1;
@@ -1244,9 +1271,6 @@ label[for="comment"]{
     .fa-user {
         margin-right: -20px;
     }
-    .card_img{
-        width: 180px;
-    }
     .icon_home {
         margin-left: 15px;
     }
@@ -1269,11 +1293,26 @@ label[for="comment"]{
         margin: 20px;
     }
     .container_tchat {
-        width: 60%;
+        width: 65.6%;
     }
     #content_tchat {
         width: 460px;
         padding-left: 20px;
+    }
+    #my_content {
+        height: 600px;
+        padding: 15px;
+    }
+    .form_tchat {
+        margin-left: 85px;
+    }
+    .recipient {
+        width: 145px;
+        margin-left: 65px;
+    }
+    .dest_tchat {
+        width: 84.6%;
+        margin-left: 65px;
     }
 }
 @media screen and (min-width:1024px){
@@ -1350,9 +1389,25 @@ label[for="comment"]{
         width: 70%;
         margin: 20px auto;
     }
+    .container_tchat {
+        width: 66.6%;
+    }
     #content_tchat {
-    width: 610px;
-    padding-left: 30px;
-    
+        width: 610px;
+        padding-left: 30px;
+    }
+    #my_content {
+    height: 660px;
+    }
+    .dest_tchat {
+        width: 80.8%;
+    }
+    .recipient, .dest_tchat {
+        margin-left: 105px;
+    }
 }
-
+@media screen and (min-width:1280px){
+    .dest_tchat {
+    width: 78.7%;
+    }
+}

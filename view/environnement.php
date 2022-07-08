@@ -1,4 +1,5 @@
 <?php
+$title='Environnement utilisateur';
 $content='';
 
 if (isset($id_def)){
@@ -165,9 +166,6 @@ if (isset($id_def)){
         </div>
     <?php endif ?>
     </div>
-    <script>
-        if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}
-    </script>
 
 <?php
     $content = ob_get_clean();

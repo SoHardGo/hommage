@@ -1,4 +1,5 @@
 <?php
+$title='Bandeau utilisateur';
 // Dossier de la photo de profil de l'utilisateur
 $profil = './public/pictures/users/'.$_SESSION['user']['id'].'/photo'.$_SESSION['user']['id'].'.jpg';
 ob_start(); 

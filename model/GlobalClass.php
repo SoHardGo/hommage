@@ -2,7 +2,7 @@
 require_once 'Manage.php';
 
 class GlobalClass extends Manage {
-    // initialisation du bandeau utilisateur
+    // Initialisation du bandeau utilisateur
     public function setUserEnv() :string {
         if (isset($_SESSION['user']['id'])){
             require 'controller/user.php'; 
@@ -12,7 +12,7 @@ class GlobalClass extends Manage {
         return $user_content;
     }
     
-    // initialisation du formulaire de paiements
+    // Initialisation du formulaire de paiements
     public function setBuyEnv() :string {
         if (isset($_SESSION['buy'])){
         $user_content = $this->setUserEnv();
@@ -23,17 +23,6 @@ class GlobalClass extends Manage {
         }
         return $buy;
     }
-  /*  // initialisation de la messagerie
-    public function setTchatEnv() :string {
-        if (isset($_SESSION['tchat'])){
-        //$user_content = $this->setUserEnv();
-        require 'controller/tchat.php';
-        exit;
-        } else {
-            $tchat = '';
-        }
-        return $tchat;
-   }*/ 
     // Vérification de l'existance d'une photo de profil
     public function verifyPhotoProfil(int $id) :string{
         $profil = 'public/pictures/users/'.$id.'/photo'.$id.'.jpg';
@@ -43,7 +32,7 @@ class GlobalClass extends Manage {
         return $profil;
     }
     
-    // fonction de vérification des identifiants de compte
+    // Vérification des identifiants de compte
     public function verifyAccount(string $email, $pwd) :?array {
         $data = ['email'=> $email];
         $query = "SELECT id, lastname, firstname, email, password, last_log FROM users WHERE email=:email";
@@ -57,14 +46,14 @@ class GlobalClass extends Manage {
         return null;
     }
     
-    // fonction vérification fiche défunt existe ou pas
+    // Vérification fiche défunt existe ou pas
     public function verifyDefunct(array $data) :object {
         $query = "SELECT id FROM defuncts WHERE lastname=:lastname AND firstname=:firstname AND birthdate=:birthdate";
         $result = $this->getQuery($query,$data);
         return $result;
     }
     
-    //fonction vérification utilisateur dans la base de donnée
+    //Vérification utilisateur dans la base de donnée
     public function verifyUser(array $data) :?object {
         $query = "SELECT id, lastname, firstname, email, number_road, address, postal_code FROM users WHERE lastname=:lastname AND firstname=:firstname";
         $result = $this->getQuery($query,$data);
@@ -76,7 +65,7 @@ class GlobalClass extends Manage {
         }
     }
     
-    //fonction vérification si l'utilisateur est un user_admin
+    // Vérification si l'utilisateur est un user_admin
     public function verifUserAdmin(int $id) :object {
         $data = ['user_id'=>$id];
         $query = "SELECT id, add_share,card_virtuel, card_real, defunct_id FROM user_admin WHERE user_id=:user_id";
@@ -95,8 +84,8 @@ class GlobalClass extends Manage {
         }
         return $status;
     }
-
-  
+        
+        
 }
 
 ?>

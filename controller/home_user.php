@@ -6,7 +6,6 @@ $register = new Registration();
 require_once 'model/GetInfos.php';
 $getInfo = new GetInfos();
 $friends ='';
-$tchat = '';
 
 // Initialisation de la personne ajouté aux contacts ->environnement
 $useradmin['user_id'] = $_GET['useradmin']??'';

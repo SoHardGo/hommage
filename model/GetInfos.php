@@ -40,7 +40,7 @@ class GetInfos extends Manage {
     }
     
     // récupération la liste des Id des defunts lié à un utilisateur
-    public function getDefunctList():array {
+    public function getDefunctList() :array {
         $resultList = $this->getInfoDefunct($_SESSION['user']['id']);
         $resultList = $resultList->fetchAll();
         $liste = [];
@@ -49,6 +49,22 @@ class GetInfos extends Manage {
         }
         return $liste;
     }
+    // récupération des identités de tout les defunts
+    public function getAllDefuncts() :array {
+        $query = "SELECT id, lastname, firstname FROM defuncts";
+        return $this->getQuery($query)->fetchAll();
+    }
+    // Sélecteur de Nom Prénom des défunts
+    public function selectDefuncts() :string {
+        $info_def = $this->getAllDefuncts();
+        $select = '<select id="select_lastname name="select">';
+        foreach($info_def as $i){
+            $select .= '<option value="'.$i['id'].'">'.ucfirst($i['lastname']).' '.ucfirst($i['lastname']).'</option>';
+        }
+        $select .= '</select>';
+        return $select;
+        }
+    
     // affichage à faire de la ville et code postal dans recherche
     public function getTown(string $ville) :array {
         $data = ['nom'=>$res.'%',
@@ -97,9 +113,9 @@ class GetInfos extends Manage {
         $query = "SELECT defunct_id FROM photos WHERE name=:name";
         return $this->getQuery($query,$data)->fetch();
     }
-    // liste des cartes
-    public function getCardsList() :object {
-        $data = ['categories'=>'cartes'];
+    // liste des cartes ou bouquets de fleurs
+    public function getProductsList(string $categories) :object {
+        $data = ['categories'=>$categories];
         $query = "SELECT id, name, price, info FROM products WHERE categories=:categories";
         $result = $this->getQuery($query,$data);
         return $result;
@@ -224,5 +240,4 @@ class GetInfos extends Manage {
         $result = $this->getQuery($query,$data)->fetchAll();
         return $result;
     }
-
 }

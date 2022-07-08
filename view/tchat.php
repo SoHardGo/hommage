@@ -1,5 +1,5 @@
 <?php
-$title='Message';
+$title='Tchat';
 ob_start();
 ?>
 <section>
