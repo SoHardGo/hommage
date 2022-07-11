@@ -5,10 +5,10 @@ $profil = './public/pictures/users/'.$_SESSION['user']['id'].'/photo'.$_SESSION[
 ob_start(); 
 // Affichage du bandeau utilisateur
 ?>
-<section class="container_user">
+<section class="user">
     <h3><?=ucfirst($_SESSION['user']['lastname']).' '.ucfirst($_SESSION['user']['firstname'])?></h3>
     <form class="user_form" method="POST" action="?page=home_user" enctype="multipart/form-data" id="form_user">
-        <div class="container_photo_user">
+        <div class="user_photo">
             <?php if(file_exists($profil)) :?>
                 <img class="img" src="<?=$profil?>?<?=rand()?>" alt="photo de profil">
             <?php endif ?>
@@ -16,30 +16,30 @@ ob_start();
                 <img class="img dim35 user_icon" src="public/pictures/site/camera-icon.png" alt="icone home utilisateur">
         </div>
     </form>
-    <div class="hidden ajax_id"><?=$_SESSION['user']['id']?></div>
-    <div class="user_new dim100">
-        <a href="" class="user_friend" id="newFriend" title="Demande d'ami">
+    <div class="hidden user_ajax"><?=$_SESSION['user']['id']?></div>
+    <div class="user_new">
+        <a href="" class="user_mini_icons" id="newFriend" title="Demande d'ami">
             <img class="img dim40 <?=$icon_anim_f?>" src="public/pictures/site/friend.png" alt="icone demande d'ami">
             <span class="number_f"><?=$number_f?></span>
         </a>
-        <a href="" class="user_message" id="newMessage" title="Nouveau message">
+        <a href="" class="user_mini_icons" id="newMessage" title="Nouveau message">
             <img class="img dim40 <?=$icon_anim_m?>" src="public/pictures/site/chat.png" alt="icone nouveau message">
             <span class="number_m"><?=$number_m?></span>
         </a>
     </div>
-    <div class="user_fix dim100">
-        <a href="?deco" class="user_logoff" title="Déconnecter">
+    <div class="user_fix">
+        <a href="?deco" class="user_mini_icons" title="Déconnecter">
                 <img class="img dim40" src="public/pictures/site/power-icon.png" alt="icone deconnexion">
         </a>
-        <a href="?page=home_user" class="user_home" title="Accueil utilisateur">
+        <a href="?page=home_user" class="user_mini_icons" title="Accueil utilisateur">
                 <img class="img dim40" src="public/pictures/site/home-icon.png" alt="icone home utilisateur">
         </a>
     </div>
 </section>
-<section class="bouton_user">
+<section class="user_menu">
         <a class="button" href="?page=createform">Créer une fiche</a>
         <?php if (isset($_SESSION['user']['defunct'])) :?>
-            <div class ="button button_myDefuncts">
+            <div class ="button user_myDefuncts">
                 Mes fiches
                 <?=$list_def?>
             </div>
@@ -51,7 +51,7 @@ ob_start();
 </section>
 <section>
         <div><?=$messFile?></div>
-        <div class="ask_friend"><?=$ask?></div>
+        <div class="user_ask_friend"><?=$ask?></div>
 </section>
 
 <?php

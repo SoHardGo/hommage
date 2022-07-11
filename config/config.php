@@ -6,7 +6,6 @@ const PWD = 'e90a4fc73c8676fb7916ff1b780a5137';
 
 const CONTROLLER_FOLDER = 'controller/';
 const ROUTES = [
-    'about' => 'about.php',
     'card' => 'card.php',
     'connexion' => 'connexion.php',
     'contact' => 'contact.php',
@@ -14,7 +13,6 @@ const ROUTES = [
     'flower' => 'flower.php',
     'registration' => 'registration.php',
     'search' => 'search.php',
-  //  'user' => 'user.php',
     'profil' => 'profil.php',
     'lost' => 'lost.php',
     'home' => 'home.php',

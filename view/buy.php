@@ -3,37 +3,33 @@ $title='Achats';
 
 ob_start();
 ?>
-<section class="container_buy">
-    <h1 class="title_buy title">Mes achats</h1>
-        <?=$messBuy?>
-</section>
 <section>
+    <h1 class="title_buy">Mes achats</h1>
+        <?=$messBuy?>
     <?php if (isset($_SESSION['user_send'])) :?>
         <?=$tab?>
     <div class="pay">
         <hr>
         <img class="img dim80" src="public/pictures/site/visa.png" alt="carte visa">
-
-        <h1 class="title_pay">PAIEMENT</h1>
-         
-        <p class="m20"><b>Entrer vos coordonnées bancaire pour valider le paiement.</b></p>
-        <fieldset class="formulaire_pay">
-            <form method="POST" action="?page=buy#pay" class="form_pay">
-                <label for="total_pay"> Montant :</label>
-                <input type="text" name="total_pay" id="total_pay" value="<?=$_SESSION['total_card']?> €" readonly>
-                <label for="day_pay"> Date :</label>
-                <input type="text" name="day_pay" id="day_pay" value="<?=date('d/m/Y H:m:s')?>" readonly>
-                <label for="cart_pay"> N° de carte (sans espace) : </label>
-                <input type="number" name="cart_pay" id="cart_pay" required>
+        <h2>PAIEMENT</h>
+        <p><b>Entrer vos coordonnées bancaire pour valider le paiement.</b></p>
+        <fieldset class="buy_form">
+            <form method="POST" action="?page=buy#pay">
+                <label for="buy_total"> Montant :</label>
+                <input type="text" name="buy_total" id="buy_total" value="<?=$_SESSION['total_card']?> €" readonly>
+                <label for="buy_day"> Date :</label>
+                <input type="text" name="buy_day" id="buy_day" value="<?=date('d/m/Y H:m:s')?>" readonly>
+                <label for="buy_cart"> N° de carte (sans espace) : </label>
+                <input type="number" name="buy_cart" id="buy_cart" required>
                 <div><?=$messCart?></div>
-                <label for="code_cvv">N° de CVV (au dos de la carte) :</label>
-                <input type="number" name="code_cvv" id="code_cvv" required>
+                <label for="buy_code">N° de CVV (au dos de la carte) :</label>
+                <input type="number" name="buy_code" id="buy_code" required>
                 <div><?=$messCvv?></div>
-                <label for="tel">Téléphone :</label>
-                <input type="tel" name="tel" id="tel" required>
+                <label for="buy_tel">Téléphone :</label>
+                <input type="tel" name="buy_tel" id="buy_tel" required>
                 <div><?=$messTel?></div>
-                <label for="submit" id="pay"></label>
-                <input class="button" type="submit" name ="submit_pay" id="submit" value="Payer">
+                <label for="submit" id="buy_submit"></label>
+                <input class="button" type="submit" name ="buy_submit" id="submit" value="Payer">
             </form>   
             </fieldset>
         <div><?=$messFinal?></div>
@@ -42,19 +38,19 @@ ob_start();
 </section>
 <section>
     <hr>
-    <div class="buy_mess">
+    <div class="buy_message">
     <?php if (isset($_SESSION['user']['id'])) :?>
-        <h2 class="m20">Liste de mes précédents achats.</h2>
-        <a class="button ahref" href="?page=buy&list=1">Afficher la liste</a>
+        <h2>Liste de mes précédents achats.</h2>
+        <a class="button button-a" href="?page=buy&list=1">Afficher la liste</a>
     <?php else :?>
-        <h2 class="m20">Veuillez vous connecter pour visualiser vos précedents achats.</h2>
-        <h3 class="m20">Vous devez être inscrit pour effectuer un achat.</h3>
-        <a class="button ahref" href="?page=connexion">Connexion</a>
+        <h2>Veuillez vous connecter pour visualiser vos précedents achats.</h2>
+        <h3>Vous devez être inscrit pour effectuer un achat.</h3>
+        <a class="button button-a" href="?page=connexion">Connexion</a>
     <?php endif ?>
     </div>
     <?php if ($list) :?>
-    <div class="list_buy">
-        <table class="table_buy">
+    <div class="buy_list">
+        <table class="buy_table">
             <thead>
                 <tr>
                     <th>Carte</th>

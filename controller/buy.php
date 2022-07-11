@@ -43,30 +43,30 @@ $user_send = $getInfo->getInfoUser($_SESSION['user_send']);
     }
                 
     // contrôle des informations de paiement
-    if (isset($_POST['submit_pay'])){
-        if (isset($_POST['cart_pay'])){
-            $length = strlen($_POST['cart_pay']);
+    if (isset($_POST['buy_submit'])){
+        if (isset($_POST['buy_cart'])){
+            $length = strlen($_POST['buy_cart']);
             if ($length !== 16){
                 $messCart = '<p class="message">Vous n\'avez pas rentré le bon nombre de chiffre.</p>';
-                $_POST['cart_pay'] = '';
+                $_POST['buy_cart'] = '';
             } 
-            if (isset($_POST['code_cvv'])){
-                $length = strlen($_POST['code_cvv']);
+            if (isset($_POST['buy_code'])){
+                $length = strlen($_POST['buy_code']);
                 if ($length !== 3){
                     $messCvv = '<p class="message">Vous n\'avez pas rentré le bon nombre de chiffre.</p>';
-                    $_POST['code_cvv'] = '';
+                    $_POST['buy_code'] = '';
                 }
             }
-            if (isset($_POST['tel'])){
-                $length = strlen($_POST['tel']);
+            if (isset($_POST['buy_tel'])){
+                $length = strlen($_POST['buy_tel']);
                 if ($length !== 10){
                     $messTel = '<p class="message">Vous n\'avez pas rentré le bon nombre de chiffre.</p>';
-                    $_POST['tel'] = '';
+                    $_POST['buy_tel'] = '';
                 }
             }
         }
         
-        if (!empty($_POST['cart_pay']) && !empty($_POST['code_cvv']) && !empty($_POST['tel']) ){
+        if (!empty($_POST['buy_cart']) && !empty($_POST['buy_code']) && !empty($_POST['buy_tel']) ){
              //enregistrement des achats dans la BDD
         $data = ['user_id'=>$_SESSION['user']['id'],
                  'total'=>$_SESSION['total_card'],
@@ -80,7 +80,7 @@ $user_send = $getInfo->getInfoUser($_SESSION['user_send']);
         }   
     }   
 } else {
-    $messBuy = '<p class="empty_cart">Votre panier est actuellement vide</p>';
+    $messBuy = '<p class="buy_empty">Votre panier est actuellement vide</p>';
 }
 
 // liste des achats précedent
@@ -99,7 +99,7 @@ if ($list){
                     $total += $cardInfo['price'];
                     //information du destinataire
                     $dest = $getInfo->getInfoUser($r['user_send_id']);
-                    $tab_list .= '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].'</td><td>'.ucfirst($dest['lastname']).' '.ucfirst($dest['firstname']).'</td><td><div class="tab_content">'.$r['content'].'</div></td><tr>';
+                    $tab_list .= '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].'</td><td>'.ucfirst($dest['lastname']).' '.ucfirst($dest['firstname']).'</td><td><div class="buy_content">'.$r['content'].'</div></td><tr>';
                 }
             }
         }

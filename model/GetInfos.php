@@ -51,20 +51,20 @@ class GetInfos extends Manage {
     }
     // récupération des identités de tout les defunts
     public function getAllDefuncts() :array {
-        $query = "SELECT id, lastname, firstname FROM defuncts";
+        $query = "SELECT id, lastname, firstname, birthdate, death_date FROM defuncts ORDER BY lastname";
         return $this->getQuery($query)->fetchAll();
     }
+    /*
     // Sélecteur de Nom Prénom des défunts
     public function selectDefuncts() :string {
         $info_def = $this->getAllDefuncts();
-        $select = '<select id="select_lastname name="select">';
+        $select = '';
         foreach($info_def as $i){
             $select .= '<option value="'.$i['id'].'">'.ucfirst($i['lastname']).' '.ucfirst($i['lastname']).'</option>';
         }
-        $select .= '</select>';
         return $select;
         }
-    
+    */
     // affichage à faire de la ville et code postal dans recherche
     public function getTown(string $ville) :array {
         $data = ['nom'=>$res.'%',
@@ -90,11 +90,13 @@ class GetInfos extends Manage {
         $query = "SELECT id, user_id, name, date_crea FROM photos WHERE defunct_id=:defunct_id ORDER BY id DESC";
         return $this->getQuery($query,$data);
     }
+    /*
     // recherche d'un défunt
     public function getSearchDefuncts(array $data) :object{
         $query ="SELECT id, lastname, firstname, user_id FROM defuncts WHERE lastname=:lastname OR firstname=:firstname";
         return $this->getQuery($query,$data);
     }
+    */
     // affichage de la photo miniature d'un defunt
     public function getPhotoDef(int $def_id):string {
         $data = ['defunct_id'=>$def_id];
@@ -236,7 +238,7 @@ class GetInfos extends Manage {
     public function getTchat(array $data) :array {
         $query = "SELECT user_id, date_crea, content ,friend_id FROM tchat
                   WHERE (friend_id=:friend_id AND user_id=:user_id) OR (friend_id=:user_id AND user_id=:friend_id) 
-                  ORDER BY date_crea LIMIT 30";
+                  ORDER BY id DESC LIMIT 30";
         $result = $this->getQuery($query,$data)->fetchAll();
         return $result;
     }

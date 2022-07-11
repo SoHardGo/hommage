@@ -2,15 +2,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ///////////////////Gestion du menu Hamburger/////////////////////////////////
 
-let mynav = document.getElementById("my_navbar");
-let openburger = document.getElementById("open_burger");
-let closeburger = document.getElementById("close_burger");
+let nav = document.getElementById("nav");
+let nav_bar_open = document.getElementById("nav_bar-open");
+let nav_bar_close = document.getElementById("nav_bar-close");
 
-openburger.addEventListener('click',function(){
-    mynav.classList.add("status");
+nav_bar_open.addEventListener('click',function(){
+    nav.classList.add("status");
 });
-closeburger.addEventListener('click',function(){
-    mynav.classList.remove("status");
+nav_bar_close.addEventListener('click',function(){
+    nav.classList.remove("status");
 });
 
 ///////////////////////Photo de profil utilisateur////////////////////////////
@@ -28,8 +28,8 @@ photo_profil.addEventListener('click', function(){
 
 ///////////Gestion du bouton de liste des defunts du menu fiche//////////////
 
-let button = document.querySelector('.button_myDefuncts');
-let container = document.querySelector('.list_defuncts');
+let button = document.querySelector('.user_myDefuncts');
+let container = document.querySelector('.user_list_defuncts');
 if(button !== null){
 button.addEventListener('click', function(){
     container.classList.toggle('hidden');
@@ -51,14 +51,14 @@ if(camera !== null){
 
 /////////////// Gestion des commentaires //////////////////////////
 
-let comment_env = document.querySelectorAll('.comment_env');
+let comment_env = document.querySelectorAll('.env_comment_form');
 
 if(comment_env != null) {
     for(let i of comment_env) {
         i.addEventListener('submit', function(e) {
             e.preventDefault();
-            let com_div = this.parentNode.querySelector('.com_div');
-            let comment = this.querySelector('.comment');
+            let com_div = this.parentNode.querySelector('.env_comment');
+            let comment = this.querySelector('.env_comment_txt');
             let id_def = this.querySelector('.id_def');
             let photo_id = this.querySelector('.photo_id');
             let user_id = this.querySelector('.user_id');
@@ -75,7 +75,7 @@ if(comment_env != null) {
             fetch('ajax/recordComment.php',obj)
             .then(response => response.text()) 
             .then(data=>{
-                let content = '<div class="container_com_user"><div class="profil"><a class ="env_user_name"><img class="img" src="public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg" ></a></div><div class="comment_post">'+'&emsp;'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="index.php?page=environnement&id='+user_id.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
+                let content = '<div class="container_com_user"><div class="profil"><a class ="env_user_name"><img class="img" src="public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg" ></a></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="index.php?page=environnement&id='+user_id.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
                 if(comment.value != '') {
                     com_div.innerHTML += content;
                 }
@@ -89,8 +89,8 @@ if(comment_env != null) {
 
 /////////////////Dossier des photos d'un defunt/////////////////////////////////
 
-let listPhoto = document.querySelector('.folder_link');
-let folder = document.querySelector('.photos_list');
+let listPhoto = document.querySelector('.env_folder_link');
+let folder = document.querySelector('.env_photos_list');
 if(listPhoto != null){
 listPhoto.addEventListener('click', function(e){
     e.preventDefault();
@@ -99,7 +99,7 @@ listPhoto.addEventListener('click', function(e){
 }
 /////////////////Gestion de l'éditeur de Cartes/////////////////////////////////
 
-const elements = document.querySelectorAll('.button_edit');
+const elements = document.querySelectorAll('.card_edit');
 
     elements.forEach( element =>{
         element.addEventListener('click', ()=>{
@@ -112,7 +112,7 @@ const elements = document.querySelectorAll('.button_edit');
 /************************Recherche Insee***************************************/
 // recherche par le nom de famille
 let nom = document.getElementById('lastname_insee');
-let madiv = document.querySelector('.result_insee');
+let madiv = document.querySelector('.search_result_insee');
 
 if ( nom != null){
 nom.addEventListener('keyup', ()=> {
@@ -148,8 +148,8 @@ if (edit_btn != null){
         let card_text = content.textContent;                         // contenu du texte
         let card_id = document.getElementById('card_id').innerHTML;  // id de la carte sélectionné
         let card_nb = document.getElementById('card_nb');            // span où s'affiche le nombre de cartes
-        let container_tab = document.getElementById('container_tab');// tableau
-        let total = document.getElementById('total');                // total du tableau
+        let container_tab = document.getElementById('card_container_tab');// tableau
+        let total = document.getElementById('card_total');                // total du tableau
         
         let formdata = new FormData();
         formdata.append('content', card_text);
@@ -195,7 +195,7 @@ if(delete_p!=null) {
 /////////////////////////Dossier des contacts///////////////////////////////////
 
 let link_contact = document.getElementById('contacts');
-let folder_contact = document.querySelector('.contacts_list');
+let folder_contact = document.querySelector('.home_user_contact_list');
 if(link_contact!=null){
     link_contact.addEventListener('click',function(e){
         e.preventDefault;
@@ -206,12 +206,12 @@ if(link_contact!=null){
 ///////////////////////Gestion des demandes d'amis//////////////////////////////
 
 let btn_friend = document.getElementById('newFriend');
-let ask_friend = document.querySelector('.ask_friend');
+let ask_friend = document.querySelector('.user_ask_friend');
 
 if(btn_friend!=null){
     btn_friend.addEventListener('click', (e)=>{
         e.preventDefault();
-        let user_id = document.querySelector('.ajax_id').innerHTML; // récupération de l'Id de l'utilisateur
+        let user_id = document.querySelector('.user_ajax').innerHTML; // récupération de l'Id de l'utilisateur
         let test = document.getElementById('newFriend').getElementsByClassName('icon_anim');
         if (test){
             let formdata = new FormData();
@@ -237,7 +237,7 @@ if(btn_friend!=null){
 
 ///////////////////////Gestion des messages du chat/////////////////////////////
 
-let form = document.querySelector('.form_tchat');
+let form = document.querySelector('.tchat_form');
 
 
 if (form != null){
@@ -245,14 +245,14 @@ if (form != null){
         e.preventDefault();
         let tchat = document.getElementById('content_tchat'); 
         let friend_id = document.querySelector('.friend_id');
-        let mycontent = document.getElementById('my_content');
-        
+        let mycontent = document.getElementById('tchat_my_content');
+
         let formdata = new FormData();
         formdata.append('content', tchat.value); 
         formdata.append('friend_id',friend_id.value);
         let obj = { 'method':'POST', 'body':formdata };
         
-        fetch('ajax/recordChat.php', obj)
+        fetch('ajax/recordTchat.php', obj)
                         .then(response => response.json())
                         .then(data=>{
                             tchat.value = '';
@@ -269,7 +269,7 @@ if (form != null){
                                         }
                                     }
                             }
-                            
+                            mycontent.bottom.window.scrollTo(0,0);
                         })
                         .catch(err=>console.error(err));
         });
@@ -287,6 +287,20 @@ $(document).ready(function(){
         arrows: false,
         mobileFirst: true,
           responsive: [
+              {
+              breakpoint: 1600,
+              settings: {
+                slidesToShow: 6,
+                slidesToScroll: 6
+              }
+            },
+              {
+              breakpoint: 1280,
+              settings: {
+                slidesToShow: 5,
+                slidesToScroll: 5
+              }
+            },
             {
               breakpoint: 1024,
               settings: {

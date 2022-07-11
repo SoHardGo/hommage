@@ -14,6 +14,7 @@ if ($friend_id){
     $data = $data = ['user_id'=>$_SESSION['user']['id'], 
         'friend_id'=>$_GET['friendId']];
     $result = $getInfo->getTchat($data);
+    $result = array_reverse ($result);
     $status = $globalClass->verifyOnline($friend_id);
 }
 

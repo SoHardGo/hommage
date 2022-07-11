@@ -2,41 +2,33 @@
 require_once 'model/GetInfos.php';
 $getInfo = new GetInfos();
 $search = '';
-$message ='';
-/*
 $select = '';
+$defunct = '';
+$photo_def= '';
+
+$id_def = $_POST['select_def'] ?? 0;
 
 // Sélecteur des défunts
-$select = $getInfo->selectDefuncts();
-*/
-if(isset($_POST['submit'])){
-    $data['lastname'] = isset($_POST['lastname']) ? htmlspecialchars($_POST['lastname']) : '';
-    $data['firstname'] = isset($_POST['firstname']) ? htmlspecialchars($_POST['firstname']) : '';
-    
-    $result = $getInfo->getSearchDefuncts ($data);
-    $tab = $result->fetchAll();
-    if(count($tab)) {
-        foreach($tab as $t) {
-            $photo_def = $getInfo->getPhotoDef($t['id']);
-            if($photo_def == '') {
-                $photo_def = 'public/pictures/site/noone.jpg';
-            }
-            $search .= '
-                <div class="defunct_identity">
-                    <a href="index.php?page=environnement&id_def='.$t['id'].'&user_create='.$t['user_id'].'">
-                        <div class="defunct_img">
-                            <img class="img" src="'.$photo_def.'" alt="photo de profil '.$t['firstname'].' '.$t['lastname'].'">          
-                            <div class="defunct_name">
-                                <p>'.$t['firstname'].' '.$t['lastname'].'</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>';
-        }
-        $search .= '</a>';
-    } else {
-        $message = 'La personne n\'existe pas sur le site';
-    }
+$info_def = $getInfo->getAllDefuncts();
+foreach($info_def as $i){
+    $select .= '<option value="'.$i['id'].'">'.ucfirst($i['lastname']).' '.ucfirst($i['firstname']).' &dagger; '.$i['death_date'].'</option>';
+}
+// Récupération des informations et photo de la fiche du défunt
+if ($id_def){
+    $defunct_id = $getInfo->getInfoDefunct($id_def)->fetch();
+    $photo_def = $getInfo->getPhotoDef($id_def);
+
+if ($photo_def == null) {
+    $photo_def = 'public/pictures/site/noone.jpg';
+}
+$defunct = '<a href="?page=environnement&id_def='.$defunct_id['id'].'&user_create='.$defunct_id['user_id'].'" title="Cliquer pour consulter">
+                <div class="search_img">
+                    <img class="img" src="'.$photo_def.'" alt="photo de '.$defunct_id['firstname'].' '.$defunct_id['lastname'].'">
+                    <div>
+                        <p>'.ucfirst($defunct_id['firstname']).' '.ucfirst($defunct_id['lastname']).'</p>
+                    </div>
+                </div>
+            </a>';
 }
 
 

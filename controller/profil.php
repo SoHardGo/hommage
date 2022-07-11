@@ -18,7 +18,7 @@ if (isset($_POST['signoff'])){
 
 // Formulaire de désinscription
 if ($unsubscribe){
-    $message = '<div class="unsubscribe m20"><h2>Etes-vous sûr de vouloir vous désinscrire ?</h2><label for="signoff">Vos informations seront définitivement supprimées, ansi que les fiches et leurs commentaires que vous avez crées si vous n\'avez pas désigné un autre utilisateur pour les gérer à votre place.<label><input class="button m20" type="submit" name="defineAdmin" value="Nouvel utilisateur"><input class="button m20" type="submit" name="signoff" id="signoff" value="Se désinscire"><a class="button m20" href="?page=home_user">Annuler</a></div>';
+    $message = '<div class="profil_unsubscribe"><h2>Etes-vous sûr de vouloir vous désinscrire ?</h2><label>Vos informations seront définitivement supprimées.</label><p>Les fiches et leurs commentaires seront aussi supprimés si vous n\'avez pas désigné un autre utilisateur pour les gérer à votre place.</p><input type="email" name="newAdmin" placeholder="email@delapersonne.ici"><input class="button" type="submit" name="defineAdmin" value="Nouvel administrateur"><input class="button" type="submit" name="signoff" id="signoff" value="Se désinscrire"><a class="button button-a" href="?page=home_user">Annuler</a></div>';
 }
 
 if (isset($_POST['submit'])){

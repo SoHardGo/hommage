@@ -3,15 +3,13 @@ $title='Profil utilisateur';
 
 ob_start();
 ?>
-<section class="container_profil">
-    <div class="profil_account form">
-        <h1 class="title_profil title">Mes informations</h1>
-        <div class="profil_icon">
-            <img class="img" src="public/pictures/site/Info.png" alt="icon information">
-        </div>
-        <h2><?=ucfirst($_SESSION['user']['lastname']).' '.ucfirst($_SESSION['user']['firstname'])?></h2>
+<section>
+    <div class="profil">
+        <h1 class="profil_title">Mes informations</h1>
+        <img class="img dim40" src="public/pictures/site/Info.png" alt="icon information">
+        <h3 class="profil_name"><?=ucfirst($_SESSION['user']['lastname']).' '.ucfirst($_SESSION['user']['firstname'])?></h3>
         <div class="profil_form">
-            <form method="POST" action="index.php?page=profil">
+            <form method="POST" action="?page=profil">
                 <label for="email">Votre email :</label>
                 <input name="email" id="email" type="email" value="<?=$info_user['email']?>"></input>
                 <?php if ($info_user['pseudo']): ?>
@@ -27,26 +25,24 @@ ob_start();
                 <input type="text" name="postal_code" value="<?=$info_user['postal_code']?>"></input>
                 <input type="text" name="city" value="<?=$info_user['city']?>"></input>
                 <div class="profil_admin">
-                    <fieldset>
-                        <label>Vous administez ces <?=$nbr?> fiches :</label>
-                        <?php for ($i=0; $i<$nbr; $i++) :?>
-                        <p><?=ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname'])?></p>
-                        <?php endfor ?>
-                        </select>
-                    </fieldset>
+                    <label>Vous administez ces <?=$nbr?> fiches :</label>
+                    <?php for ($i=0; $i<$nbr; $i++) :?>
+                    <p><?=ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname'])?></p>
+                    <?php endfor ?>
+                    </select>
                 </div>
-                <fieldset>
+                <div class="profil_change">
                     <label for ="new_user">Transférer vos droits d'accès à un autre utilisateur</label>
                     <label>Entrer son Email :</label>
-                    <input type="text" name="new_user" placeholder="email@delapersonne.merci">
+                    <input type="text" name="new_user" placeholder="email@delapersonne.ici">
                     <input class="button" type="submit" name="new_admin" id="new_user">
-                </fieldset>
+                </div>
                 <label for="modify" class="message">- Modifier les champs que vous souhaitez mettre à jour.</label>
-                <input type="submit" name="submit" class="button m20" id="modify" value="Modifier">
-                <label class="m20">- Désincription -</label>
-                <a class="button ahref m20" id="signoff" href="?page=profil&signoff=true#modify">Se désinscire</a>
-                <?=$message?>
+                <input type="submit" name="submit" class="button" id="modify" value="Modifier">
             </form>
+            <h3>- Désincription -</h3>
+            <a class="button button-a" id="signoff" href="?page=profil&signoff=true#modify">Se désinscire</a>
+            <?=$message?>
         </div>
     </div>
 </section>

@@ -17,9 +17,9 @@ $ask = '';
 $list_def = "";
 
 if ($nbr){
-    $list_def.='<div class="list_defuncts hidden">';
+    $list_def.='<div class="user_list_defuncts hidden">';
     for ($i=0; $i<$nbr; $i++){
-        $list_def.= '<a class="name_defuncts" href="index.php?page=environnement&id='.$info_def[$i]['id'].'">'.ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname']).'</a>';
+        $list_def.= '<a class="user_name_defuncts" href="?page=environnement&id='.$info_def[$i]['id'].'">'.ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname']).'</a>';
     }
     $list_def.='</div>';
 } 

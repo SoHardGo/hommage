@@ -4,7 +4,7 @@ $register = new Registration();
 $data = array();
 $confirm = '';
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit']) && !empty($_POST['message'])) {
     if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
         
         $data['lastname'] = isset($_POST['lastname']) ? htmlspecialchars( $_POST['lastname']) : '';
@@ -20,9 +20,10 @@ if (isset($_POST['submit'])) {
         }
     } else {
         $confirm = "L'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.";
+    } 
+} else {
+        $confirm = '<p class="message">Vous n\'avez pas écris votre message</p>';
     }
-}
-
 
 $token = $register->setToken();
 

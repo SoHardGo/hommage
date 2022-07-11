@@ -21,5 +21,5 @@ $data = ['user_id'=>$_SESSION['user']['id'],
         'friend_id'=>$_POST['friend_id']];
         
 $result = $getInfo->getTchat($data);
-
+$result = array_reverse ($result);
 echo json_encode($result);

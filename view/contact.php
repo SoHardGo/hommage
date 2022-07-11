@@ -2,17 +2,14 @@
 $title='Nous contacter';
 ob_start(); 
 ?>
-<section class="container_contact">
-    <div class="contact form">
-        <h1 class="title_contact title">Contact</h1>
+<section class="contact">
+        <h1 class="contact_title">Contact</h1>
         <div class="contact_form">
-            <form method="POST" action="index.php?page=contact">
+            <form method="POST" action="?page=contact">
                 <label for="lastname">Entrer votre nom</label>
                 <?php if (isset($_SESSION['user']['lastname'])):?>
-                <label for ="lastname"></label>
                 <input type="text" name="lastname" id="lastname" placeholder="<?=ucfirst($_SESSION['user']['lastname'])?>" readonly>
                 <?php else :?>
-                <label for="lastname"></label>
                 <input type="text" name="lastname" id="lastname">
                 <?php endif ?>
                 <?php if (isset($_SESSION['user']['email'])):?>
@@ -29,10 +26,9 @@ ob_start();
                 <input class="submit button" id="submit" type="submit" name="submit" value="Envoyer">
             </form>
         </div>
-        <div class="confirm">
+        <div class="contact_confirm">
             <?=$confirm?>
         </div>
-    </div>
 </section>
 <?php
 

@@ -4,10 +4,10 @@ $user_content='';
 ob_start();
 
 ?>
-<section class="container_register form_Y">
-    <div class="register form">
-        <h1 class="title_register title">Inscription</h1>
-    <div class="register_form form_X">
+<section>
+    <div class="register">
+        <h1 class="register_title">Inscription</h1>
+        <div class="register_form">
             <form method="POST" action="index.php?page=registration">
                 <label for="lastname">Nom:</label>
                     <input type="text" name="lastname" id="lastname">
@@ -37,7 +37,6 @@ ob_start();
             <?=$confirm?>
             <?=$connectEmail?>
         </div>
-    </div>
 </section>
 <?php
 $content= ob_get_clean(); 

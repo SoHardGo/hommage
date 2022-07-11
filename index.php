@@ -11,8 +11,8 @@ $register = new Registration();
 if (isset($_GET['deco'])){
     // mise à jour du status "online=0" pour le tchat
     $register->updateOnline($_SESSION['user']['id'],0);
+    $_SESSION = [];
     session_destroy();
-    $_SESSION=[];
 }
 $page = $_GET['page']??'';
 

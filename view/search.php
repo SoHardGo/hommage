@@ -2,34 +2,27 @@
 $title='Recherche';
 ob_start(); 
 ?>
-<section class="container_search">
-    <div class=" search">
-        <h1>Personne recherchée sur le site.</h1>
-        <form method="POST" action="index.php?page=search">
-            <div class="search_form">
-                <laber for="search_lastname"></label>
-                <input type="text" name="lastname" id="search_lastname" placeholder="Nom"/>
-                <input type="text" name="firstname" placeholder="Prenom"/>
-            </div>
-            <div class="buttons">
-                <label for="button"></label>
-                <input type="submit" class="button" name="submit" value="Rechercher">
-            </div>
+<section>
+    <h1 class="search_title">Personne recherchée sur le site.</h1>
+    <div class="search">
+        <form method="POST" action="?page=search">
+            <select id="select_lastname" name="select_def">
+                <option value="">--Fiches des défunts sur le site--</option>
+                <?=$select?>
+            </select>
+            <input class="button" type="submit" value="Valider">
         </form>
     </div>
-    <div class="container_result_search">
-        <?=$search?>
-    </div>
-    <div class="search_mess">
-        <?=$message?>
+    <div class="search_defunct">
+        <?=$defunct?>
     </div>
 </section>
-<section class="container_insee">
+<section>
+    <h3 class="search_title">Personne recherchée dans la liste des défunts de l'INSEE.</h3>
     <div class="search_insee">
-        <h2>Personne recherchée dans la liste des défunts de l'INSEE.</h2>
         <label for="lastname_insee"></label>
         <input type="text" name="lastname_insee" id="lastname_insee" placeholder="Nom de famille">
-        <select class="result_insee"></select>
+        <select class="search_result_insee"></select>
         <p>Les données de l'INSEE sont actualisées mensuellement.</p>
         <p>Elles sont ici à titre indicatif.</p>
     </div>

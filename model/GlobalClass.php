@@ -46,9 +46,9 @@ class GlobalClass extends Manage {
         return null;
     }
     
-    // Vérification fiche défunt existe ou pas
+    // Vérification fiche défunt existe ou pas, retourne son ID
     public function verifyDefunct(array $data) :object {
-        $query = "SELECT id FROM defuncts WHERE lastname=:lastname AND firstname=:firstname AND birthdate=:birthdate";
+        $query = "SELECT id FROM defuncts WHERE lastname=:lastname AND firstname=:firstname AND death_date=:death_date";
         $result = $this->getQuery($query,$data);
         return $result;
     }

@@ -7,38 +7,9 @@ require_once 'model/GetInfos.php';
 $getInfo = new GetInfos();
 $friends ='';
 
-// Initialisation de la personne ajouté aux contacts ->environnement
-$useradmin['user_id'] = $_GET['useradmin']??'';
 
-// Enregistrement du contact <- user
-$newFriend = $_GET['id_friend']??null;
-if (isset($_POST['friend'])){
-    switch($_POST['friend']){
-        case 0 : $register->updateFriend(0, $_SESSION['user']['id'], intval($newFriend));
-                 $_SESSION['number_f'] = $_SESSION['number_f'] -1;
-            break;
-        case 1 : $register->updateFriend(1, $_SESSION['user']['id'], intval($newFriend));
-                 $_SESSION['number_f'] = $_SESSION['number_f'] -1;
-            break;
-        default : $newFriend = null;
-            break;
-    }
-}
 
-// Initialisation du slider des derniers défunts ajoutés
-
-$lastDef = $getInfo->getHomeSlider();
-
-$slider ='<div class="slider">';
-foreach($lastDef as $r){
-    $idDef = $getInfo->getIdDefPhoto($r['name']);
-    $slider.='<a href="?page=environnement&id='.$idDef['defunct_id'].'"><div class="home_slick"><img class="img" src="public/pictures/photos/'.$r['user_id'].'/'.$r['name'].'"></div></a>';
-}
-$slider .= '</div>';
-
-      
 // Vérification des informations de connexion
-
 try {
     if ( isset($_POST['email']) && isset($_POST['pwd']) ){
         // Vérification de la validité du format d'émail
@@ -46,7 +17,7 @@ try {
             throw new Exception("Format d'Email incorrect.");
         }
         // Vérification de la validité des informations de connexion ->Email + Mot de passe
-        $result = $globalClass->verifyAccount ($_POST['email'], $_POST['pwd']);
+        $result = $globalClass->verifyAccount (htmlspecialchars($_POST['email']), htmlspecialchars($_POST['pwd']));
         if (!isset($result)){
             throw new Exception("Identifiants incorrects.");
         } else {
@@ -60,13 +31,13 @@ try {
         }
     }
 } catch(Exception $e) {
-            $errorMsg = $e->getMessage();
-            header('Location: index.php?page=connexion&error=' . $errorMsg);
-            exit();
+    $errorMsg = $e->getMessage();
+    header('Location: index.php?page=connexion&error=' . $errorMsg);
+    exit();
 }
 
 // Si l'utilisateur n'existe pas -> redirection Connexion
-if(!isset($_SESSION['user'])) {
+if(!isset($_SESSION['user']['id'])) {
     require 'view/connexion.php';
     exit;
 }
@@ -91,15 +62,43 @@ foreach ($friendList as $f){
 
     if (file_exists($profil)){
         switch($f['validate']){
-            case '0' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/forbidden.png" title="Demande refusée"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+            case '0' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée" alt="icon de refus"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
                 break;
-            case '1' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="'.$profil.'" alt="photo d\'un ami"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+            case '1' : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
                 break;
-            default : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="friend_container"><img class="img friend_list" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 icon_mark" src="public/pictures/site/mark.png" title="En attente de confirmation"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+            default : $friends .='<a href="?page=tchat&friendId='.$f['friend_id'].'"><div class="home_user_friend_container"><img class="img home_user_friend_list" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/mark.png" title="En attente de confirmation" alt="icon point d\'interrogation"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
                 break;
         }
     }
 }
+// Initialisation de la personne ajouté aux contacts ->environnement
+$useradmin['user_id'] = $_GET['useradmin']??'';
+
+// Enregistrement du contact <- user
+$newFriend = $_GET['id_friend']??null;
+if (isset($_POST['friend'])){
+    switch($_POST['friend']){
+        case 0 : $register->updateFriend(0, $_SESSION['user']['id'], intval($newFriend));
+                 $_SESSION['number_f'] = $_SESSION['number_f'] -1;
+            break;
+        case 1 : $register->updateFriend(1, $_SESSION['user']['id'], intval($newFriend));
+                 $_SESSION['number_f'] = $_SESSION['number_f'] -1;
+            break;
+        default : $newFriend = null;
+            break;
+    }
+}
+ 
+// Initialisation du slider des derniers défunts ajoutés
+
+$lastDef = $getInfo->getHomeSlider();
+
+$slider ='<div class="slider">';
+foreach($lastDef as $r){
+    $idDef = $getInfo->getIdDefPhoto($r['name']);
+    $slider.='<a href="?page=environnement&id='.$idDef['defunct_id'].'"><div class="home_user_slick"><img class="img" src="public/pictures/photos/'.$r['user_id'].'/'.$r['name'].'" alt="photo defunt pour le slider"></div></a>';
+}
+$slider .= '</div>';
 
 
 require 'view/home_user.php';
