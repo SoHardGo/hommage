@@ -33,7 +33,7 @@ $idPhoto = $_GET['idPhoto']??null;
 
 if(isset($_SESSION['user']['id'])) {
 
-        ////////supprimer une photo de l'environnement utilisateur//////
+//Supprimer une photo de l'environnement utilisateur
         if ($idPhoto) {
             $register->deletePhoto($idPhoto);
             $photoFile = 'public/pictures/photos/'.$_SESSION['user']['id'].'/'.$_SESSION['user']['id'].'-'.$idPhoto.'.jpg';
@@ -41,16 +41,16 @@ if(isset($_SESSION['user']['id'])) {
                 unlink($photoFile);
             }
         
-    /////////supprimer les commentaires associés dans la BBD/////////
+//Supprimer les commentaires associés dans la BBD
             $register->deleteCommentsPhoto($idPhoto);
         }
 
-    ///////////////supprimer un commentaire/////////////////////////
+//Supprimer un commentaire
     if ($idCom) {
         $register->deleteComment($idCom);
     }
 
-    ///////////enregistrement d'une photo télécharger //////////////////////
+//Enregistrement d'une photo télécharger
     if (isset($_FILES['file_env']) && $_FILES['file_env']['type']=='image/jpeg' && !empty($_FILES['file_env'])){
         
         $destination = 'public/pictures/photos/'.$_SESSION['user']['id'];
@@ -73,14 +73,14 @@ if(isset($_SESSION['user']['id'])) {
     }
 }
 
-///////////Récupération des infos et des photos associé au défunt///////////////
+//Récupération des infos et des photos associé au défunt
 if ($id_def) {
     $defunct_infos = $getInfo->getInfoDefunct(intval($id_def))->fetch();
     $defunct_photos = $getInfo->photoListDefunct(intval($id_def))->fetchAll();
     $user_admin = $getInfo->getUserAdminInfo(intval($id_def));
     $com_list = [];
 
-    /////////récupération des commentaires selon la photo du defunt///////////////
+//Récupération des commentaires selon la photo du defunt
     if(count($defunct_photos)) {
         foreach($defunct_photos as $r) {
             $com_list[$r['id']] = $getInfo->getListComment(intval($r['id']));
@@ -90,20 +90,28 @@ if ($id_def) {
 } else {
     echo 'Cette fiche n\'existe pas';
 }
-////////////nombre de commentaires et photos ajoutées depuis la dernière connexion
+
+//Nombre de commentaires et photos ajoutées depuis la dernière connexion
 if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['user']['id']){
-    $recentComment = $getInfo->getRecentComments($id_def, $_SESSION['user']['last_log'], $_SESSION['user']['id'])->rowCount();
-    $recentPhoto = $getInfo->getRecentPhotos($id_def, $_SESSION['user']['last_log'], $_SESSION['user']['id'])->rowCount();
+    if(isset($_SESSION['user']['last_log'])){
+        $recentComment = $getInfo->getRecentComments($id_def, $_SESSION['user']['last_log'], $_SESSION['user']['id'])->rowCount();
+        $recentPhoto = $getInfo->getRecentPhotos($id_def, $_SESSION['user']['last_log'], $_SESSION['user']['id'])->rowCount();
+    } else {
+        $recentComment = 0;
+        $recentPhoto= 0;
+    }
 }
 
-//////////////////////ajouter un contact///////////////////////////////////
+//Ajouter un contact
 // liste des amis déjà existant
+if(isset(($_SESSION['user']['id']))){
 $friendList = $getInfo->getFriendsList($_SESSION['user']['id']);
 foreach ($friendList as $key =>$f){
     // affichage de l'icone Ajouter un contact si non dans la liste
     if ($defunct_infos['user_id'] == $f['friend_id']){
         $friendOk = true;
     }
+}
 }
 //$_GET['friend_add']<-enregistrement du contact
 if ($friend_add){ 

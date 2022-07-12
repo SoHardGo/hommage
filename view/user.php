@@ -11,6 +11,8 @@ ob_start();
         <div class="user_photo">
             <?php if(file_exists($profil)) :?>
                 <img class="img" src="<?=$profil?>?<?=rand()?>" alt="photo de profil">
+            <?php else :?>
+                <img class="img" src="public/pictures/site/noone.jpg"<?=rand()?>" alt="photo de profil">
             <?php endif ?>
                 <input type="file" name="photo" id="photo_user" accept=".jpg, .jpeg, .png">
                 <img class="img dim35 user_icon" src="public/pictures/site/camera-icon.png" alt="icone home utilisateur">

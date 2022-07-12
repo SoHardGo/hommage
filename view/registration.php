@@ -8,11 +8,11 @@ ob_start();
     <div class="register">
         <h1 class="register_title">Inscription</h1>
         <div class="register_form">
-            <form method="POST" action="index.php?page=registration">
+            <form method="POST" action="?page=registration">
                 <label for="lastname">Nom:</label>
-                    <input type="text" name="lastname" id="lastname">
+                    <input type="text" name="lastname" id="lastname" required="required">
                 <label for="firstname">Prenom:</label>
-                    <input type="text" name="firstname" id="firstname">
+                    <input type="text" name="firstname" id="firstname" required="required">
                 <label for="pseudo">Pseudo:</label>
                     <input type="text" name="pseudo" id="pseudo">
                 <label for="number">N° de rue:</label>
@@ -24,9 +24,9 @@ ob_start();
                 <label for="city">Ville:</label>
                     <input type="text" name="city" id="city">
                 <label for="email">Email:</label>
-                    <input type="text" name="email" id="email">
+                    <input type="email" name="email" id="email" required="required">
                 <label for="pwd">Mot de passe:</label>
-                    <input type="pwd" name="pwd" id="pwd">
+                    <input type="password" name="pwd" id="pwd" required="required">
                     <input type="hidden" name="token" value="<?=$token?>">
                 <div class="buttons">
                     <input class="button" type="submit" name="submit" value="Valider">

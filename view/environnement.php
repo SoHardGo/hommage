@@ -28,7 +28,7 @@ if (isset($id_def)){
     <?php 
     // Identifiant du créateur de la fiche + ajout icone ami si pas dans la liste de l'utilisateur
     if(isset($defunct_infos['user_id']) && $defunct_infos['user_id'] != $_SESSION['user']['id']) :?>
-    <div class="add_friend">
+    <div class="env_add_friend">
         <p class="admin_user">Gestionnaire de la fiche : <?=ucfirst($user_admin['admin']['lastname']).' '.ucfirst($user_admin['admin']['firstname'])?>&emsp;</p>
         <?php if($friendOk == false) :?>
         <a class="friend" href="?page=environnement&id_def=<?=$id_def?>&friend_add=<?=$defunct_infos['user_id']?>" title="Ajouter aux contacts">
@@ -105,11 +105,16 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
             <a class="env_delete_photo" href="?page=environnement&idPhoto=<?=$r['id']?>&id=<?=$id_def?>" title="Supprimer">
                 <img class="dim20" src="public/pictures/site/delete-icon.png" alt="Supprimer">
             </a>
-        <?php endif 
-// Affichage des photos               
-            ?>
+        <?php endif ?>
+            
             <div id="<?=$r['id']?>">
+             <?php
+// Affichage des photos 
+            if (!isset($_SESSION['user']['id'])) :?>
+                <img class="img env_blur_photo" src="public/pictures/photos/<?=$r['user_id'].'/'.$r['name']?>" alt="<?=$r['name']?>">
+            <?php else :?>
                 <img class="img" src="public/pictures/photos/<?=$r['user_id'].'/'.$r['name']?>" alt="<?=$r['name']?>">
+            <?php endif ?>
             </div>
             <div class="env_comment">
         <?php 
@@ -117,7 +122,7 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
             foreach($com_list[$r['id']] as $comment): ?>
                 <div class="comment_post">
             <?php if (!isset($_SESSION['user']['id'])) :?>
-                    <div class="container_com_user blur">
+                    <div class="container_com_user env_blur_comment">
                 <?php else :?>
                     <div class="container_com_user">
             <?php endif ?>
@@ -167,8 +172,8 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
         </div>
     <?php if (!isset($_SESSION['user']['id'])) :?>
         <div class="env_no_user">
-            <h2>Pour visualiser les commentaires, vous devez être inscrit ou connecté.</h2>
-            <a class="button" href="?page=registration">S'inscire</a>
+            <h2 class="env_title">Pour visualiser cette fiche, vous devez être inscrit ou connecté.</h2>
+            <a class="button" href="?page=registration">S'inscrire</a>
             <a class="button" href="?page=connexion">Connexion</a>
         </div>
     <?php endif ?>

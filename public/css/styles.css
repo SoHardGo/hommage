@@ -345,11 +345,17 @@ input[type="file"] {
     margin: 1.25rem auto;
 }
 .profil_change {
-    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 }
 .profil_unsubscribe {
     margin: 2rem;
     color: var(--color-red);
+}
+input[name="new_user"], input[name="new_admin"]{
+    width: 11rem;
 }
 /*******************************************************************************/
 /********************************REGISTRATION***********************************/
@@ -731,8 +737,11 @@ input[type="file"] {
     width: 3.125rem;
     height: 3.125rem;
 }
-.blur {
+.env_blur_comment {
     filter: blur(0.313rem);
+}
+.env_blur_photo {
+    filter: blur(0.513rem);
 }
 .env_no_user{
     text-align:center;
@@ -742,6 +751,9 @@ input[type="file"] {
     justify-content: center;
     align-items: center;
     margin: 1.875rem;
+}
+.env_add_friend {
+    text-align: center;
 }
 .env_profil {
     width: 3.125rem;

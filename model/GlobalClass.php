@@ -32,7 +32,7 @@ class GlobalClass extends Manage {
         return $profil;
     }
     
-    // Vérification des identifiants de compte
+    // Vérification des identifiants de compte, email et mot de passe
     public function verifyAccount(string $email, $pwd) :?array {
         $data = ['email'=> $email];
         $query = "SELECT id, lastname, firstname, email, password, last_log FROM users WHERE email=:email";
@@ -46,11 +46,17 @@ class GlobalClass extends Manage {
         return null;
     }
     
+    // Vérification de l'email d'un utilisateur
+    public function verifyEmail(string $email) :object {
+        $data = ['email'=> $email];
+        $query = "SELECT id, lastname, firstname FROM users WHERE email=:email";
+        return $this->getQuery($query,$data);
+    }
+    
     // Vérification fiche défunt existe ou pas, retourne son ID
     public function verifyDefunct(array $data) :object {
         $query = "SELECT id FROM defuncts WHERE lastname=:lastname AND firstname=:firstname AND death_date=:death_date";
-        $result = $this->getQuery($query,$data);
-        return $result;
+        return $this->getQuery($query,$data);
     }
     
     //Vérification utilisateur dans la base de donnée
@@ -84,8 +90,41 @@ class GlobalClass extends Manage {
         }
         return $status;
     }
-        
-        
+    
+    // Supprimer le dossier de photos d'un utilisateur et se profil
+     public function supprFolder($user_id) :void{
+        $folder = 'public/pictures/photos/'.$user_id;
+        if (is_dir($folder)) {
+             $files = scandir($folder);
+             foreach ($files as $f) {
+               if ($f != "." && $f != "..") {
+                 unlink($folder."/".$f);
+               }
+             }
+             rmdir($folder);
+        } else {}
+        $folder = 'public/pictures/users/'.$user_id;
+        if (is_dir($folder)){
+            unlink($folder.'/photo'.$user_id.'.jpg');
+            rmdir($folder);
+        } else {}
+    }
+    
+    // Transfert les photos des défuncts vers le dossier d'un autre utilisateur
+    public function transferPhotos(int $user_id, int $new_user) :void {
+        $source = 'public/pictures/photos/'.$user_id;
+        $destination = 'public/pictures/photos/'.$new_user;
+        if (is_dir($source) && is_dir($destination)){
+            $files = scandir($source);
+            foreach ($files as $f) {
+                if ($f != "." && $f != "..") {
+                 copy($source.'/'.$f, $destination.'/'.$f);
+               }
+            }
+            rmdir($source);
+        } else {}
+    }
 }
+
 
 ?>

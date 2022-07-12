@@ -95,10 +95,20 @@ class Registration extends Manage {
         $query = "UPDATE friends SET validate=:validate, date_crea=NOW() WHERE user_id=:friend_id AND friend_id=:user_id ";
         $this->getQuery($query,$data);
     }
+    
     // mise à jour du status "online" pour le tchat
     public function updateOnline(int $id, int $online) :void{
         $data = ['id'=>$id, 'online'=>$online];
         $query = "UPDATE users SET online=:online WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    // mise à jour du transfert de compte des defunts d'un utilisateur vers un autre
+    public function updateNewAdminDefunct(int $new_user, int $defunct) : void{
+        $data = ['user_id'=>$new_user,
+                  'id'=>$defunct];
+        $query = "UPDATE defuncts SET user_id=:user_id WHERE id=:id";
+        $this->getQuery($query,$data);
+        $query = "UPDATE user_admin SET user_id=:user_id WHERE id=:id";
         $this->getQuery($query,$data);
     }
 
@@ -123,15 +133,32 @@ class Registration extends Manage {
         $this->getQuery($query,$data);
     }
     // supprimer un compte utilisateur
-    public function deleteUserAccount(int $id) :void{
-        $data = ['id'=>$id];
-        $query = "DELETE FROM users WHERE id=:id";
+    public function deleteUserAccount(int $user_id) :void{
+        $data = ['user_id'=>$user_id];
+        $query = "DELETE FROM comments WHERE user_id=:user_id";
         $this->getQuery($query,$data);
-        $data = ['user_id',$id];
+        $query = "DELETE FROM contact WHERE user_id=:user_id";
+        $this->getQuery($query,$data);
+        $query = "DELETE FROM content_card WHERE user_id=:user_id";
+        $this->getQuery($query,$data);
+        $query = "DELETE FROM defuncts WHERE user_id=:user_id";
+        $this->getQuery($query,$data);
+        $query = "DELETE FROM friends WHERE user_id=:user_id";
+        $this->getQuery($query,$data);
+        $query = "DELETE FROM lastlogin WHERE user_id=:user_id";
+        $this->getQuery($query,$data);
+        $query = "DELETE FROM orders WHERE user_id=:user_id";
+        $this->getQuery($query,$data);
+        $query = "DELETE FROM photos WHERE user_id=:user_id";
+        $this->getQuery($query,$data);
+        $query = "DELETE FROM tchat WHERE user_id=:user_id";
+        $this->getQuery($query,$data);
         $query = "DELETE FROM user_admin WHERE user_id=:user_id";
         $this->getQuery($query,$data);
+        $data = ['id'=>$user_id];
+        $query = "DELETE FROM users WHERE id=:id";
+        $this->getQuery($query,$data);
     }
-
     
     
 

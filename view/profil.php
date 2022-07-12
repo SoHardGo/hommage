@@ -32,17 +32,23 @@ ob_start();
                     </select>
                 </div>
                 <div class="profil_change">
-                    <label for ="new_user">Transférer vos droits d'accès à un autre utilisateur</label>
+                    <label for ="new_user">Transférer vos fiches à un autre utilisateur.</label>
                     <label>Entrer son Email :</label>
-                    <input type="text" name="new_user" placeholder="email@delapersonne.ici">
+                    <input type="email" name="new_user" placeholder="email@delapersonne.ici">
+                    <?=$mess_transfer?>
                     <input class="button" type="submit" name="new_admin" id="new_user">
                 </div>
                 <label for="modify" class="message">- Modifier les champs que vous souhaitez mettre à jour.</label>
                 <input type="submit" name="submit" class="button" id="modify" value="Modifier">
+                <?=$confirm_transfer?>
+                <h3>- Désincription -</h3>
+                <?php if(empty($_SESSION['verif_email'])) :?>
+                <input class="button" type="submit" name="signOff" value="Se désinscrire">
+                <?php else :?>
+                <input class="button" type="submit" name="signoff_final" value="Confirmer la désinscription">
+                <?php endif ?>
+                <?=$message?>
             </form>
-            <h3>- Désincription -</h3>
-            <a class="button button-a" id="signoff" href="?page=profil&signoff=true#modify">Se désinscire</a>
-            <?=$message?>
         </div>
     </div>
 </section>

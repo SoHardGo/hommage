@@ -38,7 +38,7 @@ button.addEventListener('click', function(){
 
 //////////////Gestion des photos dans l'espace environnement/////////
 
-let camera = document.querySelector('.icon_env');
+let camera = document.querySelector('.env_add_photo');
 let file = document.getElementById('file_env');
 if(camera !== null){
     camera.addEventListener('click', function(){
@@ -75,7 +75,7 @@ if(comment_env != null) {
             fetch('ajax/recordComment.php',obj)
             .then(response => response.text()) 
             .then(data=>{
-                let content = '<div class="container_com_user"><div class="profil"><a class ="env_user_name"><img class="img" src="public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg" ></a></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="index.php?page=environnement&id='+user_id.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
+                let content = '<div class="container_com_user"><div class="env_profil"><a class ="env_user_name"><img class="img" src="public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg" ></a></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="index.php?page=environnement&id='+user_id.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
                 if(comment.value != '') {
                     com_div.innerHTML += content;
                 }
@@ -180,7 +180,7 @@ new_photos.addEventListener('click',()=>{
 
 /////////////Message d'Alerte pour la suppression de photo/////////////////////////
 
-let delete_p = document.getElementsByClassName('delete_photo');
+let delete_p = document.getElementsByClassName('env_delete_photo');
 if(delete_p!=null) {
     for(d of delete_p) {
         d.addEventListener('click', function(e) {
