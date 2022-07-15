@@ -4,9 +4,14 @@ $getInfo = new GetInfos();
 $search = '';
 $select = '';
 $defunct = '';
-$photo_def= '';
+$photo_def = '';
+$id_def = 0;
 
-$id_def = $_POST['select_def'] ?? 0;
+if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
+    $id_def = $_POST['select_def'];
+} else {
+    $confirm = '<p class="message">L\'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.</p>';
+}
 
 // Sélecteur des défunts
 $info_def = $getInfo->getAllDefuncts();
@@ -21,15 +26,15 @@ if ($id_def){
 if ($photo_def == null) {
     $photo_def = 'public/pictures/site/noone.jpg';
 }
-$defunct = '<a href="?page=environnement&id_def='.$defunct_id['id'].'&user_create='.$defunct_id['user_id'].'" title="Cliquer pour consulter">
+$defunct = '<a href="?page=environment&id_def='.$defunct_id['id'].'&user_create='.$defunct_id['user_id'].'" title="Cliquer pour consulter">
                 <div class="search_img">
                     <img class="img" src="'.$photo_def.'" alt="photo de '.$defunct_id['firstname'].' '.$defunct_id['lastname'].'">
                     <div>
                         <p>'.ucfirst($defunct_id['firstname']).' '.ucfirst($defunct_id['lastname']).'</p>
                     </div>
                 </div>
-            </a>';
+                </a>';
 }
-
-
+ 
+$token = $register->setToken();
 require 'view/search.php';

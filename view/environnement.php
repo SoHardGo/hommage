@@ -31,7 +31,7 @@ if (isset($id_def)){
     <div class="env_add_friend">
         <p class="admin_user">Gestionnaire de la fiche : <?=ucfirst($user_admin['admin']['lastname']).' '.ucfirst($user_admin['admin']['firstname'])?>&emsp;</p>
         <?php if($friendOk == false) :?>
-        <a class="friend" href="?page=environnement&id_def=<?=$id_def?>&friend_add=<?=$defunct_infos['user_id']?>" title="Ajouter aux contacts">
+        <a class="friend" href="?page=environment&id_def=<?=$id_def?>&friend_add=<?=$defunct_infos['user_id']?>" title="Ajouter aux contacts">
         <img class="img dim20" src="public/pictures/site/friend.png" alt="icone ajouter">
         </a>
         <?php endif ?>
@@ -76,13 +76,14 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
     <?php
 // Ajouter une photo dans l'environnement utilisateur
     if(isset($_SESSION['user']['id'])) : ?>
-    <form method="POST" action="?page=environnement&id=<?=$id_def?>" enctype="multipart/form-data" id="form_env">
+    <form method="POST" action="?page=environment&id=<?=$id_def?>" enctype="multipart/form-data" id="form_env">
         <label for="file_env"></label>
         <input type="file" name="file_env" id="file_env" accept=".jpg, .jpeg, .png">
         <div class="env_add_photo">
             <label>Ajouter une photo (<b>&lsaquo;&nbsp;</b>2Mo) ->&emsp;</label>
                 <img class="img dim60" src="public/pictures/site/photo-icon.png" alt="appareil photo">
         </div>
+        <input type="hidden" name="token" value="<?=$token?>">
     </form>
     <?php endif ?>
     <div class="env_container">
@@ -102,7 +103,7 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
         <?php
 //Supprimer une photo dont on est l'auteur
             if(isset($_SESSION['user']['id']) && isset($r['user_id']) && $_SESSION['user']['id'] == $r['user_id']): ?>
-            <a class="env_delete_photo" href="?page=environnement&idPhoto=<?=$r['id']?>&id=<?=$id_def?>" title="Supprimer">
+            <a class="env_delete_photo" href="?page=environment&idPhoto=<?=$r['id']?>&id=<?=$id_def?>" title="Supprimer">
                 <img class="dim20" src="public/pictures/site/delete-icon.png" alt="Supprimer">
             </a>
         <?php endif ?>
@@ -140,7 +141,7 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
 // Supprimer un commentaire dont on est à l'origine                                 
                 if(isset($_SESSION['user']['id']) && $_SESSION['user']['id'] == $comment['user_id']): ?>
                                 <div class="icon_delete">
-                                    <a class ="env_user_name" href="?page=environnement&id=<?=$id_def?>&idCom=<?=$comment['id']?>" title="Supprimer"><i class="fas fa-trash-alt"></i>
+                                    <a class ="env_user_name" href="?page=environment&id=<?=$id_def?>&idCom=<?=$comment['id']?>" title="Supprimer"><i class="fas fa-trash-alt"></i>
                                     </a>
                                 </div>
             <?php endif ?>
@@ -164,7 +165,6 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
                     <input type="hidden" name="id_def" class="id_def" value="<?=$id_def?>">
                     <input type="hidden" name="photo_id" class="photo_id" value="<?=$r['id']?>">
                     <input type="hidden" name="user_id" class="user_id" value="<?=$_SESSION['user']['id']?>">
-                    
                 </form>
             <?php endif ?>
             </div>

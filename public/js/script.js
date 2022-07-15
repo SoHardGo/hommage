@@ -160,6 +160,7 @@ if (edit_btn != null){
         fetch('ajax/recordCard.php', obj)
                         .then(response => response.json())
                         .then(data=>{
+                            console.log(data);
                             card_nb.innerHTML = data.carte;
                             container_tab.innerHTML += data.tab;
                             total.innerHTML = data.total;
@@ -167,6 +168,43 @@ if (edit_btn != null){
                         .catch(err=>console.error(err));
         });
 }
+////////////////////////Gestion des bouquets de fleurs//////////////////////////
+
+localStorage.clear();
+let flower_content =document.querySelector('.flower_content');
+let flower_id=document.querySelectorAll('.flower_id');
+
+for(let i=0; i<flower_id.length;i++){
+   flower_id[i].addEventListener('click',detect);
+}
+
+// fonction détection de la sélection des bouquets et stockage dans le localStorage
+function detect(e){
+    console.log(e.target.checked);
+    let local=JSON.parse(localStorage.getItem('bouquet')) || [];
+    if(e.target.checked){
+        local.push({'id':e.target.value});
+        localStorage.setItem('bouquet',JSON.stringify(local));
+        let formdata = new FormData();
+            formdata.append('flower_id', localStorage.getItem('bouquet'));
+    
+            let obj = { 'method':'POST', 'body':formdata };
+            
+            fetch('ajax/recordFlower.php', obj)
+                            .then(response => response.json())
+                            .then(data=>{
+                                console.log(data);
+                                flower_content.innerHTML += data.info+' '+data.price;
+                            
+                            })
+                            .catch(err=>console.error(err));
+    } else {
+        let findId=local.find(element => e.target.value);  
+        let newArray=local.filter((item)=>item.id !== findId.id);
+        localStorage.setItem('bouquet',JSON.stringify(newArray));
+    }
+}
+
 
 ////////////////////////Gestion des nouvelles photos////////////////////////////
 
@@ -290,22 +328,22 @@ $(document).ready(function(){
               {
               breakpoint: 1600,
               settings: {
-                slidesToShow: 6,
-                slidesToScroll: 6
+                slidesToShow: 7,
+                slidesToScroll: 7
               }
             },
               {
               breakpoint: 1280,
               settings: {
-                slidesToShow: 5,
-                slidesToScroll: 5
+                slidesToShow: 6,
+                slidesToScroll: 6
               }
             },
             {
               breakpoint: 1024,
               settings: {
-                slidesToShow: 4,
-                slidesToScroll: 4,
+                slidesToShow: 5,
+                slidesToScroll: 5,
                 infinite: true,
                 dots: true
               }
@@ -313,45 +351,22 @@ $(document).ready(function(){
             {
               breakpoint: 768,
               settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3
+                slidesToShow: 4,
+                slidesToScroll: 4
               }
             },
             {
               breakpoint: 480,
               settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2
+                slidesToShow: 3,
+                slidesToScroll: 3
               }
             }]
         });
 });
 
-////////////////Gestion des bouquets de fleurs///////////////////
-/*
-let container_flower = document.querySelector('.container_flower');
-let checkboxs = container_flower.querySelectorAll('input[type="checkbox"]');
-let input_flower = document.querySelector('.submit_flower');
-let select_flower = document.getElementById('select_flower');
 
-input_flower.addEventListener('click', getFlower);
 
-let result = [];
-
-function getFlower() {
-    checkboxs.forEach(item =>{   //récup toutes les checkboxes
-        if(item.checked) {   // celles sélectionnées vont être stocké dans un obj data
-            let data = {
-                    item: item.value,
-                    selected: item.checked
-                    }
-                    result.push(data); //push l'obj dans un tableau
-                
-        }
-    });
-    select_flower.innerHTML = JSON.stringify(result); // récupère le JSON 
-};
-*/
 
 });
   

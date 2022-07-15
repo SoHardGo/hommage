@@ -22,23 +22,27 @@ if (isset($_POST['cancel'])){
 }
 
 if (isset($_POST['subemail'])){
-    // Vérification si l'utilisateur est inscrit dans la BBD
-    if (!isset($_SESSION['user']['identify']) || $_SESSION['user']['identify'] != true){
-        // vérification de la validité de l'email
-        // récup l'id du user
-        $id = $getinfo->getEmail($_POST['email']);
-        $id = $id->fetch();
-        if(isset($id['id'])){
-            $_SESSION['user']['id_tmp'] = $id['id'];
-            $_SESSION['user']['email'] = $_POST['email'];
-            $_SESSION['user']['identify'] = true;
-            $_SESSION['code']= rand(10000,99999);
-            $_SESSION['lost_email'] = 'hidden';
-            $message_email = '<p class="message">Email identifié.</p>';
-        } else {
-            $message_email = '<p class="message">Votre email n\'a pas été identifié.</p>';
+    if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
+        // Vérification si l'utilisateur est inscrit dans la BBD
+        if (!isset($_SESSION['user']['identify']) || $_SESSION['user']['identify'] != true){
+            // vérification de la validité de l'email
+            // récup l'id du user
+            $id = $getinfo->getEmail($_POST['email']);
+            $id = $id->fetch();
+            if(isset($id['id'])){
+                $_SESSION['user']['id_tmp'] = $id['id'];
+                $_SESSION['user']['email'] = $_POST['email'];
+                $_SESSION['user']['identify'] = true;
+                $_SESSION['code']= rand(10000,99999);
+                $_SESSION['lost_email'] = 'hidden';
+                $message_email = '<p class="message">Email identifié.</p>';
+            } else {
+                $message_email = '<p class="message">Votre email n\'a pas été identifié.</p>';
+            }
         }
-    }
+    } else {
+        $message_email = '<p class="message">L\'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.</p>';
+    } 
 }
 // vérifiaction du code envoyé [user][identify] = true, quand Email ok 
 if (isset($_POST['subcode']) && isset($_SESSION['user']['identify'])) {
@@ -55,9 +59,7 @@ if (isset($_POST['subcode']) && isset($_SESSION['user']['identify'])) {
 if(isset($_POST['subpass'])){
     if(isset($_POST['new_password']) && isset($_POST['pass_again']) && !empty($_POST['new_password']) && !empty($_POST['pass_again']) && $_POST['new_password'] == $_POST['pass_again']){
         $passMess = '<p class="message">Mot de passe réinitialisé avec succès.</p><p class="message"> Vous pouvez vous connecter.</p>';
-        $register->updatePassword(htmlspecialchars($_POST['new_password']), intval($_SESSION['user']['id_tmp']));
-        //$_SESSION = [];
-        //session_destroy();
+        $register->updatePassword(htmlspecialchars(trim($_POST['new_password'])), intval($_SESSION['user']['id_tmp']));
         require_once 'view/connexion.php';
         exit;
     } else {

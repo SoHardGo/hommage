@@ -12,7 +12,7 @@ ob_start();
         <hr>
     </section>
     <section>
-        <h1 class"home_title">Un espace membre qui vous permet de partager vos photos</h1>
+        <h2 class="home_title">Un espace membre qui vous permet de partager vos photos</h2>
         <div class="home_container">
             <div class="home_container_photo">
                 <div class="home_photo">
@@ -23,30 +23,30 @@ ob_start();
                 </div>
             </div>
             <div class="home_button">
-                 <a class="button" href="?page=registration" title="S'inscrire">S'inscrire</a>
+                 <a class="button button-a" href="?page=registration" title="S'inscrire">S'inscrire</a>
             </div>
         </div>
         <hr>
     </section>
     <section>
-        <h2 class"home_title">Laisser une trace de vos écrits</h2>
+        <h2 class="home_title">Laisser une trace de vos écrits</h2>
         <div class="home_container">
             <div class="home_container_photo">
-                <div class="home_photo">
-                    <img class="img" src="public/pictures/site/home-comment.jpg" alt="photo d'un stylo">
-                </div>
                 <div class="home_text">
                     <p>Vous pouvez commenter chacune de vos photos et les partagez avec votre famille, vos amis etc... Vous pouvez aussi laisser un commentaire sur la fiche d'une autre personne qui aurait été crée par quelqu'un d'autre que vous.</p> 
                 </div>
+                <div class="home_photo">
+                    <img class="img" src="public/pictures/site/home-comment.jpg" alt="photo d'un stylo">
+                </div>
             </div>
             <div class="home_button">
-                <a class="button" href="index.php?page=registration" title="S'inscrire">S'inscrire</a>
+                <a class="button button-a" href="index.php?page=registration" title="S'inscrire">S'inscrire</a>
             </div>
         </div>
         <hr>
     </section>
     <section>
-        <h2 class"home_title">Envoyer une carte de condoléance</h2>
+        <h2 class="home_title">Envoyer une carte de condoléance</h2>
         <div class="home_container">
             <div class="home_container_photo">
                 <div class="home_photo">
@@ -57,24 +57,24 @@ ob_start();
                 </div>
             </div>
             <div class="home_button">
-                <a class="button" href="index.php?page=card" title="Ecrire une carte">Nos cartes</a>
+                <a class="button button-a" href="index.php?page=card" title="Ecrire une carte">Nos cartes</a>
             </div>
         </div>
         <hr>
     </section>
     <section>
-        <h2 class"home_title">Envoyer un bouquet</h2>
+        <h2 class="home_title">Envoyer un bouquet</h2>
         <div class="home_container">
             <div class="home_container_photo">
-                <div class="home_photo">
-                    <img class="img" src="public/pictures/site/home-flower.jpg" alt="carte condoleance">
-                </div>
                 <div class="home_text">
                     <p>Nos bouquets de fleurs frâiches peuvent être déposé par nos soins sur la tombe de la personne aimé. Vous pouvez aussi choisir de les faire livrer directement à la personne ayant crée la fiche du defunt, si cette dernière à choisi l'option correspondante.</p> 
                 </div>
+                <div class="home_photo">
+                    <img class="img" src="public/pictures/site/home-flower.jpg" alt="carte condoleance">
+                </div>
             </div>
             <div class="home_button">
-                <a class="button" href="?page=flower" title="Ecrire une carte">Nos bouquets</a>
+                <a class="button button-a" href="?page=flower" title="Ecrire une carte">Nos bouquets</a>
             </div>
         </div>
         <hr>

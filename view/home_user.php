@@ -61,12 +61,11 @@ if (count($info_def)){
             </a>
     </div>
     <div class="home_user_contact_list hidden">
-        <h3>Cliquez pour commencer un Tchat</h3>
-               <?=$friends?>
+            <?=$friends?>
     </div>
     <div class="home_user_contact_title">
         <img class="img dim35" src="public/pictures/site/arrow_up.png" alt="flèche haut">
-        <h2>Mes Contacts</h2>
+        <h2>Mes Contacts -- Tchat</h2>
     </div>
     <hr>
 </section>

@@ -11,6 +11,7 @@ ob_start();
                 <?=$select?>
             </select>
             <input class="button" type="submit" value="Valider">
+            <input type="hidden" name="token" value="<?=$token?>">
         </form>
     </div>
     <div class="search_defunct">

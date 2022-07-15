@@ -16,10 +16,11 @@ const ROUTES = [
     'profil' => 'profil.php',
     'lost' => 'lost.php',
     'home' => 'home.php',
-    'environnement' => 'environnement.php',
+    'environment' => 'environment.php',
     'buy' => 'buy.php',
     'home_user' => 'home_user.php',
-    'tchat' => 'tchat.php'
+    'tchat' => 'tchat.php',
+    'adminlog' => '../admin/viewAdmin/adminLog.php'
     ];
 const DEFAULT_ROUTE = ROUTES ['home'];
     

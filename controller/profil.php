@@ -6,17 +6,18 @@ $getInfo = new GetInfos();
 $register = new Registration();
 $globalClass = new GlobalClass();
 
-$id = $_SESSION['user']['id'];
 $signoff = $_GET['signoff']??0;
+$defunct_list = '';
 $message = '';
 $mess_transfer = '';
 $confirm_transfer ='';
 $new_user = null;
+$info_user = $getInfo->getInfoUser($_SESSION['user']['id']);
 
 // Vérification de l'email pour le transfert de compte
 if (empty($_SESSION['verif_email'])){
     if (isset($_POST['new_user']) && $_POST['new_user'] != null){
-        $new_user = htmlspecialchars($_POST['new_user']);
+        $new_user = htmlspecialchars(trim($_POST['new_user']));
         if (!filter_var($new_user, FILTER_VALIDATE_EMAIL)){
          $mess_transfer = '<p class="message">Le format d\'email n\'est pas conforme.</p>';
             } else {
@@ -72,18 +73,38 @@ if (isset($_POST['signoff_final']) && !empty($_SESSION['verif_email'])){
 
 // Modification des informations de l'utilisateur
 if (isset($_POST['submit'])){
-   $data['id'] = $id;
-   $data['pseudo'] = htmlspecialchars($_POST['pseudo'])??'';
-   $data['email'] = htmlspecialchars($_POST['email'])??'';
-   $data['number_road'] = htmlspecialchars($_POST['number_road'])??'';
-   $data['address'] = htmlspecialchars($_POST['address'])??'';
-   $data['postal_code'] = htmlspecialchars($_POST['postal_code'])??'';
-   $data['city'] = htmlspecialchars($_POST['city'])??'';
-   $register->updateUser($data);
+    if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
+       $data['id'] = $_SESSION['user']['id'];
+       // Vérification sur l'email en cas de changement
+        if (isset($_POST['email']) && $_POST['email'] != $info_user['email']){
+            $new_email = htmlspecialchars(trim($_POST['email']));
+            if (!filter_var($new_email, FILTER_VALIDATE_EMAIL)){
+                $data['email'] = htmlspecialchars(trim($_POST['email']))??'';
+            } else {
+                $data['email'] = $info_user['email'];
+            }
+        }
+        $data['pseudo'] = htmlspecialchars(trim($_POST['pseudo']))??'';
+        $data['number_road'] = htmlspecialchars(trim($_POST['number_road']))??'';
+        $data['address'] = htmlspecialchars(trim($_POST['address']))??'';
+        if(!is_numeric($_POST['postal_code']) && $_POST['postal_code'] != $info_user['postal_code']){
+            $data['postal_code'] = $info_user['postal_code'];
+        } else {
+            $data['postal_code'] = htmlspecialchars(trim($_POST['postal_code']));
+        }
+        $data['city'] = htmlspecialchars(trim($_POST['city']))??'';
+        $register->updateUser($data);
+    } else {
+        $message = '<p class="message">L\'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.</p>';
+    }           
 }
 
-$info_user = $getInfo->getInfoUser($id);
-$info_def = $getInfo->getUserDefunctList($id)->fetchAll();
+// Liste des défunts de l'utilisateur
+$info_def = $getInfo->getUserDefunctList($_SESSION['user']['id'])->fetchAll();
 $nbr = count($info_def);
+for ($i=0; $i<$nbr; $i++){
+    $defunct_list .= '<p>'.ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname']).'</p>';
+}
 
+$token = $register->setToken();
 require 'view/profil.php';

@@ -10,26 +10,28 @@ $friends ='';
 
 
 // Vérification des informations de connexion
+
 try {
     if ( isset($_POST['email']) && isset($_POST['pwd']) ){
         // Vérification de la validité du format d'émail
-        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-            throw new Exception("Format d'Email incorrect.");
-        }
-        // Vérification de la validité des informations de connexion ->Email + Mot de passe
-        $result = $globalClass->verifyAccount (htmlspecialchars($_POST['email']), htmlspecialchars($_POST['pwd']));
-        if (!isset($result)){
-            throw new Exception("Identifiants incorrects.");
-        } else {
-        // Enregistrement de la date de connexion, Initialisation des informations de Session
-            $_SESSION['user'] = $result;
-            $register->updateLastLogin();
-        // mise à jour du status "online=1" pour le tchat
-            $register->updateOnline($_SESSION['user']['id'],1);
-        // Récupération des infos des défunts associées à l'utilisateur
-            $_SESSION['user']['defunct'] = $getInfo->getDefunctList();
-        }
+            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+                throw new Exception("Format d'Email incorrect.");
+            }
+            // Vérification de la validité des informations de connexion ->Email + Mot de passe
+            $result = $globalClass->verifyAccount (htmlspecialchars(trim($_POST['email'])), htmlspecialchars(trim($_POST['pwd'])));
+            if (!isset($result)){
+                throw new Exception("Identifiants incorrects.");
+            } else {
+            // Enregistrement de la date de connexion, Initialisation des informations de Session
+                $_SESSION['user'] = $result;
+                $register->updateLastLogin();
+            // mise à jour du status "online=1" pour le tchat
+                $register->updateOnline($_SESSION['user']['id'],1);
+            // Récupération des infos des défunts associées à l'utilisateur
+                $_SESSION['user']['defunct'] = $getInfo->getDefunctList();
+            }
     }
+    
 } catch(Exception $e) {
     $errorMsg = $e->getMessage();
     header('Location: index.php?page=connexion&error=' . $errorMsg);
@@ -96,9 +98,7 @@ $lastDef = $getInfo->getHomeSlider();
 $slider ='<div class="slider">';
 foreach($lastDef as $r){
     $idDef = $getInfo->getIdDefPhoto($r['name']);
-    $slider.='<a href="?page=environnement&id='.$idDef['defunct_id'].'"><div class="home_user_slick"><img class="img" src="public/pictures/photos/'.$r['user_id'].'/'.$r['name'].'" alt="photo defunt pour le slider"></div></a>';
+    $slider.='<a href="?page=environment&id='.$idDef['defunct_id'].'"><div class="home_user_slick"><img class="img" src="public/pictures/photos/'.$r['user_id'].'/'.$r['name'].'" alt="photo defunt pour le slider"></div></a>';
 }
 $slider .= '</div>';
-
-
 require 'view/home_user.php';

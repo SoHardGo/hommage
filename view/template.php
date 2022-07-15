@@ -69,10 +69,11 @@
     </div>
     <div class="footer_network">
         <div>
-            <div>Suivez-nous&emsp;
-            <a class="footer_menu-a" href="http://facebook.fr"><i class="fab fa-facebook-square fa-1x"></i></a>
-            <a class="footer_menu-a" href="http://instagram.fr"><i class="fab fa-instagram-square fa-1x"></i></a>
-            <a class="footer_menu-a" href="http://twitter.fr"><i class="fab fa-twitter-square fa-1x"></i></a>
+            <div>
+                <p>Suivez-nous</p>
+                <a class="footer_menu-a" href="http://facebook.fr"><i class="fab fa-facebook-square fa-1x"></i></a>
+                <a class="footer_menu-a" href="http://instagram.fr"><i class="fab fa-instagram-square fa-1x"></i></a>
+                <a class="footer_menu-a" href="http://twitter.fr"><i class="fab fa-twitter-square fa-1x"></i></a>
             </div>
             <div>Hommage Copyright ©2022</div>
         </div>

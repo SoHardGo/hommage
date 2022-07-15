@@ -14,16 +14,14 @@ ob_start();
             <input type="date" name="birthdate" id="birthdate"/>
             <label for="city_birth">Ville :</label>
             <input type="text" name="city_birth" id="city_birth"/>
-            <label for="postal_code">Code Postal :</label>
-            <input type="text" name="postal_code" id="postal_code"/>
             <label for="death_date">Date de décès :</label>
             <input type="date" name="death_date" id="death_date" required="required"/>
             <label for="cemetery">Nom du cimetière :</label>
             <input type="text" name="cemetery" id="cemetery"/>
             <label for="city_death">Ville du cimetière :</label>
             <input type="text" name="city_death" id="city_death"/>
-            <label for="code_p">Code postal cimetière:</label>
-            <input type="text" name="code_p" id="code_p"/>
+            <label for="postal_code">Code Postal du cimetière :</label>
+            <input type="number" name="postal_code" id="postal_code"/>
             <label>Qui êtes-vous pour le defunt ?</label>
             <select name="affinity">
                 <option>Affinité</option>

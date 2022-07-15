@@ -124,6 +124,24 @@ class GlobalClass extends Manage {
             rmdir($source);
         } else {}
     }
+    
+    // Vérification du format des dates
+    public function verifyDateFormat(string $date) :?bool{
+        $tab = explode('-', $date);
+        $count = count ($tab);
+        $result = null;
+        if ($count > 2){
+            list($y, $m, $d) = $tab;
+            if(!checkdate($m, $d, $y)) {
+            	$result = false;
+            } else {
+                $result = true;
+            }
+        }
+        return $result;
+    }
+    
+    
 }
 
 

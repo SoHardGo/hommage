@@ -4,9 +4,11 @@ require_once 'config/config.php';
 require_once 'model/GlobalClass.php';
 require_once 'model/Registration.php';
 require_once 'model/Manage.php';
+require_once 'model/AdminRequest.php';
 $manage = new Manage();
 $globalClass = new GlobalClass();
 $register = new Registration();
+$adminRequest = new AdminRequest();
 
 if (isset($_GET['deco'])){
     // mise à jour du status "online=0" pour le tchat

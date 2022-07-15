@@ -11,11 +11,11 @@ $_SESSION['user']['profil'] = 'photo'.$_SESSION['user']['id'].'.jpg';
 
 if (isset($_POST['comment']) && $_POST['comment']!=''){
     $data = [
-        'comment'=>strip_tags($_POST['comment']),
-        'user_id'=>$_SESSION['user']['id'],
-        'photo_id'=>$_POST['photo_id'],
-        'defunct_id'=>$_POST['id_def'],
-        'profil_user'=>$_SESSION['user']['profil']
+        'comment'=>strip_tags(trim($_POST['comment'])),
+        'user_id'=>htmlspecialchars(trim($_SESSION['user']['id'])),
+        'photo_id'=>htmlspecialchars(trim($_POST['photo_id'])),
+        'defunct_id'=>htmlspecialchars(trim($_POST['id_def'])),
+        'profil_user'=>htmlspecialchars(trim($_SESSION['user']['profil']))
         ];
     echo $register->setComment($data);
 }

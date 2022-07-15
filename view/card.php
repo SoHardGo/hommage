@@ -102,6 +102,7 @@ ob_start();
             <label for="confirm">Réglement</label>
             <?=$mess_buy?>
             <input class="button" type="submit" name="confirm" id="confirm" value="Paiement">
+            <input type="hidden" name="token" value="<?=$token?>">
         </form>
     </div>
 </div>

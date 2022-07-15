@@ -15,30 +15,56 @@ $info = array();
 if (isset($_POST['submit'])){
     if(isset($_SESSION['token']) && isset($_POST['token']) && ($_SESSION['token'] === $_POST['token'])) {
         if(isset($_POST['lastname']) && isset($_POST['firstname']) && isset($_POST['death_date'])){
+        // Test format de date
+        $result = $result = $globalClass->verifyDateFormat(htmlspecialchars(trim($_POST['death_date'])));
+                if ($result){
+                    $data['death_date'] = htmlspecialchars(trim($_POST['death_date']));
+                } else { 
+                    $_POST['death_date'] = '';
+                }
         // Test si la fiche du defunt existe déjà, return l'id si existe
         $test = [
-            'firstname'=>htmlspecialchars($_POST['firstname']),
-            'lastname'=>htmlspecialchars($_POST['lastname']),
-            'death_date'=>htmlspecialchars($_POST['death_date'])
+            'firstname'=>htmlspecialchars(trim($_POST['firstname'])),
+            'lastname'=>htmlspecialchars(trim($_POST['lastname'])),
+            'death_date'=>htmlspecialchars(trim($_POST['death_date']))
             ];
         $verify = $globalclass->verifyDefunct($test)->fetch();
             if($verify) {
                 $message = '<p class="message">La fiche de '.ucfirst($_POST['lastname']).' '.ucfirst($_POST['lastname']).' existe déjà, vous pouvez la consulter ici -><a href="?page=environnement&id_def='.$verify['id'].'">FICHE</a></p>';
             } else {
-                $data['lastname'] = htmlspecialchars($_POST['lastname']);
-                $data['firstname'] = htmlspecialchars($_POST['firstname']);
-                $data['birthdate'] = isset($_POST['birthdate']) ? htmlspecialchars($_POST['birthdate']) : '';
-                $data['death_date'] = htmlspecialchars($_POST['death_date']);
-                $data['cemetery'] = isset($_POST['cemetery']) ? htmlspecialchars($_POST['cemetery']) : '';
-                $data['city_birth'] = isset($_POST['city_birth']) ? htmlspecialchars($_POST['city_birth']) : '';
+                $data['lastname'] = htmlspecialchars(trim($_POST['lastname']));
+                $data['firstname'] = htmlspecialchars(trim($_POST['firstname']));
+                // test du format de date
+                if(isset($_POST['birthdate'])){
+                    $result = $globalClass->verifyDateFormat(htmlspecialchars(trim($_POST['birthdate'])));
+                    if ($result){
+                        $data['birthdate'] = htmlspecialchars(trim($_POST['birthdate']));
+                    } else {
+                        $data['birthdate'] = '';
+                    }
+                }   
+                $data['cemetery'] = isset($_POST['cemetery']) ? htmlspecialchars(trim($_POST['cemetery'])) : '';
+                $data['city_birth'] = isset($_POST['city_birth']) ? htmlspecialchars(trim($_POST['city_birth'])) : '';
                 $data['city_death'] = isset($_POST['city_death']) ? htmlspecialchars($_POST['city_death']) : '';
-                $data['postal_code'] = isset($_POST['postal_code']) ? intval($_POST['postal_code']) : 0;
+                // Vérification du format de code postal
+                /*
+                if (isset($data['postal_code'])){
+                    var_dump($data['postal_code']);
+                    $code_postal = htmlspecialchars(trim($_POST['postal_code']) );
+                    if(preg_match('\'^[0-9]{5}$\'', $code_postal)){
+                       $data['postal_code'] = htmlspecialchars(trim($_POST['postal_code']));
+                       echo 'coucou';
+                    } else {
+                        echo 'pas bon';
+                        $data['postal_code'] = 0;
+                    }
+                }*/
+                $data['postal_code'] = isset($_POST['postal_code']) && is_numeric($_POST['postal_code']) ? htmlspecialchars(trim($_POST['postal_code'])) : 0;
                 $data['user_id']= $_SESSION['user']['id'];
-                
-                $info['affinity'] = isset($_POST['affinity']) ? htmlspecialchars($_POST['affinity']) : '';
-                $info['card_virtuel'] = isset($_POST['card_virtuel']) ? htmlspecialchars($_POST['card_virtuel']) : 0;
-                $info['card_real'] = isset($_POST['card_real']) ? htmlspecialchars($_POST['card_real']) : 0;
-                $info['new_user'] = isset($_POST['new_user']) ? htmlspecialchars($_POST['new_user']) : 0;
+                $info['affinity'] = isset($_POST['affinity']) ? htmlspecialchars(trim($_POST['affinity'])) : '';
+                $info['card_virtuel'] = isset($_POST['card_virtuel']) ? htmlspecialchars(trim($_POST['card_virtuel'])) : 0;
+                $info['card_real'] = isset($_POST['card_real']) ? htmlspecialchars(trim($_POST['card_real'])) : 0;
+                $info['new_user'] = isset($_POST['new_user']) ? htmlspecialchars(trim($_POST['new_user'])) : 0;
                 $info['user_id']= $_SESSION['user']['id'];
                 
                 // Enregistrement d'une fiche defunt et récupération de l'id du defunt

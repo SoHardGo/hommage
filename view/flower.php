@@ -3,49 +3,69 @@ $title='Nos bouquets';
 
 ob_start();
 ?>
-<section class="doc">
-  <article class="flower_info">
+<section>
+  <article class="flower_article">
     <p>Nous vous proposons une séléction de bouquets de fleurs fraîches à livrer à votre domicile ou à faire livrer par nos soins sur la tombe du défunt concerné.</p>
   </article>
 </section>
-<section class="container_flower">
-  <?=$boxFlower?>
-</section>
 <section>
-  <div class="flower_price">
-    <form method="POST" action="?page=flower">
-      <label for="submit"></label>
-      <input class="button submit" type="submit" name="submit" value="Valider vos choix">
+  <div class="flower">
+    <form class="form__flower" method="POST" action="?page=flower">
+      <div class="flower_container">
+        <?php foreach($flowerList as $f) :?>
+          <div class="flower">
+            <img class="img dim200" src="public/pictures/flowers/<?=$f['name']?>" alt="bouquet de fleurs">
+            <div>
+              <p><?=$f['info']?></p>
+              <p><?=$f['price']?><span> €</span></p>
+              <input class="flower_id" type="checkbox" name ="check[]" value="<?=$f['id']?>">
+            </div>
+          </div>
+        <?php endforeach ?>
+      </div>
+      <fieldset>
+        <label for="select_defunct">Sélectionner le défunt</label>
+        <div class="flower_dest">
+          <select name="select_def">
+            <option value="">--Liste des défunts sur le site--</option>
+            <?=$select?>
+          </select>
+          <p>Je préfère recevoir à mon adresse.</p>
+          <input type="radio" name="to_home">
+        </div>
+        <input class="button" type="submit" name="submit" id="select_defunct" value="Valider le destinataire">
+      </fieldset>
+      <h2>Récapitulatif de vos choix</h2>
+      <h3>Vous avez sélectionné  <?=$nb_flower?> bouquets.</h3>
+      <table class="flower_table">
+        <thead>
+          <tr>
+            <th>Nom du bouquet</th>
+            <th>Tarif</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?=$tab_flower?>
+        </tbody>
+        <tfoot>
+          <td>Total avec TVA :</td>
+          <td><?=$total?> €</td>
+        </tfoot>
+      </table>
+      <p class="flower_content"></p>
+      <label for="confirm">Réglement</label>
+        <?=$mess_buy?>
+      <input class="button" type="submit" name="confirm" id="confirm" value="Paiement">
+      <input type="hidden" name="token" value="<?=$token?>">
     </form>
   </div>
 </section>
-<section class="container_flower_dest">
-  <form method="POST" action="?page=flower">
-    <fieldset>
-      <label for="select_defunct">Sélectionner le défunt</label>
-      <?=$select?>
-      <input class="button" type="submit" name="submit" id="select_defunct" value="Valider le destinataire">
-    </fieldset>
-  </form>
+<section>
+    <div class="payement">
+        <?=$buy?>
+    </div>
 </section>
-<section class="container_flower_tab">
-  <h3>Récapitulatif de vos choix</h3>
-  <table class="table_flower">
-    <thead>
-      <tr>
-        <th>Nom du bouquet</th>
-        <th>Tarif</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?=$tab_flower?>
-    </tbody>
-    <tfoot>
-      <td>Total avec TVA :</td>
-      <td></td>
-    </tfoot>
-  </table>
-</section>
+  
 <?php
 $content= ob_get_clean(); 
 require 'template.php';

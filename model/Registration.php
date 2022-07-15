@@ -18,18 +18,18 @@ class Registration extends Manage {
 
     // inscription d'un defunt + return LastId
     public function setDefunct(array $data) :int{
-        $query = "INSERT INTO defuncts SET firstname=:firstname, lastname=:lastname, birthdate=:birthdate, death_date=:death_date, cemetery=:cemetery, city_birth=:city_birth, city_death=:city_death, postal_code=:postal_code, user_id=:user_id, date_crea=CURDATE()";
+        $query = "INSERT INTO defuncts SET firstname=:firstname, lastname=:lastname, birthdate=:birthdate, death_date=:death_date, cemetery=:cemetery, city_birth=:city_birth, city_death=:city_death, postal_code=:postal_code, user_id=:user_id, date_crea=NOW()";
         return $this->setQueryLastId($query,$data);
     }
     
     // inscription d'un administrateur utilisateur de fiche défunt
     public function setUserAdmin(array $data) :void{
-        $query = "INSERT INTO user_admin SET affinity=:affinity, card_virtuel=:card_virtuel, card_real=:card_real, new_user=:new_user, user_id=:user_id, date_crea=CURDATE(), defunct_id=:defunct_id";
+        $query = "INSERT INTO user_admin SET affinity=:affinity, card_virtuel=:card_virtuel, card_real=:card_real, new_user=:new_user, user_id=:user_id, date_crea=NOW(), defunct_id=:defunct_id";
         $this->getQuery($query,$data);
     }
     // enregistrement des emails envoyés via contact
     public function setContact(array $data) :int {
-        $query = "INSERT INTO contact SET lastname=:lastname, email=:email, message=:message, user_id=:user_id, date_crea=CURDATE()";
+        $query = "INSERT INTO contact SET lastname=:lastname, email=:email, message=:message, user_id=:user_id, date_crea=NOW()";
         $result=$this->getQuery($query,$data);
         $nb=$result->rowCount();
         return $nb;
@@ -50,7 +50,7 @@ class Registration extends Manage {
         return $this->setQueryLastId($query,$data);
     }
     // enregistrement des cartes achetées
-    public function setCards(array $data) :void{
+    public function setProducts(array $data) :void{
         $query = "INSERT INTO orders SET user_id=:user_id, cards_id=:cards_id, flowers_id=:flowers_id, total=:total, user_send_id=:user_send_id, date_crea=NOW()";
         $this->getQuery($query,$data);
     }

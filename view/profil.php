@@ -22,14 +22,11 @@ ob_start();
                 <label>Votre adresse :</label>
                 <input type="text" name="number_road" value="<?=$info_user['number_road']?>"></input>
                 <input type="text" name="address" value="<?=$info_user['address']?>"></input>
-                <input type="text" name="postal_code" value="<?=$info_user['postal_code']?>"></input>
+                <input type="number" name="postal_code" value="<?=$info_user['postal_code']?>"></input>
                 <input type="text" name="city" value="<?=$info_user['city']?>"></input>
                 <div class="profil_admin">
                     <label>Vous administez ces <?=$nbr?> fiches :</label>
-                    <?php for ($i=0; $i<$nbr; $i++) :?>
-                    <p><?=ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname'])?></p>
-                    <?php endfor ?>
-                    </select>
+                    <?=$defunct_list?>
                 </div>
                 <div class="profil_change">
                     <label for ="new_user">Transférer vos fiches à un autre utilisateur.</label>
@@ -39,6 +36,7 @@ ob_start();
                     <input class="button" type="submit" name="new_admin" id="new_user">
                 </div>
                 <label for="modify" class="message">- Modifier les champs que vous souhaitez mettre à jour.</label>
+                <input type="hidden" name="token" value="<?=$token?>">
                 <input type="submit" name="submit" class="button" id="modify" value="Modifier">
                 <?=$confirm_transfer?>
                 <h3>- Désincription -</h3>

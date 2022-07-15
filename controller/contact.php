@@ -19,7 +19,7 @@ if (isset($_POST['submit']) && !empty($_POST['message'])) {
             $confirm = "Une erreur est survenue, veuillez renvoyer votre message.";
         }
     } else {
-        $confirm = "L'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.";
+        $confirm = '<p class="message">L\'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.</p>';
     } 
 } else {
         $confirm = '<p class="message">Vous n\'avez pas écris votre message</p>';

@@ -50,7 +50,7 @@ class GetInfos extends Manage {
     }
     // Récupération des identités de tout les defunts
     public function getAllDefuncts() :array {
-        $query = "SELECT id, lastname, firstname, birthdate, death_date FROM defuncts ORDER BY lastname";
+        $query = "SELECT id, user_id, lastname, firstname, birthdate, death_date FROM defuncts ORDER BY lastname";
         return $this->getQuery($query)->fetchAll();
     }
     
@@ -113,7 +113,7 @@ class GetInfos extends Manage {
         if(isset($_SESSION['nbCard'])) {
             foreach($_SESSION['nbCard'] as $c) {
                 $id_card = $this->getOrderCardId($c);
-                $cardInfo = $this->getCardInfo($id_card);
+                $cardInfo = $this->getProductInfo($id_card);
                 $tab .= '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].'</td></tr>';
             }
         }
@@ -132,14 +132,14 @@ class GetInfos extends Manage {
         if(isset($_SESSION['nbCard'])) {
             foreach($_SESSION['nbCard'] as $c) {
                 $id_card = $this->getOrderCardId($c);
-                $cardInfo = $this->getCardInfo($id_card);
+                $cardInfo = $this->getProductInfo($id_card);
                 $total += $cardInfo['price'];
             }
         }
         return $total;
     }
     // Récupération de la liste des information d'une carte
-    public function getCardInfo(int $id) :array {
+    public function getProductInfo(int $id) :array {
         $data = ['id'=>$id];
         $query = "SELECT name, price, info FROM products WHERE id=:id";
         return $this->getQuery($query,$data)->fetch();

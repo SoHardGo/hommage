@@ -4,11 +4,11 @@ $title='Achats';
 ob_start();
 ?>
 <section>
-    <h1 class="title_buy">Mes achats</h1>
+    <h1>Mes achats</h1>
         <?=$messBuy?>
     <?php if (isset($_SESSION['user_send'])) :?>
         <?=$tab?>
-    <div class="pay">
+    <div class="buy">
         <hr>
         <img class="img dim80" src="public/pictures/site/visa.png" alt="carte visa">
         <h2>PAIEMENT</h>
@@ -20,18 +20,19 @@ ob_start();
                 <label for="buy_day"> Date :</label>
                 <input type="text" name="buy_day" id="buy_day" value="<?=date('d/m/Y H:m:s')?>" readonly>
                 <label for="buy_cart"> N° de carte (sans espace) : </label>
-                <input type="number" name="buy_cart" id="buy_cart" required>
+                <input type="number" name="buy_cart" id="buy_cart" required="required">
                 <div><?=$messCart?></div>
                 <label for="buy_code">N° de CVV (au dos de la carte) :</label>
-                <input type="number" name="buy_code" id="buy_code" required>
+                <input type="number" name="buy_code" id="buy_code" required="required">
                 <div><?=$messCvv?></div>
                 <label for="buy_tel">Téléphone :</label>
-                <input type="tel" name="buy_tel" id="buy_tel" required>
+                <input type="tel" name="buy_tel" id="buy_tel" required="required">
                 <div><?=$messTel?></div>
                 <label for="submit" id="buy_submit"></label>
                 <input class="button" type="submit" name ="buy_submit" id="submit" value="Payer">
+                <input type="hidden" name="token" value="<?=$token?>">
             </form>   
-            </fieldset>
+        </fieldset>
         <div><?=$messFinal?></div>
     </div>
     <?php endif ?>
@@ -53,7 +54,7 @@ ob_start();
         <table class="buy_table">
             <thead>
                 <tr>
-                    <th>Carte</th>
+                    <th>Articles</th>
                     <th>Prix</th>
                     <th>Destinataire</th>
                     <th>Contenu</th>

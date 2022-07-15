@@ -15,6 +15,7 @@ ob_start();
                     <label for="email_user">Entrez votre Email pour recevoir un code de réinitialisation :</label>
                     <input type="email" name="email" id="email_user" placeholder="votre@email.ici" required="required">
                     <label for="subemail"></label>
+                    <input type="hidden" name="token" value="<?=$token?>">
                     <input class="button" type="submit" name="subemail" id="subemail" value="Envoyer">
                 <?php else :?>
                     <label for="email_user"></label>

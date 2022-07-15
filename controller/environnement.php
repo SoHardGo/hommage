@@ -51,25 +51,29 @@ if(isset($_SESSION['user']['id'])) {
     }
 
 //Enregistrement d'une photo télécharger
-    if (isset($_FILES['file_env']) && $_FILES['file_env']['type']=='image/jpeg' && !empty($_FILES['file_env'])){
+    if (isset($_FILES['file_env']) && !empty($_FILES['file_env']) && $_FILES['file_env']['type']=='image/jpeg' || $_FILES['file_env']['type']=='image/png'){
+        if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
+ 
+            $destination = 'public/pictures/photos/'.$_SESSION['user']['id'];
         
-        $destination = 'public/pictures/photos/'.$_SESSION['user']['id'];
-    
-        // test dossier existe ou création
-        if (!file_exists($destination) && !is_dir($destination)){ 
-            mkdir($destination , 0755);
-        } 
-        
-        // test taille fichier
-        if ($_FILES['file_env']['size'] > 1024000){
-            $_messFile =  '<p class="message">Attention, la limitation de la taille du fichier est de 2Mo</p>';
+            // test dossier existe ou création
+            if (!file_exists($destination) && !is_dir($destination)){ 
+                mkdir($destination , 0755);
+            } 
+            
+            // test taille fichier
+            if ($_FILES['file_env']['size'] > 1024000){
+                $_messFile =  '<p class="message">Attention, la limitation de la taille du fichier est de 2Mo</p>';
+            }
+            
+            //enregistre la photo dans la BBD
+            $photo_id = $register->setPhoto(['user_id' => $_SESSION['user']['id'],'defunct_id'=> $id_def,'name'=>'']);
+            $photo_name = $id_def.'-'.$photo_id.'.jpg';
+            move_uploaded_file($_FILES['file_env']['tmp_name'],$destination.'/'.$photo_name);
+            $register->updatePhoto(['id' => $photo_id, 'name'=>$photo_name]);
+        } else {
+        $messFile = "L'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.";
         }
-        
-        //enregistre la photo dans la BBD
-        $photo_id = $register->setPhoto(['user_id' => $_SESSION['user']['id'],'defunct_id'=> $id_def,'name'=>'']);
-        $photo_name = $id_def.'-'.$photo_id.'.jpg';
-        move_uploaded_file($_FILES['file_env']['tmp_name'],$destination.'/'.$photo_name);
-        $register->updatePhoto(['id' => $photo_id, 'name'=>$photo_name]);
     }
 }
 
@@ -118,5 +122,5 @@ if ($friend_add){
     $register->setFriends(['user_id'=>$_SESSION['user']['id'], 'friend_id'=>intval($friend_add)]);
     $message = 'Nouveau contact enregistré. En attente de confirmation...';  
 }
-
-require 'view/environnement.php';
+$token = $register->setToken();
+require 'view/environment.php';
