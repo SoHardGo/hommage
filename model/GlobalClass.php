@@ -119,6 +119,7 @@ class GlobalClass extends Manage {
             foreach ($files as $f) {
                 if ($f != "." && $f != "..") {
                  copy($source.'/'.$f, $destination.'/'.$f);
+                 unlink ($source.'/'.$f);
                }
             }
             rmdir($source);
@@ -130,7 +131,7 @@ class GlobalClass extends Manage {
         $tab = explode('-', $date);
         $count = count ($tab);
         $result = null;
-        if ($count > 2){
+        if ($count = 3){
             list($y, $m, $d) = $tab;
             if(!checkdate($m, $d, $y)) {
             	$result = false;

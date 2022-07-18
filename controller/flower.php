@@ -15,6 +15,7 @@ $total =0;
 $mess_buy ='';
 $buy ='';
 
+
 // Récupération des informations des bouquets sélectionnés
 if(isset($_POST['submit'])){
     if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
@@ -51,7 +52,7 @@ if(isset($_POST['submit'])){
         $buy = $globalClass->setBuyEnv();
         }
     } else {
-        $confirm = "L'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.";
+        $confirm = '<p class="message>L\'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.</p>';
     } 
 }
 

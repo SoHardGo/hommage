@@ -141,7 +141,7 @@ class GetInfos extends Manage {
     // Récupération de la liste des information d'une carte
     public function getProductInfo(int $id) :array {
         $data = ['id'=>$id];
-        $query = "SELECT name, price, info FROM products WHERE id=:id";
+        $query = "SELECT id, name, price, info FROM products WHERE id=:id";
         return $this->getQuery($query,$data)->fetch();
     }
     // Liste des achats d'un utilisateur
@@ -201,7 +201,7 @@ class GetInfos extends Manage {
     // Liste des amis enregistrée
     public function getFriendsList(int $id) :array {
         $data = ['user_id'=>$id];
-        $query = "SELECT friend_id, date_crea, validate FROM friends WHERE user_id=:user_id";
+        $query = "SELECT friend_id, user_id, date_crea, validate FROM friends WHERE user_id=:user_id OR friend_id=:user_id";
         return $this->getQuery($query,$data)->fetchAll();
     }
     // Liste des demande d'amis depuis la dernière connexion avec jointure pour ses informations

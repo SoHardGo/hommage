@@ -11,29 +11,31 @@ $message ='';
 $data = array();
 $info = array();
 
+
 //test si defunt existe déjà
 if (isset($_POST['submit'])){
     if(isset($_SESSION['token']) && isset($_POST['token']) && ($_SESSION['token'] === $_POST['token'])) {
         if(isset($_POST['lastname']) && isset($_POST['firstname']) && isset($_POST['death_date'])){
         // Test format de date
         $result = $result = $globalClass->verifyDateFormat(htmlspecialchars(trim($_POST['death_date'])));
-                if ($result){
-                    $data['death_date'] = htmlspecialchars(trim($_POST['death_date']));
-                } else { 
-                    $_POST['death_date'] = '';
-                }
-        // Test si la fiche du defunt existe déjà, return l'id si existe
-        $test = [
-            'firstname'=>htmlspecialchars(trim($_POST['firstname'])),
-            'lastname'=>htmlspecialchars(trim($_POST['lastname'])),
-            'death_date'=>htmlspecialchars(trim($_POST['death_date']))
-            ];
-        $verify = $globalclass->verifyDefunct($test)->fetch();
+            if ($result){
+                $data['death_date'] = htmlspecialchars(trim($_POST['death_date']));
+            } else { 
+                $data['death_date'] = '';
+            }
+            // Test si la fiche du defunt existe déjà, return l'id si existe
+            $test = [
+                'firstname'=>htmlspecialchars(trim($_POST['firstname'])),
+                'lastname'=>htmlspecialchars(trim($_POST['lastname'])),
+                'death_date'=>htmlspecialchars(trim($_POST['death_date']))
+                ];
+            $verify = $globalclass->verifyDefunct($test)->fetch();
             if($verify) {
                 $message = '<p class="message">La fiche de '.ucfirst($_POST['lastname']).' '.ucfirst($_POST['lastname']).' existe déjà, vous pouvez la consulter ici -><a href="?page=environnement&id_def='.$verify['id'].'">FICHE</a></p>';
             } else {
                 $data['lastname'] = htmlspecialchars(trim($_POST['lastname']));
                 $data['firstname'] = htmlspecialchars(trim($_POST['firstname']));
+    
                 // test du format de date
                 if(isset($_POST['birthdate'])){
                     $result = $globalClass->verifyDateFormat(htmlspecialchars(trim($_POST['birthdate'])));
@@ -42,7 +44,13 @@ if (isset($_POST['submit'])){
                     } else {
                         $data['birthdate'] = '';
                     }
-                }   
+                }
+                // Test de la logique des dates de naissance et de décès
+                if (isset($_POST['birthdate']) && isset($_POST['death_date']) && ($_POST['birthdate'] > $_POST['death_date'])){
+                    $message = '<p class="message">Vous avez dû faire une erreur dans les dates, merci de recommencer.</p>';
+                    $_POST['birthdate'] = '';
+                }
+                
                 $data['cemetery'] = isset($_POST['cemetery']) ? htmlspecialchars(trim($_POST['cemetery'])) : '';
                 $data['city_birth'] = isset($_POST['city_birth']) ? htmlspecialchars(trim($_POST['city_birth'])) : '';
                 $data['city_death'] = isset($_POST['city_death']) ? htmlspecialchars($_POST['city_death']) : '';
@@ -60,12 +68,12 @@ if (isset($_POST['submit'])){
                     }
                 }*/
                 $data['postal_code'] = isset($_POST['postal_code']) && is_numeric($_POST['postal_code']) ? htmlspecialchars(trim($_POST['postal_code'])) : 0;
-                $data['user_id']= $_SESSION['user']['id'];
+                $data['user_id']= htmlspecialchars(trim($_SESSION['user']['id']));
                 $info['affinity'] = isset($_POST['affinity']) ? htmlspecialchars(trim($_POST['affinity'])) : '';
                 $info['card_virtuel'] = isset($_POST['card_virtuel']) ? htmlspecialchars(trim($_POST['card_virtuel'])) : 0;
                 $info['card_real'] = isset($_POST['card_real']) ? htmlspecialchars(trim($_POST['card_real'])) : 0;
                 $info['new_user'] = isset($_POST['new_user']) ? htmlspecialchars(trim($_POST['new_user'])) : 0;
-                $info['user_id']= $_SESSION['user']['id'];
+                $info['user_id']= htmlspecialchars(trim($_SESSION['user']['id']));
                 
                 // Enregistrement d'une fiche defunt et récupération de l'id du defunt
                 $defunct = $register->setDefunct($data);

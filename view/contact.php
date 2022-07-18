@@ -13,7 +13,7 @@ ob_start();
                 <input type="text" name="lastname" id="lastname">
                 <?php endif ?>
                 <?php if (isset($_SESSION['user']['email'])):?>
-                <label for="email">Entrer votre nom</label>
+                <label for="email">Entrer votre email</label>
                 <input type="email" name="email" id="email" placeholder="<?=$_SESSION['user']['email']?>" readonly>
                 <?php else :?>
                 <label for="email">Entrer votre email</label>

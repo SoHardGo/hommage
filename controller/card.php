@@ -21,6 +21,7 @@ $nb ='';
 // Carte par défaut dans l'éditeur
 $id = $_GET['id']??1;
 
+
 // Vider le tableau
 if (isset($_GET['empty']) && $_GET['empty']){
     unset($_SESSION['nbCard']);

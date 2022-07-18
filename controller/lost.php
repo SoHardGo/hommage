@@ -13,6 +13,7 @@ $passMess = '';
 $_SESSION['lost_email'] = isset($_SESSION['lost_email'])??'';
 $_SESSION['lost_code'] = isset($_SESSION['lost_code'])??'';
 
+
 // Bouton annuler
 if (isset($_POST['cancel'])){
     session_destroy();
@@ -27,11 +28,11 @@ if (isset($_POST['subemail'])){
         if (!isset($_SESSION['user']['identify']) || $_SESSION['user']['identify'] != true){
             // vérification de la validité de l'email
             // récup l'id du user
-            $id = $getinfo->getEmail($_POST['email']);
+            $id = $getinfo->getEmail(htmlspecialchars(trim($_POST['email'])));
             $id = $id->fetch();
             if(isset($id['id'])){
                 $_SESSION['user']['id_tmp'] = $id['id'];
-                $_SESSION['user']['email'] = $_POST['email'];
+                $_SESSION['user']['email'] = htmlspecialchars(trim($_POST['email']));
                 $_SESSION['user']['identify'] = true;
                 $_SESSION['code']= rand(10000,99999);
                 $_SESSION['lost_email'] = 'hidden';
@@ -46,10 +47,10 @@ if (isset($_POST['subemail'])){
 }
 // vérifiaction du code envoyé [user][identify] = true, quand Email ok 
 if (isset($_POST['subcode']) && isset($_SESSION['user']['identify'])) {
-    if (isset($_POST['code']) && $_POST['code'] == $_SESSION['code'])   {
+    if (isset($_POST['code']) && $_POST['code'] == $_SESSION['code']) {
         $message =  '<p class="message">Code correct.</p>';
         $_SESSION['verif_code'] = true;
-         $_SESSION['lost_email'] = 'hidden';
+        $_SESSION['lost_email'] = 'hidden';
         $_SESSION['lost_code'] = 'hidden';
     } else {
         $message =  '<p class="message">Code non valide.</p>';

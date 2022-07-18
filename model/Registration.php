@@ -159,7 +159,13 @@ class Registration extends Manage {
         $query = "DELETE FROM users WHERE id=:id";
         $this->getQuery($query,$data);
     }
-    
-    
-
+    // supprimer une fiche d'un défunt
+    public function deleteOneDefunct(int $def) :void{
+        $data = ['id'=>$def];
+        $query = "DELETE FROM defuncts WHERE id=:id";
+        $this->getQuery($query,$data);
+        $data = ['defunct_id'=>$def];
+        $query = "DELETE FROM user_admin WHERE defunct_id=:defunct_id";
+        $this->getQuery($query,$data);
+    }
 }

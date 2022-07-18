@@ -12,6 +12,7 @@ $messBuy = '';
 $tab_list ='';
 $list = $_GET['list']??0;
 
+
 // récupération des informations du destinataire pour les cartes
 if (isset($_SESSION['user_send'])){
 $user_send = $getInfo->getInfoUser($_SESSION['user_send']);

@@ -18,7 +18,9 @@ ob_start();
                 <img class="img dim35 user_icon" src="public/pictures/site/camera-icon.png" alt="icone home utilisateur">
         </div>
     </form>
-    <div class="hidden user_ajax"><?=$_SESSION['user']['id']?></div>
+    <div class="hidden user_ajax">
+        <?=$_SESSION['user']['id']?>
+    </div>
     <div class="user_new">
         <a href="" class="user_mini_icons" id="newFriend" title="Demande d'ami">
             <img class="img dim40 <?=$icon_anim_f?>" src="public/pictures/site/friend.png" alt="icone demande d'ami">
@@ -39,21 +41,24 @@ ob_start();
     </div>
 </section>
 <section class="user_menu">
-        <a class="button" href="?page=createform">Créer une fiche</a>
+        <a class="button user_button_menu" href="?page=createform">Créer une fiche</a>
         <?php if (isset($_SESSION['user']['defunct'])) :?>
-            <div class ="button user_myDefuncts">
+            <div class ="button user_button_menu user_myDefuncts">
                 Mes fiches
-                <?=$list_def?>
+                    <?=$list_def?>
             </div>
         <?php else :?>
-            <a class="button" href="?page=search">Rechercher une fiche</a>
+            <a class="button user_button_menu" href="?page=search">Rechercher une fiche</a>
         <?php endif ?>
-        <a class="button" href="?page=profil">Mon compte</a>
-        <a class="button" href="?page=search">Rechercher</a>
+        <a class="button user_button_menu" href="?page=profil">Mon compte</a>
+        <a class="button user_button_menu" href="?page=search">Rechercher</a>
 </section>
 <section>
-        <div><?=$messFile?></div>
-        <div class="user_ask_friend"><?=$ask?></div>
+        <div>
+            <?=$messFile?>
+        </div>
+        <div class="user_ask_friend">
+        </div>
 </section>
 
 <?php

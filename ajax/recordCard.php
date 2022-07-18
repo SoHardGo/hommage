@@ -10,7 +10,7 @@ $getInfo = new GetInfos();
 $user_send = $_SESSION['user_send']??null;
 if (isset($_POST['content']) && !empty($_POST['content'])){
     $content = [
-        'content'=>strip_tags(trim(($_POST['content'])),
+        'content'=>strip_tags(trim($_POST['content'])),
         'user_id'=>htmlspecialchars(trim($_SESSION['user']['id'])),
         'card_id'=>htmlspecialchars(trim($_POST['card_id'])),
         'user_send_id'=>htmlspecialchars(trim($_SESSION['user_send']))

@@ -6,43 +6,50 @@ if (isset($id_def)){
     ob_start(); 
 
 ?>
-<section class="env">
-    <h2 class="env_title" ><?=ucfirst($defunct_infos['firstname']).' '.ucfirst($defunct_infos['lastname']) ?></h2>
-    <div class="env_date">
-        <h4><?=$defunct_infos['birthdate']?>&ensp;</h4>
-            <img class="img dim40" src="public/pictures/site/cross.png" alt="croix">
-        <h4>&ensp;<?=$defunct_infos['death_date']?></h4>
-    </div>
-    <hr>
-    <?php if (isset($_SESSION['user']['id'])) 
-// Dossier de téléchargement des photos du defunt sélectionné
-    :?>
-    <a class="env_folder_link" href="" title="Dossier de stockage des photos">
-        <div class="env_folder">
-            <img class="img" src="public/pictures/site/folder.png" alt="Dossier de stockage photos">
+<section>
+    <div class="env">
+        <div class="env_link">
+            <a class="env_link_img" href="?page=environment&id_def=<?=$defunct_infos['id']?>" title="Lien vers cette fiche">
+                <img class="img dim35" src="public/pictures/site/link-icon.png" alt="icone lien">
+            </a>
         </div>
-        <div>
-            <p>Cliquez sur le Dossier pour telecharger les photos de <?=ucfirst($defunct_infos['firstname']).' '.ucfirst($defunct_infos['lastname']) ?></p>
+        <h2 class="env_title" ><?=ucfirst($defunct_infos['firstname']).' '.ucfirst($defunct_infos['lastname']) ?></h2>
+        <div class="env_date">
+            <h4><?=$defunct_infos['birthdate']?>&ensp;</h4>
+                <img class="img dim40" src="public/pictures/site/cross.png" alt="croix">
+            <h4>&ensp;<?=$defunct_infos['death_date']?></h4>
         </div>
-    </a>
-    <?php 
-    // Identifiant du créateur de la fiche + ajout icone ami si pas dans la liste de l'utilisateur
-    if(isset($defunct_infos['user_id']) && $defunct_infos['user_id'] != $_SESSION['user']['id']) :?>
-    <div class="env_add_friend">
-        <p class="admin_user">Gestionnaire de la fiche : <?=ucfirst($user_admin['admin']['lastname']).' '.ucfirst($user_admin['admin']['firstname'])?>&emsp;</p>
-        <?php if($friendOk == false) :?>
-        <a class="friend" href="?page=environment&id_def=<?=$id_def?>&friend_add=<?=$defunct_infos['user_id']?>" title="Ajouter aux contacts">
-        <img class="img dim20" src="public/pictures/site/friend.png" alt="icone ajouter">
+        <hr>
+        <?php if (isset($_SESSION['user']['id'])) 
+    // Dossier de téléchargement des photos du defunt sélectionné
+        :?>
+        <a class="env_folder_link" href="" title="Dossier de stockage des photos">
+            <div class="env_folder">
+                <img class="img" src="public/pictures/site/folder.png" alt="Dossier de stockage photos">
+            </div>
+            <div>
+                <p>Cliquez sur le Dossier pour telecharger les photos de <?=ucfirst($defunct_infos['firstname']).' '.ucfirst($defunct_infos['lastname']) ?></p>
+            </div>
         </a>
+        <?php 
+        // Identifiant du créateur de la fiche + ajout icone ami si pas dans la liste de l'utilisateur
+        if(isset($defunct_infos['user_id']) && $defunct_infos['user_id'] != $_SESSION['user']['id']) :?>
+        <div class="env_add_friend">
+            <p class="admin_user">Gestionnaire de la fiche : <?=ucfirst($user_admin['admin']['lastname']).' '.ucfirst($user_admin['admin']['firstname'])?>&emsp;</p>
+            <?php if($friendOk == false) :?>
+            <a class="friend" href="?page=environment&id_def=<?=$id_def?>&friend_add=<?=$defunct_infos['user_id']?>" title="Ajouter aux contacts">
+            <img class="img dim20 friend_add" src="public/pictures/site/friend.png" alt="icone ajouter">
+            </a>
+            <?php endif ?>
+        </div>
+        <div class="friend_mess">
+            <?=$message?>
+        </div>               
         <?php endif ?>
+        <?php 
+            // Dossier caché contenant toutes les photos du défunt
+            endif ?>
     </div>
-    <div class="friend_mess">
-        <?=$message?>
-    </div>               
-    <?php endif ?>
-    <?php 
-        // Dossier caché contenant toutes les photos du défunt
-        endif ?>
 </section>
 <section>
     <div  class="env_photos_list hidden">
@@ -81,7 +88,7 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
         <label for="file_env"></label>
         <input type="file" name="file_env" id="file_env" accept=".jpg, .jpeg, .png">
         <div class="env_add_photo">
-            <label>Ajouter une photo (2Mo max - jpeg/jpg/png) ->&emsp;</label>
+            <label>Ajouter une photo (2Mo max) ->&emsp;</label>
                 <img class="img dim60" src="public/pictures/site/photo-icon.png" alt="appareil photo">
         </div>
         <input type="hidden" name="token" value="<?=$token?>">
@@ -108,9 +115,8 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
                 <img class="dim20" src="public/pictures/site/delete-icon.png" alt="Supprimer">
             </a>
         <?php endif ?>
-            
             <div id="<?=$r['id']?>">
-             <?php
+        <?php
 // Affichage des photos 
             if (!isset($_SESSION['user']['id'])) :?>
                 <img class="img env_blur_photo" src="public/pictures/photos/<?=$r['user_id'].'/'.$r['name']?>" alt="<?=$r['name']?>">
@@ -123,37 +129,38 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
 // Liste des commentaires de la photo + profil miniature des auteurs du commentaire
             foreach($com_list[$r['id']] as $comment): ?>
                 <div class="comment_post">
-            <?php if (!isset($_SESSION['user']['id'])) :?>
+                <?php if (!isset($_SESSION['user']['id'])) :?>
                     <div class="container_com_user env_blur_comment">
-                <?php else :?>
-                    <div class="container_com_user">
-            <?php endif ?>
-                    <div class="env_profil">
-                        <a class ="env_user_name" title="<?=$comment['user_id']?>">
-            <?php if(file_exists('public/pictures/users/'.$comment['user_id'].'/'.$comment['profil_user'])) : ?>
-                        <img class="img" src="public/pictures/users/<?=$comment['user_id'].'/'.$comment['profil_user'].'?'.date('s')?>" alt="photo de profil">
-                <?php else : ?>
-                        <img class="img" src="public/pictures/site/noone.jpg"<?=date('s')?> alt="photo de profil">
-            <?php endif ?>
-                        </a>
-                    </div>
-                    &emsp;<?=$comment['comment']?>
-            <?php 
+                    <?php else :?>
+                        <div class="container_com_user">
+                <?php endif ?>
+                            <div class="env_profil">
+                                <a class ="env_user_name" title="<?=$comment['user_id']?>">
+                <?php if(file_exists('public/pictures/users/'.$comment['user_id'].'/'.$comment['profil_user'])) : ?>
+                                <img class="img" src="public/pictures/users/<?=$comment['user_id'].'/'.$comment['profil_user'].'?'.date('s')?>" alt="photo de profil">
+                    <?php else : ?>
+                                <img class="img" src="public/pictures/site/noone.jpg"<?=date('s')?> alt="photo de profil">
+                <?php endif ?>
+                                </a>
+                            </div>
+                            &emsp;<?=$comment['comment']?>
+                <?php 
 // Supprimer un commentaire dont on est à l'origine                                 
-                if(isset($_SESSION['user']['id']) && $_SESSION['user']['id'] == $comment['user_id']): ?>
-                                <div class="icon_delete">
-                                    <a class ="env_user_name" href="?page=environment&id=<?=$id_def?>&idCom=<?=$comment['id']?>" title="Supprimer"><i class="fas fa-trash-alt"></i>
-                                    </a>
-                                </div>
-            <?php endif ?>
-                    </div>
-                            <?php
+                    if(isset($_SESSION['user']['id']) && $_SESSION['user']['id'] == $comment['user_id']): ?>
+                            <div class="icon_delete">
+                                <a class ="env_user_name" href="?page=environment&id=<?=$id_def?>&idCom=<?=$comment['id']?>" title="Supprimer"><i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                    <?php endif ?>
+                    
+                <?php
 // Affichage d'un bandeau "New" pour les nouveaux commentaires
                     if((isset($_SESSION['user']['last_log']) && isset($comment['date_crea']) && $_SESSION['user']['last_log'] < $comment['date_crea']) && (isset($_SESSION['user']['id']) && isset($comment['user_id']) && $_SESSION['user']['id'] !== $comment['user_id'])): ?>
-                <div class="new_comment">
-                    <img class="img" src="public/pictures/site/new.png" alt="Bandeau nouveau commentaire">
-                </div>
+                            <div class="new_comment">
+                                <img class="img" src="public/pictures/site/new.png" alt="Bandeau nouveau commentaire">
+                            </div>
                 <?php endif ?>
+                        </div>
                     </div>
             <?php endforeach ?>
                 </div>

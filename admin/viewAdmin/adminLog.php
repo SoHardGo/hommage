@@ -13,7 +13,7 @@
 </header>
 <main>
     <h1>Connexion Administration du Site</1>
-    <form method="POST" action="admin/controllerAdmin/adminPost.php" align="center">
+    <form method="POST" action="admin/controllerAdmin/adminPost.php">
         <div class="admin_form">
         <label for="admin_user">Identifiant</label>
         <input type="text" id="admin_user" name="admin_user">

@@ -8,7 +8,7 @@ $getInfo = new GetInfos();
 $ask = '';
 
 if (isset($_POST['user_id'])){
-    $friends = $getInfo->getAskFriend(htmlspecialchars(trim($_POST['user_id']));
+    $friends = $getInfo->getAskFriend(htmlspecialchars(trim($_POST['user_id'])));
     echo json_encode($friends);
 }
 

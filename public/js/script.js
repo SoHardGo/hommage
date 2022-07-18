@@ -25,15 +25,37 @@ photo_profil.addEventListener('click', function(){
     });
 });
 }
+///////////////////////Gestion du lien de chaque fiche///////////////////////
+// avec création d'un nouvel élément dans le DOM
+
+let link = document.querySelector('.env_link_img');
+let parent_link = document.querySelector('.env_link');
+
+if(link!=null){
+    link.addEventListener('click', (e)=>{
+        e.preventDefault();
+        let verify = !!document.querySelector('.env_new_link');
+        if (verify === false){
+            let link_p = document.createElement('div');
+            link_p.setAttribute('class', 'env_new_link');
+            let link_txt =document.createTextNode('Adresse pour accéder à cette fiche :\n'+link.href);
+            link_p.appendChild(link_txt);
+            parent_link.appendChild(link_p);
+        } else {
+            let link_p = document.querySelector('.env_new_link');
+            link_p.classList.toggle('hidden');
+        }
+    });
+}
 
 ///////////Gestion du bouton de liste des defunts du menu fiche//////////////
 
 let button = document.querySelector('.user_myDefuncts');
 let container = document.querySelector('.user_list_defuncts');
 if(button !== null){
-button.addEventListener('click', function(){
-    container.classList.toggle('hidden');
-});
+    button.addEventListener('click', function(){
+        container.classList.toggle('hidden');
+    });
 }
 
 //////////////Gestion des photos dans l'espace environnement/////////
@@ -49,7 +71,7 @@ if(camera !== null){
     });
 }
 
-/////////////// Gestion des commentaires //////////////////////////
+//////////////// Gestion des commentaires //////////////////////////
 
 let comment_env = document.querySelectorAll('.env_comment_form');
 
@@ -62,8 +84,6 @@ if(comment_env != null) {
             let id_def = this.querySelector('.id_def');
             let photo_id = this.querySelector('.photo_id');
             let user_id = this.querySelector('.user_id');
-            let lastname = this.querySelector('.lastname');
-            let firstname = this.querySelector('.firstname');
 
             let formdata = new FormData();
             formdata.append('comment',comment.value);
@@ -127,7 +147,7 @@ nom.addEventListener('keyup', ()=> {
                     .then(response => response.json())
                     .then(data=>{ 
                         for(let i of data.results) {
-                            madiv.innerHTML += "<option value="+i+">"+i.prenom+"  -Né(e) le : "+i.birthDate+"  -Décédé(e) le : "+i.deathDate+"-  à : "+i.deathPlace+"</option>";
+                            madiv.innerHTML += "<option value="+i+">"+i.prenom+"  -Né(e) le : "+i.birthDate+"<p>-Décédé(e) le : "+i.deathDate+"-  à : "+i.deathPlace+"</p></option>";
                         }
                     })
                     .catch(err=>console.error(err));
@@ -171,38 +191,45 @@ if (edit_btn != null){
 ////////////////////////Gestion des bouquets de fleurs//////////////////////////
 
 localStorage.clear();
-let flower_content =document.querySelector('.flower_content');
+let flower_content =document.getElementById('flower_container_tab');
 let flower_id=document.querySelectorAll('.flower_id');
+let div_total = document.querySelector('.flower_total');
 
-for(let i=0; i<flower_id.length;i++){
+for(let i=0; i<flower_id.length;i++){               // bouton checkbox
    flower_id[i].addEventListener('click',detect);
 }
 
 // fonction détection de la sélection des bouquets et stockage dans le localStorage
 function detect(e){
-    console.log(e.target.checked);
+   // console.log(e.target.checked);
     let local=JSON.parse(localStorage.getItem('bouquet')) || [];
     if(e.target.checked){
         local.push({'id':e.target.value});
         localStorage.setItem('bouquet',JSON.stringify(local));
-        let formdata = new FormData();
-            formdata.append('flower_id', localStorage.getItem('bouquet'));
-    
-            let obj = { 'method':'POST', 'body':formdata };
-            
-            fetch('ajax/recordFlower.php', obj)
-                            .then(response => response.json())
-                            .then(data=>{
-                                console.log(data);
-                                flower_content.innerHTML += data.info+' '+data.price;
-                            
-                            })
-                            .catch(err=>console.error(err));
+  //  console.log(localStorage);
     } else {
-        let findId=local.find(element => e.target.value);  
-        let newArray=local.filter((item)=>item.id !== findId.id);
+        let findId=local.find(key => e.target.value);  
+        let newArray=local.filter((key)=>key.id !== findId.id);
         localStorage.setItem('bouquet',JSON.stringify(newArray));
+  //  console.log(localStorage);
     }
+    
+    let formdata = new FormData();
+    formdata.append('flower_id', localStorage.getItem('bouquet'));
+    let obj = { 'method':'POST', 'body':formdata };
+    fetch('ajax/recordFlower.php', obj)
+                    .then(response => response.json())
+                    .then(data=>{
+                        console.log(data);
+                        let total = 0;
+                        flower_content.innerHTML ='';
+                        for (let i=0; i<data.length; i++){
+                             flower_content.innerHTML += '<tr><td>'+data[i].info+'</td><td>'+data[i].price+' €</td></tr>';
+                             total += parseInt(data[i].price);
+                        }
+                        div_total.innerHTML = total+'  €';
+                    })
+                    .catch(err=>console.error(err));
 }
 
 
@@ -242,7 +269,6 @@ if(link_contact!=null){
 }
 
 ///////////////////////Gestion des demandes d'amis//////////////////////////////
-
 let btn_friend = document.getElementById('newFriend');
 let ask_friend = document.querySelector('.user_ask_friend');
 
@@ -256,7 +282,7 @@ if(btn_friend!=null){
             formdata.append('user_id', user_id);
             let obj = { 'method':'POST', 'body':formdata };
             
-            fetch('ajax/friendList.php', obj)
+            fetch('ajax/friendsList.php', obj)
                             .then(response => response.json())
                             .then(data=>{
                                 console.log(data);
@@ -276,7 +302,6 @@ if(btn_friend!=null){
 ///////////////////////Gestion des messages du chat/////////////////////////////
 
 let form = document.querySelector('.tchat_form');
-
 
 if (form != null){
     form.addEventListener('submit',(e)=>{

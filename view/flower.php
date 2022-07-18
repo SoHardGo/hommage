@@ -44,15 +44,14 @@ ob_start();
             <th>Tarif</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="flower_container_tab">
           <?=$tab_flower?>
         </tbody>
         <tfoot>
           <td>Total avec TVA :</td>
-          <td><?=$total?> €</td>
+          <td class="flower_total"><?=$total?> €</td>
         </tfoot>
       </table>
-      <p class="flower_content"></p>
       <label for="confirm">Réglement</label>
         <?=$mess_buy?>
       <input class="button" type="submit" name="confirm" id="confirm" value="Paiement">

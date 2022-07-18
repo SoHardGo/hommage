@@ -2,49 +2,49 @@
 $title='Nos cartes';
 ob_start();
 ?>
-<section class="card">
-    <h1 class="card_title">Cartes</h1>
-    <h2>Selectionner une des cartes afin de pouvoir y ajouter le contenu de votre choix.</h2>
-    <?php if(isset($cardsList)) :?>
-    <?php foreach($cardsList as $r) :?>
-           <div class="card_item">
-               <div class="card_image">
-                   <img class="img card_select_img" src="public/pictures/cards/<?=$r['name']?>" alt="<?=$r['info']?>">
-                </div>
-               <p>Tarif : <?=$r['price']?>  Euros</p>
-               <a class="button" href = "?page=card&id=<?=$r['id']?>">Selectionner</a>
-            </div>
-    <?php endforeach ?>
-    <?php endif ?>
-</section>
-<?php if(isset($_SESSION['user']['id'])) :?>
 <section>
-    <div class="card_editor">
-    <h1>Ecrivez votre texte</h1>    
-        <div class="card_editor_main">
-            <div class="card_editor_header">
-                <button type="button" class="card_edit" data-element="bold">
-                    <i class="fas fa-bold"></i>
-                </button>
-                <button type="button" class="card_edit" data-element="italic">
-                    <i class="fas fa-italic"></i>
-                </button>
-                <button type="button" class="card_edit" data-element="underline">
-                    <i class="fas fa-underline"></i>
-                </button>
-                <button type="button" class="card_edit" data-element="justifyLeft">
-                    <i class="fas fa-align-left"></i>
-                </button>
-                <button type="button" class="card_edit" data-element="justifyCenter">
-                    <i class="fas fa-align-center"></i>
-                </button>
-                <button type="button" class="card_edit" data-element="justifyFull">
-                    <i class="fas fa-align-justify"></i>
-                </button>
+    <div class="card">
+        <h1 class="card_title">Cartes</h1>
+        <h2>Selectionner une des cartes afin de pouvoir y ajouter le contenu de votre choix.</h2>
+        <?php if(isset($cardsList)) :?>
+        <?php foreach($cardsList as $r) :?>
+               <div class="card_item">
+                   <div class="card_image">
+                       <img class="img card_select_img" src="public/pictures/cards/<?=$r['name']?>" alt="<?=$r['info']?>">
+                    </div>
+                   <p>Tarif : <?=$r['price']?>  Euros</p>
+                   <a class="button" href = "?page=card&id=<?=$r['id']?>">Selectionner</a>
+                </div>
+        <?php endforeach ?>
+        <?php endif ?>
+        <?php if(isset($_SESSION['user']['id'])) :?>
+        <div class="card_editor">
+        <h1>Ecrivez votre texte</h1>    
+            <div class="card_editor_main">
+                <div class="card_editor_header">
+                    <button type="button" class="card_edit" data-element="bold">
+                        <i class="fas fa-bold"></i>
+                    </button>
+                    <button type="button" class="card_edit" data-element="italic">
+                        <i class="fas fa-italic"></i>
+                    </button>
+                    <button type="button" class="card_edit" data-element="underline">
+                        <i class="fas fa-underline"></i>
+                    </button>
+                    <button type="button" class="card_edit" data-element="justifyLeft">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <button type="button" class="card_edit" data-element="justifyCenter">
+                        <i class="fas fa-align-center"></i>
+                    </button>
+                    <button type="button" class="card_edit" data-element="justifyFull">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                </div>
+                    <div id="card_id" class="hidden"><?=$id?></div>
+                    <p class="content" contenteditable spellcheck="true" style="background-image : url('public/pictures/cards/<?=$cardInfo['name']?>');">
+                    </p>
             </div>
-                <div id="card_id" class="hidden"><?=$id?></div>
-                <p class="content" contenteditable spellcheck="true" style="background-image : url('public/pictures/cards/<?=$cardInfo['name']?>');">
-                </p>
         </div>
     </div>
 </section>

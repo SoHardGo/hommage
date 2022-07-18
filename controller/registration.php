@@ -12,17 +12,17 @@ $connectEmail = '';
 $data = array();
 
 if (isset($_POST['submit'])) {
-    // Vérification si le formulaire viens bien du site
+    // Vérification si le formulaire vient bien du site
     if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token']===$_POST['token']) {
         //Vérification de la validité du format de l'émail
         if(isset($_POST['email']) && filter_var((htmlspecialchars(trim($_POST['email']))), FILTER_VALIDATE_EMAIL)){
-            $result = $getInfo->getEmail($_POST['email'])->fetch();
+            $result = $getInfo->getEmail(htmlspecialchars(trim($_POST['email'])))->fetch();
             if($result){
                 $confirm = '<p class="message">Vous êtes déjà inscrit sur notre site, connectez-vous</p>';
                 require 'view/connexion.php';
                 exit;
             }else{
-                $data['email'] = $_POST['email'];
+                $data['email'] = htmlspecialchars(trim($_POST['email']));
                 $data['lastname'] = isset($_POST['lastname']) ? htmlspecialchars(trim($_POST['lastname'])) : '';
                 $data['firstname'] = isset($_POST['firstname']) ? htmlspecialchars(trim($_POST['firstname'])) : '';
                 $data['pseudo'] = isset($_POST['pseudo']) ? htmlspecialchars(trim($_POST['pseudo'])) : '';
@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
                 $_SESSION['user']['id'] = $user_id;
                 $user_content = $globalClass->setUserEnv();
             }
-            require 'view/home.php';
+            require 'view/home_user.php';
             exit;
         }
     } else {

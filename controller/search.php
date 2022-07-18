@@ -7,6 +7,7 @@ $defunct = '';
 $photo_def = '';
 $id_def = 0;
 
+
 if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
     $id_def = $_POST['select_def'];
 } else {
