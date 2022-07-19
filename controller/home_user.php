@@ -30,6 +30,9 @@ try {
                 $register->updateOnline($_SESSION['user']['id'],1);
             // Récupération des infos des défunts associées à l'utilisateur
                 $_SESSION['user']['defunct'] = $getInfo->getDefunctList();
+            // Création d'un cookie 
+            //   setcookie('name', $_SESSION['user']['lastname'], time() + 7200, null, null, false, true);
+
             }
     }
     
@@ -80,13 +83,13 @@ foreach ($friendList as $f){
     $userFriend = $getInfo->getInfoUser($friend_id);
     $profil = $globalClass->verifyPhotoProfil($friend_id);
         if ($f['validate'] == 0){
-            $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée" alt="icon de refus"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+            $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée" alt="icon de refus"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
         } 
         if ($f['validate'] == 1){
-            $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+            $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
         }
         if ($f['validate'] == null){
-            $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/mark.png" title="En attente de confirmation" alt="icon point d\'interrogation"><p>'.ucfirst($userFriend['lastname']).' '.ucfirst($userFriend['firstname']).'</p></div></a>';
+            $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/mark.png" title="En attente de confirmation" alt="icon point d\'interrogation"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
         }
 }
 // Initialisation de la personne ajouté aux contacts ->environnement
@@ -126,7 +129,7 @@ if (count($info_def)){
                 $path_photo = 'public/pictures/site/noone.jpg';
             }
         $list_def.= '<img class ="img" src="'.$path_photo.'" alt="photo defunt"></div>
-            <p>'.ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname']).'</p>
+            <p>'.$info_def[$i]['lastname'].' '.$info_def[$i]['firstname'].'</p>
             </a>
         </div>';
     }
@@ -140,7 +143,7 @@ if (count($info_def)){
     <div id="help" class="home_user_help">
         <div class="home_user_dialog">
             <a href="#" class="closebtn">&nbsp;×&nbsp;</a>
-            <h2>Bienvenue '.ucfirst($_SESSION['user']['firstname']).' dans votre espace membre</h2>
+            <h2>Bienvenue '.$_SESSION['user']['firstname'].' dans votre espace membre</h2>
             <div class="home_user_text">
                 <p> Pour commencer :</p><br>  
                 <p>-> Créer une Fiche de la personne auquel vous voulez rendre hommage</p>
@@ -157,10 +160,8 @@ if (count($info_def)){
         </div>
     </div>';
 } 
-
 // Suppression d'une fiche de défunt
-
-if(isset($_GET['id_delete'])){
+if($id_delete){
     $message = '<form method="POST" action="">
                   <label for="delete_def">Etes vous sûr ? Cela entraînera la suppression définitive de toutes les photos et commentaires de cette fiche !</label>
                   <input class="button" type="submit" name="delete_def" id="delete_def" value="Confirmer la suppression">
@@ -168,12 +169,14 @@ if(isset($_GET['id_delete'])){
                   <input class="button" type="submit" name="cancel_def" id="home_cancel" value="Annuler">
                 </form>';
 }
+
 if(isset($_POST['cancel_def'])){
     $message = '';
 }
 if(isset($_POST['delete_def'])){
     $register->deleteOneDefunct($id_delete);
     $message ='';
+    header('location: index.php?page=home_user');
+    exit;
 }
-
 require 'view/home_user.php';

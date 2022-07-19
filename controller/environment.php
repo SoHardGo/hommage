@@ -56,30 +56,18 @@ if(isset($_SESSION['user']['id'])) {
 //Enregistrement d'une photo télécharger
     if (isset($_FILES['file_env']) && !empty($_FILES['file_env'])){
         if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
-            // test de la validité du fichier
-            // Tableau des fichiers autorisés
-            $mimes_ok = array('png' => 'image/png',
-                              'jpeg' => 'image/jpeg',
-                              'jpg' => 'image/jpeg',
-                              'svg' => 'image/svg+xml');
-            if(!in_array(finfo_file(finfo_open(FILEINFO_MIME_TYPE),$_FILES['file_env']['tmp_name']), $mimes_ok)){
-                $messFile =  '<p class="message env_warning"><img class="dim40" src="public/pictures/site/warning-icon.png" alt="icone warning"><sup> Fichier corrompu !! </sup><img class="dim40" src="public/pictures/site/warning-icon.png" alt="icone warning"></p>';
+            $source = $_FILES['file_env']['tmp_name'];
+            $size = $_FILES['file_env']['size'];
+            $dest = 'public/pictures/photos/'.htmlspecialchars(trim($_SESSION['user']['id']));
+            // récupération de l'ID d'enregistrement
+            $photo_id = $register->setPhoto(['user_id' => htmlspecialchars(trim($_SESSION['user']['id'])),'defunct_id'=> $id_def,'name'=>'']);
+            $name = $id_def.'-'.$photo_id.'.jpg';
+            $result = $globalClass->verifyFiles($source, $size, $dest, $name);
+            if (!$result){
+                $register->deletePhoto($photo_id);
+                $messFile =  '<p class="message env_warning"><img class="dim40" src="public/pictures/site/warning-icon.png" alt="icone warning"><sup> Fichier non conforme !! </sup><img class="dim40" src="public/pictures/site/warning-icon.png" alt="icone warning"></p>';
             } else {
-                $destination = 'public/pictures/photos/'.$_SESSION['user']['id'];
-                // test taille fichier
-                if ($_FILES['file_env']['size'] > 1024000){
-                    $_messFile =  '<p class="message">Attention, la limitation de la taille du fichier est de 2Mo.</p>';
-                }
-                // test dossier existe ou création
-                if (!file_exists($destination) && !is_dir($destination)){ 
-                    mkdir($destination , 0755);
-                } 
-                //enregistre la photo dans la BBD
-                $photo_id = $register->setPhoto(['user_id' => $_SESSION['user']['id'],'defunct_id'=> $id_def,'name'=>'']);
-                $photo_name = $id_def.'-'.$photo_id.'.jpg';
-                move_uploaded_file($_FILES['file_env']['tmp_name'],$destination.'/'.$photo_name);
-                unset($_FILES);
-                $register->updatePhoto(['id' => $photo_id, 'name'=>$photo_name]);
+                $register->updatePhoto(['id' => $photo_id, 'name'=>$name]);
             }
         } else {
         $messFile = "L'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.";

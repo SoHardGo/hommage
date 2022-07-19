@@ -126,24 +126,36 @@ class GlobalClass extends Manage {
         } else {}
     }
     
-    // Vérification du format des dates
-    public function verifyDateFormat(string $date) :?bool{
-        $tab = explode('-', $date);
-        $count = count ($tab);
-        $result = null;
-        if ($count = 3){
-            list($y, $m, $d) = $tab;
-            if(!checkdate($m, $d, $y)) {
-            	$result = false;
-            } else {
-                $result = true;
+    // Vérification des fichiers téléchargés
+    public function verifyFiles(string $source, string $size, string $dest, string $name) :bool {
+        $mimes_ok = array('png' => 'image/png','jpeg' => 'image/jpeg', 'jpg' => 'image/jpeg');
+        if(!in_array(finfo_file(finfo_open(FILEINFO_MIME_TYPE), $source), $mimes_ok)){
+            $result = false;
+        } else {
+            if ($size > 2000000){
+            $result = false;
             }
+        if (!file_exists($dest) && !is_dir($dest)){ 
+                    mkdir($dest , 0755);
+        }
+        move_uploaded_file($source,$dest.'/'.$name);
+                unset($_FILES);
+            $result = true;
         }
         return $result;
     }
     
+    // Vérification du format des dates 
+    public function verifyDateFormat(string $date) :bool{
+        $format = DateTime::createFromFormat('Y-m-d', $date);
+        if ($format){
+            $result = true;
+        } else {
+            $result = false;
+        }
+        return $result;
+    }
     
 }
-
-
 ?>
+

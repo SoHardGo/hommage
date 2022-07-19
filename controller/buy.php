@@ -25,7 +25,7 @@ $user_send = $getInfo->getInfoUser($_SESSION['user_send']);
                     <table class="buy_table">
                         <thead>
                             <tr>
-                                <th colspan="2">Destinataire : '.ucfirst($user_send['lastname']).' '.ucfirst($user_send['firstname']).'</th>
+                                <th colspan="2">Destinataire : '.$user_send['lastname'].' '.$user_send['firstname'].'</th>
                             </tr>
                             <tr>
                                 <th class="tab_card">Cartes</th>
@@ -110,7 +110,7 @@ if ($list){
                         $total += $cardInfo['price'];
                         //information du destinataire
                         $dest = $getInfo->getInfoUser($r['user_send_id']);
-                        $tab_list .= '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].'</td><td>'.ucfirst($dest['lastname']).' '.ucfirst($dest['firstname']).'</td><td><div class="buy_content">'.$r['content'].'</div></td><tr>';
+                        $tab_list .= '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].'</td><td>'.$dest['lastname'].' '.$dest['firstname'].'</td><td><div class="buy_content">'.$r['content'].'</div></td><tr>';
                     }
                 }
             }

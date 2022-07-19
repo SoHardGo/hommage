@@ -13,7 +13,7 @@ if (isset($id_def)){
                 <img class="img dim35" src="public/pictures/site/link-icon.png" alt="icone lien">
             </a>
         </div>
-        <h2 class="env_title" ><?=ucfirst($defunct_infos['firstname']).' '.ucfirst($defunct_infos['lastname']) ?></h2>
+        <h2 class="env_title" ><?=$defunct_infos['firstname'].' '.$defunct_infos['lastname'] ?></h2>
         <div class="env_date">
             <h4><?=$defunct_infos['birthdate']?>&ensp;</h4>
                 <img class="img dim40" src="public/pictures/site/cross.png" alt="croix">
@@ -28,14 +28,14 @@ if (isset($id_def)){
                 <img class="img" src="public/pictures/site/folder.png" alt="Dossier de stockage photos">
             </div>
             <div>
-                <p>Cliquez sur le Dossier pour telecharger les photos de <?=ucfirst($defunct_infos['firstname']).' '.ucfirst($defunct_infos['lastname']) ?></p>
+                <p>Cliquez sur le Dossier pour telecharger les photos de <?=$defunct_infos['firstname'].' '.$defunct_infos['lastname'] ?></p>
             </div>
         </a>
         <?php 
         // Identifiant du créateur de la fiche + ajout icone ami si pas dans la liste de l'utilisateur
         if(isset($defunct_infos['user_id']) && $defunct_infos['user_id'] != $_SESSION['user']['id']) :?>
         <div class="env_add_friend">
-            <p class="admin_user">Gestionnaire de la fiche : <?=ucfirst($user_admin['admin']['lastname']).' '.ucfirst($user_admin['admin']['firstname'])?>&emsp;</p>
+            <p class="admin_user">Gestionnaire de la fiche : <?=$user_admin['admin']['lastname'].' '.$user_admin['admin']['firstname']?>&emsp;</p>
             <?php if($friendOk == false) :?>
             <a class="friend" href="?page=environment&id_def=<?=$id_def?>&friend_add=<?=$defunct_infos['user_id']?>" title="Ajouter aux contacts">
             <img class="img dim20 friend_add" src="public/pictures/site/friend.png" alt="icone ajouter">
@@ -61,7 +61,7 @@ if (isset($id_def)){
         </div>
             <?php endforeach ?>
         <?php else :?>
-            <p><i class="fas fa-ban"></i>&nbsp;Aucune photos de <?=ucfirst($defunct_infos['firstname']).' '.ucfirst($defunct_infos['lastname']) ?>&nbsp;<i class="fas fa-ban"></i>
+            <p><i class="fas fa-ban"></i>&nbsp;Aucune photos de <?=$defunct_infos['firstname'].' '.$defunct_infos['lastname'] ?>&nbsp;<i class="fas fa-ban"></i>
             </p>
     <?php endif ?>
     </div>

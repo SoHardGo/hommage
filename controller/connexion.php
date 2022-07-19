@@ -6,7 +6,7 @@ $getInfo = new GetInfos();
 require_once 'model/Registration.php';
 $register = new Registration();
 $passMess = '';
-
+$message = '';
 // Si le bouton s'inscrire à été validé renvoi vers le formulaire d'inscription
 if (isset($_GET['registration'])){
     require 'controller/registration.php';
@@ -14,6 +14,13 @@ if (isset($_GET['registration'])){
 }
 if (isset($_GET['error'])){
     $errorMsg = $_GET['error'];
+}
+//message après réinitialistion du mot de passe
+if(isset($errorMsg)){
+    $message = '<h3 class="message">'.$errorMsg.'</h3>';
+}
+if(isset($passMess)){
+    $message ='<h3 class="message">'.$passMess.'</h3>';
 }
 require 'view/connexion.php';
 

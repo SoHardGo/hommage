@@ -26,7 +26,7 @@ if(isset($_SESSION['user']['id'])){
                     $new_user_info = $globalClass->verifyEmail($new_user)->fetch();
                     if ($new_user_info){
                         $_SESSION['verif_email'] = $new_user;
-                        $confirm_transfer = '<p class="message">Vos fiches seront désormais géré par : '.ucfirst($new_user_info['lastname']).' '.ucfirst($new_user_info['firstname']).'</p>';
+                        $confirm_transfer = '<p class="message">Vos fiches seront désormais géré par : '.$new_user_info['lastname'].' '.$new_user_info['firstname'].'</p>';
                     } else {
                         $mess_transfer = '<p class="message">Cette email n\'est pas identifié sur le site.</p>';
                         $_SESSION['verif_email'] = false;
@@ -95,7 +95,7 @@ if(isset($_SESSION['user']['id'])){
             } else {
                 $data['postal_code'] = htmlspecialchars(trim($_POST['postal_code']));
             }
-            $data['city'] = htmlspecialchars(trim($_POST['city']))??'';
+            $data['city'] = htmlspecialchars(trim(ucfirst($_POST['city'])))??'';
             $register->updateUser($data);
         } else {
             $message = '<p class="message">L\'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.</p>';
@@ -106,7 +106,12 @@ if(isset($_SESSION['user']['id'])){
     $info_def = $getInfo->getUserDefunctList(htmlspecialchars(trim($_SESSION['user']['id'])))->fetchAll();
     $nbr = count($info_def);
     for ($i=0; $i<$nbr; $i++){
-        $defunct_list .= '<p>'.ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname']).'</p>';
+        $defunct_list .=   '<div class="profil_modify">
+                                <p>'.$info_def[$i]['lastname'].' '.$info_def[$i]['firstname'].'</p>
+                                    <a class ="profil_modify_icon" href="?page=modifyform&id_def='.intval($info_def[$i]['id']).'" title="Modifier les informations">
+                                        <img class="img dim10" src="public/pictures/site/info-icon.png" alt="icone information">
+                                    </a>
+                            </div>';
     }
 } else {
     require 'view/home.php';

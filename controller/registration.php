@@ -23,13 +23,13 @@ if (isset($_POST['submit'])) {
                 exit;
             }else{
                 $data['email'] = htmlspecialchars(trim($_POST['email']));
-                $data['lastname'] = isset($_POST['lastname']) ? htmlspecialchars(trim($_POST['lastname'])) : '';
-                $data['firstname'] = isset($_POST['firstname']) ? htmlspecialchars(trim($_POST['firstname'])) : '';
-                $data['pseudo'] = isset($_POST['pseudo']) ? htmlspecialchars(trim($_POST['pseudo'])) : '';
+                $data['lastname'] = isset($_POST['lastname']) ? htmlspecialchars(trim(ucfirst($_POST['lastname']))) : '';
+                $data['firstname'] = isset($_POST['firstname']) ? htmlspecialchars(trim(ucfirst($_POST['firstname']))) : '';
+                $data['pseudo'] = isset($_POST['pseudo']) ? htmlspecialchars(trim(ucfirst($_POST['pseudo']))) : '';
                 $data['number_road'] = isset($_POST['number_road']) ? htmlspecialchars(trim($_POST['number_road'])) : '';
                 $data['address'] = isset($_POST['address']) ? htmlspecialchars(trim($_POST['address'])) : '';
                 $data['postal_code'] = isset($_POST['cp']) && is_numeric($_POST['cp']) ? htmlspecialchars(trim($_POST['cp'])) : '';
-                $data['city'] = isset($_POST['city']) ? htmlspecialchars(trim($_POST['city'])) : '';
+                $data['city'] = isset($_POST['city']) ? htmlspecialchars(trim(ucfirst($_POST['city']))) : '';
                 $data['password'] = isset($_POST['pwd']) ? htmlspecialchars(trim($_POST['pwd'])) : '';
                 // Enregistrement d'un user et initialisation environnement user
                 $_SESSION['user'] = $data;

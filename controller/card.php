@@ -7,6 +7,8 @@ $globalClass = new GlobalClass();
 $getInfo = new GetInfos();
 $manage = new Manage();
 
+$send_real = '';
+$send_email = '';
 $message = '';
 $mess_buy = '';
 $mess_send ='';
@@ -21,6 +23,8 @@ $nb ='';
 // Carte par défaut dans l'éditeur
 $id = $_GET['id']??1;
 
+// Selecteur de défunts
+$select = $getInfo->defunctSelect();
 
 // Vider le tableau
 if (isset($_GET['empty']) && $_GET['empty']){
@@ -43,6 +47,19 @@ if (isset($_SESSION['user']['id'])){
 // Vérification si l'utilisateur existe
 if (isset($_POST['submit'])){
     if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
+        if(isset($_POST['select_def'])){
+            $info_def = $getInfo->getInfoDefunct(htmlspecialchars(trim($_POST['select_def'])))->fetch();
+            $user_admin = $globalClass->verifUserAdmin($info_def['user_id'])->fetch();
+
+             if ($user_admin['card_real']){
+                $send_real = 'Accepte les real';
+            }
+             if ($user_admin['card_virtuel']){
+                $send_email = 'Accepte les email';
+            }
+        }
+        
+        /*
         if (isset($_POST['user_lastname']) && isset($_POST['user_firstname']) && !empty($_POST['user_lastname']) && !empty($_POST['user_firstname'])){
             $data = ['lastname'=>htmlspecialchars(trim($_POST['user_lastname'])),
                 'firstname'=>htmlspecialchars(trim($_POST['user_firstname']))];
@@ -50,19 +67,19 @@ if (isset($_POST['submit'])){
         //Vérification si l'utisateur existe, si il crée une fiche et accepté l'envoi par email et/ou par adresse postale
             if ($userVerif != null){
                 $_SESSION['user_send'] = $userVerif['id'];
-                $_SESSION['user_send_name'] = ucfirst($_POST['user_lastname']).' '.ucfirst($_POST['user_firstname']);
+                $_SESSION['user_send_name'] = $_POST['user_lastname'].' '.$_POST['user_firstname'];
                 $userAdmin = $globalClass->verifUserAdmin($userVerif['id'])->fetch();
                 if ($userAdmin){
                     if ($userAdmin['card_real'] == 0){
                             $verifInfoSend = '<p class="message m20">Cet utilisateur n\'a pas souhaité communiquer son adresse.</p>';
                     } else {
-                        $verifInfoSend = '<p class="message m20">Nous avons bien les coordonnées postal de '.ucfirst($userVerif['lastname']).' '.ucfirst($userVerif['lastname']).'</p>';
+                        $verifInfoSend = '<p class="message m20">Nous avons bien les coordonnées postal de '.$userVerif['lastname'].' '.$userVerif['lastname'].'</p>';
                         $_SESSION['address'] = true;
                     }
                     if ($userAdmin['card_virtuel'] == 0){
                             $verifInfoSend .= '<p class="message m20">Cet utilisateur ne souhaite pas recevoir de cartes par email.</p>';
                     } else {
-                        $verifInfoSend.= '<p class="message m20">'.ucfirst($userVerif['lastname']).' '.ucfirst($userVerif['lastname']).' a accepter de recevoir une carte par email</p>';
+                        $verifInfoSend.= '<p class="message m20">'.$userVerif['lastname'].' '.$userVerif['lastname'].' a accepter de recevoir une carte par email</p>';
                         $_SESSION['email'] = true;
                         }
                     if ($userAdmin['card_real'] == 1 &&  $userAdmin['card_virtuel'] == 1){
@@ -74,7 +91,8 @@ if (isset($_POST['submit'])){
             } else {
                 $verifInfoSend = '<p class="message"> Cet utilisateur n\'est pas inscrit sur le site. </p>';
             }
-        }
+            
+        }*/
     } else {
             $verifInfoSend = "L'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.";    
     }
@@ -115,7 +133,7 @@ if (isset($_POST['confirm'])){
     // variable pour récupérer dans buy.php
     $_SESSION['buy'] = true;
     $_SESSION['tab_card'] = $tab_card;
-    $_SESSION['total_card'] = $total_card;
+    $_SESSION['total_card'] = round($total_card,2);
     $buy = $globalClass->setBuyEnv();
     }
 }

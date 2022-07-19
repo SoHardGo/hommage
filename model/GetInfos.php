@@ -35,7 +35,7 @@ class GetInfos extends Manage {
     // Récupération toutes les infos d'un défunt selon son Id
     public function getInfoDefunct(int $id) :object {
         $data = ['id'=>$id];
-        $query = "SELECT id, lastname, firstname, birthdate, death_date, cemetery, city_birth, postal_code, user_id FROM defuncts WHERE id=:id";
+        $query = "SELECT id, lastname, firstname, birthdate, death_date, cemetery, city_birth, city_death, postal_code, user_id FROM defuncts WHERE id=:id";
         return $this->getQuery($query,$data);
     }
     
@@ -52,6 +52,15 @@ class GetInfos extends Manage {
     public function getAllDefuncts() :array {
         $query = "SELECT id, user_id, lastname, firstname, birthdate, death_date FROM defuncts ORDER BY lastname";
         return $this->getQuery($query)->fetchAll();
+    }
+        // Sélecteur de défunt
+    public function defunctSelect() :string{
+        $select ='';
+        $info_def = $this->getAllDefuncts();
+        foreach($info_def as $i){
+            $select .= '<option value="'.$i['id'].'">'.$i['lastname'].' '.$i['firstname'].' &dagger; '.$i['death_date'].'</option>';
+        }
+        return $select;
     }
     
     // Affichage à faire de la ville et code postal dans recherche
@@ -159,9 +168,13 @@ class GetInfos extends Manage {
     // Liste des achats par utilisateur
     public function getListBuyUser(int $id) : array {
         $listing = $this->getOrdersList($id);
-        foreach ($listing as $l){
-            $listcards = json_decode($l['cards_id']);
-            $cards['idcards'][] = $listcards;
+        if(!empty($listing)){
+            foreach ($listing as $l){
+                $listcards = json_decode($l['cards_id']);
+                $cards['idcards'][] = $listcards;
+            }
+        } else { 
+            $card = [];
         }
         return $cards;
     }

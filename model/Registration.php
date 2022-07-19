@@ -24,7 +24,7 @@ class Registration extends Manage {
     
     // inscription d'un administrateur utilisateur de fiche défunt
     public function setUserAdmin(array $data) :void{
-        $query = "INSERT INTO user_admin SET affinity=:affinity, card_virtuel=:card_virtuel, card_real=:card_real, new_user=:new_user, user_id=:user_id, date_crea=NOW(), defunct_id=:defunct_id";
+        $query = "INSERT INTO user_admin SET affinity=:affinity, card_virtuel=:card_virtuel, card_real=:card_real, new_user=:new_user, user_id=:user_id, date_crea=NOW(), defunct_id=:defunct_id, flower=:flower";
         $this->getQuery($query,$data);
     }
     // enregistrement des emails envoyés via contact
@@ -111,23 +111,28 @@ class Registration extends Manage {
         $query = "UPDATE user_admin SET user_id=:user_id WHERE id=:id";
         $this->getQuery($query,$data);
     }
+    // mise à jour des informations d'un défunt
+    public function updateInfosDefunct(array $data) :void{
+        $query = "UPDATE defuncts SET lastname=:lastname, firstname=:firstname, birthdate=:birthdate, death_date=:death_date, cemetery=:cemetery, city_birth=:city_birth, city_death=:city_death, postal_code=:postal_code WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
 
 /////////////////////////////DELETER////////////////////////////////////////////
 
     // supprimer un commentaire
-    public function deleteComment(string $id) :void{
+    public function deleteComment(int $id) :void{
         $data = ['id'=>$id];
         $query = "DELETE FROM comments WHERE id=:id";
         $this->getQuery($query,$data);
     }
     // supprimer les commentaires lié à une photo
-    public function deleteCommentsPhoto(string $id) :void{
+    public function deleteCommentsPhoto(int $id) :void{
         $data = ['photo_id'=>$id];
         $query = "DELETE FROM comments WHERE photo_id=:photo_id";
         $this->getQuery($query,$data);
     }
     // supprimer une photo
-    public function deletePhoto(string $id) :void{
+    public function deletePhoto(int $id) :void{
         $data = ['id'=>$id];
         $query = "DELETE FROM photos WHERE id=:id";
         $this->getQuery($query,$data);

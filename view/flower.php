@@ -10,9 +10,9 @@ ob_start();
 </section>
 <section>
   <div class="flower">
-    <form class="form__flower" method="POST" action="?page=flower">
+    <form class="form_flower" method="POST" action="?page=flower">
       <div class="flower_container">
-        <?php foreach($flowerList as $f) :?>
+<?php foreach($flowerList as $f) :?>
           <div class="flower">
             <img class="img dim200" src="public/pictures/flowers/<?=$f['name']?>" alt="bouquet de fleurs">
             <div>
@@ -21,8 +21,9 @@ ob_start();
               <input class="flower_id" type="checkbox" name ="check[]" value="<?=$f['id']?>">
             </div>
           </div>
-        <?php endforeach ?>
+<?php endforeach ?>
       </div>
+<?php if(isset($_SESSION['user']['id'])) :?>
       <fieldset>
         <label for="select_defunct">Sélectionner le défunt</label>
         <div class="flower_dest">
@@ -30,13 +31,13 @@ ob_start();
             <option value="">--Liste des défunts sur le site--</option>
             <?=$select?>
           </select>
-          <p>Je préfère recevoir à mon adresse.</p>
-          <input type="radio" name="to_home">
         </div>
+        <p>Par défaut les bouquets seront envoyés à votre domicile</p>
         <input class="button" type="submit" name="submit" id="select_defunct" value="Valider le destinataire">
       </fieldset>
       <h2>Récapitulatif de vos choix</h2>
       <h3>Vous avez sélectionné  <?=$nb_flower?> bouquets.</h3>
+      <h4><?=$message?></h4>
       <table class="flower_table">
         <thead>
           <tr>
@@ -64,7 +65,15 @@ ob_start();
         <?=$buy?>
     </div>
 </section>
-  
+<?php else :?>
+<section>
+  <div class="flower_no_user">
+    <h2>Inscrivez-vous ou connectez-vous pour bénéficier de ce service.</h2>
+    <a class="button button-a" href="?page=registration">S'inscrire</a>
+    <a class="button button-a" href="?page=connexion">Connexion</a>
+  </div>
+</section>
+<?php endif ?> 
 <?php
 $content= ob_get_clean(); 
 require 'template.php';

@@ -6,8 +6,8 @@ $confirm = '';
 
 if (isset($_POST['submit']) && !empty($_POST['message'])) {
     if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
-        $data['lastname'] = isset($_POST['lastname']) ? htmlspecialchars(trim( $_POST['lastname'])) : '';
-        $data['message'] = isset($_POST['message']) ? htmlspecialchars(trim( $_POST['message'])) : '';
+        $data['lastname'] = isset($_POST['lastname']) ? htmlspecialchars(trim(ucfirst($_POST['lastname']))) : '';
+        $data['message'] = isset($_POST['message']) ? htmlspecialchars(trim(ucfirst($_POST['message']))) : '';
         if(isset($_POST['email']) && filter_var((htmlspecialchars(trim($_POST['email']))), FILTER_VALIDATE_EMAIL)){
             $result = $getInfo->getEmail(htmlspecialchars(trim($_POST['email'])))->fetch();
             if($result){

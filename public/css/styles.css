@@ -361,6 +361,15 @@ input[type="file"] {
     padding: 0.5rem;
     margin: 1.25rem auto;
 }
+.profil_modify {
+    position: relative;
+    margin: 0.5rem;
+}
+.profil_modify_icon {
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
+}
 .profil_change {
     display: flex;
     flex-direction: column;
@@ -662,6 +671,14 @@ select[name="select_def"] {
 }
 .fleur15 {
      
+}
+/*******************************************************************************/
+/*******************************MODIFYFORM**************************************/
+/*******************************************************************************/
+.modifyform {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 /*******************************************************************************/
 /***********************************TCHAT***************************************/
@@ -1416,8 +1433,8 @@ select[name="affinity"]{
         margin-left: 6rem;
     }
     .user_list_defuncts {
-        top: 28.89rem;
-        left: 11.1rem;
+        top: 30.89rem;
+        left: 9.5rem;
         width: 26%;
     }
     .user_name_defuncts {
@@ -1497,8 +1514,8 @@ select[name="affinity"]{
         margin-left: 12rem;
     }
     .user_list_defuncts {
-        top: 32.89rem;
-        left: 16rem;
+        top: 32.9rem;
+        left: 15rem;
         width: 23%;
     }
     /*****HOME*****/
@@ -1613,8 +1630,8 @@ select[name="affinity"]{
         margin-left: 19rem;
     }
     .user_list_defuncts {
-        top: 37.89rem;
-        left: 22rem;
+        top: 38.9rem;
+        left: 21rem;
         width: 20%;
     }
     /*****HOME*****/
@@ -1676,7 +1693,7 @@ select[name="affinity"]{
         margin-left: 27rem;
     }
     .user_list_defuncts {
-        top: 43.89rem;
+        top: 43.9rem;
         left: 29rem;
         width: 17%;
     }

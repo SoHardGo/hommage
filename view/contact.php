@@ -8,7 +8,7 @@ ob_start();
             <form method="POST" action="?page=contact">
                 <label for="lastname">Entrer votre nom</label>
                 <?php if (isset($_SESSION['user']['lastname'])):?>
-                <input type="text" name="lastname" id="lastname" placeholder="<?=ucfirst($_SESSION['user']['lastname'])?>" readonly>
+                <input type="text" name="lastname" id="lastname" placeholder="<?=$_SESSION['user']['lastname']?>" readonly>
                 <?php else :?>
                 <input type="text" name="lastname" id="lastname">
                 <?php endif ?>

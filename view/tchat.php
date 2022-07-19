@@ -4,7 +4,7 @@ ob_start();
 ?>
 <section>
     <div class="tchat">
-        <h1 class="tchat_dest"><?=ucfirst($infos['lastname']).' '.ucfirst($infos['firstname'])?></h1>
+        <h1 class="tchat_dest"><?=$infos['lastname'].' '.$infos['firstname']?></h1>
         <div class="tchat_box">
             <div class="tchat_recipient">
                 <?php if($status) :?>

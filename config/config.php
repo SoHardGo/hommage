@@ -20,6 +20,7 @@ const ROUTES = [
     'buy' => 'buy.php',
     'home_user' => 'home_user.php',
     'tchat' => 'tchat.php',
+    'modifyform'=>'modifyform.php',
     'adminlog' => '../admin/viewAdmin/adminLog.php'
     ];
 const DEFAULT_ROUTE = ROUTES ['home'];

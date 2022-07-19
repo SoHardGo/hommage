@@ -7,7 +7,7 @@ ob_start();
     <div class="profil">
         <h1 class="profil_title">Mes informations</h1>
         <img class="img dim40" src="public/pictures/site/Info.png" alt="icon information">
-        <h3 class="profil_name"><?=ucfirst($_SESSION['user']['lastname']).' '.ucfirst($_SESSION['user']['firstname'])?></h3>
+        <h3 class="profil_name"><?=$_SESSION['user']['lastname'].' '.$_SESSION['user']['firstname']?></h3>
         <div class="profil_form">
             <form method="POST" action="?page=profil">
                 <div class="profil_form_info">
@@ -27,7 +27,7 @@ ob_start();
                     <input type="text" name="city" value="<?=$info_user['city']?>"></input>
                 </div>
                 <div class="profil_admin">
-                    <label>Vous administez ces <?=$nbr?> fiches :</label>
+                    <h4>Modifier ces <?=$nbr?> fiches :</h4>
                     <?=$defunct_list?>
                 </div>
                 <div class="profil_change">
@@ -37,7 +37,7 @@ ob_start();
                     <?=$mess_transfer?>
                     <input class="button" type="submit" name="new_admin" id="new_user">
                 </div>
-                <label for="modify" class="message">- Modifier les champs que vous souhaitez mettre à jour.</label>
+                <label for="modify" class="message">- Modifier les champs que vous souhaitez mettre à jour</label>
                 <input type="hidden" name="token" value="<?=$token?>">
                 <input type="submit" name="submit" class="button" id="modify" value="Modifier">
                 <?=$confirm_transfer?>
