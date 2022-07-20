@@ -22,7 +22,8 @@ if (isset($_POST['content']) && !empty($_POST['content'])){
     // récupération du nom, du prix et du libellé de la carte sélectionnée
     $cardInfo = $getInfo->getProductInfo(intval($_POST['card_id']));
     // calcul du total des cartes sélectionnées
-    $total = $getInfo->getCardTotal();
+    $totalCard = $getInfo->getCardTotal();
+    $total = round($totalCard,2);
     // initialisation du tableau d'affichage de la sélection des cartes
     $tab = '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].'</td></tr>';
     

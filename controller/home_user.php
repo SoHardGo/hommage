@@ -31,7 +31,7 @@ try {
             // Récupération des infos des défunts associées à l'utilisateur
                 $_SESSION['user']['defunct'] = $getInfo->getDefunctList();
             // Création d'un cookie 
-            //   setcookie('name', $_SESSION['user']['lastname'], time() + 7200, null, null, false, true);
+            //   setcookie('name', $_SESSION['user']['lastname'], time() + 7200, null, null, true, true);
 
             }
     }
@@ -44,7 +44,7 @@ try {
 
 // Si l'utilisateur n'existe pas -> redirection Connexion
 if(!isset($_SESSION['user']['id'])) {
-    require 'view/connexion.php';
+    header('Location: index.php?page=connexion');
     exit;
 }
 // Validation du bandeau utilisateur
@@ -173,10 +173,17 @@ if($id_delete){
 if(isset($_POST['cancel_def'])){
     $message = '';
 }
+// Suppression définitive d'un defunct et ses photos du dossier de l'utilisateur
 if(isset($_POST['delete_def'])){
-    $register->deleteOneDefunct($id_delete);
+    $listPhoto = $getInfo->photoDefByUser(htmlspecialchars(trim($_SESSION['user']['id'])), $id_delete);
+    foreach ($listPhoto as $l){
+        $globalClass->deleteAllPhotosDef(htmlspecialchars(trim($_SESSION['user']['id'])), $l['name']);   
+    }
+    $register->deleteOneDefunct($id_delete, htmlspecialchars(trim($_SESSION['user']['id'])));
     $message ='';
     header('location: index.php?page=home_user');
     exit;
 }
+
+
 require 'view/home_user.php';

@@ -9,7 +9,7 @@ $passMess = '';
 $message = '';
 // Si le bouton s'inscrire à été validé renvoi vers le formulaire d'inscription
 if (isset($_GET['registration'])){
-    require 'controller/registration.php';
+    header('location: index.php?page=registration');
     exit;
 }
 if (isset($_GET['error'])){

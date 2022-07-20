@@ -90,6 +90,13 @@ class GlobalClass extends Manage {
         }
         return $status;
     }
+    // Suppression des photos d'un défunt dans le dossier de l'utilisateur
+    public function deleteAllPhotosDef (int $user_id, string $name) :void{
+        $folder = 'public/pictures/photos/'.$user_id;
+        if (is_dir($folder)) {
+            unlink($folder.'/'.$name);
+        }
+    }
     
     // Supprimer le dossier de photos d'un utilisateur et se profil
      public function supprFolder($user_id) :void{
@@ -97,8 +104,8 @@ class GlobalClass extends Manage {
         if (is_dir($folder)) {
              $files = scandir($folder);
              foreach ($files as $f) {
-               if ($f != "." && $f != "..") {
-                 unlink($folder."/".$f);
+               if ($f != '.' && $f != '..') {
+                 unlink($folder.'/'.$f);
                }
              }
              rmdir($folder);

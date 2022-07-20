@@ -70,7 +70,7 @@ if(isset($_SESSION['user']['id'])) {
                 $register->updatePhoto(['id' => $photo_id, 'name'=>$name]);
             }
         } else {
-        $messFile = "L'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.";
+        $messFile = '<p class="message">L\'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.</p>';
         }
     }
 }
@@ -90,7 +90,7 @@ if ($id_def) {
     }
         
 } else {
-    echo 'Cette fiche n\'existe pas';
+    $messFile = '<p class="message">Cette fiche n\'existe pas</p>';
 }
 
 //Nombre de commentaires et photos ajoutées depuis la dernière connexion

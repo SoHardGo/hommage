@@ -1,11 +1,6 @@
 <?php
 $title='Connexion';
 ob_start();
-/*
-if(!isset($_SESSION['user'])){
-    header('location: index.php?page=connexion');
-    exit;
-}*/
 ?>
 <section>
     <div class="connexion">

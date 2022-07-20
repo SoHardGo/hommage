@@ -9,16 +9,13 @@ $manage = new Manage();
 
 $send_real = '';
 $send_email = '';
-$message = '';
+$send_choice = '';
+$mess_dest = '';
+$result_send = '';
 $mess_buy = '';
-$mess_send ='';
 $buy = '';
-$email = '';
 $cardInfo = '';
-$verifInfoSend = '';
-$sendPrefered = '';
-$confirmDest = false;
-$nb ='';
+
 
 // Carte par défaut dans l'éditeur
 $id = $_GET['id']??1;
@@ -34,90 +31,56 @@ if (isset($_GET['empty']) && $_GET['empty']){
 // Initialisation d'un tableau pour les Id d'enregistrement des cartes
 if(!isset($_SESSION['nbCard'])) $_SESSION['nbCard'] = array();
 
-// Initialisation des information la carte 
+// Initialisation des informations la carte 
 if($id != null){
     $cardInfo = $getInfo->getProductInfo($id);
 }
-////Récupération des informations utilisateurs si ce dernier est inscrit///
-///Pour préremplir son adresse///
-if (isset($_SESSION['user']['id'])){
-        $infos_user = $getInfo->getInfoUser($_SESSION['user']['id']);
-} 
 
-// Vérification si l'utilisateur existe
-if (isset($_POST['submit'])){
+// Vérification si l'utilisateur à fournit son adresse
+$infos_user = $getInfo->getInfoUser($_SESSION['user']['id']);
+if(!isset($info_user['number_road']) || !isset($info_user['address']) || !isset($info_user['postal_code']) || !isset($info_user['city'])){
+    $mess_dest = '<p class="message">Votre adresse est incomplète, veuillez la mettre à jour dans la rubrique "Mon compte"</p>';
+}
+
+// Choix du defunt
+if (isset($_POST['submit_def'])){
     if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
-        if(isset($_POST['select_def'])){
-            $info_def = $getInfo->getInfoDefunct(htmlspecialchars(trim($_POST['select_def'])))->fetch();
-            $user_admin = $globalClass->verifUserAdmin($info_def['user_id'])->fetch();
-
-             if ($user_admin['card_real']){
-                $send_real = 'Accepte les real';
+        if(isset($_POST['select_def']) && !empty($_POST['select_def'])){
+        $user_admin = $getInfo->getAdminDefunct(htmlspecialchars(trim($_POST['select_def'])));
+        $_SESSION['id_admin'] = $user_admin['user_id'];
+            if ($user_admin['card_real'] == 1 && $user_admin['card_virtuel'] == 1){
+                $send_choice = '<fieldset><legend>Choix du mode d\'envoi</legend>Par Email<input type="radio" name="radio" value="email">Par voix Postal<input type="radio" name="radio" value="postal"><input class="button" type="submit" name="sub_send"></fieldset>';
             }
-             if ($user_admin['card_virtuel']){
-                $send_email = 'Accepte les email';
+            if ($user_admin['card_real'] == 1 && $user_admin['card_virtuel'] == 0){
+                $send_real = '<p>Envoi par voix Postal</p>';
+            } 
+            if ($user_admin['card_virtuel'] == 1 && $user_admin['card_real'] == 0){
+                $send_email = '<p>Envoi par Email</p>';
+            }
+            if ($user_admin['card_virtuel'] == 0 && $user_admin['card_real'] == 0){
+                $result_send = 'Nous confirmons l\'envoi à votre domicile';
+                $send_email = '<p class="message">La personne qui a crée la fiche ne nous a pas fournit ses coordonnées</p>';
+                $_SESSION['user_card_send'] = $_SESSION['user']['id'];
             }
         }
-        
-        /*
-        if (isset($_POST['user_lastname']) && isset($_POST['user_firstname']) && !empty($_POST['user_lastname']) && !empty($_POST['user_firstname'])){
-            $data = ['lastname'=>htmlspecialchars(trim($_POST['user_lastname'])),
-                'firstname'=>htmlspecialchars(trim($_POST['user_firstname']))];
-            $userVerif = $globalClass->verifyUser($data)->fetch();
-        //Vérification si l'utisateur existe, si il crée une fiche et accepté l'envoi par email et/ou par adresse postale
-            if ($userVerif != null){
-                $_SESSION['user_send'] = $userVerif['id'];
-                $_SESSION['user_send_name'] = $_POST['user_lastname'].' '.$_POST['user_firstname'];
-                $userAdmin = $globalClass->verifUserAdmin($userVerif['id'])->fetch();
-                if ($userAdmin){
-                    if ($userAdmin['card_real'] == 0){
-                            $verifInfoSend = '<p class="message m20">Cet utilisateur n\'a pas souhaité communiquer son adresse.</p>';
-                    } else {
-                        $verifInfoSend = '<p class="message m20">Nous avons bien les coordonnées postal de '.$userVerif['lastname'].' '.$userVerif['lastname'].'</p>';
-                        $_SESSION['address'] = true;
-                    }
-                    if ($userAdmin['card_virtuel'] == 0){
-                            $verifInfoSend .= '<p class="message m20">Cet utilisateur ne souhaite pas recevoir de cartes par email.</p>';
-                    } else {
-                        $verifInfoSend.= '<p class="message m20">'.$userVerif['lastname'].' '.$userVerif['lastname'].' a accepter de recevoir une carte par email</p>';
-                        $_SESSION['email'] = true;
-                        }
-                    if ($userAdmin['card_real'] == 1 &&  $userAdmin['card_virtuel'] == 1){
-                        $sendPrefered ='<label>Choisissez par quel moyen vous souhaitez envoyer la carte</label>Adresse Postal :<input type="radio" name="sendPrefered" value="address">Email :<input type="radio" name="sendPrefered" value="email">';
-                    }
-                } else {
-                     $verifInfoSend = '<p class="message"> Cet utilisateur n\'ayant pas crée de fiche, il est impossible de lui envoyer une carte de condoléance. </p>';
-                }
-            } else {
-                $verifInfoSend = '<p class="message"> Cet utilisateur n\'est pas inscrit sur le site. </p>';
-            }
-            
-        }*/
     } else {
-            $verifInfoSend = "L'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.";    
+            $result_send = '<p class="message">L\'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.</p>';
     }
 }
-/////// Vérification de l'utilisateur à qui envoyé une carte
-// Choix de l'envoi à l'auteur de la carte
-if (isset($_POST['valid_add']) && $_POST['valid_add'] == '1' && !empty($_POST['valid_add'])){
-    $message = '<p class="message">Confirmation de l\'envoi à votre adresse.</p>';
-    $confirmDest = true;
-    $_SESSION['user_send'] = $_SESSION['user']['id'];
-} elseif (!isset($_POST['valid_add']) || $_POST['valid_add'] == '0' && !isset($_POST['sendPrefered'])) {
-    $message = '<p class="message">Vous n\'avez pas encore sélectionné de destinataire</p>';
+// Validation du mode d'envoi au créateur de la fiche du défunt
+if(!isset($_POST['radio']) && !isset($_POST['select_def'])){
+    $mess_dest = '<p>Envoi à votre domicile</p>';
+    $_SESSION['user_card_send'] = $_SESSION['user']['id'];
 }
-// Choix d'envoi à un utilisateur ayant accepté l'envoi par Email et Adresse Postal
-if(isset($_POST['sendPrefered']) && $_POST['sendPrefered']!=null && $_POST['sendPrefered'] == 'address'){
-    $mess_send = '<p>Confirmation de l\'envoi postal à '.$_SESSION['user_send_name'].'</p>';
-    $message = '';
-    $address_send = true;
-    $confirmDest = true;
-} elseif (isset($_POST['sendPrefered']) && $_POST['sendPrefered']!=null && $_POST['sendPrefered'] == 'email') {
-    $mess_send = '<p>Confirmation de l\'envoi par email à '.$_SESSION['user_send_name'].'</p>';
-    $message = '';
-    $email_send = true;
-    $confirmDest = true;
+if(isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'email'){
+    $mess_dest = '<p>Confirmation de l\'envoi par Email</p>';
+    $_SESSION['user_card_send'] = $_SESSION['id_admin'];
 }
+if(isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'postal'){
+    $mess_dest = '<p>Confirmation de l\'envoi par voix Postal</p>';
+    $_SESSION['user_card_send'] = $_SESSION['id_admin'];
+}     
+
 $categories = 'cartes';
 $tab_card = $getInfo->getCardTab();
 $total_card = $getInfo->getCardTotal();
@@ -125,12 +88,11 @@ $cardsList = $getInfo->getProductsList($categories)->fetchAll();
 
 
 // Affichage de la partie paiement avec liste des cartes validé
-// Découpage des lignes du tableau
 if (isset($_POST['confirm'])){
     if ($total_card == '0'){
         $mess_buy = '<p class="message">Vous n\'avez rien sélectionné pour le moment.</p>';
     } else {
-    // variable pour récupérer dans buy.php
+    // Variable pour récupérer dans buy.php
     $_SESSION['buy'] = true;
     $_SESSION['tab_card'] = $tab_card;
     $_SESSION['total_card'] = round($total_card,2);

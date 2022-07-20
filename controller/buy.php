@@ -14,8 +14,8 @@ $list = $_GET['list']??0;
 
 
 // récupération des informations du destinataire pour les cartes
-if (isset($_SESSION['user_send'])){
-$user_send = $getInfo->getInfoUser($_SESSION['user_send']);
+if (isset($_SESSION['user_card_send'])){
+$user_send = $getInfo->getInfoUser($_SESSION['user_card_send']);
 
     // enregistrement des achats de cartes dans la BBD
     if (isset($_SESSION['total_card']) && $_SESSION['total_card'] != '0') {
@@ -85,6 +85,8 @@ $user_send = $getInfo->getInfoUser($_SESSION['user_send']);
                      ];
             $register->setProducts($data); 
             $messFinal = '<p class="message">Paiement effectué avec succès. Reception du colis d\'ici 3 jours.</p><p class="message"> Merci pour votre confiance.</p>';
+            $tab ='';
+            date(s);
             unset ($_SESSION['nbCard']);
             }   
         } else {
@@ -98,6 +100,7 @@ $user_send = $getInfo->getInfoUser($_SESSION['user_send']);
 $tab_list = '';
 $total = 0;
 if ($list){
+    if(!empty($listing)){
     // récupération liste des enregistrements, contenu, date et le destinataire
     $listing = $getInfo->getListBuyUser(intval($_SESSION['user']['id']));
         foreach ($listing['idcards'] as $l){
@@ -116,6 +119,9 @@ if ($list){
             }
         }
     $tab_list .= '<tr><td colspan="3">Total de vos achats :</td><td>'.$total.'</td></tr>';
+    } else {
+        $messFinal = '<p>Vous n\'avez pas effectué d \'achat pour le moment</p>';
+    }
 }
 $token = $register->setToken();
 require 'view/buy.php';

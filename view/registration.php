@@ -15,7 +15,7 @@ ob_start();
                     <input type="text" name="firstname" id="firstname" required="required">
                 <label for="pseudo">Pseudo:</label>
                     <input type="text" name="pseudo" id="pseudo">
-                <label for="text">N° de rue:</label>
+                <label for="number">N° de rue:</label>
                     <input type="text" name="number_road" id="number">
                 <label for="address">Adresse:</label>
                     <input type="text" name="address" id="address">

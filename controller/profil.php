@@ -55,7 +55,8 @@ if(isset($_SESSION['user']['id'])){
         $_SESSION = [];
         session_destroy();
         $user_content='';
-        require 'view/home.php';
+        header('location: index.php?page=home');
+        exit;
     }
     
     // Désinscription avec transfert de compte
@@ -71,7 +72,8 @@ if(isset($_SESSION['user']['id'])){
         $_SESSION = [];
         session_destroy();
         $user_content='';
-        require 'view/home.php';
+        header('location: index.php?page=home');
+        exit;
     }
     
     // Modification des informations de l'utilisateur
@@ -114,7 +116,8 @@ if(isset($_SESSION['user']['id'])){
                             </div>';
     }
 } else {
-    require 'view/home.php';
+    header('location: index.php?page=home');
+    exit;
 }
 $token = $register->setToken();
 require 'view/profil.php';

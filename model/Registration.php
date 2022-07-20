@@ -131,7 +131,7 @@ class Registration extends Manage {
         $query = "DELETE FROM comments WHERE photo_id=:photo_id";
         $this->getQuery($query,$data);
     }
-    // supprimer une photo
+    // supprimer une photo de la BDD
     public function deletePhoto(int $id) :void{
         $data = ['id'=>$id];
         $query = "DELETE FROM photos WHERE id=:id";
@@ -165,11 +165,14 @@ class Registration extends Manage {
         $this->getQuery($query,$data);
     }
     // supprimer une fiche d'un défunt
-    public function deleteOneDefunct(int $def) :void{
-        $data = ['id'=>$def];
+    public function deleteOneDefunct(int $defunct, int $user_id) :void{
+        $data = ['defunct_id'=>$defunct, 'user_id'=>$user_id];
+        $query = "DELETE FROM comments WHERE user_id=:user_id AND defunct_id=:defunct_id";
+        $this->getQuery($query,$data);
+        $data = ['id'=>$defunct];
         $query = "DELETE FROM defuncts WHERE id=:id";
         $this->getQuery($query,$data);
-        $data = ['defunct_id'=>$def];
+        $data = ['defunct_id'=>$defunct];
         $query = "DELETE FROM user_admin WHERE defunct_id=:defunct_id";
         $this->getQuery($query,$data);
     }

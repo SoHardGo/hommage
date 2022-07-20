@@ -18,7 +18,7 @@ $_SESSION['lost_code'] = isset($_SESSION['lost_code'])??'';
 if (isset($_POST['cancel'])){
     session_destroy();
     $_SESSION = [];
-    require 'view/connexion.php';
+    header('location: index.php?page=connexion');
     exit;
 }
 
@@ -61,7 +61,7 @@ if(isset($_POST['subpass'])){
     if(isset($_POST['new_password']) && isset($_POST['pass_again']) && !empty($_POST['new_password']) && !empty($_POST['pass_again']) && $_POST['new_password'] == $_POST['pass_again']){
         $passMess = '<p class="message">Mot de passe réinitialisé avec succès.</p><p class="message"> Vous pouvez vous connecter.</p>';
         $register->updatePassword(htmlspecialchars(trim($_POST['new_password'])), intval($_SESSION['user']['id_tmp']));
-        require_once 'view/connexion.php';
+        header('location: index.php?page=connexion');
         exit;
     } else {
         $passMess = '<p class="message">Les mots de passe ne sont pas identiques, ou les champs sont vides .</p>';

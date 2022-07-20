@@ -91,6 +91,13 @@ class GetInfos extends Manage {
         return $this->getQuery($query,$data);
     }
     
+    // Liste des photos de défunt ajouté par un utilisateur
+    public function photoDefByUser(int $user, int $defunct) :array{
+        $data = ['user_id'=>$user, 'defunct_id'=>$defunct];
+        $query = "SELECT name FROM photos WHERE user_id=:user_id AND defunct_id=:defunct_id";
+        return $this->getQuery($query,$data)->fetchAll();
+    }
+    
     // Affichage de la photo miniature d'un defunt
     public function getPhotoDef(int $def_id):string {
         $data = ['defunct_id'=>$def_id];
@@ -174,7 +181,7 @@ class GetInfos extends Manage {
                 $cards['idcards'][] = $listcards;
             }
         } else { 
-            $card = [];
+            $cards = [];
         }
         return $cards;
     }
@@ -201,7 +208,7 @@ class GetInfos extends Manage {
         $query = "SELECT id FROM comments WHERE defunct_id=:defunct_id AND date_crea >:last_log AND user_id!=:user_id";
         return $this->getQuery($query,$data);
     }
-    // Récupération des info d'un useradmin selon l'ID du défunt
+    // Récupération des infos d'un useradmin selon l'ID du défunt
     public function getUserAdminInfo(int $def_id) :?array {
         $data = ['defunct_id'=>$def_id];
         $query = "SELECT user_id FROM user_admin WHERE defunct_id=:defunct_id";
@@ -210,6 +217,13 @@ class GetInfos extends Manage {
         $user_admin = $this->getInfoUser($user_id);
         $tab = ['user_id'=>$user_id, 'admin'=>$user_admin];
         return $tab;
+    }
+    // Récupération des infos admin selon  un défunt
+    public function getAdminDefunct(int $id_def) :array {
+        $data = ['defunct_id'=>$id_def];
+        $query = "SELECT user_id, card_real, card_virtuel FROM user_admin WHERE defunct_id=:defunct_id";
+        $result = $this->getQuery($query, $data)->fetch();
+        return $result;
     }
     // Liste des amis enregistrée
     public function getFriendsList(int $id) :array {

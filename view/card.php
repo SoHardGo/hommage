@@ -49,49 +49,29 @@ ob_start();
             </div>
         </div>
     </div>
+    <button class="button button-a" id ="card_val" type="button" value="1">Confirmer la carte</button>
 </section>
 <section>
-    <div class="card_form">
+<div class="card_form">
         <form method="POST" action="?page=card">
             <fieldset>
-                <Label>Pour quel defunt souhaitez-vous envoyer cette ?</Label>
-                <div class="card_dest">
-                  <select name="select_def">
-                    <option value="">--Liste des défunts sur le site--</option>
-                    <?=$select?>
+                <div class="card_select">
+                    <select name="select_def">
+                        <option value="">--Liste des défunts sur le site--</option>
+                        <?=$select?>
                   </select>
                 </div>
-                <div class="card_info_send">
-                    <?=$send_real.' '. $send_email?>
-                </div>
-                <p>Par défaut les cartes seront envoyés à votre domicile.</p>
-                <button class="button button-a" id ="card_val" type="button" value="1">Valider</button>
-                <!--
-                <div>
-                    <=$verifInfoSend, $sendPrefered?>
-                </div>
-                <hr>
-                
-                <div class="card_address">
-                    <Label>---- Je préfère recevoir à mon adresse ----</Label>
-                    <p><b><=$infos_user['number_road'].' '?><=$infos_user['address'].' '?><=$infos_user['postal_code'].' '?><=$infos_user['city']?></b></p>
-                    <label class="card_radio">Oui&emsp;&emsp;Non</label>
-                    <input type="radio"  class="button" name="valid_add" value="1">
-                    <input type="radio"  class="button" name="valid_add" value="0">
-                </div>
-                
-                <div>
-                    <=$message, $mess_send?>
-                </div>
-                 
-                <label for="valid_user"></label>
-                <input class="button button-a" id="valid_add" type="submit" name="submit" value="Valider le destinataire">
+                <label for="valid_add"></label>
+                <input class="button" id="valid_add" type="submit" name="submit_def" value="Choix du defunt">
             </fieldset>
-    <php if ($confirmDest):?>
-            <button class="button button-a" id ="card_val" type="button" value="1">Confirmer votre choix</button>
-    <php endif ?> -->
+            <div class="card_send">
+                <?=$send_real, $send_email, $send_choice?>
+            </div>
+            <div class="card_dest">
+                <?=$mess_dest, $result_send?>
+            </div>
             <div class="card_info">
-                <h3>Nombre de cartes avec texte intégré enregisteés: <span id="card_nb"><?=count($_SESSION['nbCard'])?></span></h3> 
+                <h3>Nombre de cartes avec texte intégré enregisteés: <span id="card_nb"><?=count($_SESSION['nbCard'])?></span></h3>
                 <h4>Montant de vos achats :</h4>
                 <table class="card_table">
                     <thead>
@@ -114,8 +94,8 @@ ob_start();
             <a class="button button-a" href="?page=card&empty=true">Vider le tableau</a>
             <label for="confirm">Réglement</label>
             <?=$mess_buy?>
-            <input class="button" type="submit" name="confirm" id="confirm" value="Paiement">
             <input type="hidden" name="token" value="<?=$token?>">
+            <input class="button" type="submit" name="confirm" id="confirm" value="Paiement">
         </form>
     </div>
 </div>

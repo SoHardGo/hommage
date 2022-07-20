@@ -18,12 +18,12 @@ nav_bar_close.addEventListener('click',function(){
 let photo_profil = document.querySelector('.user_icon');
 let input_profil = document.getElementById('photo_user');
 if(photo_profil !== null){
-photo_profil.addEventListener('click', function(){
-    input_profil.click();
-    input_profil.addEventListener('change', function(){
-        document.getElementById('form_user').submit();
+    photo_profil.addEventListener('click', function(){
+        input_profil.click();
+        input_profil.addEventListener('change', function(){
+            document.getElementById('form_user').submit();
+        });
     });
-});
 }
 ///////////////////////Gestion du lien de chaque fiche///////////////////////
 // avec création d'un nouvel élément dans le DOM
@@ -129,7 +129,7 @@ const elements = document.querySelectorAll('.card_edit');
     });
 
 
-/************************Recherche Insee***************************************/
+/////////////////////////Recherche Insee////////////////////////////////////////
 // recherche par le nom de famille
 let nom = document.getElementById('lastname_insee');
 let madiv = document.querySelector('.search_result_insee');
@@ -164,7 +164,6 @@ let content = document.querySelector('.content');   // contenu du texte
 
 if (edit_btn != null){
     edit_btn.addEventListener('click',()=>{
-        
         let card_text = content.textContent;                         // contenu du texte
         let card_id = document.getElementById('card_id').innerHTML;  // id de la carte sélectionné
         let card_nb = document.getElementById('card_nb');            // span où s'affiche le nombre de cartes
@@ -188,6 +187,7 @@ if (edit_btn != null){
                         .catch(err=>console.error(err));
         });
 }
+
 ////////////////////////Gestion des bouquets de fleurs//////////////////////////
 
 localStorage.clear();

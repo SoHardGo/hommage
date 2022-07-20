@@ -19,27 +19,83 @@ if (isset($_POST['submit'])) {
             $result = $getInfo->getEmail(htmlspecialchars(trim($_POST['email'])))->fetch();
             if($result){
                 $confirm = '<p class="message">Vous êtes déjà inscrit sur notre site, connectez-vous</p>';
-                require 'view/connexion.php';
+                header('location: index.php?page=connexion');
                 exit;
             }else{
                 $data['email'] = htmlspecialchars(trim($_POST['email']));
-                $data['lastname'] = isset($_POST['lastname']) ? htmlspecialchars(trim(ucfirst($_POST['lastname']))) : '';
-                $data['firstname'] = isset($_POST['firstname']) ? htmlspecialchars(trim(ucfirst($_POST['firstname']))) : '';
-                $data['pseudo'] = isset($_POST['pseudo']) ? htmlspecialchars(trim(ucfirst($_POST['pseudo']))) : '';
-                $data['number_road'] = isset($_POST['number_road']) ? htmlspecialchars(trim($_POST['number_road'])) : '';
-                $data['address'] = isset($_POST['address']) ? htmlspecialchars(trim($_POST['address'])) : '';
-                $data['postal_code'] = isset($_POST['cp']) && is_numeric($_POST['cp']) ? htmlspecialchars(trim($_POST['cp'])) : '';
-                $data['city'] = isset($_POST['city']) ? htmlspecialchars(trim(ucfirst($_POST['city']))) : '';
-                $data['password'] = isset($_POST['pwd']) ? htmlspecialchars(trim($_POST['pwd'])) : '';
+                
+                if(isset($_POST['lastname'])) {
+                    if (strlen($_POST['lastname']) < 20){
+                        $data['lastname'] = htmlspecialchars(trim(ucfirst($_POST['lastname'])));
+                    } else {
+                        header('location: index.php?page=registration');
+                        exit;
+                    }
+                }
+                if(isset($_POST['firstname'])) {
+                    if (strlen($_POST['firstname']) < 20){
+                        $data['firstname'] = htmlspecialchars(trim(ucfirst($_POST['firstname'])));
+                    } else {
+                        header('location: index.php?page=registration');
+                        exit;
+                    }
+                }
+                if(isset($_POST['pseudo'])) {
+                    if (strlen($_POST['pseudo']) < 20){
+                        $data['pseudo'] = htmlspecialchars(trim(ucfirst($_POST['pseudo'])));
+                    } else {
+                        $data['pseudo'] = '';
+                    }
+                }
+                if(isset($_POST['number_road']) && is_numeric($_POST['number_road'])) {
+                    if (strlen($_POST['number_road']) < 20){
+                        $data['number_road'] = htmlspecialchars(trim($_POST['number_road']));
+                    } else {
+                        $data['number_road'] = '';
+                    }
+                }
+                if(isset($_POST['address'])) {
+                    if (strlen($_POST['address']) < 40){
+                        $data['address'] = htmlspecialchars(trim($_POST['address']));
+                    } else {
+                        $data['address'] = '';
+                    }
+                }
+                if(isset($_POST['cp'])) {
+                    $code_postal = htmlspecialchars(trim($_POST['cp']));
+                    if(preg_match('\'^[0-9]{5}$\'', $code_postal)){
+                       $data['postal_code'] = htmlspecialchars(trim($_POST['cp']));
+                    } else {
+                        $data['postal_code'] = 0;
+                    }
+                }
+                if(isset($_POST['city'])) {
+                    if (strlen($_POST['city']) < 30){
+                        $data['city'] = htmlspecialchars(trim(ucfirst($_POST['city'])));
+                    } else {
+                        $data['city'] = '';
+                    }
+                }
+                if(isset($_POST['pwd'])) {
+                    if (strlen($_POST['pwd']) < 20){
+                    $data['password'] = htmlspecialchars(trim($_POST['pwd']));
+                    } else {
+                        header('location: index.php?page=registration');
+                        exit;
+                    }
+                }
                 // Enregistrement d'un user et initialisation environnement user
                 $_SESSION['user'] = $data;
                 $user_id = $register->setRegister($data);
                 $_SESSION['user']['id'] = $user_id;
                 $user_content = $globalClass->setUserEnv();
             }
-            require 'view/home_user.php';
+        } else {
+            header('location: index.php?page=home_user');
             exit;
-        }
+        } 
+
+      
     } else {
         $confirm = "L'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.";
     }
