@@ -16,17 +16,16 @@ if (isset($_POST['submit'])){
     if(isset($_SESSION['token']) && isset($_POST['token']) && ($_SESSION['token'] === $_POST['token'])) {
             if(isset($_POST['lastname']) && isset($_POST['firstname']) && isset($_POST['death_date'])){
             // Test longueur des champs
-                if(isset($data['lastname'])){
-                    if (strlen($data['lastname']) < 20){
+                if(isset($_POST['lastname'])){
+                    if (strlen($_POST['lastname']) < 30){
                     $data['lastname'] = htmlspecialchars(trim(ucfirst($_POST['lastname'])));
                     } else {
                      header('location: index.php?page=createform');
                      exit;
                     }
                 }
-                if(isset($data['firstname'])){
-                    
-                    if (strlen($data['firstname']) < 20){
+                if(isset($_POST['firstname'])){
+                    if (strlen($_POST['firstname']) < 30){
                     $data['firstname'] = htmlspecialchars(trim(ucfirst($_POST['firstname'])));
                     } else {
                     header('location: index.php?page=createform');
@@ -50,17 +49,21 @@ if (isset($_POST['submit'])){
             $verify = $globalclass->verifyDefunct($test)->fetch();
                 if($verify) {
                     $message = '<p class="message">La fiche de '.$_POST['lastname'].' '.$_POST['lastname'].' existe déjà, vous pouvez la consulter ici -><a href="?page=environnement&id_def='.$verify['id'].'">FICHE</a></p>';
-                } else {
-                    // test du format de date
-                    if(isset($_POST['birthdate'])){
-                        $result = $globalClass->verifyDateFormat(htmlspecialchars(trim($_POST['birthdate'])));
-                        if ($result){
-                            $data['birthdate'] = htmlspecialchars(trim($_POST['birthdate']));
-                        } else {
-                            $data['birthdate'] = '';
-                        }
-                    }
+                    header('location: index.php?page=creatform');
+                    exit;
                 }
+                // test du format de date
+                if(isset($_POST['birthdate'])){
+                    $result = $globalClass->verifyDateFormat(htmlspecialchars(trim($_POST['birthdate'])));
+                    if ($result){
+                        $data['birthdate'] = htmlspecialchars(trim($_POST['birthdate']));
+                    } else {
+                        $data['birthdate'] = '';
+                    }
+                } else {
+                    $data['birthdate'] = '';
+                }
+                
                 // Vérification du format de code postal
                 if (isset($_POST['postal_code'])) {
                         $code_postal = htmlspecialchars(trim($_POST['postal_code']) );
@@ -71,26 +74,27 @@ if (isset($_POST['submit'])){
                     }
                 }
                 if(isset($_POST['cemetery'])) {
-                    if (strlen($_POST['cemetery']) < 20){
+                    if (strlen($_POST['cemetery']) < 30){
                         $data['cemetery'] = htmlspecialchars(trim($_POST['cemetery']));
                     } else {
                         $data['cemetery'] = '';
                     }
                 }
                 if(isset($_POST['city_birth'])) {
-                    if (strlen($_POST['city_birth']) < 20){
+                    if (strlen($_POST['city_birth']) < 30){
                         $data['city_birth'] = htmlspecialchars(trim(ucfirst($_POST['city_birth'])));
                     } else {
                         $data['city_birth'] = '';
                 }
                 if(isset($_POST['city_death'])) {
-                    if (strlen($_POST['city_death']) < 20){
+                    if (strlen($_POST['city_death']) < 30){
                         $data['city_death'] = htmlspecialchars(ucfirst($_POST['city_death']));
                     } else {
                         $data['city_death'] = '';
                     }
                 }
-                $data['user_id']= htmlspecialchars(trim($_SESSION['user']['id']));
+                $data['user_id'] = htmlspecialchars(trim($_SESSION['user']['id']));
+                $data['photo'] = null;
                 // Test de la logique des dates de naissance et de décès
                 if (isset($_POST['birthdate']) && isset($_POST['death_date']) && $_POST['birthdate'] > $_POST['death_date']){
                     header('location: index.php?page=createform');

@@ -3,8 +3,8 @@ require_once 'model/GetInfos.php';
 require_once 'model/GlobalClass.php';
 $globalClass = new GlobalClass();
 $getInfo = new GetInfos();
-$def_id = $getInfo->getUserDefunctList(intval($_SESSION['user']['id']));
-$info_def = $def_id->fetchAll();
+
+$info_def = $getInfo->getUserDefunctList(intval($_SESSION['user']['id']))->fetchAll();
 $nbr = count($info_def);
 $icon_anim_f = '';
 $icon_anim_m = '';
@@ -14,11 +14,11 @@ $messFile = '';
 $list_def = "";
 
 
-// sous menu dans Modifier fiche avec la liste des defunts
+// sous menu dans Modifier une fiche avec la liste des defunts
 if ($nbr){
     $list_def ='<div class="user_list_defuncts hidden">';
     for ($i=0; $i<$nbr; $i++){
-        $list_def.= '<a class="user_name_defuncts" href="?page=environment&id='.$info_def[$i]['id'].'">'.ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname']).'</a>';
+        $list_def.= '<a class="user_name_defuncts" href="?page=modifydef&id_def='.$info_def[$i]['id'].'">'.ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname']).'</a>';
     }
     $list_def.='</div>';
 } 
@@ -38,6 +38,7 @@ if (isset($_FILES['photo']) && !empty($_FILES['photo']) && !empty($_FILES['photo
 
 // vérification de la photo de profil lors de l'affichage du compte utilisateur
 $profil = $globalClass->verifyPhotoProfil(htmlspecialchars(trim($_SESSION['user']['id'])));
+
 // Liste des demandes d'amis depuis la dernière connexion
 $result = $getInfo->getAskFriend(htmlspecialchars(trim($_SESSION['user']['id'])));
 foreach ($result as $r){
@@ -47,6 +48,9 @@ foreach ($result as $r){
         $_SESSION['number_f'] = $number_f;
     } 
 }
-
+/*
+// Nombre des nouveaux message depuis la dernière connexion
+$result = $getInfo->getNewTchat(htmlspecialchars(trim($_SESSION['user']['id'])));
+var_dump($result);*/
 require 'view/user.php';
 

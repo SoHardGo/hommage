@@ -23,7 +23,7 @@ class GlobalClass extends Manage {
         }
         return $buy;
     }
-    // Vérification de l'existance d'une photo de profil
+    // Vérification de l'existance d'une photo de profil utilisateur
     public function verifyPhotoProfil(int $id) :string{
         $profil = 'public/pictures/users/'.$id.'/photo'.$id.'.jpg';
         if (!file_exists($profil)){
@@ -31,6 +31,15 @@ class GlobalClass extends Manage {
         }
         return $profil;
     }
+    
+    // Vérification de l'existance d'une photo de profil de défunt
+    public function verifyPhotoDef(int $user_id, int $def) :string{
+        $profil = 'public/pictures/users/'.$user_id.'/photodef'.$def.'.jpg';
+        if (!file_exists($profil)){
+            $profil = 'public/pictures/site/noone.jpg';
+        }
+        return $profil;
+    }  
     
     // Vérification des identifiants de compte, email et mot de passe
     public function verifyAccount(string $email, $pwd) :?array {
@@ -98,7 +107,7 @@ class GlobalClass extends Manage {
         }
     }
     
-    // Supprimer le dossier de photos d'un utilisateur et se profil
+    // Supprimer le dossier de photos d'un utilisateur et de son profil
      public function supprFolder($user_id) :void{
         $folder = 'public/pictures/photos/'.$user_id;
         if (is_dir($folder)) {
@@ -133,20 +142,20 @@ class GlobalClass extends Manage {
         } else {}
     }
     
-    // Vérification des fichiers téléchargés
+    // Vérification des fichiers téléchargés et enregistrement
     public function verifyFiles(string $source, string $size, string $dest, string $name) :bool {
         $mimes_ok = array('png' => 'image/png','jpeg' => 'image/jpeg', 'jpg' => 'image/jpeg');
         if(!in_array(finfo_file(finfo_open(FILEINFO_MIME_TYPE), $source), $mimes_ok)){
             $result = false;
         } else {
             if ($size > 2000000){
-            $result = false;
+                $result = false;
+                }
+            if (!file_exists($dest) && !is_dir($dest)){ 
+                mkdir($dest , 0755);
             }
-        if (!file_exists($dest) && !is_dir($dest)){ 
-                    mkdir($dest , 0755);
-        }
-        move_uploaded_file($source,$dest.'/'.$name);
-                unset($_FILES);
+            move_uploaded_file($source,$dest.'/'.$name);
+            unset($_FILES);
             $result = true;
         }
         return $result;

@@ -1,7 +1,7 @@
 <?php
 $title='Bandeau utilisateur';
 // Dossier de la photo de profil de l'utilisateur
-$profil = './public/pictures/users/'.$_SESSION['user']['id'].'/photo'.$_SESSION['user']['id'].'.jpg';
+$profil = 'public/pictures/users/'.$_SESSION['user']['id'].'/photo'.$_SESSION['user']['id'].'.jpg';
 ob_start(); 
 // Affichage du bandeau utilisateur
 ?>
@@ -44,7 +44,7 @@ ob_start();
         <a class="button user_button_menu" href="?page=createform">Créer une fiche</a>
         <?php if (isset($_SESSION['user']['defunct'])) :?>
             <div class ="button user_button_menu user_myDefuncts">
-                Mes fiches
+                Modifier une fiche
                     <?=$list_def?>
             </div>
         <?php else :?>

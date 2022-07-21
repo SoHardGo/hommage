@@ -58,14 +58,18 @@ if (isset($_POST['subcode']) && isset($_SESSION['user']['identify'])) {
 }
 // enregistrement du nouveau mot de passe
 if(isset($_POST['subpass'])){
-    if(isset($_POST['new_password']) && isset($_POST['pass_again']) && !empty($_POST['new_password']) && !empty($_POST['pass_again']) && $_POST['new_password'] == $_POST['pass_again']){
-        $passMess = '<p class="message">Mot de passe réinitialisé avec succès.</p><p class="message"> Vous pouvez vous connecter.</p>';
-        $register->updatePassword(htmlspecialchars(trim($_POST['new_password'])), intval($_SESSION['user']['id_tmp']));
-        header('location: index.php?page=connexion');
-        exit;
+    if(strlen($_POST['new_password']) < 30)){
+        if(isset($_POST['new_password']) && isset($_POST['pass_again']) && !empty($_POST['new_password']) && !empty($_POST['pass_again']) && $_POST['new_password'] == $_POST['pass_again']){
+            $register->updatePassword(htmlspecialchars(trim($_POST['new_password'])), intval($_SESSION['user']['id_tmp']));
+            header('location: index.php?page=connexion&mess=1');
+            exit;
+        } else {
+            $passMess = '<p class="message">Les mots de passe ne sont pas identiques, ou les champs sont vides .</p>';
+        }
     } else {
-        $passMess = '<p class="message">Les mots de passe ne sont pas identiques, ou les champs sont vides .</p>';
+        header('location: index.php?page=lost');
+        exit;
     }
 }
-
+$token = $register->setToken();
 require 'view/lost.php';

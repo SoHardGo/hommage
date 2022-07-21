@@ -31,8 +31,6 @@ ob_start();
                 <label for="content_tchat"></label>
                 <input id="content_tchat" type="text" name="content_tchat" placeholder="Taper votre message">
                 <input class="friend_id" type="hidden" value="<?=$friend_id?>">
-                <label for="submit"></label>
-                <input type="submit" class="hidden" id="submit_tchat" name="submit" value="Envoyer">
             </form>
         </div>
     </div>

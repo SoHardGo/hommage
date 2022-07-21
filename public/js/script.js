@@ -25,6 +25,20 @@ if(photo_profil !== null){
         });
     });
 }
+
+///////////////////////Photo de profil defunt////////////////////////////////
+
+let photo_def = document.querySelector('.user_icon_def');
+let input_def = document.getElementById('modify_photo');
+if(photo_def !==null){
+    photo_def.addEventListener('click', function(){
+        input_def.click();
+        input_def.addEventListener('change', function(){
+            document.getElementById('modifydefform').submit();
+        });
+    });
+}
+
 ///////////////////////Gestion du lien de chaque fiche///////////////////////
 // avec création d'un nouvel élément dans le DOM
 
@@ -38,7 +52,7 @@ if(link!=null){
         if (verify === false){
             let link_p = document.createElement('div');
             link_p.setAttribute('class', 'env_new_link');
-            let link_txt =document.createTextNode('Adresse pour accéder à cette fiche :\n'+link.href);
+            let link_txt =document.createTextNode('Adresse à copier pour vos proches :\n'+link.href);
             link_p.appendChild(link_txt);
             parent_link.appendChild(link_p);
         } else {
@@ -309,33 +323,37 @@ if (form != null){
         let tchat = document.getElementById('content_tchat'); 
         let friend_id = document.querySelector('.friend_id');
         let mycontent = document.getElementById('tchat_my_content');
-
-        let formdata = new FormData();
-        formdata.append('content', tchat.value); 
-        formdata.append('friend_id',friend_id.value);
-        let obj = { 'method':'POST', 'body':formdata };
+        let tchat_container = document.querySelector('.tchat_container');
         
-        fetch('ajax/recordTchat.php', obj)
-                        .then(response => response.json())
-                        .then(data=>{
-                            tchat.value = '';
-                            tchat.focus();
-                            mycontent.innerHTML = '';
-                            let count = data.length;
-                            if (count > 0) {
-                                    for (let i=0; i<count; i++){
-                                        console.log(data[0]);
-                                        if (data[0].user_id != data[i].friend_id){
-                                            mycontent.innerHTML += '<span class="tchat_return">'+data[i].content+'</span><p class="tchat_date">'+data[i].date_crea+'</p>';
-                                        } else {
-                                            mycontent.innerHTML += '<span class="tchat_friend">'+data[i].content+'</span><p class="tchat_date">'+data[i].date_crea+'</p>';
+        let formdata = new FormData();
+        if (tchat.value!==''){
+            formdata.append('content', tchat.value); 
+            formdata.append('friend_id',friend_id.value);
+            let obj = { 'method':'POST', 'body':formdata };
+            
+            fetch('ajax/recordTchat.php', obj)
+                            .then(response => response.json())
+                            .then(data=>{
+                                      console.log(data);
+                                tchat.value = '';
+                                tchat.focus();
+                                mycontent.innerHTML = '';
+                                let count = data.length;
+                                if (count > 0) {
+                                        for (let i=0; i<count; i++){
+                                            if (data[0].user_id != data[i].friend_id){
+                                                mycontent.innerHTML += '<span class="tchat_return">'+data[i].content+'</span><p class="tchat_date">'+data[i].date_crea+'</p>';
+                                            } else {
+                                                mycontent.innerHTML += '<span class="tchat_friend">'+data[i].content+'</span><p class="tchat_date">'+data[i].date_crea+'</p>';
+                                            }
                                         }
-                                    }
-                            }
-                            mycontent.bottom.window.scrollTo(0,0);
-                        })
-                        .catch(err=>console.error(err));
-        });
+                                }
+                                tchat_container.scrollTop=tchat_container.scrollHeight;
+    
+                            }) 
+                            .catch(err=>console.error(err));
+        }
+    });
 }
 
 /////////////////////////////Slider/////////////////////////////////////////////

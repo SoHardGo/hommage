@@ -110,7 +110,7 @@ if(isset($_SESSION['user']['id'])){
     for ($i=0; $i<$nbr; $i++){
         $defunct_list .=   '<div class="profil_modify">
                                 <p>'.$info_def[$i]['lastname'].' '.$info_def[$i]['firstname'].'</p>
-                                    <a class ="profil_modify_icon" href="?page=modifyform&id_def='.intval($info_def[$i]['id']).'" title="Modifier les informations">
+                                    <a class ="profil_modify_icon" href="?page=modifydef&id_def='.intval($info_def[$i]['id']).'" title="Modifier les informations">
                                         <img class="img dim10" src="public/pictures/site/info-icon.png" alt="icone information">
                                     </a>
                             </div>';

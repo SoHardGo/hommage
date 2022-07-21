@@ -9,9 +9,9 @@ ob_start();
         <div class="connexion_form">
             <form method="POST" action="?page=home_user">
                 <label for="email_user">Votre email<label>
-                <input type="email" id="email_user" name="email">
+                <input type="email" id="email_user" name="email" required="required">
                 <label for="pwd_user">Votre mot de passe<label>
-                <input type="password" id="pwd_user" name="pwd">
+                <input type="password" id="pwd_user" name="pwd" required="required">
                 <div class="connexion_buttons">
                     <input class="button" type="submit" name="submit" value="Valider">
                     <a class="button button-a" href="?page=lost">Mot de passe oublié</a>

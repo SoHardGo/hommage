@@ -28,7 +28,7 @@ ob_start();
                     <p class="message"><?=$_SESSION['user']['email']?> est bien identifié sur le site :</p>
                     <h4>Votre code d'accès est : <?=$_SESSION['code']?></h4>
                     <label for="code">Entrer le code réçu par email</label>
-                    <input type="text" name="code" id="code">
+                    <input type="text" name="code" id="code" required="required">
                     <label for="subcode"></label>
                     <input class="button" type="submit" name="subcode" id="subcode" value="Valider">
                     <label for="cancel"></label>
@@ -39,9 +39,9 @@ ob_start();
                         <?php if (isset($_SESSION['verif_code'])) :?>
                 <label for="new_password">Entrez votre nouveau mot de passe :</label>
                 <?=$passMess?>
-                <input type="password" name="new_password" id="new_password" placeholder="Nouveau mot de passe">
+                <input type="password" name="new_password" id="new_password" placeholder="Nouveau mot de passe" required="required">
                 <label for="pass_again"></label>
-                <input type="password" name="pass_again" id="pass_again" placeholder="Confirmer">
+                <input type="password" name="pass_again" id="pass_again" placeholder="Confirmer" required="required">
                 <label for="subpass"></label>
                 <input class="button" type="submit" name="subpass" id="subpass">
                         <?php endif ?>

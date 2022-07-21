@@ -18,7 +18,7 @@ class Registration extends Manage {
 
     // inscription d'un defunt + return LastId
     public function setDefunct(array $data) :int{
-        $query = "INSERT INTO defuncts SET firstname=:firstname, lastname=:lastname, birthdate=:birthdate, death_date=:death_date, cemetery=:cemetery, city_birth=:city_birth, city_death=:city_death, postal_code=:postal_code, user_id=:user_id, date_crea=NOW()";
+        $query = "INSERT INTO defuncts SET firstname=:firstname, lastname=:lastname, birthdate=:birthdate, death_date=:death_date, cemetery=:cemetery, city_birth=:city_birth, city_death=:city_death, postal_code=:postal_code, user_id=:user_id, photo=:photo, date_crea=NOW()";
         return $this->setQueryLastId($query,$data);
     }
     
@@ -59,7 +59,7 @@ class Registration extends Manage {
         $query = "INSERT INTO tchat SET user_id=:user_id, friend_id=:friend_id, content=:content, date_crea=NOW()";
         $this->getQuery($query,$data);
     }
-
+ 
 
 /////////////////////////////////////////////////UPDATER////////////////////////////////////////////////////////////
 
@@ -116,6 +116,13 @@ class Registration extends Manage {
         $query = "UPDATE defuncts SET lastname=:lastname, firstname=:firstname, birthdate=:birthdate, death_date=:death_date, cemetery=:cemetery, city_birth=:city_birth, city_death=:city_death, postal_code=:postal_code WHERE id=:id";
         $this->getQuery($query,$data);
     }
+    // enregistrement photo de profil du defunt
+    public function updateDefPhoto(int $id_def, string $name) :void{
+        $data = ['id'=>$id_def, 'photo'=>$name];
+        $query = "UPDATE defuncts SET photo=:photo WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+
 
 /////////////////////////////DELETER////////////////////////////////////////////
 
@@ -164,8 +171,12 @@ class Registration extends Manage {
         $query = "DELETE FROM users WHERE id=:id";
         $this->getQuery($query,$data);
     }
-    // supprimer une fiche d'un défunt
+    // supprimer une fiche d'un défunt et sa photo de profil
     public function deleteOneDefunct(int $defunct, int $user_id) :void{
+        $folder = 'public/pictures/users/'.$user_id;
+            if(is_dir($folder)){
+                unlink ($folder.'/photodef'.$defunct.'.jpg');
+            }
         $data = ['defunct_id'=>$defunct, 'user_id'=>$user_id];
         $query = "DELETE FROM comments WHERE user_id=:user_id AND defunct_id=:defunct_id";
         $this->getQuery($query,$data);

@@ -6,7 +6,7 @@ $getInfo = new GetInfos();
 require_once 'model/GlobalClass.php';
 $globalClas = new GlobalClass();
 
-// déclaration des variables
+// Déclaration des variables
 $nbPhotos = '';
 $nbComments = '';
 $admin_def ='';

@@ -1,14 +1,28 @@
 <?php
 $title='Environnement utilisateur';
+$profil = 'public/pictures/users/'.$_SESSION['user']['id'].'/photodef'.$info_def['id'].'.jpg';
 ob_start();
 ?>
 <section>
-    <div class="modifyform">
-        <div class="modifyform_form">
+    <div class="modifydef">
+        <div class="modifydef_form">
             <h1>Informations sur :</h1>
             <h3><?=$info_def['lastname'].' '.$info_def['firstname']?></h3>
             <h3><?=$confirm?></h3>
-            <form method="POST" action="?page=modifyform&id_def=<?=$info_def['id']?>">
+            <form id="modifydefform" method="POST" action="?page=modifydef&id_def=<?=$info_def['id']?>" enctype="multipart/form-data">
+                 <div class="modifydef_photo">
+                <?php if(file_exists($profil)) :?>
+                    <img class="img dim200" src="<?=$profil?>?<?=rand()?>" alt="photo de profil">
+                <?php else :?>
+                    <img class="img dim200" src="public/pictures/site/noone.jpg"<?=rand()?> alt="photo de profil">
+                <?php endif ?>
+                    <input type="hidden" name="token" value="<?=$token?>">
+                    <label for="modify_photo">Photo de Profil</label>
+                    <input type="file" id="modify_photo" name="photodef" accept=".jpg, .jpeg, .png">
+                    <img class="img dim40 user_icon_def" src="public/pictures/site/camera-icon.png" alt="icone home utilisateur">
+                </div>
+            </form>
+            <form method="POST" action="?page=modifydef&id_def=<?=$info_def['id']?>">
                 <label for="modify_lastname">Nom :</label>
                 <input type="text" id="modify_lastname" name="modify_lastname" value="<?=$info_def['lastname']?>">
                 <label for="modify_firstname">Prenom :</label>
@@ -25,9 +39,8 @@ ob_start();
                 <input type="text" id="modify_cemetery" name="modify_cemetery" value="<?=$info_def['cemetery']?>">
                 <label for="modify_postalcode">Code postal du cimetière :</label>
                 <input type="number" id="modify_postalcode" name="modify_postalcode" value="<?=$info_def['postal_code']?>">
-                <input type="hidden" name="token" value="<?=$token?>">
                 <p class="message">Modifier les champs que vous souhaitez mettre à jour</p>
-                <input class="button" type="submit" name="submit" value="Modifier">
+                <input class="button" type="submit" name="submitmodif" value="Modifier">
             </form>
         </div>
     </div>

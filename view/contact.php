@@ -10,20 +10,19 @@ ob_start();
                 <?php if (isset($_SESSION['user']['lastname'])):?>
                 <input type="text" name="lastname" id="lastname" placeholder="<?=$_SESSION['user']['lastname']?>" readonly>
                 <?php else :?>
-                <input type="text" name="lastname" id="lastname">
+                <input type="text" name="lastname" id="lastname" required="required">
                 <?php endif ?>
-                <?php if (isset($_SESSION['user']['email'])):?>
                 <label for="email">Entrer votre email</label>
+                <?php if (isset($_SESSION['user']['email'])):?>
                 <input type="email" name="email" id="email" placeholder="<?=$_SESSION['user']['email']?>" readonly>
                 <?php else :?>
-                <label for="email">Entrer votre email</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" required="required">
                 <?php endif ?>
                 <label for="message">Entrer votre message</label>
-                <textarea name="message" id="message" rows="6" cols="33"></textarea>
+                <textarea name="message" id="message" rows="6" cols="33" required="required"></textarea>
                 <input type="hidden" name="token" value="<?=$token?>">
                 <label for="submit"></label>
-                <input class="submit button" id="submit" type="submit" name="submit" value="Envoyer">
+                <input class="button" id="submit" type="submit" name="submit" value="Envoyer">
             </form>
         </div>
         <div class="contact_confirm">

@@ -35,11 +35,13 @@ if (isset($id_def)){
         // Identifiant du créateur de la fiche + ajout icone ami si pas dans la liste de l'utilisateur
         if(isset($defunct_infos['user_id']) && $defunct_infos['user_id'] != $_SESSION['user']['id']) :?>
         <div class="env_add_friend">
-            <p class="admin_user">Gestionnaire de la fiche : <?=$user_admin['admin']['lastname'].' '.$user_admin['admin']['firstname']?>&emsp;</p>
+            <p>Gestionnaire de la fiche :</p>
+            <div class="admin_user"><?=$user_admin['admin']['lastname'].' '.$user_admin['admin']['firstname']?>
             <?php if($friendOk == false) :?>
             <a class="friend" href="?page=environment&id_def=<?=$id_def?>&friend_add=<?=$defunct_infos['user_id']?>" title="Ajouter aux contacts">
             <img class="img dim20 friend_add" src="public/pictures/site/friend.png" alt="icone ajouter">
             </a>
+            </div>
             <?php endif ?>
         </div>
         <div class="friend_mess">

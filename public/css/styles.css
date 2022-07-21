@@ -679,10 +679,26 @@ select[name="select_def"] {
 /*******************************************************************************/
 /*******************************MODIFYFORM**************************************/
 /*******************************************************************************/
-.modifyform {
+.modifydef {
+    position: relative;
     display: flex;
     flex-direction: column;
     text-align: center;
+}
+.modifydef_photo {
+    margin: 1rem auto;
+}
+#modify_photo {
+    position: absolute;
+    left: -10rem;
+}
+.user_icon_def {
+    position:absolute;
+    top: 13rem;
+    right:7rem;
+}
+input[name="photodef"]{
+    margin: 1rem auto;
 }
 /*******************************************************************************/
 /***********************************TCHAT***************************************/
@@ -889,13 +905,15 @@ select[name="select_def"] {
     margin: 1.875rem;
 }
 .env_add_friend {
-    position: relative;
     text-align: center;
+}
+.admin_user {
+    position: relative;
 }
 .friend_add {
     position: absolute;
-    top: 1.4rem;
-    right: 6rem;
+    top: 0rem;
+    right: 4rem;
 }
 .friend_mess {
     text-align:center;
@@ -1043,8 +1061,10 @@ label[for="comment"]{
 }
 .user_ask_friend {
     text-align:center;
-    width: 75%;
-    margin:0 auto;
+    width: 90%;
+    margin:1rem auto;
+    border-radius: 0rem 0rem 5rem 5rem;
+    background: linear-gradient(var(--color-white) 5%, var(--color-bgc-button));
 }
 .user_ajax {
     border-radius: 1.25rem;
@@ -1136,8 +1156,8 @@ label[for="comment"]{
     color:var(--color-black);
 }
 .home_user_img{
-    width: 200px;
-    height: 200px;
+    width: 10rem;
+    height: 13rem;
 }
 .home_user_contact {
     display: flex;
@@ -1377,7 +1397,7 @@ select[name="affinity"]{
     }
     /******NAV******/
     .nav_bar {
-        height: 23rem;
+        height: 24rem;
         width: 12.5rem;
         right: -12.5rem;
     }
@@ -1453,7 +1473,7 @@ select[name="affinity"]{
         margin: 4rem;
     }
     .friend_add {
-    top: 0rem;
+        right: 11rem;
     }
     /*****CARD*****/
     .card_form {
@@ -1522,7 +1542,7 @@ select[name="affinity"]{
         margin-left: 12rem;
     }
     .user_list_defuncts {
-        top: 32.9rem;
+        top: 35rem;
         left: 15rem;
         width: 23%;
     }
@@ -1562,7 +1582,7 @@ select[name="affinity"]{
         width: 70%;
     }
     .friend_add {
-        right: 12rem;
+        right: 17.5rem;
     }
     /*****CARD*****/
     .card {
@@ -1659,7 +1679,7 @@ select[name="affinity"]{
         width: 60%;
     }
     .friend_add {
-        right: 19rem;
+        right: 24rem;
     }
     /*****CREATFORM*****/
     .createform_info {
@@ -1723,7 +1743,7 @@ select[name="affinity"]{
     }
     /*****ENVIRONMENT*****/
     .friend_add {
-        right: 27rem;
+        right: 32rem;
     }
     /*****CREATFORM*****/
     .createform_info {

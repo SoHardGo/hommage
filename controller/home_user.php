@@ -82,15 +82,19 @@ foreach ($friendList as $f){
     } 
     $userFriend = $getInfo->getInfoUser($friend_id);
     $profil = $globalClass->verifyPhotoProfil($friend_id);
-        if ($f['validate'] == 0){
-            $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée" alt="icon de refus"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
-        } 
-        if ($f['validate'] == 1){
-            $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
-        }
-        if ($f['validate'] == null){
+    switch ($f['validate']) {
+        case null :
             $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/mark.png" title="En attente de confirmation" alt="icon point d\'interrogation"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
-        }
+            break;
+        case 0 :
+            $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée" alt="icon de refus"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
+            break;
+        case 1 :
+            $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
+            break;
+        default :
+            break;
+    }
 }
 // Initialisation de la personne ajouté aux contacts ->environnement
 $useradmin['user_id'] = $_GET['useradmin']??'';
@@ -117,7 +121,7 @@ if (count($info_def)){
           </div>';
     $list_def .='<div class="home_user_defunct">';    
     for ($i=0; $i<count($info_def); $i++){
-        $path_photo = 'public/pictures/photos/'.$_SESSION['user']['id'].'/'.$info_def[$i]['id'].'-0.jpg';
+        $path_photo = 'public/pictures/users/'.$_SESSION['user']['id'].'/photodef'.$info_def[$i]['id'].'.jpg';
         $list_def.= '
         <div class="home_user_card">
             <a href="?page=home_user&id_delete='.$info_def[$i]['id'].'" class="home_card_delete" title="Supprimer cette fiche">
@@ -184,6 +188,5 @@ if(isset($_POST['delete_def'])){
     header('location: index.php?page=home_user');
     exit;
 }
-
 
 require 'view/home_user.php';
