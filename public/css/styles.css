@@ -15,8 +15,8 @@
 }
 /*************************************Globals Selector*****************************/
 *{
-    margin:0px;
-    padding:0px;
+    margin: 0rem;
+    padding: 0rem;
     box-sizing:border-box;
     font-family: 'Abel', sans-serif;
     font-family: 'Lato', sans-serif;
@@ -27,12 +27,12 @@ main :is(h1,h2,h3,h4){
 }
 table {
     border-collapse:collapse;
-    border:1px solid var(--color-black);
+    border: 0.06rem solid var(--color-black);
     text-align:center; 
     margin:0 auto;
 }
 main :is(tr, td, th){
-    border:1px solid var(--color-black);
+    border: 0.06rem solid var(--color-black);
 }
 :any-link {
     text-decoration:none;
@@ -59,13 +59,13 @@ input:invalid {
     background-color: rgba(60,59,135, .3);
 }
 input[type="radio"] {
-    width: 15px;
-    height: 15px;
+    width: 0.9rem;
+    height: 0.9rem;
 }
 input[type="file"] {
-    width: 145px;
-    height: 30px;
-    margin-bottom:10px;
+    width: 9rem;
+    height: 1.8rem;
+    margin-bottom: 0.6rem;
 }
 input[name="token"] {
     display: none;
@@ -92,7 +92,7 @@ input[name="token"] {
     font-size: 0.9rem;
     width: 15.625rem;
     height: 2.3rem;
-    border: 2px outset #7a7474;
+    border: 0.125rem outset #7a7474;
     margin: 1.25rem auto;
 }
 .message {
@@ -245,7 +245,8 @@ input[name="token"] {
 /***********************************HOME****************************************/
 /*******************************************************************************/
 .home {
-    margin-top:3rem;
+    width: 90%;
+    margin: 3rem auto;
 }
 .home_intro {
     margin:0 auto;
@@ -302,7 +303,7 @@ input[name="token"] {
     margin: 1.25rem;
 }
 .home_slider h1, .home_user_slider h1 {
-    margin-bottom:20px;
+    margin-bottom: 1.25rem;
 }
 .slider {
     width: 90%;
@@ -354,6 +355,9 @@ input[name="token"] {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.profil_form_info p {
+    margin: 1rem;
 }
 .profil_form h3 {
     margin: 1.25rem;
@@ -451,15 +455,15 @@ input[name="new_user"], input[name="new_admin"]{
 }
 .buy_empty {
     text-align:center;
-    font-size: 30px;
+    font-size: 1.8rem;
 }
 .buy_table, .table_death, .flower_table {
     width: 90%;
-    margin: 20px auto;
+    margin: 1.25rem auto;
 }
 .buy_content {
     overflow-x: scroll;
-    height: 50px;
+    height: 3.1rem;
 }
 .buy_table tr:nth-child(odd) {
     background-color: var(--color-grey-light);
@@ -495,7 +499,7 @@ input[name="new_user"], input[name="new_admin"]{
 }
 .content {
     min-height:25rem;
-    border:1px solid var(--color-grey-light);
+    border: 0.06rem solid var(--color-grey-light);
     padding: 0.625rem;
     z-index:1;
     background-repeat: no-repeat;
@@ -608,14 +612,14 @@ select[name="select_def"] {
 }
 .container_flower_dest {
     text-align:center;
-    margin: 30px;
+    margin: 1.8rem;
 }
 .container_flower_tab  {
    text-align:center; 
 }
 #select_name_defunct {
     text-align:center;
-    width: 200px;
+    width: 12.5rem;
 }
 .fleur1 {
     grid-column:1;
@@ -685,7 +689,12 @@ select[name="select_def"] {
     flex-direction: column;
     text-align: center;
 }
+.modifydef_form {
+    width: 80%;
+    margin: 0 auto;
+}
 .modifydef_photo {
+    height: 9rem;    
     margin: 1rem auto;
 }
 #modify_photo {
@@ -704,8 +713,17 @@ input[name="photodef"]{
 /***********************************TCHAT***************************************/
 /*******************************************************************************/
 .tchat {
+    position:relative;
     width: 80%;
     margin: 3rem auto;
+}
+.tchat_message {
+   text-align: center;
+}
+.delete_user {
+    position:absolute;
+    top: -1rem;
+    right: -1rem;
 }
 .tchat_box {
     display:flex;
@@ -713,6 +731,7 @@ input[name="photodef"]{
     justify-content: center;
 }
 .tchat_dest {
+    line-height: 4rem;
     margin: 2rem 0rem 0rem;
     background-color: var(--color-bgc-button);
     border-radius: 1.875rem 1.875rem 0rem 0rem;
@@ -746,14 +765,14 @@ input[name="photodef"]{
     margin: 0.313rem 0rem 0.63rem;
 }
 .tchat_return {
-    background-color: var(--color-grey-light);
+    background-color: var(--color-bgc-button);
+    color: var(--color-white);
     text-align:right;
     padding: 0.125rem 1.25rem;
     border-radius:1.25rem;
 }
 .tchat_friend {
-    background-color: var(--color-bgc-button);
-    color: var(--color-white);
+    background-color: var(--color-grey-light);
     padding: 0.125rem 1.25rem;
     border-radius: 1.25rem;
 }
@@ -836,7 +855,7 @@ input[name="photodef"]{
     font-size: 1rem;
 }
 .env_container {
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
 }
 .env_warning {
@@ -985,8 +1004,15 @@ label[for="comment"]{
     text-align:center;
     background-color: var(--color-bgc-button);
 }
+.user_button_menu {
+    padding: 0.5rem;
+    color: var(--color-white);
+}
 .user_menu a {
     font-size: 1rem;
+}
+.user_menu a:nth-child(4){
+    padding: 1.1rem;
 }
 .button .user_myDefuncts {
     position:relative;
@@ -995,8 +1021,8 @@ label[for="comment"]{
 }
 .user_list_defuncts {
     position: absolute;
-    top: 24rem;
-    left: 3.9rem;
+    top: 23.5rem;
+    left: 4.9rem;
     background-color: var(--color-bgc-button);
     color: var(--color-white);
     z-index: 10;
@@ -1078,7 +1104,7 @@ label[for="comment"]{
     position:absolute;
     color:var(--color-red);
     font-weight: bold;
-    left: 25px;
+    left: 1.5rem;
 }
 .icon_anim {
     animation: myIcons 2s ease 0s infinite normal none;
@@ -1257,7 +1283,7 @@ label[for="comment"]{
 }
 .contact_title {
     text-align: center;
-    margin: 20px;
+    margin: 1.25rem;
 }
 .contact_form .buttons {
     margin-top: 0.63rem;
@@ -1291,8 +1317,8 @@ textarea[name='message'] {
     padding: 0.63rem;
 }
 select[name="affinity"]{
-    margin: 20px;
-    width: 150px;
+    margin: 1.25rem;
+    width: 9.37rem;
 }
 .createform_message {
     text-align: center;
@@ -1453,6 +1479,9 @@ select[name="affinity"]{
         right: -0.5rem;
         bottom: -3.8rem;
     }
+    .user_icon_def{
+        right: 14rem;
+    }
     .user_new {
         margin-left: 6rem;
     }
@@ -1467,7 +1496,7 @@ select[name="affinity"]{
     }
     /*****ENVIRONMENT*****/
     .env_container {
-       width: 80%;
+       width: 70%;
     }
     .env_photos_list {
         margin: 4rem;
@@ -1482,9 +1511,6 @@ select[name="affinity"]{
     /*****TCHAT*****/
     .tchat_container {
         height: 35rem;
-    }
-    .tchat_dest {
-        line-height: 4rem;
     }
     /*****PROFIL*****/
     .profil_modify_icon {
@@ -1535,6 +1561,9 @@ select[name="affinity"]{
         font-size: 1.7rem;
         margin-right: 12rem;
     }
+    .user_icon_def {
+        right: 20rem;
+    }    
     .user_myDefuncts {
         font-size: 1.3rem;
     }
@@ -1548,8 +1577,8 @@ select[name="affinity"]{
     }
     /*****HOME*****/
     .home {
-        margin: 1.5rem;
-        margin-top: 4rem;
+        width: 80%;
+        margin: 4rem auto;
     }
     .home_title {
         font-size: 1.7rem;
@@ -1579,7 +1608,7 @@ select[name="affinity"]{
     }
     /*****ENVIRONMENT****/
     .env_container {
-        width: 70%;
+        width: 60%;
     }
     .friend_add {
         right: 17.5rem;
@@ -1661,8 +1690,12 @@ select[name="affinity"]{
     .user_new {
         margin-left: 19rem;
     }
+    .user_icon_def {
+        top:13.5rem;
+        right: 26.5rem;
+    }
     .user_list_defuncts {
-        top: 38.9rem;
+        top: 40.2rem;
         left: 21rem;
         width: 20%;
     }
@@ -1676,7 +1709,7 @@ select[name="affinity"]{
     }
     /*****ENVIRONMENT****/
     .env_container {
-        width: 60%;
+        width: 50%;
     }
     .friend_add {
         right: 24rem;
@@ -1728,12 +1761,18 @@ select[name="affinity"]{
     .user_new {
         margin-left: 27rem;
     }
+    .user_icon_def {
+        right: 34.5rem;
+    }
     .user_list_defuncts {
-        top: 43.9rem;
+        top: 45.7rem;
         left: 29rem;
         width: 17%;
     }
     /*****HOME*****/
+    .home {
+        width: 75%;
+    }
     .home_title {
         font-size: 2rem;
     }

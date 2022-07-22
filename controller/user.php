@@ -8,11 +8,11 @@ $info_def = $getInfo->getUserDefunctList(intval($_SESSION['user']['id']))->fetch
 $nbr = count($info_def);
 $icon_anim_f = '';
 $icon_anim_m = '';
-$number_f = null;
-$number_m = null;
+$number_f = 0;
+$number_m = $_SESSION['number_m']??'';
 $messFile = '';
 $list_def = "";
-
+$_SESSION['id_tchat'] = $_SESSION['id_tchat']??0;
 
 // sous menu dans Modifier une fiche avec la liste des defunts
 if ($nbr){
@@ -48,9 +48,22 @@ foreach ($result as $r){
         $_SESSION['number_f'] = $number_f;
     } 
 }
-/*
-// Nombre des nouveaux message depuis la dernière connexion
-$result = $getInfo->getNewTchat(htmlspecialchars(trim($_SESSION['user']['id'])));
-var_dump($result);*/
+
+//Affichage du nombre de nouveaux message depuis la dernière connexion
+if(!isset($_SESSION['number_m'])){
+    $result = $getInfo->getNewTchat(htmlspecialchars(trim($_SESSION['user']['id'])));
+    $nb = count($result);
+    if ($nb){
+        $icon_anim_m = 'icon_anim';
+        $number_m = $nb;
+        $_SESSION['number_m'] = $number_m;
+    }
+}
+// Réactualisation du nombre de message après consultation
+if(isset($_SESSION['consult'])){
+    $icon_anim_m = '';
+    $number_m = $_SESSION['consult'];
+}
+
 require 'view/user.php';
 

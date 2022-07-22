@@ -122,6 +122,12 @@ class Registration extends Manage {
         $query = "UPDATE defuncts SET photo=:photo WHERE id=:id";
         $this->getQuery($query,$data);
     }
+    // mise à jour des messages lus dans le tchat
+    public function updateTchatRead(int $friend, int $user) :void{
+        $data = ['friend_id'=>$friend, 'user_id'=>$user];
+        $query = "UPDATE tchat SET `read`=1 WHERE friend_id=:friend_id AND user_id=:user_id";
+        $this->getQuery($query,$data);
+    }
 
 
 /////////////////////////////DELETER////////////////////////////////////////////
@@ -144,6 +150,15 @@ class Registration extends Manage {
         $query = "DELETE FROM photos WHERE id=:id";
         $this->getQuery($query,$data);
     }
+    // supprimer un ami et les conversations
+    public function deleteFriend(int $friend, int $user) :void{
+        $data = ['user_id'=>$user, 'friend_id'=>$friend];
+        $query = "DELETE FROM friends WHERE friend_id=:friend_id AND user_id=:user_id OR friend_id=:user_id AND user_id=:friend_id";
+        $this->getQuery($query,$data);
+        $query = "DELETE FROM tchat WHERE friend_id=:friend_id AND user_id=:user_id OR friend_id=:user_id AND user_id=:friend_id";
+        $this->getQuery($query,$data);
+    }
+    
     // supprimer un compte utilisateur
     public function deleteUserAccount(int $user_id) :void{
         $data = ['user_id'=>$user_id];

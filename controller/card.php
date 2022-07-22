@@ -70,15 +70,15 @@ if (isset($_POST['submit_def'])){
 // Validation du mode d'envoi au créateur de la fiche du défunt
 if(!isset($_POST['radio']) && !isset($_POST['select_def'])){
     $mess_dest = '<p>Envoi à votre domicile</p>';
-    $_SESSION['user_card_send'] = $_SESSION['user']['id'];
+    $_SESSION['user_send'] = $_SESSION['user']['id'];
 }
 if(isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'email'){
     $mess_dest = '<p>Confirmation de l\'envoi par Email</p>';
-    $_SESSION['user_card_send'] = $_SESSION['id_admin'];
+    $_SESSION['user_send'] = $_SESSION['id_admin'];
 }
 if(isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'postal'){
     $mess_dest = '<p>Confirmation de l\'envoi par voix Postal</p>';
-    $_SESSION['user_card_send'] = $_SESSION['id_admin'];
+    $_SESSION['user_send'] = $_SESSION['id_admin'];
 }     
 
 $categories = 'cartes';

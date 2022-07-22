@@ -12,20 +12,25 @@ ob_start();
             <form method="POST" action="?page=profil">
                 <div class="profil_form_info">
                     <label for="email">Votre email :</label>
-                    <input name="email" id="email" type="email" value="<?=$info_user['email']?>"></input>
+                    <input name="email" id="email" type="email" value="<?=$info_user['email']?>">
                     <?php if ($info_user['pseudo']): ?>
                     <label for="pseudo">Votre pseudo :</label>
-                    <input name="pseudo" id="maj_pseudo" type="text" value="<?=$info_user['pseudo']?>"></input>
+                    <input name="pseudo" id="maj_pseudo" type="text" value="<?=$info_user['pseudo']?>">
                     <?php else :?>
                     <label for="pseudo"></label>
-                    <input name="pseudo" id="pseudo" type="text" value="Vous n'avez pas de pseudo"></input>
+                    <input name="pseudo" id="pseudo" type="text" value="Vous n'avez pas de pseudo">
                     <?php endif ?>
-                    <label>Votre adresse :</label>
-                    <input type="text" name="number_road" value="<?=$info_user['number_road']?>"></input>
-                    <input type="text" name="address" value="<?=$info_user['address']?>"></input>
-                    <input type="number" name="postal_code" value="<?=$info_user['postal_code']?>"></input>
-                    <input type="text" name="city" value="<?=$info_user['city']?>"></input>
+                    <p>Votre adresse :</p>
+                    <label>N° :</label>
+                    <input type="text" name="number_road" value="<?=$info_user['number_road']?>">
+                    <label>Adresse :</label>
+                    <input type="text" name="address" value="<?=$info_user['address']?>">
+                    <label>Code Postal :</label>
+                    <input type="number" name="postal_code" value="<?=$info_user['postal_code']?>">
+                    <label>Ville :</label>
+                    <input type="text" name="city" value="<?=$info_user['city']?>">
                 </div>
+                <?php if ($defunct_list!=null) :?>
                 <div class="profil_admin">
                     <h4>Modifier ces <?=$nbr?> fiches :</h4>
                     <?=$defunct_list?>
@@ -37,6 +42,7 @@ ob_start();
                     <?=$mess_transfer?>
                     <input class="button" type="submit" name="new_admin" id="new_user">
                 </div>
+                <?php endif ?>
                 <label for="modify" class="message">- Modifier les champs que vous souhaitez mettre à jour</label>
                 <input type="hidden" name="token" value="<?=$token?>">
                 <input type="submit" name="submit" class="button" id="modify" value="Modifier">

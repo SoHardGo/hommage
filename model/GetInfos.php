@@ -6,7 +6,7 @@ class GetInfos extends Manage {
     // Jointure impossible car pas forcément de concordance entre id de "users" et user_id de "user_admin"
     public function getInfoUser(int $id) :array {
         $data = ['id' => $id];
-        $query = "SELECT email, firstname, lastname, number_road, address, city, postal_code, pseudo FROM users WHERE id=:id";
+        $query = "SELECT id, email, firstname, lastname, number_road, address, city, postal_code, pseudo FROM users WHERE id=:id";
         $result1 = $this->getQuery($query,$data);
         $tab1 = $result1->fetch();
         $query = "SELECT affinity, add_share, email_share, card_real, card_virtuel, flower, new_user FROM user_admin WHERE user_id=:id";
@@ -250,15 +250,19 @@ class GetInfos extends Manage {
                   ORDER BY id DESC LIMIT 30";
         $result = $this->getQuery($query,$data)->fetchAll();
         return $result;
-    }/*
+    }
      // Nombre de message depuis la dernière connexion
     public function getNewTchat(int $user_id) :array {
         // récupération de la dernière connexion
-        $data = ['id'=>$user_id];
-        $query = "SELECT last_log FROM users WHERE id=:id";
-        $lastLog = $this->getQuery($query,$data)->fetch();
-        $data = ['friend_id'=> $user_id, 'last_log'=>$last_log['last_log']];
-        $query = "SELECT user_id, content FROM tchat WHERE friend_id=:friend_id AND date_crea > :last_log";
+        $data = ['friend_id'=>$user_id];
+        /*
+        $query = "SELECT user_id, users.id 
+                        FROM tchat
+                  INNER JOIN users
+                        ON users.id=tchat.user_id
+                  WHERE friend_id=:friend_id AND 
+                  GROUP BY tchat.user_id";*/
+        $query = "SELECT user_id FROM tchat WHERE friend_id=:friend_id AND `read` = 0 GROUP BY user_id";
         return $this->getQuery($query,$data)->fetchAll();
-    }*/
+    }
 }

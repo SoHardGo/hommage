@@ -40,6 +40,7 @@ ob_start();
                 <label for="modify_postalcode">Code postal du cimetière :</label>
                 <input type="number" id="modify_postalcode" name="modify_postalcode" value="<?=$info_def['postal_code']?>">
                 <p class="message">Modifier les champs que vous souhaitez mettre à jour</p>
+                <input type="hidden" name="token" value="<?=$token?>">
                 <input class="button" type="submit" name="submitmodif" value="Modifier">
             </form>
         </div>

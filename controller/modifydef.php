@@ -33,7 +33,6 @@ if (isset($_FILES['photodef']) && !empty($_FILES['photodef']) && !empty($_FILES[
 }
 
 if (isset($_POST['submitmodif'])){
-    var_dump($_POST);
     if(isset($_SESSION['token']) && isset($_POST['token']) && ($_SESSION['token'] === $_POST['token'])) {
         if(isset($_POST['modify_lastname']) && $_POST['modify_lastname'] != $info_def['lastname']){
             $data['lastname'] = htmlspecialchars(trim($_POST['modify_lastname']));

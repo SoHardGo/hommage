@@ -26,7 +26,7 @@ ob_start();
             <img class="img dim40 <?=$icon_anim_f?>" src="public/pictures/site/friend.png" alt="icone demande d'ami">
             <span class="number_f"><?=$number_f?></span>
         </a>
-        <a href="" class="user_mini_icons" id="newMessage" title="Nouveau message">
+        <a href="?page=tchat&friendId=<?=$_SESSION['id_tchat']?>&consult=1" class="user_mini_icons" id="newMessage" title="Nouveau message">
             <img class="img dim40 <?=$icon_anim_m?>" src="public/pictures/site/chat.png" alt="icone nouveau message">
             <span class="number_m"><?=$number_m?></span>
         </a>
@@ -41,17 +41,17 @@ ob_start();
     </div>
 </section>
 <section class="user_menu">
-        <a class="button user_button_menu" href="?page=createform">Créer une fiche</a>
+        <a class="user_button_menu" href="?page=createform">Créer une fiche</a>
         <?php if (isset($_SESSION['user']['defunct'])) :?>
-            <div class ="button user_button_menu user_myDefuncts">
-                Modifier une fiche
-                    <?=$list_def?>
-            </div>
+        <div class ="user_button_menu user_myDefuncts">
+            Modifier une fiche
+                <?=$list_def?>
+        </div>
         <?php else :?>
-            <a class="button user_button_menu" href="?page=search">Rechercher une fiche</a>
+        <a class="user_button_menu" href="?page=search">Rechercher une fiche</a>
         <?php endif ?>
-        <a class="button user_button_menu" href="?page=profil">Mon compte</a>
-        <a class="button user_button_menu" href="?page=search">Rechercher</a>
+        <a class="user_button_menu" href="?page=profil">Mon compte</a>
+        <a class="user_button_menu" href="?page=search">Rechercher</a>
 </section>
 <section>
         <div>

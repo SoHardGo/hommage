@@ -282,6 +282,7 @@ if(link_contact!=null){
     });
 }
 
+
 ///////////////////////Gestion des demandes d'amis//////////////////////////////
 let btn_friend = document.getElementById('newFriend');
 let ask_friend = document.querySelector('.user_ask_friend');

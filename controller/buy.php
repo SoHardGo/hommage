@@ -120,7 +120,7 @@ if ($list){
         }
     $tab_list .= '<tr><td colspan="3">Total de vos achats :</td><td>'.$total.'</td></tr>';
     } else {
-        $messFinal = '<p>Vous n\'avez pas effectué d \'achat pour le moment</p>';
+        $messFinal = '<p class="message">Vous n\'avez pas effectué d \'achat pour le moment</p>';
     }
 }
 $token = $register->setToken();

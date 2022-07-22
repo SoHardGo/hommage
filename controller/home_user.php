@@ -84,22 +84,30 @@ foreach ($friendList as $f){
     $profil = $globalClass->verifyPhotoProfil($friend_id);
     switch ($f['validate']) {
         case null :
-            $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/mark.png" title="En attente de confirmation" alt="icon point d\'interrogation"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
+            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/mark.png" title="En attente de confirmation" alt="icon point d\'interrogation"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
         case 0 :
-            $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée" alt="icon de refus"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
+            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée" alt="icon de refus"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
         case 1 :
-            $friends .='<a href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
+            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
         default :
             break;
     }
 }
+// Suppression d'un ami
+if (isset($_GET['friendDel'])){
+    $friendDel = htmlspecialchars(trim($_GET['friendDel']));
+    if(isset($_POST['tchatsubmit'])){
+       $message = '<p class="message">Contact supprimé avec succès</p>';
+       $register->deleteFriend($friendDel, htmlspecialchars(trim($_SESSION['user']['id'])));
+    }
+}
 // Initialisation de la personne ajouté aux contacts ->environnement
 $useradmin['user_id'] = $_GET['useradmin']??'';
 
-// Enregistrement du contact <- ajax-> user
+// Enregistrement du contact <- ajax-> user + affichage du nombre de demande d'ami
 $newFriend = $_GET['id_friend']??null;
 if (isset($_POST['friend'])){
     if ($_POST['friend'] == 0){
@@ -113,7 +121,7 @@ if (isset($_POST['friend'])){
 }
 
 // Liste des defunts dans le home_user
-// Affichage des mini-cartes des defunts
+// Affichage des mini-cartes des defunts 
 if (count($info_def)){
     $list_def = '<h1>Mes Fiches</h1>
           <div class="home_user_explain">

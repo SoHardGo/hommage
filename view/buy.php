@@ -10,8 +10,7 @@ ob_start();
         <?=$tab?>
     <div class="buy">
         <hr>
-        <img class="img dim80" src="public/pictures/site/visa.png" alt="carte visa">
-        <h2>PAIEMENT</h>
+        <img class="img dim100" src="public/pictures/site/cartes.jpg" alt="carte visa">
         <p><b>Entrer vos coordonnées bancaire pour valider le paiement.</b></p>
         <fieldset class="buy_form">
             <form method="POST" action="?page=buy#pay">
