@@ -12,7 +12,9 @@ $number_f = 0;
 $number_m = $_SESSION['number_m']??'';
 $messFile = '';
 $list_def = "";
-$_SESSION['id_tchat'] = $_SESSION['id_tchat']??0;
+
+// Initialisation d'un tableau pour les Id des nouveaux messages
+if(!isset($_SESSION['id_tchat'])) $_SESSION['id_tchat'] = array();
 
 // sous menu dans Modifier une fiche avec la liste des defunts
 if ($nbr){
@@ -48,22 +50,21 @@ foreach ($result as $r){
         $_SESSION['number_f'] = $number_f;
     } 
 }
-
-//Affichage du nombre de nouveaux message depuis la dernière connexion
+//Affichage du nombre de nouveaux message depuis la dernière connexion et récupération de l'ID de l'expéditeur
+// Message non lu -> read = 0
 if(!isset($_SESSION['number_m'])){
     $result = $getInfo->getNewTchat(htmlspecialchars(trim($_SESSION['user']['id'])));
     $nb = count($result);
+    var_dump($nb);
     if ($nb){
         $icon_anim_m = 'icon_anim';
         $number_m = $nb;
         $_SESSION['number_m'] = $number_m;
     }
-}
-// Réactualisation du nombre de message après consultation
-if(isset($_SESSION['consult'])){
-    $icon_anim_m = '';
-    $number_m = $_SESSION['consult'];
+    foreach ($result as $r){
+       $_SESSION['id_tchat'][] = $r['user_id'];
+    }
+    var_dump($_SESSION['id_tchat']);
 }
 
 require 'view/user.php';
-

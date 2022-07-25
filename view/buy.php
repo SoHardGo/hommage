@@ -6,7 +6,7 @@ ob_start();
 <section>
     <h1>Mes achats</h1>
         <?=$messBuy?>
-    <?php if (isset($_SESSION['user_send'])) :?>
+    <?php if (isset($_SESSION['user_send']) && isset($_SESSION['total_card'])) :?>
         <?=$tab?>
     <div class="buy">
         <hr>

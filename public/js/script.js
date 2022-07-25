@@ -400,7 +400,7 @@ $(document).ready(function(){
               }
             },
             {
-              breakpoint: 480,
+              breakpoint: 481,
               settings: {
                 slidesToShow: 3,
                 slidesToScroll: 3

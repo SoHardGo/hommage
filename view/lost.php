@@ -38,6 +38,7 @@ ob_start();
                     <?=$message?>
                         <?php if (isset($_SESSION['verif_code'])) :?>
                 <label for="new_password">Entrez votre nouveau mot de passe :</label>
+                <p>(minimum 5 caractères dont un Nombre, une Majuscule et un caractère spécial (!@#$%€£)</p>
                 <?=$passMess?>
                 <input type="password" name="new_password" id="new_password" placeholder="Nouveau mot de passe" required="required">
                 <label for="pass_again"></label>

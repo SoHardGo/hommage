@@ -58,7 +58,12 @@ if (isset($_POST['subcode']) && isset($_SESSION['user']['identify'])) {
 }
 // enregistrement du nouveau mot de passe
 if(isset($_POST['subpass'])){
-    if(strlen($_POST['new_password']) < 30)){
+    if(strlen($_POST['new_password']) < 30 && !empty($_POST['new_password'])){
+        $pwd = htmlspecialchars(trim($_POST['new_password']));
+        if(!preg_match('\'^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%€£])[0-9A-Za-z!@#$%€£]{5,20}$\'', $pwd)) {
+            header('location: index.php?page=lost');
+            exit;
+        }
         if(isset($_POST['new_password']) && isset($_POST['pass_again']) && !empty($_POST['new_password']) && !empty($_POST['pass_again']) && $_POST['new_password'] == $_POST['pass_again']){
             $register->updatePassword(htmlspecialchars(trim($_POST['new_password'])), intval($_SESSION['user']['id_tmp']));
             header('location: index.php?page=connexion&mess=1');

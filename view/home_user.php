@@ -19,7 +19,7 @@ ob_start();
             <img class="img dim200" src="public/pictures/site/contact.png" alt="Dossier de contacts">
         </a>
     </div>
-    <div class="home_user_contact_list hidden">
+    <div class="home_user_contact_list <?=$show?>">
             <?=$friends?>
     </div>
     <div class="home_user_contact_title">

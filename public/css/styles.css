@@ -51,7 +51,7 @@ label {
     font-size: 1rem;
 }
 input {
-    width: 15.625rem;
+    width: 13.625rem;
     height: 2.2rem;
     margin: 1.2rem;
 }
@@ -90,7 +90,7 @@ input[name="token"] {
 .button-a {
     display: block;
     font-size: 0.9rem;
-    width: 15.625rem;
+    width: 13.625rem;
     height: 2.3rem;
     border: 0.125rem outset #7a7474;
     margin: 1.25rem auto;
@@ -149,7 +149,7 @@ input[name="token"] {
 .header_title-h1 {
     text-shadow: 0 0 0.188rem white;
     font-weight: bold;
-    font-size: 3.03rem;
+    font-size: 2.5rem;
     margin-top: 2.813rem;
     color: var(--color-blue-hard);
 }
@@ -157,11 +157,11 @@ input[name="token"] {
 /**************Nav******************/
 /***********************************/
 .nav_bar {
-    width: 10rem;
+    width: 9rem;
     position: fixed;
     z-index: 10;
     top: 0;
-    right: -10rem;
+    right: -9rem;
     background-color: var(--color-white);
     padding-top: 1.25rem;
     transition: right 0.5s ease;
@@ -194,8 +194,8 @@ input[name="token"] {
 .open {
     position: absolute;
     text-align: center;
-    top: 4rem;
-    right: 1rem;
+    top: 3.2rem;
+    right: 0.5rem;
 }
 .nav_bar-open-span {
     display: block;
@@ -228,7 +228,7 @@ input[name="token"] {
     flex-direction: column;
     justify-content: center;
     width: 40%;
-    margin:1rem;
+    margin:0.6rem;
     height: 5rem;
 }
 .footer_network {
@@ -309,7 +309,7 @@ input[name="token"] {
     width: 90%;
 }
 .slick-slide, .home_slick, .home_user_slick {
-    height: 10.5rem;
+    height: 9.5rem;
 }
 /*******************************************************************************/
 /*********************************CONNEXION*************************************/
@@ -399,6 +399,9 @@ input[name="new_user"], input[name="new_admin"]{
 .register_title {
     margin: 1.25rem;
 }
+.register_pwd {
+    font-size: 0.7rem;
+}
 /*******************************************************************************/
 /***********************************SEARCH**************************************/
 /*******************************************************************************/
@@ -445,6 +448,8 @@ input[name="new_user"], input[name="new_admin"]{
 /*************************************BUY***************************************/
 /*******************************************************************************/
 .buy {
+    width: 90%;
+    margin: 0 auto;
     text-align:center;
 }
 .buy_form {
@@ -472,6 +477,9 @@ input[name="new_user"], input[name="new_admin"]{
 /************************************CARD***************************************/
 /*******************************************************************************/
 /*****Editor Card*****/
+.card h2 {
+    font-size: 1rem;
+}
 .card_editor {
     width: 90%;
     margin:0 auto;
@@ -581,8 +589,9 @@ input[name="new_user"], input[name="new_admin"]{
 /*******************************************************************************/
 /***********************************FLOWER**************************************/
 /*******************************************************************************/
+
 .flower_article {
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-align: justify;
     margin: 1.875rem;
 }
@@ -591,6 +600,12 @@ input[name="new_user"], input[name="new_admin"]{
     flex-direction:column;
     text-align: center;
     align-items: center;
+}
+.flower p:first-child {
+    font-size: 0.8rem;
+}
+.flower_form {
+    margin: 1rem;
 }
 .flower_container {
     display: grid;
@@ -704,7 +719,7 @@ select[name="select_def"] {
 .user_icon_def {
     position:absolute;
     top: 13rem;
-    right:7rem;
+    right:5rem;
 }
 input[name="photodef"]{
     margin: 1rem auto;
@@ -747,7 +762,7 @@ input[name="photodef"]{
     text-align:left;
     overflow: scroll;
     width: 65.5%;
-    height: 30rem;
+    height: 25rem;
     padding: 0.5rem;
     border:0.063rem solid var(--color-black);
     border-bottom-right-radius: 1.875rem;
@@ -759,6 +774,10 @@ input[name="photodef"]{
     border-radius:1.25rem;
     width: 85%;
     padding-left: 1rem;
+}
+#tchat_canvas {
+    width: 200px;
+    height: 400px;
 }
 .tchat_date {
     font-size: 0.75rem;
@@ -826,21 +845,22 @@ input[name="photodef"]{
 }
 .env_folder {
     width: 9.375rem;
-    height: 9.375rem;
+    height: 8.375rem;
     margin: 0.63rem auto;
 }
 .env_photos_list {
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
+    width: 80%;
+    margin: 0 auto;
     padding: 0.63rem;
-    margin: 0.63rem;
     border: 0.063rem solid var(--color-black);
 }
 .env_min_photo {
     text-align: center;
-    width: 6.25rem;
-    height: 6.25rem;
+    width: 4.25rem;
+    height: 4.25rem;
     margin: 1.25rem;
 }
 .env_listing {
@@ -923,6 +943,9 @@ input[name="photodef"]{
     align-items: center;
     margin: 1.875rem;
 }
+.env_add_photo label:first-child {
+    font-size: 0.8rem;
+}
 .env_add_friend {
     text-align: center;
 }
@@ -932,7 +955,7 @@ input[name="photodef"]{
 .friend_add {
     position: absolute;
     top: 0rem;
-    right: 4rem;
+    right: 3rem;
 }
 .friend_mess {
     text-align:center;
@@ -1021,8 +1044,8 @@ label[for="comment"]{
 }
 .user_list_defuncts {
     position: absolute;
-    top: 23.5rem;
-    left: 4.9rem;
+    top: 24.5rem;
+    left: 3.9rem;
     background-color: var(--color-bgc-button);
     color: var(--color-white);
     z-index: 10;
@@ -1039,7 +1062,7 @@ label[for="comment"]{
 }
 .user_photo {
     grid-area:user;
-    margin: 1.25rem 0 0 2.25rem;
+    margin: 1.25rem 0 0 3rem;
     width: 7.5rem;
     height: 7.5rem;
     border:0.063rem solid var(--color-black);
@@ -1068,7 +1091,7 @@ label[for="comment"]{
     position:relative;
     justify-content: flex-end;
     align-items: flex-end;
-    margin: 1.25rem 0.48rem;
+    margin: 1.25rem 0.3rem;
 }
 .user_button {
     display:flex;
@@ -1182,8 +1205,8 @@ label[for="comment"]{
     color:var(--color-black);
 }
 .home_user_img{
-    width: 10rem;
-    height: 13rem;
+    width: 8rem;
+    height: 11rem;
 }
 .home_user_contact {
     display: flex;
@@ -1194,6 +1217,7 @@ label[for="comment"]{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    text-align: center;
     margin: 0.938rem 1.875rem;
     border: 0.063rem solid black;
     border-radius: 0.63rem;
@@ -1214,6 +1238,11 @@ label[for="comment"]{
     position: relative;
     text-align: center;
     margin: 0.625rem;
+}
+.home_user_friend_mess {
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
 }
 .home_user_friend_img {
     width: 6.25rem;
@@ -1303,7 +1332,7 @@ textarea[name='message'] {
     margin: 2.5rem;
 }
 .createform_title {
-    font-size: 2rem;
+    font-size: 1.7rem;
     margin: 1.875rem;
 }
 .createform_form {
@@ -1311,7 +1340,7 @@ textarea[name='message'] {
     margin-bottom: 1.25rem;
 }
 .createform_info {
-    line-height: 2.1rem;
+    line-height: 1.6rem;
     width: 80%;
     margin: 1.25rem auto;
     padding: 0.63rem;
@@ -1381,8 +1410,90 @@ select[name="affinity"]{
 /*******************************************************************************/
 /*********************************MEDIA QUERY***********************************/
 /*******************************************************************************/
-@media only screen and (min-width: 480px) {
-    
+
+@media screen and (min-width: 481px) and (max-width : 767px){
+/*****MAIN*****/
+input {
+    width: 15.625rem;
+}
+.button-a {
+    width: 15.625rem;
+}
+/*****HEADER*****/
+.header_title-h1 {
+    font-size: 3.03rem;
+}
+/*****NAV*****/
+.nav_bar {
+    width: 10rem;
+    right: -10rem;
+}
+.open {
+    top: 3.5rem;
+    right: 1rem;
+}
+/*****HOME*****/
+.home_user_img{
+    width: 10rem;
+    height: 13rem;
+}
+.slick-slide, .home_slick, .home_user_slick {
+    height: 10.5rem;
+}
+/*****USER*****/
+.user_mini_icons{
+    margin: 1.25rem 0.48rem;
+}
+.user_photo {
+    margin: 1.25rem 0 0 2.25rem;
+}
+.user_list_defuncts {
+    top: 23.5rem;
+    left: 4.9rem;
+}
+.user_icon_def {
+    right:7rem;
+}
+/*****ENVIRONMENT*****/
+.env_folder {
+    height: 9.375rem;
+}
+.env_add_photo label:first-child {
+    font-size: 1rem;
+    }
+.env_min_photo {
+    width: 5.25rem;
+    height: 5.25rem;
+}
+.friend_add {
+        right: 4rem;
+    }
+/*****CREATEFORM*****/
+.createform_title {
+    font-size: 2rem;
+    }
+    .createform_info {
+        line-height: 2.1rem;
+    }
+/*****CARD*****/
+.card h2 {
+    font-size: 1.3rem;
+}
+/*****FLOWER*****/
+.flower_article {
+    font-size: 1.2rem;
+}
+.flower p:first-child {
+    font-size: 0.9rem;
+}
+/*****TCHAT*****/
+.tchat_container {
+    height: 27rem;
+}
+/*****FOOTER*****/
+.footer_menu, .footer_network {
+    margin: 1rem;
+    }
 }
 @media only screen and (min-width : 768px) {
     /*****MAIN*****/
@@ -1424,8 +1535,8 @@ select[name="affinity"]{
     /******NAV******/
     .nav_bar {
         height: 24rem;
-        width: 12.5rem;
-        right: -12.5rem;
+        width: 11.5rem;
+        right: -11.5rem;
     }
     .nav_bar-a {
         font-size: 1.3rem;
@@ -1479,6 +1590,9 @@ select[name="affinity"]{
         right: -0.5rem;
         bottom: -3.8rem;
     }
+    .user_mini_icons {
+        margin: 1.25rem 0.55rem;
+    }
     .user_icon_def{
         right: 14rem;
     }
@@ -1499,7 +1613,14 @@ select[name="affinity"]{
        width: 70%;
     }
     .env_photos_list {
-        margin: 4rem;
+       width: 70%;
+    }
+    .env_min_photo {
+        width: 6.25rem;
+        height: 6.25rem;
+    }
+    .env_add_photo label:first-child {
+        font-size: 1.1rem;
     }
     .friend_add {
         right: 11rem;
@@ -1509,6 +1630,9 @@ select[name="affinity"]{
         width: 81%;
     }
     /*****TCHAT*****/
+    .tchat {
+        width: 70%;
+    }
     .tchat_container {
         height: 35rem;
     }
@@ -1540,10 +1664,10 @@ select[name="affinity"]{
     }
     /******NAV******/
     .nav_bar {
-        right: -14.5rem;
+        right: -13.5rem;
         line-height: 1.7rem;
         height: 30rem;
-        width: 14.5rem;
+        width: 13.5rem;
     }
     .nav_bar-a {
         font-size: 1.5rem;
@@ -1563,7 +1687,10 @@ select[name="affinity"]{
     }
     .user_icon_def {
         right: 20rem;
-    }    
+    }
+    .user_mini_icons {
+        margin: 1.25rem 0.6rem;
+    }
     .user_myDefuncts {
         font-size: 1.3rem;
     }
@@ -1610,6 +1737,9 @@ select[name="affinity"]{
     .env_container {
         width: 60%;
     }
+    .env_photos_list {
+       width: 60%;
+    }
     .friend_add {
         right: 17.5rem;
     }
@@ -1629,7 +1759,6 @@ select[name="affinity"]{
     }
     /*****TCHAT*****/
     .tchat {
-        width: 75%;
         margin: 5rem auto;
     }
     .tchat_dest {
@@ -1670,14 +1799,13 @@ select[name="affinity"]{
     }
     /******NAV******/
     .nav_bar {
-        width: 16.5rem;
-        right: -16.5rem;
+        width: 15.5rem;
+        right: -15.5rem;
         line-height: 2rem;
         height: 35rem;
     }
     .nav_bar-a {
         line-height: 3.3rem;
-        
     }
     .open {
         top: 10rem;
@@ -1710,6 +1838,9 @@ select[name="affinity"]{
     /*****ENVIRONMENT****/
     .env_container {
         width: 50%;
+    }
+    .env_photos_list {
+       width: 50%;
     }
     .friend_add {
         right: 24rem;

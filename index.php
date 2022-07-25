@@ -13,7 +13,7 @@ $adminRequest = new AdminRequest();
 if (isset($_SESSION['user'])){
     if (isset($_GET['deco'])){
         // mise à jour du status "online=0" pour le tchat
-        $register->updateOnline($_SESSION['user']['id'],0);
+        $register->updateOnline(htmlspecialchars(trim($_SESSION['user']['id'])),0);
         $_SESSION = [];
         session_destroy();
     }

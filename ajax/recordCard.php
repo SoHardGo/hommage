@@ -25,7 +25,7 @@ if (isset($_POST['content']) && !empty($_POST['content'])){
     $totalCard = $getInfo->getCardTotal();
     $total = round($totalCard,2);
     // initialisation du tableau d'affichage de la sélection des cartes
-    $tab = '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].'</td></tr>';
+    $tab = '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].' €</td></tr>';
     
     $result = json_encode(['carte'=>$nb,'tab'=>$tab,'total'=>$total]);
     echo $result;

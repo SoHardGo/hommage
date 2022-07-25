@@ -26,9 +26,9 @@ ob_start();
             <img class="img dim40 <?=$icon_anim_f?>" src="public/pictures/site/friend.png" alt="icone demande d'ami">
             <span class="number_f"><?=$number_f?></span>
         </a>
-        <a href="?page=tchat&friendId=<?=$_SESSION['id_tchat']?>&consult=1" class="user_mini_icons" id="newMessage" title="Nouveau message">
+        <a href="?page=home_user&show#contacts" class="user_mini_icons" id="newMessage" title="Nouveau message">
             <img class="img dim40 <?=$icon_anim_m?>" src="public/pictures/site/chat.png" alt="icone nouveau message">
-            <span class="number_m"><?=$number_m?></span>
+            <span class="number_m"><?=intval($number_m)?></span>
         </a>
     </div>
     <div class="user_fix">

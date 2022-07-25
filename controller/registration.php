@@ -14,6 +14,14 @@ $data = array();
 if (isset($_POST['submit'])) {
     // Vérification si le formulaire vient bien du site
     if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token']===$_POST['token']) {
+        //Vérification du bon format de mot de passe
+        if(isset($_POST['pwd']) && !empty($_POST['pwd'])){
+            $pwd = htmlspecialchars(trim($_POST['pwd']));
+            if(!preg_match('\'^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%€£])[0-9A-Za-z!@#$%€£]{5,20}$\'', $pwd)) {
+                header('location: index.php?page=registration');
+                exit;
+            }
+        } 
         //Vérification de la validité du format de l'émail
         if(isset($_POST['email']) && filter_var((htmlspecialchars(trim($_POST['email']))), FILTER_VALIDATE_EMAIL)){
             $result = $getInfo->getEmail(htmlspecialchars(trim($_POST['email'])))->fetch();

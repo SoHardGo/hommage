@@ -10,7 +10,7 @@ ob_start();
 </section>
 <section>
   <div class="flower">
-    <form class="form_flower" method="POST" action="?page=flower">
+    <form class="flower_form" method="POST" action="?page=flower">
       <div class="flower_container">
 <?php foreach($flowerList as $f) :?>
           <div class="flower">

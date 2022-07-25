@@ -10,15 +10,14 @@ $messTel = '';
 $messFinal = '';
 $messBuy = '';
 $tab_list ='';
+$tab ='';
 $list = $_GET['list']??0;
 
-
 // récupération des informations du destinataire pour les cartes
-if (isset($_SESSION['user_card_send'])){
-$user_send = $getInfo->getInfoUser($_SESSION['user_card_send']);
-
-    // enregistrement des achats de cartes dans la BBD
-    if (isset($_SESSION['total_card']) && $_SESSION['total_card'] != '0') {
+if (isset($_SESSION['user_send'])){
+$user_send = $getInfo->getInfoUser($_SESSION['user_send']);
+// enregistrement des achats de cartes dans la BBD
+    if (isset($_SESSION['total_card']) && $_SESSION['total_card'] != '0' ) {
         
         $tab = '<div class="buy_price">
                     <h4>Vos achats d\'aujourd\'hui :</h4>
@@ -32,18 +31,20 @@ $user_send = $getInfo->getInfoUser($_SESSION['user_card_send']);
                                 <th class="tab_price">Prix</th>
                             </tr>
                         </thead>
-                        <tbody id="container_tab">'.$_SESSION['tab_card'].'</tbody>
+                        <tbody id="container_tab">
+                            '.$_SESSION['tab_card'].'
+                        </tbody>
                         <tfoot>
                             <tr>
                                <td>Total</td> 
-                               <td id="total">'.$_SESSION['total_card'].'</td>
+                               <td id="total">'.$_SESSION['total_card'].' €</td>
                             </tr>
                         </tfoot>
                     </table>
                 </div>';
     }
                
-    // contrôle des informations de paiement
+// contrôle des informations de paiement
     if (isset($_POST['buy_submit'])){
         if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
             if (isset($_POST['buy_cart']) && is_numeric($_POST['buy_cart'])){
@@ -92,33 +93,36 @@ $user_send = $getInfo->getInfoUser($_SESSION['user_card_send']);
         } else {
         $messFinal = "L'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.";
         }
-    } elseif ($list == false){
+    } 
+} else {
         $messBuy = '<p class="buy_empty">Votre panier est actuellement vide</p>';
     }
-} 
 // liste des achats précedent
 $tab_list = '';
 $total = 0;
+
 if ($list){
-    if(!empty($listing)){
     // récupération liste des enregistrements, contenu, date et le destinataire
-    $listing = $getInfo->getListBuyUser(intval($_SESSION['user']['id']));
+    $listing = $getInfo->getListBuyUser(htmlspecialchars(trim($_SESSION['user']['id'])));
+    if(!empty($listing)){
         foreach ($listing['idcards'] as $l){
+            $nb = count($l);
             if ($l!= null){
-                foreach($l as $id){
-                    $result = $getInfo->getContentList($id);
-                    foreach($result as $r){
-                        //information de la carte
-                        $cardInfo = $getInfo->getProductInfo($r['card_id']);
-                        $total += $cardInfo['price'];
-                        //information du destinataire
-                        $dest = $getInfo->getInfoUser($r['user_send_id']);
-                        $tab_list .= '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].'</td><td>'.$dest['lastname'].' '.$dest['firstname'].'</td><td><div class="buy_content">'.$r['content'].'</div></td><tr>';
-                    }
+                for ($i=0; $i<$nb;$i++){
+                        $result = $getInfo->getContentList($l[$i]);
+                        foreach($result as $r){
+                            //information de la carte
+                            $cardInfo = $getInfo->getProductInfo($r['card_id']);
+                            $total += $cardInfo['price'];
+                            //information du destinataire
+                            $dest = $getInfo->getInfoUser($r['user_send_id']);
+                            $tab_list .= '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].' €</td><td>'.$dest['lastname'].' '.$dest['firstname'].'</td><td><div class="buy_content">'.$r['content'].'</div></td><tr>';
+                        }
+                    
                 }
             }
         }
-    $tab_list .= '<tr><td colspan="3">Total de vos achats :</td><td>'.$total.'</td></tr>';
+    $tab_list .= '<tr><td colspan="3">Total de vos achats :</td><td>'.$total.' €</td></tr>';
     } else {
         $messFinal = '<p class="message">Vous n\'avez pas effectué d \'achat pour le moment</p>';
     }

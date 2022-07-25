@@ -161,7 +161,7 @@ class GetInfos extends Manage {
     // Liste des achats d'un utilisateur
     public function getOrdersList(int $user_id) :array {
         $data = ['user_id'=>$user_id];
-        $query = "SELECT date_crea, total, user_send_id, cards_id,flowers_id FROM orders WHERE user_id=:user_id";
+        $query = "SELECT date_crea, total, user_send_id, cards_id, flowers_id FROM orders WHERE user_id=:user_id";
         return $this->getQuery($query,$data)->fetchAll();
     }
     // Liste des contenus de cartes par Id d'enregistrement 
@@ -255,13 +255,6 @@ class GetInfos extends Manage {
     public function getNewTchat(int $user_id) :array {
         // récupération de la dernière connexion
         $data = ['friend_id'=>$user_id];
-        /*
-        $query = "SELECT user_id, users.id 
-                        FROM tchat
-                  INNER JOIN users
-                        ON users.id=tchat.user_id
-                  WHERE friend_id=:friend_id AND 
-                  GROUP BY tchat.user_id";*/
         $query = "SELECT user_id FROM tchat WHERE friend_id=:friend_id AND `read` = 0 GROUP BY user_id";
         return $this->getQuery($query,$data)->fetchAll();
     }

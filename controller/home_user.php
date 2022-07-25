@@ -8,12 +8,14 @@ $getInfo = new GetInfos();
 $friends = '';
 $list_def = '';
 $message = '';
+$new_mess = '';
+$show = 'hidden';
 $id_delete = $_GET['id_delete']??'';
 
 // Vérification des informations de connexion
 
 try {
-    if ( isset($_POST['email']) && isset($_POST['pwd']) ){
+    if ( isset($_POST['email']) && isset($_POST['pwd'])){
         // Vérification de la validité du format d'émail
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
                 throw new Exception("Format d'Email incorrect.");
@@ -27,11 +29,9 @@ try {
                 $_SESSION['user'] = $result;
                 $register->updateLastLogin();
             // mise à jour du status "online=1" pour le tchat
-                $register->updateOnline($_SESSION['user']['id'],1);
+                $register->updateOnline(htmlspecialchars(trim($_SESSION['user']['id'])),1);
             // Récupération des infos des défunts associées à l'utilisateur
                 $_SESSION['user']['defunct'] = $getInfo->getDefunctList();
-            // Création d'un cookie 
-            //   setcookie('name', $_SESSION['user']['lastname'], time() + 7200, null, null, true, true);
 
             }
     }
@@ -70,32 +70,41 @@ foreach($lastDef as $r){
 $slider .= '</div>';
 
 // Liste des amis->affichage dans le dossier contact avec status sur les demandes d'amis
-$friendList = $getInfo->getFriendsList($_SESSION['user']['id']);
+$friendList = $getInfo->getFriendsList(htmlspecialchars(trim($_SESSION['user']['id'])));
 if (empty($friendList)){
     $friends ='<p>Vous n\'avez pas de conctact actuellement</>';
 }
+
 foreach ($friendList as $f){
     if ($f['friend_id'] == $_SESSION['user']['id']){
         $friend_id = $f['user_id'];
     } else {
         $friend_id = $f['friend_id'];
-    } 
-    $userFriend = $getInfo->getInfoUser($friend_id);
-    $profil = $globalClass->verifyPhotoProfil($friend_id);
+    }
+    $userFriend = $getInfo->getInfoUser(htmlspecialchars(trim($friend_id)));
+    $profil = $globalClass->verifyPhotoProfil(htmlspecialchars(trim($friend_id)));
+    // Affichage d'une icone sur l'utilisateur qui a envoyé un message
+    $find =in_array($friend_id, $_SESSION['id_tchat']);
+    if ($find != false){ 
+        $new_mess = '<img class="img dim35" src="public/pictures/site/red-icon.png" alt="icon nouveau message">';
+    } else {
+        $new_mess ='';
+    }
     switch ($f['validate']) {
         case null :
-            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/mark.png" title="En attente de confirmation" alt="icon point d\'interrogation"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
+            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user_friend_container"><span class="home_user_friend_mess">'.$new_mess.'</span><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/mark.png" title="En attente de confirmation" alt="icon point d\'interrogation"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
         case 0 :
-            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée" alt="icon de refus"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
+            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user_friend_container"><span class="home_user_friend_mess">'.$new_mess.'</span><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée" alt="icon de refus"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
         case 1 :
-            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'"><div class="home_user_friend_container"><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
+            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user_friend_container"><span class="home_user_friend_mess">'.$new_mess.'</span><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
         default :
             break;
     }
 }
+
 // Suppression d'un ami
 if (isset($_GET['friendDel'])){
     $friendDel = htmlspecialchars(trim($_GET['friendDel']));
@@ -111,11 +120,11 @@ $useradmin['user_id'] = $_GET['useradmin']??'';
 $newFriend = $_GET['id_friend']??null;
 if (isset($_POST['friend'])){
     if ($_POST['friend'] == 0){
-        $register->updateFriend(0, $_SESSION['user']['id'], htmlspecialchars(trim($newFriend)));
+        $register->updateFriend(0, htmlspecialchars(trim($_SESSION['user']['id'])), htmlspecialchars(trim($newFriend)));
         $_SESSION['number_f'] = $_SESSION['number_f'] -1;
     }
     if ($_POST['friend'] == 1){
-        $register->updateFriend(1, $_SESSION['user']['id'], htmlspecialchars(trim($newFriend)));
+        $register->updateFriend(1, htmlspecialchars(trim($_SESSION['user']['id'])), htmlspecialchars(trim($newFriend)));
         $_SESSION['number_f'] = $_SESSION['number_f'] -1; 
     }
 }
@@ -196,5 +205,10 @@ if(isset($_POST['delete_def'])){
     header('location: index.php?page=home_user');
     exit;
 }
+// Ouverture de la div contact lors du clic sur le bouton nouveau message
+if(isset($_GET['show'])){
+    $show = 'visible';
+}
+
 
 require 'view/home_user.php';

@@ -99,6 +99,13 @@ class GlobalClass extends Manage {
         }
         return $status;
     }
+    // Vérification de l'état d'une demande d'ami
+    public function verifyFriendStatus(int $user, int $friend){
+        $data = ['user_id'=>$user, 'friend_id'=>$friend];
+        $query = "SELECT validate FROM friends WHERE user_id=:user_id AND friend_id=:friend_id OR user_id=:friend_id AND friend_id=:user_id";
+        $result = $this->getQuery($query,$data)->fetch();
+        return $result;
+    }
     // Suppression des photos d'un défunt dans le dossier de l'utilisateur
     public function deleteAllPhotosDef (int $user_id, string $name) :void{
         $folder = 'public/pictures/photos/'.$user_id;
