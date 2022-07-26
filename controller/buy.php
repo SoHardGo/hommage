@@ -77,17 +77,20 @@ $user_send = $getInfo->getInfoUser($_SESSION['user_send']);
             }
         
             if (!empty($_POST['buy_cart']) && !empty($_POST['buy_code']) && !empty($_POST['buy_tel']) ){
-                 //enregistrement des achats de cartes dans la BDD
-            $data = ['user_id'=>$_SESSION['user']['id'],
-                     'total'=>$_SESSION['total_card'],
-                     'cards_id'=>json_encode($_SESSION['nbCard']), // Id des enregistrements dans content_card
-                     'user_send_id'=>$_SESSION['user_send'],
-                     'flowers_id'=>json_encode(0)
+            //enregistrement des achats de cartes dans la BDD
+            $data = ['lastname'=>htmlspecialchars(trim(ucfirst($_SESSION['user']['lastname']))),
+                     'firstname'=>htmlspecialchars(trim(ucfirst($_SESSION['user']['firstname']))),
+                     'email'=>htmlspecialchars(trim($_SESSION['user']['email'])),
+                     'total'=>htmlspecialchars(trim($_SESSION['total_card'])),
+                     'cards_id'=>json_encode($_SESSION['nbCard']),   // Id des enregistrements dans content_card
+                     'user_send_id'=>htmlspecialchars(trim($_SESSION['user_send'])),
+                     'lastname_send'=>htmlspecialchars(trim(ucfirst($_SESSION['lastname_send']))),
+                     'flowers_id'=>json_encode(0),
+                     'tel'=>htmlspecialchars(trim($_POST['buy_tel']))
                      ];
             $register->setProducts($data); 
             $messFinal = '<p class="message">Paiement effectué avec succès. Reception du colis d\'ici 3 jours.</p><p class="message"> Merci pour votre confiance.</p>';
             $tab ='';
-            date(s);
             unset ($_SESSION['nbCard']);
             }   
         } else {

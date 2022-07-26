@@ -21,6 +21,7 @@
     font-family: 'Abel', sans-serif;
     font-family: 'Lato', sans-serif;
 }
+
 main :is(h1,h2,h3,h4){
     text-align:center;
     margin: 1rem;
@@ -44,7 +45,8 @@ h2 {
     font-size: 1.45rem;
 }
 hr {
-    margin: 1.25rem;
+    width: 80%;
+    margin: 1.25rem auto;
 }
 label {
     display:block;
@@ -89,6 +91,7 @@ input[name="token"] {
 }
 .button-a {
     display: block;
+    text-align: center;
     font-size: 0.9rem;
     width: 13.625rem;
     height: 2.3rem;
@@ -844,8 +847,8 @@ input[name="photodef"]{
     color: var(--color-black);
 }
 .env_folder {
-    width: 9.375rem;
-    height: 8.375rem;
+    width: 6.375rem;
+    height: 6.375rem;
     margin: 0.63rem auto;
 }
 .env_photos_list {
@@ -855,7 +858,7 @@ input[name="photodef"]{
     width: 80%;
     margin: 0 auto;
     padding: 0.63rem;
-    border: 0.063rem solid var(--color-black);
+    border: 0.2rem solid var(--color-bgc-button);
 }
 .env_min_photo {
     text-align: center;
@@ -887,7 +890,9 @@ input[name="photodef"]{
 }
 .env_container_photos {
     position:relative;
-    margin:0 auto;
+    border: 0.3rem solid var(--color-bgc-button);
+    border-radius: 0rem 0rem 0.8rem 0.8rem;
+    margin:1rem auto 2rem;
 }
 .env_delete_photo {
     position: absolute;
@@ -1205,8 +1210,8 @@ label[for="comment"]{
     color:var(--color-black);
 }
 .home_user_img{
-    width: 8rem;
-    height: 11rem;
+    width: 7rem;
+    height: 7rem;
 }
 .home_user_contact {
     display: flex;
@@ -1352,9 +1357,19 @@ select[name="affinity"]{
 .createform_message {
     text-align: center;
 }
+
 /*******************************************************************************/
 /******************************ADMINISTRATION***********************************/
 /*******************************************************************************/
+
+.header_admin_title {
+    text-align: center;
+    margin: 1rem;
+}
+.admin_title{
+    font-size: 1.5rem;
+    text-align: center;
+}
 .admin_form {
     display: flex;
     flex-direction: column;
@@ -1367,10 +1382,16 @@ select[name="affinity"]{
     list-style: none;
     margin: 2rem;
 }
+.admin_nav .button-a {
+    width: 7rem;
+}
+.admin_nav .button {
+    padding: 0.5rem;
+    color: var(--color-white);
+}
 .admin_nav li a {
     color: var(--color-black);
-    padding: 1.5rem;
-    margin: 0.5rem;
+    margin: 0.2rem;
 }
 .admin_footer {
     height: 5rem;
@@ -1380,20 +1401,22 @@ select[name="affinity"]{
 .admin_list {
     text-align: center;
 }
+.admin_table {
+    width: 95%;
+    font-size: 0.8rem;
+}
 .admin_table :is(th, td, tr){
-    height: 2.5rem;
+    height: 2rem;
 }
 .admin_table th {
     background-color: var(--color-grey-light);
-    font-weight: bold;
 }
-.admin_table {
-    width: 95%;
-    font-size: 1.5rem;
+.admin_table a {
+    font-size: 0.6rem;
 }
 .admin_show, .admin_update, .admin_delete {
     padding: 0.2rem;
-    border: 0.3rem inset var(--color-grey-soft);
+    border: 0.2rem inset var(--color-grey-soft);
     color: var(--color-black);
     background-color: rgb(12, 255, 0);
 }
@@ -1405,6 +1428,18 @@ select[name="affinity"]{
 }
 .admin_infos {
     margin-left: 2.6rem;
+}
+/*****adminUsers*****/
+.admin_users {
+
+}
+.admin_show_users, .admin_update_users {
+    width: 90%;  
+    margin: 1rem auto;
+}
+.admin_update_users {
+    width: 75%;
+    text-align: center;
 }
 
 /*******************************************************************************/
@@ -1434,8 +1469,8 @@ input {
 }
 /*****HOME*****/
 .home_user_img{
-    width: 10rem;
-    height: 13rem;
+    width: 9rem;
+    height: 9rem;
 }
 .slick-slide, .home_slick, .home_user_slick {
     height: 10.5rem;
@@ -1456,7 +1491,8 @@ input {
 }
 /*****ENVIRONMENT*****/
 .env_folder {
-    height: 9.375rem;
+    width: 7.375rem;
+    height: 7.375rem;
 }
 .env_add_photo label:first-child {
     font-size: 1rem;
@@ -1513,8 +1549,8 @@ input {
         font-size: 1.9rem;
     }
     .dim20 {
-        width: 1rem;
-        height: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
     }
     .dim35 {
         width: 2rem;
@@ -1564,15 +1600,20 @@ input {
     .home_text, .home_explain-p {
         font-size: 1.3rem;
     }
-    .home_user_contact_list {
-        margin: 0.938rem 3rem;
-    }
     .slick-slide, .home_slick, .home_user_slick {
         height: 12.5rem;
     }
     /*****HOME USER*****/
+    .home_user_contact_list {
+        width: 75%;
+        margin: 0 auto;
+    }
     .home_user_defunct {
         width: 86%;
+    }
+    .home_user_img {
+        width: 10rem;
+        height: 10rem;
     }
     /*****USER*****/
     .user {
@@ -1615,6 +1656,10 @@ input {
     .env_photos_list {
        width: 70%;
     }
+    .env_folder {
+        width: 8.375rem;
+        height: 8.375rem;
+    }
     .env_min_photo {
         width: 6.25rem;
         height: 6.25rem;
@@ -1650,6 +1695,9 @@ input {
     h1 {
         font-size: 2.1rem;
     }
+    hr {
+        width: 70%;
+    }
     input {
         height: 2.4rem;
         margin: 1.5rem;
@@ -1666,7 +1714,7 @@ input {
     .nav_bar {
         right: -13.5rem;
         line-height: 1.7rem;
-        height: 30rem;
+        height: 27rem;
         width: 13.5rem;
     }
     .nav_bar-a {
@@ -1714,6 +1762,9 @@ input {
         flex-direction: row;
         margin: 2.25rem;
     }
+    .home_user_contact_list {
+        width: 70%;
+    }
     .home_photo {
         width: 55%;
     }
@@ -1735,7 +1786,7 @@ input {
     }
     /*****ENVIRONMENT****/
     .env_container {
-        width: 60%;
+        width: 55%;
     }
     .env_photos_list {
        width: 60%;
@@ -1835,6 +1886,9 @@ input {
     .home_user_defunct {
         width: 84%;
     }
+    .home_user_contact_list {
+        width: 65%;
+    }
     /*****ENVIRONMENT****/
     .env_container {
         width: 50%;
@@ -1911,7 +1965,13 @@ input {
     .home_user_defunct {
         width: 80%;
     }
+    .home_user_contact_list {
+        width: 60%;
+    }
     /*****ENVIRONMENT*****/
+    .env_container {
+        width: 45%;
+    }
     .friend_add {
         right: 32rem;
     }

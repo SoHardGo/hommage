@@ -83,6 +83,7 @@ foreach ($friendList as $f){
     }
     $userFriend = $getInfo->getInfoUser(htmlspecialchars(trim($friend_id)));
     $profil = $globalClass->verifyPhotoProfil(htmlspecialchars(trim($friend_id)));
+    
     // Affichage d'une icone sur l'utilisateur qui a envoyé un message
     $find =in_array($friend_id, $_SESSION['id_tchat']);
     if ($find != false){ 

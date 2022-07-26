@@ -1,10 +1,9 @@
 <?php
-session_start();
-require_once '../../config/config.php';
-require_once '../../model/AdminRequest.php';
+require_once 'configAdmin/configAdmin.php';
+require_once 'modelAdmin/AdminRequest.php';
 $adminRequest = new AdminRequest();
 
-$title = "BackOffice";
+$title = "Login";
 // Vérification des informations de connexion d'administration
 
 try {
@@ -13,7 +12,8 @@ try {
         $result = $adminRequest->verifyAdminAccount(htmlspecialchars(trim($_POST['admin_user'])), htmlspecialchars(trim($_POST['admin_pwd'])))->fetch();
         if (!$result){
             throw new Exception("Identifiants incorrects.");
-        } 
+        }
+        $_SESSION['admin'] = 'Sonia';
     }
 } catch(Exception $e) {
     session_destroy();
@@ -22,5 +22,6 @@ try {
     header('Location: ../../index.php?page=connexion&error=' . $errorMsg);
     exit();
 }
+
 $content_admin = '';
-require '../viewAdmin/adminPost.php';
+require 'viewAdmin/adminPost.php';

@@ -1,9 +1,9 @@
 <?php
-require_once '../../config/config.php';
-require_once '../../model/GetInfos.php';
-$getInfo =new GetInfos();
+require_once 'configAdmin/configAdmin.php';
+require_once 'modelAdmin/AdminRequest.php';
+$adminRequest =new AdminRequest();
 $content_defuncts ='';
-$info_defuncts = $getInfo->getAllDefuncts();
+$info_defuncts = $adminRequest->getInfoAllDefuncts();
 
 
 foreach ($info_defuncts as $defuncts){
@@ -11,4 +11,4 @@ foreach ($info_defuncts as $defuncts){
 }
 
 
-require '../viewAdmin/adminDefuncts.php';
+require 'viewAdmin/adminDefuncts.php';

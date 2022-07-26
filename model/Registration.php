@@ -34,7 +34,7 @@ class Registration extends Manage {
         $nb=$result->rowCount();
         return $nb;
     }
-    // enregistrement des photos de defunts
+        // enregistrement des photos de defunts
     public function setPhoto(array $data):int {
         $query = "INSERT INTO photos SET user_id=:user_id, defunct_id=:defunct_id, name=:name, date_crea=NOW()";
         return $this->setQueryLastId($query,$data);
@@ -51,7 +51,7 @@ class Registration extends Manage {
     }
     // enregistrement des cartes achetées
     public function setProducts(array $data) :void{
-        $query = "INSERT INTO orders SET user_id=:user_id, cards_id=:cards_id, flowers_id=:flowers_id, total=:total, user_send_id=:user_send_id, date_crea=NOW()";
+        $query = "INSERT INTO orders SET lastname=:lastname, firstname=:firstname, lastname_send=:lastname_send, email=:email, cards_id=:cards_id, flowers_id=:flowers_id, total=:total, user_send_id=:user_send_id, tel=:tel, date_crea=NOW()";
         $this->getQuery($query,$data);
     }
     // enregistrement des messages du chat
@@ -69,12 +69,12 @@ class Registration extends Manage {
         $query = "UPDATE users SET last_log=NOW() WHERE id=:id";
         $this->getQuery($query,$data);
     }
-    
     // mise à jour du nom de la photo de defunt
     public function updatePhoto(array $data):void {
         $query = "UPDATE photos SET name=:name WHERE id=:id";
         $this->getQuery($query,$data);
-    }
+    }    
+    
     // mise à jour informations profil
     public function updateUser(array $data) :void{
         $query = "UPDATE users SET email=:email, number_road=:number_road, address=:address, postal_code=:postal_code, city=:city, pseudo=:pseudo WHERE id=:id";
@@ -161,27 +161,6 @@ class Registration extends Manage {
     
     // supprimer un compte utilisateur
     public function deleteUserAccount(int $user_id) :void{
-        $data = ['user_id'=>$user_id];
-        $query = "DELETE FROM comments WHERE user_id=:user_id";
-        $this->getQuery($query,$data);
-        $query = "DELETE FROM contact WHERE user_id=:user_id";
-        $this->getQuery($query,$data);
-        $query = "DELETE FROM content_card WHERE user_id=:user_id";
-        $this->getQuery($query,$data);
-        $query = "DELETE FROM defuncts WHERE user_id=:user_id";
-        $this->getQuery($query,$data);
-        $query = "DELETE FROM friends WHERE user_id=:user_id";
-        $this->getQuery($query,$data);
-        $query = "DELETE FROM lastlogin WHERE user_id=:user_id";
-        $this->getQuery($query,$data);
-        $query = "DELETE FROM orders WHERE user_id=:user_id";
-        $this->getQuery($query,$data);
-        $query = "DELETE FROM photos WHERE user_id=:user_id";
-        $this->getQuery($query,$data);
-        $query = "DELETE FROM tchat WHERE user_id=:user_id";
-        $this->getQuery($query,$data);
-        $query = "DELETE FROM user_admin WHERE user_id=:user_id";
-        $this->getQuery($query,$data);
         $data = ['id'=>$user_id];
         $query = "DELETE FROM users WHERE id=:id";
         $this->getQuery($query,$data);

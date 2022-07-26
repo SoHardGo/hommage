@@ -17,4 +17,4 @@ ob_start();
 </div>
 <?php
 $content_admin = ob_get_clean(); 
-require '../viewAdmin/adminPost.php';
+require 'template.php';

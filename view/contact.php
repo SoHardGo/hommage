@@ -4,6 +4,7 @@ ob_start();
 ?>
 <section class="contact">
         <h1 class="contact_title">Contact</h1>
+        <?=$message?>
         <div class="contact_form">
             <form method="POST" action="?page=contact">
                 <label for="lastname">Entrer votre nom</label>

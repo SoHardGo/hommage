@@ -67,18 +67,25 @@ if (isset($_POST['submit_def'])){
             $result_send = '<p class="message">L\'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.</p>';
     }
 }
+// Information sur l'administrateur du défunt sélectionné
+if (isset($_SESSION['id_admin'])){
+    $infoAdmin = $getInfo->getInfoUser(htmlspecialchars(trim($_SESSION['id_admin'])));
+}
 // Validation du mode d'envoi au créateur de la fiche du défunt
 if(!isset($_POST['radio']) && !isset($_POST['select_def'])){
     $mess_dest = '<p>Envoi à votre domicile</p>';
     $_SESSION['user_send'] = $_SESSION['user']['id'];
+    $_SESSION['lastname_send'] = $_SESSION['user']['lastname'];
 }
 if(isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'email'){
     $mess_dest = '<p>Confirmation de l\'envoi par Email</p>';
     $_SESSION['user_send'] = $_SESSION['id_admin'];
+    $_SESSION['lastname_send'] = $infoAdmin['lastname'];
 }
 if(isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'postal'){
     $mess_dest = '<p>Confirmation de l\'envoi par voix Postal</p>';
     $_SESSION['user_send'] = $_SESSION['id_admin'];
+    $_SESSION['lastname_send'] = $infoAdmin['lastname'];
 }     
 
 $categories = 'cartes';

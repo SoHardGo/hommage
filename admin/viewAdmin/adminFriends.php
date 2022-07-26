@@ -18,4 +18,4 @@ ob_start();
 
 <?php
 $content_admin = ob_get_clean(); 
-require '../viewAdmin/adminPost.php';
+require 'template.php';

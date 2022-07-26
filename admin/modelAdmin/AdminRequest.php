@@ -9,13 +9,34 @@ class AdminRequest extends Manage {
         $query = "SELECT id FROM adminlog WHERE admin_id=:admin_id AND admin_pass=:admin_pass";
         return $this->getQuery($query,$data);
     }
-    
+
+/////////////////////////////////USERS////////////////////////////////////////// 
+
     // Informations sur tous les utilisateurs
     public function getInfoAllUsers() :array{
         $query = "SELECT id, lastname, firstname, pseudo, email, number_road, address, city, postal_code, password, last_log, online FROM users ORDER BY lastname";
         return $this->getQuery($query)->fetchAll();
     }
+    // Informations d'un utilisateur
+    public function getInfoOneUser(int $id) :array{
+        $data = ['id'=>$id];
+        $query = "SELECT id, lastname, firstname, pseudo, email, number_road, address, city, postal_code, password, last_log, online FROM users WHERE id=:id";
+        return $this->getQuery($query,$data)->fetch();
+    }
+    // Mise à jour des informations d'un utilisateur
+    public function updateInfoOneUser(array $data) :void{
+        $query = "UPDATE users SET lastname=:lastname, firstname=:firstname, pseudo=:pseudo, email=:email, number_road=:number_road, address=:address, city=:city, postal_code=:postal_code WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    // Suppression d'un utilisateur
+    public function deleteOneUser(int $id) :void{
+        $data = ['id'=>$id];
+        $query = "DELETE FROM users WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
     
+/////////////////////////////////PHOTOS/////////////////////////////////////////
+
     // Informations sur toutes les photos
     public function getInfoAllPhotos() :array{
         $query = "SELECT id, name, user_id, defunct_id, date_crea FROM photos ORDER BY name";
@@ -60,7 +81,13 @@ class AdminRequest extends Manage {
     
     // Liste des commandes
     public function getInfoAllOrders() :array{
-        $query = "SELECT id, user_id, date_crea, total, user_send_id, cards_id, flowers_id FROM orders ORDER BY date_crea DESC";
+        $query = "SELECT id, lastname, firstname, date_crea, total, lastname_send, tel, email, user_send_id, cards_id, flowers_id FROM orders ORDER BY date_crea DESC";
+        return $this->getQuery($query)->fetchAll();
+    }
+    
+    // liste des défunts
+    public function getInfoAllDefuncts() :array{
+        $query = "SELECT id, user_id, lastname, firstname, birthdate, death_date, cemetery, city_birth, city_death, postal_code, photo, date_crea FROM defuncts ORDER by lastname";
         return $this->getQuery($query)->fetchAll();
     }
 }

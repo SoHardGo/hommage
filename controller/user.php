@@ -55,7 +55,6 @@ foreach ($result as $r){
 if(!isset($_SESSION['number_m'])){
     $result = $getInfo->getNewTchat(htmlspecialchars(trim($_SESSION['user']['id'])));
     $nb = count($result);
-    var_dump($nb);
     if ($nb){
         $icon_anim_m = 'icon_anim';
         $number_m = $nb;
@@ -64,7 +63,6 @@ if(!isset($_SESSION['number_m'])){
     foreach ($result as $r){
        $_SESSION['id_tchat'][] = $r['user_id'];
     }
-    var_dump($_SESSION['id_tchat']);
 }
 
 require 'view/user.php';
