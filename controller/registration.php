@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
                 }
                 if(isset($_POST['cp'])) {
                     $code_postal = htmlspecialchars(trim($_POST['cp']));
-                    if(preg_match('\'^[0-9]{5}$\'', $code_postal)){
+                    if(preg_match('\'^[0-9]{5}$\'', $code_postal) && is_numeric($_POST['cp'])){
                        $data['postal_code'] = htmlspecialchars(trim($_POST['cp']));
                     } else {
                         $data['postal_code'] = 0;
@@ -92,7 +92,7 @@ if (isset($_POST['submit'])) {
                         exit;
                     }
                 }
-                // Enregistrement d'un user et initialisation environnement user
+                // Enregistrement d'un user et initialisation environnement user + cryptage mot de passe
                 $_SESSION['user'] = $data;
                 $user_id = $register->setRegister($data);
                 $_SESSION['user']['id'] = $user_id;

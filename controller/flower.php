@@ -54,20 +54,6 @@ if(isset($_POST['submit'])){
             }
         }
 
-        
-// Affichage de la partie paiement avec liste des bouquets validés
-            /*
-                if ($total == 0){
-                    $message = '<p class="message">Vous n\'avez rien sélectionné pour le moment.</p>';
-                } else {
-                // variable pour récupérer dans buy.php
-                $_SESSION['buy'] = true;
-                $_SESSION['tab_flower'] = $select;
-                $_SESSION['total_flower'] = $nb_flower;
-                $buy = $globalClass->setBuyEnv();
-                }*/
-        
-        
     } else {
         $message = '<p class="message>L\'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.</p>';
     } 

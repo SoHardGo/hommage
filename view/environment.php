@@ -4,7 +4,6 @@ $content='';
 
 if (isset($id_def)){
     ob_start(); 
-
 ?>
 <section>
     <div class="env">

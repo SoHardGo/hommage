@@ -10,7 +10,7 @@ $list_def = '';
 $message = '';
 $new_mess = '';
 $show = 'hidden';
-$id_delete = $_GET['id_delete']??'';
+$id_delete = $_GET['id_delete']??null;
 
 // Vérification des informations de connexion
 
@@ -32,7 +32,6 @@ try {
                 $register->updateOnline(htmlspecialchars(trim($_SESSION['user']['id'])),1);
             // Récupération des infos des défunts associées à l'utilisateur
                 $_SESSION['user']['defunct'] = $getInfo->getDefunctList();
-
             }
     }
     
@@ -182,34 +181,41 @@ if (count($info_def)){
         </div>
     </div>';
 } 
+
 // Suppression d'une fiche de défunt
-if($id_delete){
+if($id_delete && !isset($_SESSION['token'])){
+    $token = $register->setToken();
     $message = '<form method="POST" action="">
                   <label for="delete_def">Etes vous sûr ? Cela entraînera la suppression définitive de toutes les photos et commentaires de cette fiche !</label>
                   <input class="button" type="submit" name="delete_def" id="delete_def" value="Confirmer la suppression">
                   <label for="home_cancel"></label>
+                  <input type="hidden" name="token" value="'.$token.'">
                   <input class="button" type="submit" name="cancel_def" id="home_cancel" value="Annuler">
                 </form>';
 }
-
+// Bouton annuler
 if(isset($_POST['cancel_def'])){
-    $message = '';
+    $message ='';
 }
 // Suppression définitive d'un defunct et ses photos du dossier de l'utilisateur
 if(isset($_POST['delete_def'])){
-    $listPhoto = $getInfo->photoDefByUser(htmlspecialchars(trim($_SESSION['user']['id'])), $id_delete);
-    foreach ($listPhoto as $l){
-        $globalClass->deleteAllPhotosDef(htmlspecialchars(trim($_SESSION['user']['id'])), $l['name']);   
+    if (isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
+        $listPhoto = $getInfo->photoDefByUser(htmlspecialchars(trim($_SESSION['user']['id'])), $id_delete);
+        foreach ($listPhoto as $l){
+            $globalClass->deleteAllPhotosDef(htmlspecialchars(trim($_SESSION['user']['id'])), $l['name']);   
+        }
+        $register->deleteOneDefunct($id_delete, htmlspecialchars(trim($_SESSION['user']['id'])));
+        $message ='';
+        unset($_SESSION['token']);
+        header('location: index.php?page=home_user');
+        exit;
+    } else {
+        $message = '<p class="message">L\'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.</p>';
     }
-    $register->deleteOneDefunct($id_delete, htmlspecialchars(trim($_SESSION['user']['id'])));
-    $message ='';
-    header('location: index.php?page=home_user');
-    exit;
 }
 // Ouverture de la div contact lors du clic sur le bouton nouveau message
 if(isset($_GET['show'])){
     $show = 'visible';
 }
-
 
 require 'view/home_user.php';

@@ -3,13 +3,24 @@ require_once 'Manage.php';
 
 class AdminRequest extends Manage {
     // Vérification du compte d'administration
-    public function verifyAdminAccount(string $admin_user, string $admin_pwd) :object{
-        $data = ['admin_id'=>$admin_user,
-                 'admin_pass'=>$admin_pwd];
-        $query = "SELECT id FROM adminlog WHERE admin_id=:admin_id AND admin_pass=:admin_pass";
-        return $this->getQuery($query,$data);
+    public function verifyAdminAccount(string $admin_user, $admin_pwd) :?array{
+        $data = ['admin_id'=>$admin_user];
+        $query = "SELECT id, admin_id, admin_pass FROM adminlog WHERE admin_id=:admin_id";
+        $result = $this->getQuery($query,$data);
+        if($result->rowCount()) {
+            $data = $result->fetch();
+            if (password_verify($admin_pwd, $data['admin_pass'])) {
+                return $data;
+            }
+        }
+        return null;
     }
-
+    // Ajout d'un nouvel administrateur
+    public function setNewAdminAccount(array $data) :void{
+        $query ="INSERT INTO  adminlog SET admin_id=:admin_id, admin_pass=:admin_pass";
+        $this->getQuery($query,$data);
+    }
+    
 /////////////////////////////////USERS////////////////////////////////////////// 
 
     // Informations sur tous les utilisateurs

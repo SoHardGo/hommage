@@ -1367,8 +1367,16 @@ select[name="affinity"]{
 /*******************************************************************************/
 
 .header_admin_title {
+    position: relative;
     text-align: center;
-    margin: 1rem;
+    border: 0.2rem solid var(--color-bgc-button);
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+.admin_deco {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
 }
 .admin_title{
     font-size: 1.5rem;
@@ -1378,6 +1386,9 @@ select[name="affinity"]{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.new_admin_user p {
+    font-size: 0.8rem;
 }
 .admin_nav {
     display: flex;
@@ -1434,9 +1445,6 @@ select[name="affinity"]{
     margin-left: 2.6rem;
 }
 /*****adminUsers*****/
-.admin_users {
-
-}
 .admin_show_users, .admin_update_users {
     width: 90%;  
     margin: 1rem auto;
@@ -1692,10 +1700,10 @@ input {
     }
     /*****TCHAT*****/
     .tchat {
-        width: 70%;
+        width: 65%;
     }
     .tchat_container {
-        height: 35rem;
+        height: 28rem;
     }
     /*****PROFIL*****/
     .profil_modify_icon {
@@ -1713,7 +1721,10 @@ input {
         font-size: 1.2rem;
     }
     /*****ADMINISTRATION*****/
-    
+    .admin_nav {
+        width: 80%;
+        margin: 1rem auto;
+    }
 }
 @media only screen and (min-width : 1024px) {
     /*****MAIN*****/
@@ -1835,13 +1846,14 @@ input {
     }
     /*****TCHAT*****/
     .tchat {
+        width: 60%;
         margin: 5rem auto;
     }
     .tchat_dest {
         line-height: 6rem;
     }
     .tchat_container {
-        height: 45rem;
+        height: 31rem;
     }
     /*****PROFIL*****/
     .profil_modify_icon {
@@ -1945,8 +1957,11 @@ input {
         width: 65%;
     }
     /*****TCHAT*****/
+    .tchat {
+        width: 55%;
+    }
     .tchat_container {
-        height: 55rem;
+        height: 37rem;
     }
     /*****PROFIL*****/
     .profil_modify_icon {
@@ -1970,6 +1985,10 @@ input {
     }
     .buy_form {
         width: 60%;
+    }
+    /*****ADMINISTRATION*****/
+    .admin_nav {
+        width: 65%;
     }
 }
 @media screen and (min-width: 1600px) {
@@ -2039,5 +2058,9 @@ input {
     /*****FLOWER*****/
     .flower_article p:first-child {
         width: 65%;
+    }
+    /*****ADMINISTRATION*****/
+    .admin_nav {
+        width: 55%;
     }
 }

@@ -4,7 +4,8 @@ ob_start();
 ?>
 <section>
     <div class="connexion">
-      <?=$message?>
+        <p class="message"><?=$errorMsg?></p>
+        <?=$message?>
         <h1 class="connexion_title">Connexion</h1>
         <div class="connexion_form">
             <form method="POST" action="?page=home_user">

@@ -11,8 +11,9 @@
     <?php if (isset($_SESSION['admin'])) :?>
     <div class="header_admin_title">
         <h1>Hommage</h1>
-        <a class="button button-a" href="?deco">Déconnection</a>
+        <a href="?deco"><img class="img dim35 admin_deco" src="../public/pictures/site/power-icon.png" alt="icone déconnexion" title="Déconnexion"></a>
     </div>
+        <a class="button button-a" href="?page=post&add">Ajouter un administrateur</a>
     <div class="header_menu">
         <a class="button button-a" href="?page=post">BackOffice</a>
     </div>

@@ -3,9 +3,10 @@ ob_start();
 ?>
 <section>
     <h1>Connexion Administration du Site</1>
+    <p class="message"><?=$errorMsg?></p>
     <form method="POST" action="?page=post">
         <div class="admin_form">
-        <label for="admin_user">Identifiant</label>
+        <label for="admin_user">Identifiants</label>
         <input type="text" id="admin_user" name="admin_user">
         <label for="admin_pwd">Mot de passe</label>
         <input type="password" id="admin_pwd" name="admin_pwd">

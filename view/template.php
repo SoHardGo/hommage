@@ -28,7 +28,7 @@
                 <li><a class="nav_bar-a" href="?page=home_user"><i class="fas fa-power-off"></i>&nbsp;Connexion</a>
                 </li>
                 <?php else :?>
-                <li><a class="nav_bar-a" href="?deco"><i class="fas fa-power-off"></i>&nbsp;Deconnexion</a>
+                <li><a class="nav_bar-a" href="?deco"><i class="fas fa-power-off"></i>&nbsp;Déconnexion</a>
                 </li>
                 <?php endif ?>
                 <?php if(empty($_SESSION['user']['id'])) :?>

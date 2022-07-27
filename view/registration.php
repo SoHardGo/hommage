@@ -15,8 +15,8 @@ ob_start();
                     <input type="text" name="firstname" id="firstname" required="required">
                 <label for="pseudo">Pseudo:</label>
                     <input type="text" name="pseudo" id="pseudo">
-                <label for="number">N° de rue:</label>
-                    <input type="text" name="number_road" id="number">
+                <label for="number_road">N° de rue:</label>
+                    <input type="number" name="number_road" id="number">
                 <label for="address">Adresse:</label>
                     <input type="text" name="address" id="address">
                 <label for="cp">Code postal:</label>
@@ -27,7 +27,7 @@ ob_start();
                     <input type="email" name="email" id="email" required="required">
                 <label for="pwd">Mot de passe:</label>
                     <input type="password" name="pwd" id="pwd" required="required">
-                    <p class="register_pwd">(minimum 5 caractères dont un Nombre, une Majuscule et un caractère spécial (!@#$%€£)</p>
+                    <p class="register_pwd">[minimum 5 caractères dont un Nombre, une Majuscule et un caractère spécial (!@#$%€£)]</p>
                     <input type="hidden" name="token" value="<?=$token?>">
                 <div class="buttons">
                     <input class="button" type="submit" name="submit" value="Valider">
