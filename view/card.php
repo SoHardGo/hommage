@@ -62,13 +62,15 @@ ob_start();
                   </select>
                 </div>
                 <label for="valid_add"></label>
+                <input type="hidden" name="token" value="<?=$token?>">
                 <input class="button" id="valid_add" type="submit" name="submit_def" value="Choix du defunt">
             </fieldset>
             <div class="card_send">
                 <?=$send_real, $send_email, $send_choice?>
             </div>
             <div class="card_dest">
-                <?=$mess_dest, $result_send?>
+                <?=$result_send?> 
+                <?=$mess_dest?>
             </div>
             <div class="card_info">
                 <h3>Nombre de cartes avec texte intégré enregisteés: <span id="card_nb"><?=count($_SESSION['nbCard'])?></span></h3>
@@ -86,25 +88,22 @@ ob_start();
                     <tfoot>
                         <tr>
                            <td>Total</td> 
-                           <td id="card_total"><?=$total_card?></td>
+                           <td id="card_total"><?=$total_card?>€</td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
             <a class="button button-a" href="?page=card&empty=true">Vider le tableau</a>
+            <?php if ($needAddress && $valid_def && $total_card != 0) :?>
             <label for="confirm">Réglement</label>
             <?=$mess_buy?>
-            <input type="hidden" name="token" value="<?=$token?>">
             <input class="button" type="submit" name="confirm" id="confirm" value="Paiement">
+            <?php endif ?>
         </form>
     </div>
 </div>
 </section>
 <section>
-    <div class="payement">
-        <?=$buy?>
-    </div>
-</section>
 <?php else : ?>
     <div class="card_no_user">
         <h2>Inscrivez-vous ou connectez-vous pour bénéficier de ce service.</h2>
@@ -112,6 +111,7 @@ ob_start();
         <a class="button button-a" href="?page=connexion">Connexion</a>
     </div>
 <?php endif ?>
+</section>
 <?php
 $content= ob_get_clean(); 
 require 'template.php';

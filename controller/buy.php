@@ -10,7 +10,9 @@ $messTel = '';
 $messFinal = '';
 $messBuy = '';
 $tab_list ='';
-$tab ='';
+$tab = '';
+$valid_pay = 0;
+$pay = '';
 $list = $_GET['list']??0;
 
 // récupération des informations du destinataire pour les cartes
@@ -80,6 +82,7 @@ $user_send = $getInfo->getInfoUser($_SESSION['user_send']);
             //enregistrement des achats de cartes dans la BDD
             $data = ['lastname'=>htmlspecialchars(trim(ucfirst($_SESSION['user']['lastname']))),
                      'firstname'=>htmlspecialchars(trim(ucfirst($_SESSION['user']['firstname']))),
+                     'user_id'=>htmlspecialchars(trim($_SESSION['user']['id'])),
                      'email'=>htmlspecialchars(trim($_SESSION['user']['email'])),
                      'total'=>htmlspecialchars(trim($_SESSION['total_card'])),
                      'cards_id'=>json_encode($_SESSION['nbCard']),   // Id des enregistrements dans content_card
@@ -88,10 +91,12 @@ $user_send = $getInfo->getInfoUser($_SESSION['user_send']);
                      'flowers_id'=>json_encode(0),
                      'tel'=>htmlspecialchars(trim($_POST['buy_tel']))
                      ];
-            $register->setProducts($data); 
+            $register->setOrders($data);
+            $valid_pay = 1;
             $messFinal = '<p class="message">Paiement effectué avec succès. Reception du colis d\'ici 3 jours.</p><p class="message"> Merci pour votre confiance.</p>';
             $tab ='';
-            unset ($_SESSION['nbCard']);
+            $pay = 'hidden';
+            unset($_SESSION['nbCard']);
             }   
         } else {
         $messFinal = "L'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.";
@@ -105,6 +110,7 @@ $tab_list = '';
 $total = 0;
 
 if ($list){
+    $pay = 'hidden';
     // récupération liste des enregistrements, contenu, date et le destinataire
     $listing = $getInfo->getListBuyUser(htmlspecialchars(trim($_SESSION['user']['id'])));
     if(!empty($listing)){
@@ -112,16 +118,15 @@ if ($list){
             $nb = count($l);
             if ($l!= null){
                 for ($i=0; $i<$nb;$i++){
-                        $result = $getInfo->getContentList($l[$i]);
-                        foreach($result as $r){
-                            //information de la carte
-                            $cardInfo = $getInfo->getProductInfo($r['card_id']);
-                            $total += $cardInfo['price'];
-                            //information du destinataire
-                            $dest = $getInfo->getInfoUser($r['user_send_id']);
-                            $tab_list .= '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].' €</td><td>'.$dest['lastname'].' '.$dest['firstname'].'</td><td><div class="buy_content">'.$r['content'].'</div></td><tr>';
-                        }
-                    
+                    $result = $getInfo->getContentList($l[$i]);
+                    foreach($result as $r){
+                        //information de la carte
+                        $cardInfo = $getInfo->getProductInfo($r['card_id']);
+                        $total += $cardInfo['price'];
+                        //information du destinataire
+                        $dest = $getInfo->getInfoUser($r['user_send_id']);
+                        $tab_list .= '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].' €</td><td>'.$dest['lastname'].' '.$dest['firstname'].'</td><td><div class="buy_content">'.$r['content'].'</div></td><tr>';
+                    }
                 }
             }
         }

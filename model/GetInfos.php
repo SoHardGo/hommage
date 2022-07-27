@@ -124,11 +124,11 @@ class GetInfos extends Manage {
     // Information récupérée pour le tableau des cartes et les Id des cartes
     public function getCardTab():string {
         $tab = '';
-        if(isset($_SESSION['nbCard'])) {
+        if(isset($_SESSION['nbCard']) && !empty($_SESSION['nbCard'])) {
             foreach($_SESSION['nbCard'] as $c) {
                 $id_card = $this->getOrderCardId($c);
                 $cardInfo = $this->getProductInfo($id_card);
-                $tab .= '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].'</td></tr>';
+                $tab .= '<tr><td>'.$cardInfo['info'].'</td><td>'.$cardInfo['price'].'€</td></tr>';
             }
         }
         return $tab;
@@ -143,7 +143,7 @@ class GetInfos extends Manage {
     // Calcul du total du prix des cartes
     public function getCardTotal() {
         $total = 0;
-        if(isset($_SESSION['nbCard'])) {
+        if(isset($_SESSION['nbCard']) && !empty($_SESSION['nbCard'])) {
             foreach($_SESSION['nbCard'] as $c) {
                 $id_card = $this->getOrderCardId($c);
                 $cardInfo = $this->getProductInfo($id_card);

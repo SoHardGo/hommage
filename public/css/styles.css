@@ -107,6 +107,10 @@ input[name="token"] {
 .dim200 {
     width: 9.5rem;
 }
+.dim100 {
+    width: 15rem;
+    height: 7rem;
+}
 .dim80 {
     width: 5rem;
     height: 5rem;
@@ -456,7 +460,7 @@ input[name="new_user"], input[name="new_admin"]{
     text-align:center;
 }
 .buy_form {
-    margin: 1.25rem;
+    margin: 1.25rem auto;
 }
 .buy_message {
     text-align:center;
@@ -1560,6 +1564,9 @@ input {
         width: 2.2rem;
         height: 2.2rem;
     }
+    .dim200 {
+        width: 11.5rem;
+    }
     /*****HEADER*****/
     .header {
         height: 13.4rem;
@@ -1590,6 +1597,9 @@ input {
         top: 6.5rem;
     }
     /*****HOME****/
+    .home {
+        width: 80%;
+    }
     .home_article {
         font-size: 1.5rem;
     }
@@ -1674,6 +1684,12 @@ input {
     .card_form {
         width: 81%;
     }
+    /*****FLOWER*****/
+    .flower_article p:first-child {
+        font-size: 1.3rem; 
+        width: 80%;
+        margin: 3rem auto;
+    }
     /*****TCHAT*****/
     .tchat {
         width: 70%;
@@ -1685,10 +1701,19 @@ input {
     .profil_modify_icon {
         right: 5rem;
     }
+    /*****BUY*****/
+    .buy_table {
+        width: 80%;
+    }
+    .buy_form {
+        width: 80%;
+    }
     /*****FOOTER*****/
     .footer_menu-a {
         font-size: 1.2rem;
     }
+    /*****ADMINISTRATION*****/
+    
 }
 @media only screen and (min-width : 1024px) {
     /*****MAIN*****/
@@ -1714,7 +1739,7 @@ input {
     .nav_bar {
         right: -13.5rem;
         line-height: 1.7rem;
-        height: 27rem;
+        height: 28rem;
         width: 13.5rem;
     }
     .nav_bar-a {
@@ -1752,7 +1777,7 @@ input {
     }
     /*****HOME*****/
     .home {
-        width: 80%;
+        width: 70%;
         margin: 4rem auto;
     }
     .home_title {
@@ -1822,6 +1847,19 @@ input {
     .profil_modify_icon {
         right: 9rem;
     }
+    /*****FLOWER*****/
+    .flower_container {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+        grid-gap: 1rem;
+    }
+    /*****BUY*****/
+    .buy_table {
+        width: 70%;
+    }
+    .buy_form {
+        width: 70%;
+    }
     /*****FOOTER*****/
     .footer_menu, .footer_network {
         margin:1.5rem;
@@ -1836,6 +1874,9 @@ input {
         height: 2.4rem;
         margin: 1.5rem;
         width: 18rem;
+    }
+    .dim200 {
+        width: 13.5rem;
     }
     .button-a {
         width: 18rem;
@@ -1918,6 +1959,18 @@ input {
     .footer_menu-a {
         font-size: 1.4rem;
     }
+    /*****FLOWER*****/
+    .flower_article p:first-child {
+        font-size: 1.5rem;
+        width: 75%;
+    }
+    /*****BUY*****/
+    .buy_table {
+        width: 60%;
+    }
+    .buy_form {
+        width: 60%;
+    }
 }
 @media screen and (min-width: 1600px) {
     /*****MAIN*****/
@@ -1956,7 +2009,7 @@ input {
     }
     /*****HOME*****/
     .home {
-        width: 75%;
+        width: 65%;
     }
     .home_title {
         font-size: 2rem;
@@ -1982,5 +2035,9 @@ input {
     /*****PROFIL*****/
     .profil_modify_icon {
         right: 17rem;
+    }
+    /*****FLOWER*****/
+    .flower_article p:first-child {
+        width: 65%;
     }
 }

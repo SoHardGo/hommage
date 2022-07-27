@@ -37,7 +37,8 @@ ob_start();
       </fieldset>
       <h2>Récapitulatif de vos choix</h2>
       <h3>Vous avez sélectionné  <?=$nb_flower?> bouquets.</h3>
-      <h4><?=$message?></h4>
+      <?=$message?>
+      <?=$verifAddress?>
       <table class="flower_table">
         <thead>
           <tr>
@@ -61,19 +62,14 @@ ob_start();
   </div>
 </section>
 <section>
-    <div class="payement">
-        <?=$buy?>
-    </div>
-</section>
 <?php else :?>
-<section>
   <div class="flower_no_user">
     <h2>Inscrivez-vous ou connectez-vous pour bénéficier de ce service.</h2>
     <a class="button button-a" href="?page=registration">S'inscrire</a>
     <a class="button button-a" href="?page=connexion">Connexion</a>
   </div>
+<?php endif ?>
 </section>
-<?php endif ?> 
 <?php
 $content= ob_get_clean(); 
 require 'template.php';

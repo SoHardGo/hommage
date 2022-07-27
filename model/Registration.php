@@ -50,8 +50,8 @@ class Registration extends Manage {
         return $this->setQueryLastId($query,$data);
     }
     // enregistrement des cartes achetées
-    public function setProducts(array $data) :void{
-        $query = "INSERT INTO orders SET lastname=:lastname, firstname=:firstname, lastname_send=:lastname_send, email=:email, cards_id=:cards_id, flowers_id=:flowers_id, total=:total, user_send_id=:user_send_id, tel=:tel, date_crea=NOW()";
+    public function setOrders(array $data) :void{
+        $query = "INSERT INTO orders SET user_id=:user_id, lastname=:lastname, firstname=:firstname, lastname_send=:lastname_send, email=:email, cards_id=:cards_id, flowers_id=:flowers_id, total=:total, user_send_id=:user_send_id, tel=:tel, date_crea=NOW()";
         $this->getQuery($query,$data);
     }
     // enregistrement des messages du chat

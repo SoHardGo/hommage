@@ -8,7 +8,7 @@ ob_start();
         <?=$messBuy?>
     <?php if (isset($_SESSION['user_send']) && isset($_SESSION['total_card'])) :?>
         <?=$tab?>
-    <div class="buy">
+    <div class="buy <?=$pay?>">
         <hr>
         <img class="img dim100" src="public/pictures/site/cartes.jpg" alt="carte visa">
         <p><b>Entrer vos coordonnées bancaire pour valider le paiement.</b></p>
@@ -32,7 +32,9 @@ ob_start();
                 <input type="hidden" name="token" value="<?=$token?>">
             </form>   
         </fieldset>
-        <div><?=$messFinal?></div>
+    </div>
+    <div>
+        <?=$messFinal?>
     </div>
     <?php endif ?>
 </section>
@@ -40,8 +42,10 @@ ob_start();
     <hr>
     <div class="buy_message">
     <?php if (isset($_SESSION['user']['id'])) :?>
+        <?php if ($valid_pay) :?>
         <h2>Liste de mes précédents achats.</h2>
         <a class="button button-a" href="?page=buy&list=1">Afficher la liste</a>
+        <?php endif ?>
     <?php else :?>
         <h2>Veuillez vous connecter pour visualiser vos précedents achats.</h2>
         <h3>Vous devez être inscrit pour effectuer un achat.</h3>

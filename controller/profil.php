@@ -81,7 +81,7 @@ if(isset($_SESSION['user']['id'])){
         if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
            $data['id'] = htmlspecialchars(trim($_SESSION['user']['id']));
            // Vérification sur l'email en cas de changement
-            if (isset($_POST['email']) && $_POST['email'] != $info_user['email']){
+            if (isset($_POST['email']) || $_POST['email'] = ''){
                 $new_email = htmlspecialchars(trim($_POST['email']));
                 if (!filter_var($new_email, FILTER_VALIDATE_EMAIL)){
                     $data['email'] = htmlspecialchars(trim($_POST['email']))??'';
@@ -89,15 +89,37 @@ if(isset($_SESSION['user']['id'])){
                     $data['email'] = $info_user['email'];
                 }
             }
-            $data['pseudo'] = htmlspecialchars(trim($_POST['pseudo']))??'';
-            $data['number_road'] = htmlspecialchars(trim($_POST['number_road']))??'';
-            $data['address'] = htmlspecialchars(trim($_POST['address']))??'';
-            if(!is_numeric($_POST['postal_code']) && $_POST['postal_code'] != $info_user['postal_code']){
-                $data['postal_code'] = $info_user['postal_code'];
+            if (isset($_POST['pseudo']) || $_POST['pseudo'] = ''){
+                $data['pseudo'] = htmlspecialchars(trim($_POST['pseudo']));
             } else {
-                $data['postal_code'] = htmlspecialchars(trim($_POST['postal_code']));
+                $data['pseudo'] = $info_user['pseudo'];
             }
-            $data['city'] = htmlspecialchars(trim(ucfirst($_POST['city'])))??'';
+            if (isset($_POST['number_road']) || $_POST['number_road'] = ''){
+                if (is_numeric($_POST['number_road']) && strlen($_POST['number_road']) < 20){
+                    $data['number_road'] = htmlspecialchars(trim($_POST['number_road']));
+                }
+            } else {
+                $data['number_road'] = $info_user['number_road'];
+            }
+            if (isset($_POST['address']) || $_POST['address'] = ''){
+                if (strlen($_POST['address']) <50){
+                    $data['address'] = htmlspecialchars(trim($_POST['address']));
+                }
+            } else {
+                 $data['address'] = $info_user['address'];
+            }
+            if(!is_numeric($_POST['postal_code']) || $_POST['postal_code'] = ''){
+                if(preg_match('\'^[0-9]{5}$\'', $code_postal)){
+                    $data['postal_code'] = htmlspecialchars(trim($_POST['postal_code']));
+                }
+            } else {
+                $data['postal_code'] = $info_user['postal_code'];
+            }
+            if (isset($_POST['city']) || $_POST['city']=''){
+                $data['city'] = htmlspecialchars(trim(ucfirst($_POST['city'])));
+            } else {
+                $data['city'] = $info_user['city'];
+            }
             $register->updateUser($data);
         } else {
             $message = '<p class="message">L\'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.</p>';

@@ -51,13 +51,15 @@
     </div>
 
 <main>
-    <section class="main">
+    <section>
         <div id="main_begin">
-        <a href="#main_end" title="Bas de page"><img class="img dim40" src="public/pictures/site/down.png" alt="ancre vers bas de page"></a>
+            <a href="#main_end" title="Bas de page"><img class="img dim40" src="public/pictures/site/down.png" alt="ancre vers bas de page"></a>
         </div>
        <?=$user_content?>
        <?=$content?>
-        <a id="main_end" href="#main_begin" title="Haut de page"><img class="img dim40" src="public/pictures/site/up.png" alt="ancre vers haut de page"></a>
+       <div id="main_end">
+            <a href="#main_begin" title="Haut de page"><img class="img dim40" src="public/pictures/site/up.png" alt="ancre vers haut de page"></a>
+        </div>
     </section>
 </main>
 <footer class="footer">
@@ -79,7 +81,6 @@
         </div>
     </div>
 </footer>
-
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="public/slick/slick/slick.min.js"></script>
@@ -87,6 +88,5 @@
     <script>
         if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}
     </script>
-    
 </body>
 </html>
