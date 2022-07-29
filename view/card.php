@@ -94,7 +94,7 @@ ob_start();
                 </table>
             </div>
             <a class="button button-a" href="?page=card&empty=true">Vider le tableau</a>
-            <?php if ($needAddress && $valid_def && $total_card != 0) :?>
+            <?php if ($needAddress && $valid_def && $total_card != 0 && $_SESSION['lastname_send']) :?>
             <label for="confirm">Réglement</label>
             <?=$mess_buy?>
             <input class="button" type="submit" name="confirm" id="confirm" value="Paiement">

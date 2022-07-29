@@ -15,7 +15,6 @@ ob_start();
             <li><a class="button button-a" href="?page=friends">FRIENDS</a></li>
             <li><a class="button button-a" href="?page=comments">COMMENTS</a></li>
             <li><a class="button button-a" href="?page=tchats">TCHAT</a></li>
-            <li><a class="button button-a" href="?page=cards">CARDS</a></li>
             <li><a class="button button-a" href="?page=orders">ORDERS</a></li>
         </ul>
     </nav>

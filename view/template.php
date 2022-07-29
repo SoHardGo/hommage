@@ -42,25 +42,22 @@
                 <li><a class="nav_bar-a" href="?page=contact"><i class="far fa-envelope"></i>&nbsp;Contact</a>
                 </li>
             </ul>
-  </nav>
+    </nav>
     <div id="nav_bar-open" class="open">
-      <span class="nav_bar-open-span"></span>
-      <span class="nav_bar-open-span"></span>
-      <span class="nav_bar-open-span"></span>
-      <p class="nav_bar-open-p">Menu</p>
+        <span class="nav_bar-open-span"></span>
+        <span class="nav_bar-open-span"></span>
+        <span class="nav_bar-open-span"></span>
+        <p class="nav_bar-open-p">Menu</p>
     </div>
-
 <main>
-    <section>
-        <div id="main_begin">
-            <a href="#main_end" title="Bas de page"><img class="img dim40" src="public/pictures/site/down.png" alt="ancre vers bas de page"></a>
-        </div>
-       <?=$user_content?>
-       <?=$content?>
-       <div id="main_end">
-            <a href="#main_begin" title="Haut de page"><img class="img dim40" src="public/pictures/site/up.png" alt="ancre vers haut de page"></a>
-        </div>
-    </section>
+    <div id="main_begin">
+        <a href="#main_end" title="Bas de page"><img class="img dim40" src="public/pictures/site/down.png" alt="ancre vers bas de page"></a>
+    </div>
+   <?=$user_content?>
+   <?=$content?>
+   <div id="main_end">
+        <a href="#main_begin" title="Haut de page"><img class="img dim40" src="public/pictures/site/up.png" alt="ancre vers haut de page"></a>
+    </div>
 </main>
 <footer class="footer">
     <div class="footer_menu">

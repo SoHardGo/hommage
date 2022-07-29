@@ -44,7 +44,7 @@ $profil = $globalClass->verifyPhotoProfil(htmlspecialchars(trim($_SESSION['user'
 // Liste des demandes d'amis depuis la dernière connexion
 $result = $getInfo->getAskFriend(htmlspecialchars(trim($_SESSION['user']['id'])));
 foreach ($result as $r){
-    if ($r['validate'] == null){
+    if ($r['validate'] === 3){
         $icon_anim_f = 'icon_anim';
         $number_f+= 1;
         $_SESSION['number_f'] = $number_f;

@@ -6,7 +6,6 @@ const PWD = 'e90a4fc73c8676fb7916ff1b780a5137';
 
 const CONTROLLER_FOLDER = 'controllerAdmin/';
 const ROUTES = [
-    'cards'=>'adminCards.php',
     'comments'=>'adminComments.php',
     'contacts'=>'adminContacts.php',
     'defuncts'=>'adminDefuncts.php',

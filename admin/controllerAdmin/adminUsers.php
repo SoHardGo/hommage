@@ -136,6 +136,8 @@ if(isset($_POST['submit'])){
 // Suppression d'un utilisateur
 if(isset($_GET['delete'])){
  $adminRequest->deleteOneUser(htmlspecialchars(trim($_GET['delete'])));
+ $adminRequest->supprFolder(htmlspecialchars(trim($_GET['delete'])), '../public/pictures/photos/');
+ $adminRequest->supprFolder(htmlspecialchars(trim($_GET['delete'])), '../public/pictures/users/');
 }
 
 require 'viewAdmin/adminUsers.php';

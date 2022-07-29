@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-///////////////////Gestion du menu Hamburger/////////////////////////////////
+///////////////////Gestion du menu Hamburger////////////////////////////////////
+//
+// Ouverture et fermeture du Menu de navigation
+// En ajoutant ou supprimant une class
 
 let nav = document.getElementById("nav");
 let nav_bar_open = document.getElementById("nav_bar-open");
@@ -13,7 +16,10 @@ nav_bar_close.addEventListener('click',function(){
     nav.classList.remove("status");
 });
 
-///////////////////////Photo de profil utilisateur////////////////////////////
+///////////////////////Photo de profil utilisateur//////////////////////////////
+//
+// Soumission du formulaire après sélection d'une image
+// En cliquant sur l'icone Camera
 
 let photo_profil = document.querySelector('.user_icon');
 let input_profil = document.getElementById('photo_user');
@@ -26,7 +32,10 @@ if(photo_profil !== null){
     });
 }
 
-///////////////////////Photo de profil defunt////////////////////////////////
+///////////////////////Photo de profil defunt///////////////////////////////////
+//
+// Soumission du formulaire après sélection d'une image
+// En cliquant sur l'icone Camera
 
 let photo_def = document.querySelector('.user_icon_def');
 let input_def = document.getElementById('modify_photo');
@@ -39,9 +48,14 @@ if(photo_def !==null){
     });
 }
 
-///////////////////////Gestion du lien de chaque fiche///////////////////////
-// avec création d'un nouvel élément dans le DOM
-
+////////////////Gestion du lien de l'adresse de chaque fiche////////////////////
+//
+// Vérification si l'élément existe dans le DOM et renvoi la valeur en Booléen
+// Si elle n'existe pas, création dans le DOM de la "div" avec sa "class"
+// Création du Texte que contiendra la "div"
+// Insertion du texte dans la "div"
+// Si elle existe, ajout de la class "hidden" pour la faire disparaître
+//
 let link = document.querySelector('.env_link_img');
 let parent_link = document.querySelector('.env_link');
 
@@ -62,7 +76,9 @@ if(link!=null){
     });
 }
 
-///////////Gestion du bouton de liste des defunts du menu fiche//////////////
+///////////Gestion du bouton de liste des defunts du menu fiche/////////////////
+//
+// Affichage du sous menu du bouton "Fiche"
 
 let button = document.querySelector('.user_myDefuncts');
 let container = document.querySelector('.user_list_defuncts');
@@ -72,7 +88,10 @@ if(button !== null){
     });
 }
 
-//////////////Gestion des photos dans l'espace environnement/////////
+//////////////Gestion des photos dans l'espace environnement////////////////////
+//
+// Soumission du formulaire après sélection d'une image
+// En cliquant sur l'icone Appareil Photo
 
 let camera = document.querySelector('.env_add_photo');
 let file = document.getElementById('file_env');
@@ -86,6 +105,17 @@ if(camera !== null){
 }
 
 //////////////// Gestion des commentaires //////////////////////////
+//
+// Gestion de l'ajout d'un commentaire dans l'environnement du défunt
+// Soumission du formulaire après chaque appui sur la touche "Entrée"
+// Identification du parent du formulaire
+// Identification des différentes "class" contenu dans le formulaire
+// Création d'une instance de l'objet Formdata
+// Ajout des clés/valeurs dans le Formdata
+// Création d'une requête "fetch"
+// Récupération de la réponse au format texte
+// Test si le fichier de profil existe ou pas
+// Insertion du commentaire avec photo de profil de l'utilisateur dans le DOM
 
 let comment_env = document.querySelectorAll('.env_comment_form');
 
@@ -109,13 +139,25 @@ if(comment_env != null) {
             fetch('ajax/recordComment.php',obj)
             .then(response => response.text()) 
             .then(data=>{
-                let content = '<div class="container_com_user"><div class="env_profil"><a class ="env_user_name"><img class="img" src="public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg" ></a></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="index.php?page=environnement&id='+user_id.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
+
+                let image='';
+                let url='public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg';
+                let http=new XMLHttpRequest();
+                http.open("HEAD",url,false);
+                http.send();
+                if(http.status !== 404){                                   
+                    image='public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg';
+                } else {
+                    image='public/pictures/site/noone.jpg'; 
+                }
+                http.onerror = console.clear();
+                let content = '<div class="container_com_user"><div class="env_profil"><img class="img" src="'+image+'" ></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="index.php?page=environment&id='+user_id.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
                 if(comment.value != '') {
                     com_div.innerHTML += content;
                 }
                 comment.value = '';
             })
-            .catch(err=>console.log(err)); 
+            .catch(err=>console.error(err)); 
             
         });
     }
@@ -132,6 +174,11 @@ listPhoto.addEventListener('click', function(e){
 });
 }
 /////////////////Gestion de l'éditeur de Cartes/////////////////////////////////
+//
+// Exécution d'un "addEventLister" sur chaque élement définit par 
+// les class "card_edit" (les boutons de l'éditeur)
+// Récupération de l'attribut correspondant au bouton sélectionné
+// Exécution de la commande qui affectera l'élement texte sélectionné
 
 const elements = document.querySelectorAll('.card_edit');
 
@@ -144,7 +191,14 @@ const elements = document.querySelectorAll('.card_edit');
 
 
 /////////////////////////Recherche Insee////////////////////////////////////////
-// recherche par le nom de famille
+//
+// Utilisation de l'API de l'INSEE, point d'entrée (endpoint)->https://insee.arbre.app
+// Avec retour au format JSON
+// Retour de la requête effectué par "Nom" (min 3 lettres avant envoi)
+// Bouclage, pour récupérer chaque paquet de 10 
+// Affichage dans un "select"
+
+
 let nom = document.getElementById('lastname_insee');
 let madiv = document.querySelector('.search_result_insee');
 
@@ -171,16 +225,17 @@ nom.addEventListener('keyup', ()=> {
         }
 });
 }
+
 //////////////////Récupération du texte d'une carte ////////////////////////////
 
-let edit_btn = document.getElementById('card_val'); // bouton confirmer
+let edit_btn = document.getElementById('card_val'); // bouton "confirmer"
 let content = document.querySelector('.content');   // contenu du texte
 
 if (edit_btn != null){
     edit_btn.addEventListener('click',()=>{
-        let card_text = content.textContent;                         // contenu du texte
-        let card_id = document.getElementById('card_id').innerHTML;  // id de la carte sélectionné
-        let card_nb = document.getElementById('card_nb');            // span où s'affiche le nombre de cartes
+        let card_text = content.textContent;                              // contenu du texte
+        let card_id = document.getElementById('card_id').innerHTML;       // id de la carte sélectionné
+        let card_nb = document.getElementById('card_nb');                 // span où s'affiche le nombre de cartes
         let container_tab = document.getElementById('card_container_tab');// tableau
         let total = document.getElementById('card_total');                // total du tableau
         
@@ -189,11 +244,9 @@ if (edit_btn != null){
         formdata.append('card_id', card_id);
 
         let obj = { 'method':'POST', 'body':formdata };
-        
-        fetch('ajax/recordCard.php', obj)
+        fetch('ajax/recordCard.php', obj)                                 // nom du fichier de traitement
                         .then(response => response.json())
                         .then(data=>{
-                            console.log(data);
                             card_nb.innerHTML = data.carte;
                             container_tab.innerHTML += data.tab;
                             total.innerHTML = data.total;
@@ -209,23 +262,22 @@ let flower_content =document.getElementById('flower_container_tab');
 let flower_id=document.querySelectorAll('.flower_id');
 let div_total = document.querySelector('.flower_total');
 
-for(let i=0; i<flower_id.length;i++){               // bouton checkbox
-   flower_id[i].addEventListener('click',detect);
+if (flower_id!=null){
+    for(let i=0; i<flower_id.length;i++){               // bouton checkbox
+       flower_id[i].addEventListener('click',detect);
+    }
 }
-
 // fonction détection de la sélection des bouquets et stockage dans le localStorage
 function detect(e){
-   // console.log(e.target.checked);
+
     let local=JSON.parse(localStorage.getItem('bouquet')) || [];
     if(e.target.checked){
         local.push({'id':e.target.value});
         localStorage.setItem('bouquet',JSON.stringify(local));
-  //  console.log(localStorage);
     } else {
         let findId=local.find(key => e.target.value);  
         let newArray=local.filter((key)=>key.id !== findId.id);
         localStorage.setItem('bouquet',JSON.stringify(newArray));
-  //  console.log(localStorage);
     }
     
     let formdata = new FormData();
@@ -234,7 +286,6 @@ function detect(e){
     fetch('ajax/recordFlower.php', obj)
                     .then(response => response.json())
                     .then(data=>{
-                        console.log(data);
                         let total = 0;
                         flower_content.innerHTML ='';
                         for (let i=0; i<data.length; i++){
@@ -290,26 +341,29 @@ let ask_friend = document.querySelector('.user_ask_friend');
 if(btn_friend!=null){
     btn_friend.addEventListener('click', (e)=>{
         e.preventDefault();
-        let user_id = document.querySelector('.user_ajax').innerHTML; // récupération de l'Id de l'utilisateur
-        let test = document.getElementById('newFriend').getElementsByClassName('icon_anim');
-        if (test){
-            let formdata = new FormData();
-            formdata.append('user_id', user_id);
-            let obj = { 'method':'POST', 'body':formdata };
-            
-            fetch('ajax/friendsList.php', obj)
-                            .then(response => response.json())
-                            .then(data=>{
-                                console.log(data);
+        let number_f = document.querySelector('.number_f').innerHTML;
+        if (number_f !=0){
+            let user_id = document.querySelector('.user_ajax').innerHTML; // récupération de l'Id de l'utilisateur
+            let test = document.getElementById('newFriend').getElementsByClassName('icon_anim');
+            if (test){
+                let formdata = new FormData();
+                formdata.append('user_id', user_id);
+                let obj = { 'method':'POST', 'body':formdata };
+                
+                fetch('ajax/friendsList.php', obj)
+                                .then(response => response.json())
+                                .then(data=>{
                                 let count = data.length;
-                                console.log(count);
                                 if (count > 0 ) {
                                     for (let i=0; i<count; i++){
-                                        ask_friend.innerHTML += '<form method="POST" action="?page=home_user&id_friend='+data[i].user_id+'"><label>Acceptez-vous la demande d\'ami de '+data[i].lastname+' '+data[i].firstname+' ?</label>Oui<input type="radio" name="friend" value="1">Non<input type="radio" name="friend" value="0"><br><input class="button" type="submit" name="submit" value="Valider"></form>';
+                                         if(data[i].validate === 3){
+                                        ask_friend.innerHTML += '<form method="POST" action="?page=home_user&id_friend='+data[i].user_id+'"><label>Acceptez-vous la demande d\'ami de '+data[i].lastname+' '+data[i].firstname+' ?</label>Oui<input type="radio" name="friend" value="1">Non<input type="radio" name="friend" value="2"><br><input class="button" type="submit" name="submit" value="Valider"></form>';
+                                        }
                                     }
                                 }
-                            })
-                            .catch(err=>console.error(err));
+                                })
+                                .catch(err=>console.error(err));
+            }
         }
     });
 }
@@ -335,7 +389,6 @@ if (form != null){
             fetch('ajax/recordTchat.php', obj)
                             .then(response => response.json())
                             .then(data=>{
-                                      console.log(data);
                                 tchat.value = '';
                                 tchat.focus();
                                 mycontent.innerHTML = '';
@@ -356,7 +409,6 @@ if (form != null){
         }
     });
 }
-
 /////////////////////////////Slider/////////////////////////////////////////////
 $(document).ready(function(){
       $('.slider').slick({
@@ -372,22 +424,22 @@ $(document).ready(function(){
               {
               breakpoint: 1600,
               settings: {
-                slidesToShow: 7,
-                slidesToScroll: 7
+                slidesToShow: 6,
+                slidesToScroll: 6
               }
             },
               {
               breakpoint: 1280,
               settings: {
-                slidesToShow: 6,
-                slidesToScroll: 6
+                slidesToShow: 5,
+                slidesToScroll: 5
               }
             },
             {
               breakpoint: 1024,
               settings: {
-                slidesToShow: 5,
-                slidesToScroll: 5,
+                slidesToShow: 4,
+                slidesToScroll: 4,
                 infinite: true,
                 dots: true
               }
@@ -395,15 +447,15 @@ $(document).ready(function(){
             {
               breakpoint: 768,
               settings: {
-                slidesToShow: 4,
-                slidesToScroll: 4
+                slidesToShow: 3,
+                slidesToScroll: 3
               }
             },
             {
               breakpoint: 481,
               settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3
+                slidesToShow: 2,
+                slidesToScroll: 2
               }
             }]
         });

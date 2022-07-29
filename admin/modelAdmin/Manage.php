@@ -44,19 +44,4 @@ class Manage {
         $_SESSION['token'] = $token;
         return $token;
     }
-    // Fonction générique pour récupérer toute les informations d'une table selon un Id
-    public function getOne(string $table, int $id ){
-        $data = ['table' => $table, 'id' => $id];
-        $query = "SELECT * FROM table=:table WHERE id=:id";
-        $result = $this->getQuery($query,$data);
-        return $result->fetch();
-    }
-    // Fonction générique pour récupérer les informations d'une colonne dans une table
-    public function getAll(string $table, string $columns ) :array{
-        $data = ['table' => $table, 'columns' => $columns];
-        $query = "SELECT columns=:columns FROM table=:table";
-        $result = $this->getQuery($query,$data);
-        return $result->fetchAll();
-    }
-    
 }

@@ -45,6 +45,20 @@ class AdminRequest extends Manage {
         $query = "DELETE FROM users WHERE id=:id";
         $this->getQuery($query,$data);
     }
+
+    // Supprimer tous les dossiers concernant un utilisateur
+     public function supprFolder(int $user_id, string $folder) :void{
+        $folderSupp = $folder.$user_id;
+        if (is_dir($folderSupp)) {
+             $files = scandir($folderSupp);
+             foreach ($files as $f) {
+               if ($f != '.' && $f != '..') {
+                 unlink($folderSupp.'/'.$f);
+               }
+             }
+             rmdir($folderSupp);
+        }
+    }
     
 /////////////////////////////////PHOTOS/////////////////////////////////////////
 
@@ -53,24 +67,32 @@ class AdminRequest extends Manage {
         $query = "SELECT id, name, user_id, defunct_id, date_crea FROM photos ORDER BY name";
         return $this->getQuery($query)->fetchAll();
     }
+
+/////////////////////////////////PRODUITS///////////////////////////////////////
     
     // Information sur tous les produits (cartes & bouquets)
     public function getInfoAllProducts() :array{
         $query = "SELECT id, categories, name, price, info FROM products";
         return $this->getQuery($query)->fetchAll();
     }
+
+/////////////////////////////////CONTACTS///////////////////////////////////////
     
     // Liste des demandes de contacts (messages)
     public function getInfoAllContacts() :array{
         $query = "SELECT id, email, user_id, message, date_crea FROM contact ORDER BY date_crea DESC";
         return $this->getQuery($query)->fetchAll();
     }
-    
+
+/////////////////////////////////FRIENDS////////////////////////////////////////
+   
     // Liste des informations sur les demandes d'amis
     public function getInfoAllFriends() : array{
         $query = "SELECT id, user_id, friend_id, date_crea, validate FROM friends ORDER BY user_id";
         return $this->getQuery($query)->fetchAll();
     }
+    
+////////////////////////////////COMMENTAIRES////////////////////////////////////
     
     // Liste de tous les commentaires
     public function getInfoAllComments() :array{
@@ -84,17 +106,15 @@ class AdminRequest extends Manage {
         return $this->getQuery($query)->fetchAll();
     }
     
-    // Liste des contenus associés aux cartes
-    public function getInfoAllCards() : array{
-        $query = "SELECT id, user_id, card_id, content, date_crea, user_send_id FROM content_card ORDER BY date_crea DESC";
-        return $this->getQuery($query)->fetchAll();
-    }
+/////////////////////////////////ORDERS/////////////////////////////////////////
     
     // Liste des commandes
     public function getInfoAllOrders() :array{
         $query = "SELECT id, lastname, firstname, date_crea, total, lastname_send, tel, email, user_send_id, cards_id, flowers_id FROM orders ORDER BY date_crea DESC";
         return $this->getQuery($query)->fetchAll();
     }
+
+////////////////////////////////DEFUNCTS////////////////////////////////////////
     
     // liste des défunts
     public function getInfoAllDefuncts() :array{

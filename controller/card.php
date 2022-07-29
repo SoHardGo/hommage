@@ -39,10 +39,10 @@ if($id != null){
 // Vérification si l'utilisateur à fournit son adresse
 if (isset($_SESSION['user'])){
     $infos_user = $getInfo->getInfoUser($_SESSION['user']['id']);
-    if($info_user['number_road'] = '' || $info_user['address'] = '' || $info_user['postal_code'] = '' || $info_user['city'] = ''){
+    if($info_user['number_road'] = 0 || $info_user['address'] = '' || $info_user['postal_code'] = 0 || $info_user['city'] = ''){
         $mess_dest = '<p class="message">Votre adresse est incomplète, veuillez la mettre à jour dans la rubrique "Mon compte"</p><a class="button button-a" href="?page=profil">Compléter</a>';
         $needAddress = 0;
-    }
+    } 
 }
 // Choix du defunt
 if (isset($_POST['submit_def'])){
@@ -75,23 +75,24 @@ if (isset($_SESSION['id_admin'])){
     $infoAdmin = $getInfo->getInfoUser(htmlspecialchars(trim($_SESSION['id_admin'])));
 }
 // Validation du mode d'envoi au créateur de la fiche du défunt
-if (isset($_SESSION['user'])){
-if(!isset($_POST['radio']) && !isset($_POST['select_def'])){
-    $mess_dest = '<p>Envoi à votre domicile</p>';
-    $_SESSION['user_send'] = $_SESSION['user']['id'];
-    $_SESSION['lastname_send'] = $_SESSION['user']['lastname'];
+if (isset($_POST['sub_send'])){
+    if(isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'email'){
+        $mess_dest = '<p>Confirmation de l\'envoi par Email</p>';
+        $_SESSION['user_send'] = $_SESSION['id_admin'];
+        $_SESSION['lastname_send'] = $infoAdmin['lastname'];
+        $valid_def = 1;
+    } else if(isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'postal'){
+        $mess_dest = '<p>Confirmation de l\'envoi par voix Postal</p>';
+        $_SESSION['user_send'] = $_SESSION['id_admin'];
+        $_SESSION['lastname_send'] = $infoAdmin['lastname'];
+        $valid_def = 1;
+    } else {
+         $mess_dest = '<p>Envoi à votre domicile</p>';
+        $_SESSION['user_send'] = $_SESSION['user']['id'];
+        $_SESSION['lastname_send'] = $_SESSION['user']['lastname'];
+    }     
 }
-if(isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'email'){
-    $mess_dest = '<p>Confirmation de l\'envoi par Email</p>';
-    $_SESSION['user_send'] = $_SESSION['id_admin'];
-    $_SESSION['lastname_send'] = $infoAdmin['lastname'];
-}
-if(isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'postal'){
-    $mess_dest = '<p>Confirmation de l\'envoi par voix Postal</p>';
-    $_SESSION['user_send'] = $_SESSION['id_admin'];
-    $_SESSION['lastname_send'] = $infoAdmin['lastname'];
-}     
-}
+
 $categories = 'cartes';
 $tab_card = $getInfo->getCardTab();
 $total_card = $getInfo->getCardTotal();

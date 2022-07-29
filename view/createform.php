@@ -25,6 +25,8 @@ ob_start();
             <label>Qui êtes-vous pour le defunt ?</label>
             <select name="affinity">
                 <option>Affinité</option>
+                <option value="Conjoint">Conjoint</option>
+                <option value="Conjointe">Conjointe</option>
                 <option value="Père">Père</option>
                 <option value="Mère">Mère</option>
                 <option value="Frère">Frère</option>
@@ -33,6 +35,8 @@ ob_start();
                 <option value="Grand-Mère">Grand-Mère</option>
                 <option value="Fils">Fils</option>
                 <option value="Fille">Fille</option>
+                <option value="Petit-Fils">Petit fils</option>
+                <option value="Petite-Fille">Petite fille</option>
                 <option value="Beau-Fils">Beau-Fils</option>
                 <option value="Belle-Fille">Belle-Fille</option>
                 <option value="Belle_Mère">Belle_Mère</option>

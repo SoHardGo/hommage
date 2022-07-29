@@ -5,6 +5,11 @@ require_once 'model/Registration.php';
 $register = new Registration();
 require_once 'model/GetInfos.php';
 $getInfo = new GetInfos();
+
+// Ne pas mettre en cache du navigateur cette page pour la modification de photo de profil du défunt
+header("Cache-Control: no-cache, must-revalidate");
+header("Expires: Mon, 01 Jul 1990 05:00:00 GMT");
+
 $friends = '';
 $list_def = '';
 $message = '';
@@ -91,17 +96,17 @@ foreach ($friendList as $f){
         $new_mess ='';
     }
     switch ($f['validate']) {
-        case null :
+        case 3 : 
             $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user_friend_container"><span class="home_user_friend_mess">'.$new_mess.'</span><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/mark.png" title="En attente de confirmation" alt="icon point d\'interrogation"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
-        case 0 :
-            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user_friend_container"><span class="home_user_friend_mess">'.$new_mess.'</span><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée" alt="icon de refus"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
+        case 2 :
+            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user_friend_container"><span class="home_user_friend_mess">'.$new_mess.'</span><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée, cliquer pour supprimer dans le Tchat" alt="icon de refus"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
         case 1 :
             $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user_friend_container"><span class="home_user_friend_mess">'.$new_mess.'</span><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
         default :
-            break;
+           break;
     }
 }
 
@@ -117,10 +122,10 @@ if (isset($_GET['friendDel'])){
 $useradmin['user_id'] = $_GET['useradmin']??'';
 
 // Enregistrement du contact <- ajax-> user + affichage du nombre de demande d'ami
-$newFriend = $_GET['id_friend']??null;
+$newFriend = $_GET['id_friend']??3;
 if (isset($_POST['friend'])){
-    if ($_POST['friend'] == 0){
-        $register->updateFriend(0, htmlspecialchars(trim($_SESSION['user']['id'])), htmlspecialchars(trim($newFriend)));
+    if ($_POST['friend'] == 2){
+        $register->updateFriend(2, htmlspecialchars(trim($_SESSION['user']['id'])), htmlspecialchars(trim($newFriend)));
         $_SESSION['number_f'] = $_SESSION['number_f'] -1;
     }
     if ($_POST['friend'] == 1){

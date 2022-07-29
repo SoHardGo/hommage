@@ -4,9 +4,6 @@ $register = new Registration();
 require_once 'model/GetInfos.php';
 $getInfo = new GetInfos();
 
-$messCart = '';
-$messCvv = '';
-$messTel = '';
 $messFinal = '';
 $messBuy = '';
 $tab_list ='';
@@ -46,39 +43,39 @@ $user_send = $getInfo->getInfoUser($_SESSION['user_send']);
                 </div>';
     }
                
-// contrôle des informations de paiement
+// Contrôle des informations de paiement
     if (isset($_POST['buy_submit'])){
         if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
-            if (isset($_POST['buy_cart']) && is_numeric($_POST['buy_cart'])){
+            if (isset($_POST['buy_cart']) && is_numeric($_POST['buy_cart']) && !empty($_POST['buy_cart'])){
                 $replace = array('-', '.', ' ');
                 $replace = str_replace($replace, '', $_POST['buy_cart']);
-                $length = strlen($_POST['buy_cart']);
-                if ($length !== 16){
-                    $messCart = '<p class="message">Vous n\'avez pas rentré le bon nombre de chiffre.</p>';
-                    $_POST['buy_cart'] = '';
+                if (strlen($_POST['buy_cart']) !== 16){
+                    header('location: index.php?page=buy');
+                    exit;
                 } 
-                if (isset($_POST['buy_code']) && is_numeric($_POST['buy_code'])){
+                if (isset($_POST['buy_code']) && is_numeric($_POST['buy_code']) && !empty($_POST['buy_code'])){
                     $replace = array('-', '.', ' ');
                     $replace = str_replace($replace, '', $_POST['buy_code']);
-                    $length = strlen($_POST['buy_code']);
-                    if ($length !== 3){
-                        $messCvv = '<p class="message">Vous n\'avez pas rentré le bon nombre de chiffre.</p>';
-                        $_POST['buy_code'] = '';
+                    if (strlen($_POST['buy_code']) !== 3){
+                        header('location: index.php?page=buy');
+                        exit;
                     }
                 }
-                if (isset($_POST['buy_tel'])){
+                if (isset($_POST['buy_tel']) && !empty($_POST['buy_tel'])){
                     if (preg_match('#^0[1-68]([-. ]?[0-9]{2}){4}$#', $_POST['buy_tel'])){
                         $replace = array('-', '.', ' ');
                     	$tel = str_replace($replace, '', $_POST['buy_tel']);
                     	$tel = chunk_split($_POST['buy_tel'], 2, '\r');
                     } else {
-                        $messTel = '<p class="message">Vous n\'avez pas rentré un bon format de téléphone.</p>';
-                        $_POST['buy_tel'] = '';
+                        header('location: index.php?page=buy');
+                        exit;
                     }
                 }
+            } else {
+                header('location: index.php?page=buy');
+                exit;
             }
         
-            if (!empty($_POST['buy_cart']) && !empty($_POST['buy_code']) && !empty($_POST['buy_tel']) ){
             //enregistrement des achats de cartes dans la BDD
             $data = ['lastname'=>htmlspecialchars(trim(ucfirst($_SESSION['user']['lastname']))),
                      'firstname'=>htmlspecialchars(trim(ucfirst($_SESSION['user']['firstname']))),
@@ -97,7 +94,6 @@ $user_send = $getInfo->getInfoUser($_SESSION['user_send']);
             $tab ='';
             $pay = 'hidden';
             unset($_SESSION['nbCard']);
-            }   
         } else {
         $messFinal = "L'intégrité du formulaire que vous cherchez à nous envoyer est mis en doute, veuillez vous rendre sur le formulaire du site svp.";
         }

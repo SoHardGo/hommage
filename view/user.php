@@ -6,7 +6,11 @@ ob_start();
 // Affichage du bandeau utilisateur
 ?>
 <section class="user">
+    <?php if($_SESSION['user']['pseudo']) :?>
+    <h3><?=$_SESSION['user']['pseudo']?></h3>
+    <?php else :?>
     <h3><?=$_SESSION['user']['lastname'].' '.$_SESSION['user']['firstname']?></h3>
+    <?php endif ?>
     <form class="user_form" method="POST" action="?page=home_user" enctype="multipart/form-data" id="form_user">
         <div class="user_photo">
             <?php if(file_exists($profil)) :?>

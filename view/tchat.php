@@ -20,7 +20,7 @@ ob_start();
                 <img class="img" src="<?=$photo_friend?>" alt="photo de profil">
             </div>
             <div class="tchat_container">
-                <?php if( $validate['validate'] == null && $validate['validate'] == 0) :?>
+                <?php if( $validate['validate'] === 3) :?>
                 <p class="message">En attente de confirmation...</p>
                 </div>
                 <?php endif ?>
@@ -35,7 +35,7 @@ ob_start();
                 </div>
             </div>
         </div>
-        <?php if($validate['validate']) :?>
+        <?php if($validate['validate'] != 2) :?>
         <div class="tchat_user">
             <form class="tchat_form">
                 <label for="content_tchat"></label>

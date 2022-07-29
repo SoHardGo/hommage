@@ -389,10 +389,12 @@ input[name="token"] {
     flex-direction: column;
     align-items: center;
 }
-}
 .profil_unsubscribe {
     margin: 2rem;
     color: var(--color-red);
+}
+.profil_unsubscribe h4 {
+    text-align: justify;
 }
 input[name="new_user"], input[name="new_admin"]{
     width: 11rem;
@@ -480,6 +482,7 @@ input[name="new_user"], input[name="new_admin"]{
 .buy_table tr:nth-child(odd) {
     background-color: var(--color-grey-light);
 }
+
 /*******************************************************************************/
 /************************************CARD***************************************/
 /*******************************************************************************/
@@ -869,6 +872,10 @@ input[name="photodef"]{
     width: 4.25rem;
     height: 4.25rem;
     margin: 1.25rem;
+    transition: 1s all;
+}
+.env_min_photo:hover {
+    transform: scale(1.5);
 }
 .env_listing {
     display: flex;
@@ -923,12 +930,9 @@ input[name="photodef"]{
     border-radius: 0.63rem;
     padding: 0.63rem;
 }
-.env_user_name {
-    color: var(--color-black);
-}
 .icon_delete {
     position: absolute;
-    right: 0.63rem;
+    right: 0.2rem;
 }
 .new_comment {
     position: absolute;
@@ -974,7 +978,7 @@ input[name="photodef"]{
 .env_profil {
     width: 3.125rem;
     height: 3.125rem;
-    margin-right: 0.63rem;
+    margin-right: 0.9rem;
     border-radius: 3.125rem;
     overflow: hidden;
 }
@@ -1876,6 +1880,10 @@ input {
     .footer_menu, .footer_network {
         margin:1.5rem;
     }
+    /*****ADMINISTRATION*****/
+    .admin_update_users {
+        width: 70%;
+    }
 }
 @media only screen and (min-width: 1280px) {
     /*****MAIN*****/
@@ -1895,7 +1903,7 @@ input {
     }
     /*****HEADER*****/
     .header {
-        height: 22rem;
+        height: 20rem;
     }
     .header_title-h1 {
         font-size: 7rem;
@@ -1990,6 +1998,9 @@ input {
     .admin_nav {
         width: 65%;
     }
+    .admin_update_users {
+        width: 65%%;
+    }
 }
 @media screen and (min-width: 1600px) {
     /*****MAIN*****/
@@ -1999,7 +2010,7 @@ input {
     }
     /*****HEADER*****/
     .header {
-        height: 27.5rem;
+        height: 24.5rem;
     }
     .header_title-h1 {
         font-size: 8rem;
@@ -2062,5 +2073,8 @@ input {
     /*****ADMINISTRATION*****/
     .admin_nav {
         width: 55%;
+    }
+    .admin_update_users {
+        width: 50%;
     }
 }

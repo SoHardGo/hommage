@@ -13,6 +13,7 @@ ob_start();
         <input class="button" type="submit">
         </div>
     </form>
+    <a class="button button-a" href="../../index.php?page=home">Accès Site</a>
 </section>
 <?php
 $content_admin= ob_get_clean(); 

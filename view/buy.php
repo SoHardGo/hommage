@@ -20,13 +20,10 @@ ob_start();
                 <input type="text" name="buy_day" id="buy_day" value="<?=date('d/m/Y H:m:s')?>" readonly>
                 <label for="buy_cart"> N° de carte (sans espace) : </label>
                 <input type="number" name="buy_cart" id="buy_cart" required="required">
-                <div><?=$messCart?></div>
                 <label for="buy_code">N° de CVV (au dos de la carte) :</label>
                 <input type="number" name="buy_code" id="buy_code" required="required">
-                <div><?=$messCvv?></div>
                 <label for="buy_tel">Téléphone :</label>
                 <input type="tel" name="buy_tel" id="buy_tel" required="required">
-                <div><?=$messTel?></div>
                 <label for="submit" id="buy_submit"></label>
                 <input class="button" type="submit" name ="buy_submit" id="submit" value="Payer">
                 <input type="hidden" name="token" value="<?=$token?>">
@@ -42,7 +39,7 @@ ob_start();
     <hr>
     <div class="buy_message">
     <?php if (isset($_SESSION['user']['id'])) :?>
-        <?php if ($valid_pay) :?>
+        <?php if ($valid_pay || empty($_SESSION['nbCard'])) :?>
         <h2>Liste de mes précédents achats.</h2>
         <a class="button button-a" href="?page=buy&list=1">Afficher la liste</a>
         <?php endif ?>

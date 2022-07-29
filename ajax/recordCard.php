@@ -13,7 +13,7 @@ if (isset($_POST['content']) && !empty($_POST['content'])){
         'content'=>strip_tags(trim($_POST['content'])),
         'user_id'=>htmlspecialchars(trim($_SESSION['user']['id'])),
         'card_id'=>htmlspecialchars(trim($_POST['card_id'])),
-        'user_send_id'=>htmlspecialchars(trim($_SESSION['user_send']))
+        'user_send_id'=>htmlspecialchars(trim($user_send))
         ];
     // enregistrement du texte + retour de l'Id d'enregistrement
     $lastId = $register->setContent($content);

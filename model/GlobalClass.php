@@ -44,7 +44,7 @@ class GlobalClass extends Manage {
     // Vérification des identifiants de compte, email et mot de passe
     public function verifyAccount(string $email, $pwd) :?array {
         $data = ['email'=> $email];
-        $query = "SELECT id, lastname, firstname, email, password, last_log FROM users WHERE email=:email";
+        $query = "SELECT id, lastname, firstname, pseudo, email, password, last_log FROM users WHERE email=:email";
         $result =  $this->getQuery($query,$data);
         if($result->rowCount()) {
             $data = $result->fetch();
@@ -114,8 +114,8 @@ class GlobalClass extends Manage {
         }
     }
     
-    // Supprimer le dossier de photos d'un utilisateur et de son profil
-     public function supprFolder($user_id) :void{
+    // Supprimer le dossier de photos d'un utilisateur et fichier de son profil
+     public function supprFolder(int $user_id) :void{
         $folder = 'public/pictures/photos/'.$user_id;
         if (is_dir($folder)) {
              $files = scandir($folder);
@@ -125,12 +125,12 @@ class GlobalClass extends Manage {
                }
              }
              rmdir($folder);
-        } else {}
+        }
         $folder = 'public/pictures/users/'.$user_id;
         if (is_dir($folder)){
             unlink($folder.'/photo'.$user_id.'.jpg');
             rmdir($folder);
-        } else {}
+        }
     }
     
     // Transfert les photos des défuncts vers le dossier d'un autre utilisateur

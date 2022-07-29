@@ -17,8 +17,8 @@ ob_start();
                     <label for="pseudo">Votre pseudo :</label>
                     <input name="pseudo" id="maj_pseudo" type="text" value="<?=$info_user['pseudo']?>">
                     <?php else :?>
-                    <label for="pseudo"></label>
-                    <input name="pseudo" id="pseudo" type="text" value="Vous n'avez pas de pseudo">
+                    <label for="pseudo">Vous n'avez pas de pseudo</label>
+                    <input name="pseudo" id="pseudo" type="text">
                     <?php endif ?>
                     <p>Votre adresse :</p>
                     <label>N° :</label>

@@ -42,7 +42,7 @@ if(isset($_SESSION['user']['id'])){
         $message = '<div class="profil_unsubscribe">
                     <h2>Etes-vous sûr de vouloir vous désinscrire ?</h2>
                     <h3 class="message">Vos informations seront définitivement supprimées.</h3>
-                    <h3 class="message">Les fiches, photos et leurs commentaires seront aussi supprimés si vous n\'avez pas désigné un autre utilisateur pour les gérer à votre place.</h3>
+                    <h4 class="message">Si vous gérez des fiches, les photos et leurs commentaires seront aussi supprimés si vous n\'avez pas désigné un autre utilisateur pour les gérer à votre place.</h4>
                     <input class="button" type="submit" name="signoff_final" value="Confirmer la désinscription">
                     <a class="button button-a" href="?page=home_user">Annuler</a></div>';
         }
