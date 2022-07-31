@@ -46,13 +46,13 @@ class Registration extends Manage {
     }
     // enregistrement du contenu d'une carte
     public function setContent(array $data) :int{
-        $query = "INSERT INTO content_card SET content=:content, user_id=:user_id, card_id=:card_id, user_send_id=:user_send_id, date_crea=NOW()";
+        $query = "INSERT INTO content_card SET content=:content, user_id=:user_id, card_id=:card_id, date_crea=NOW()";
         return $this->setQueryLastId($query,$data);
     }
     // enregistrement des cartes achetées
-    public function setOrders(array $data) :void{
+    public function setOrders(array $data) :int{
         $query = "INSERT INTO orders SET user_id=:user_id, lastname=:lastname, firstname=:firstname, lastname_send=:lastname_send, email=:email, cards_id=:cards_id, flowers_id=:flowers_id, total=:total, user_send_id=:user_send_id, tel=:tel, date_crea=NOW()";
-        $this->getQuery($query,$data);
+        return $this->setQueryLastId($query,$data);
     }
     // enregistrement des messages du chat
     public function setTchat(array $data) :void{
@@ -127,6 +127,12 @@ class Registration extends Manage {
         $data = ['friend_id'=>$friend, 'user_id'=>$user];
         $query = "UPDATE tchat SET `read`=1 WHERE friend_id=:friend_id AND user_id=:user_id";
         $this->getQuery($query,$data);
+    }
+    // mise à jour du destinataire d'une carte
+    public function updateContentCard(int $id_register, int $user_send) :void{
+        $data = ['id'=>$id_register, 'user_send_id'=>$user_send];
+        $query = "UPDATE content_card SET user_send_id=:user_send_id WHERE id=:id";
+        $this->getQuery($query, $data);
     }
 
 

@@ -6,8 +6,8 @@ ob_start();
 ?>
 <section>
     <div class="lost">
-        <h1 class="lost_title">Réinitialisation du mot de passe</h1>
-        <div class="lost_form">
+        <h1 class="lost__title">Réinitialisation du mot de passe</h1>
+        <div class="lost__form">
             <form method="POST" action="?page=lost">
                 <div class="<?=$_SESSION['lost_email']?>">
                 <?php if(!isset($_SESSION['user']['id_tmp'])):?>

@@ -39,7 +39,7 @@ if(isset($_SESSION['user']['id'])){
     // Formulaire de désinscription, message avant confirmation définitif
     if (isset($_POST['signOff'])){
         if(empty($_SESSION['verif_email'])){
-        $message = '<div class="profil_unsubscribe">
+        $message = '<div class="profil__unsubscribe">
                     <h2>Etes-vous sûr de vouloir vous désinscrire ?</h2>
                     <h3 class="message">Vos informations seront définitivement supprimées.</h3>
                     <h4 class="message">Si vous gérez des fiches, les photos et leurs commentaires seront aussi supprimés si vous n\'avez pas désigné un autre utilisateur pour les gérer à votre place.</h4>
@@ -130,9 +130,9 @@ if(isset($_SESSION['user']['id'])){
     $info_def = $getInfo->getUserDefunctList(htmlspecialchars(trim($_SESSION['user']['id'])))->fetchAll();
     $nbr = count($info_def);
     for ($i=0; $i<$nbr; $i++){
-        $defunct_list .=   '<div class="profil_modify">
+        $defunct_list .=   '<div class="profil__modify">
                                 <p>'.$info_def[$i]['lastname'].' '.$info_def[$i]['firstname'].'</p>
-                                    <a class ="profil_modify_icon" href="?page=modifydef&id_def='.intval($info_def[$i]['id']).'" title="Modifier les informations">
+                                    <a class ="profil__modify_icon" href="?page=modifydef&id_def='.intval($info_def[$i]['id']).'" title="Modifier les informations">
                                         <img class="img dim10" src="public/pictures/site/info-icon.png" alt="icone information">
                                     </a>
                             </div>';

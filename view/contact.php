@@ -3,9 +3,9 @@ $title='Nous contacter';
 ob_start(); 
 ?>
 <section class="contact">
-        <h1 class="contact_title">Contact</h1>
+        <h1 class="contact__title">Contact</h1>
         <?=$message?>
-        <div class="contact_form">
+        <div class="contact__form">
             <form method="POST" action="?page=contact">
                 <label for="lastname">Entrer votre nom</label>
                 <?php if (isset($_SESSION['user']['lastname'])):?>
@@ -26,7 +26,7 @@ ob_start();
                 <input class="button" id="submit" type="submit" name="submit" value="Envoyer">
             </form>
         </div>
-        <div class="contact_confirm">
+        <div class="contact__confirm">
             <?=$confirm?>
         </div>
 </section>

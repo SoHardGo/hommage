@@ -69,7 +69,7 @@ $lastDef = $getInfo->getHomeSlider();
 $slider ='<div class="slider">';
 foreach($lastDef as $r){
     $idDef = $getInfo->getIdDefPhoto($r['name']);
-    $slider.='<a href="?page=environment&id='.$idDef['defunct_id'].'"><div class="home_user_slick"><img class="img" src="public/pictures/photos/'.$r['user_id'].'/'.$r['name'].'" alt="photo defunt pour le slider"></div></a>';
+    $slider.='<a href="?page=environment&id='.$idDef['defunct_id'].'"><div class="home_user__slick"><img class="img" src="public/pictures/photos/'.$r['user_id'].'/'.$r['name'].'" alt="photo defunt pour le slider"></div></a>';
 }
 $slider .= '</div>';
 
@@ -97,13 +97,13 @@ foreach ($friendList as $f){
     }
     switch ($f['validate']) {
         case 3 : 
-            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user_friend_container"><span class="home_user_friend_mess">'.$new_mess.'</span><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/mark.png" title="En attente de confirmation" alt="icon point d\'interrogation"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
+            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user__friend_container"><span class="home_user__friend_mess">'.$new_mess.'</span><img class="img home_user__friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user__mark" src="public/pictures/site/mark.png" title="En attente de confirmation" alt="icon point d\'interrogation"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
         case 2 :
-            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user_friend_container"><span class="home_user_friend_mess">'.$new_mess.'</span><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée, cliquer pour supprimer dans le Tchat" alt="icon de refus"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
+            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user__friend_container"><span class="home_user__friend_mess">'.$new_mess.'</span><img class="img home_user__friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée, cliquer pour supprimer dans le Tchat" alt="icon de refus"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
         case 1 :
-            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user_friend_container"><span class="home_user_friend_mess">'.$new_mess.'</span><img class="img home_user_friend_img" src="'.$profil.'" alt="photo d\'un ami"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
+            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user__friend_container"><span class="home_user__friend_mess">'.$new_mess.'</span><img class="img home_user__friend_img" src="'.$profil.'" alt="photo d\'un ami"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
         default :
            break;
@@ -138,19 +138,19 @@ if (isset($_POST['friend'])){
 // Affichage des mini-cartes des defunts 
 if (count($info_def)){
     $list_def = '<h1>Mes Fiches</h1>
-          <div class="home_user_explain">
+          <div class="home_user__explain">
             <p>Sélectionner une fiche pour ajouter des photos, consulter ou ajouter des commentaires</p>
           </div>';
-    $list_def .='<div class="home_user_defunct">';    
+    $list_def .='<div class="home_user__defunct">';    
     for ($i=0; $i<count($info_def); $i++){
         $path_photo = 'public/pictures/users/'.$_SESSION['user']['id'].'/photodef'.$info_def[$i]['id'].'.jpg';
         $list_def.= '
-        <div class="home_user_card">
-            <a href="?page=home_user&id_delete='.$info_def[$i]['id'].'" class="home_card_delete" title="Supprimer cette fiche">
+        <div class="home_user__card">
+            <a href="?page=home_user&id_delete='.$info_def[$i]['id'].'" class="home_user__card_delete" title="Supprimer cette fiche">
                 <img class="img dim20" src="public/pictures/site/delete-icon.png" alt="Icone supprimer">
             </a>
-            <a class="home_user_card_defunct" href="?page=environment&id='.$info_def[$i]['id'].'">
-            <div class="home_user_img">';
+            <a class="home_user__card_defunct" href="?page=environment&id='.$info_def[$i]['id'].'">
+            <div class="home_user__img">';
             if ( !file_exists($path_photo) ){
                 $path_photo = 'public/pictures/site/noone.jpg';
             }
@@ -166,11 +166,11 @@ if (count($info_def)){
             <img class="img dim40" src="public/pictures/site/help.png" alt="icone help">
     </a>
     <p>Cliquer sur l\'icône pour commencer</p>
-    <div id="help" class="home_user_help">
-        <div class="home_user_dialog">
+    <div id="help" class="home_user__help">
+        <div class="home_user__dialog">
             <a href="#" class="closebtn">&nbsp;×&nbsp;</a>
             <h2>Bienvenue '.$_SESSION['user']['firstname'].' dans votre espace membre</h2>
-            <div class="home_user_text">
+            <div class="home_user__text">
                 <p> Pour commencer :</p><br>  
                 <p>-> Créer une Fiche de la personne auquel vous voulez rendre hommage</p>
                 <p>-> La Fiche apparaîtra dans votre espace sous forme de petite Carte</p>

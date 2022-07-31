@@ -3,8 +3,8 @@ $title='Création de fiche';
 ob_start(); 
 ?>
 <section class="createform">
-    <h1 class="createform_title">Créer une fiche</h1>
-    <div class="createform_form">
+    <h1 class="createform__title">Créer une fiche</h1>
+    <div class="createform__form">
         <form method="POST" action="?page=createform" >
             <label for="lastname">Nom du defunt :</label>
             <input type="text" name="lastname" id="lastname" required="required"/>
@@ -59,7 +59,7 @@ ob_start();
                 <option value="Collègue">Collègue</option>
                 <option value="Aucune">Aucune</option>
             </select>
-            <fieldset class="createform_info">
+            <fieldset class="createform__info">
                 <h3>Informations complémentaires</h3>
                 <p>Acceptez-vous de recevoir des cartes de condoléances pour ce defunt ?</p>
                 <label>Cartes par Email :</label> 
@@ -76,7 +76,7 @@ ob_start();
             <input class="button" type="submit" name="submit" value="Valider">
         </form>
     </div>
-    <div class="createform_message">
+    <div class="createform__message">
         <?=$message, $confirm?>
     </div>
 </section>

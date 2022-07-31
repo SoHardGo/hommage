@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // En ajoutant ou supprimant une class
 
 let nav = document.getElementById("nav");
-let nav_bar_open = document.getElementById("nav_bar-open");
-let nav_bar_close = document.getElementById("nav_bar-close");
+let nav_bar_open = document.getElementById("nav__bar-open");
+let nav_bar_close = document.getElementById("nav__bar-close");
 
 nav_bar_open.addEventListener('click',function(){
     nav.classList.add("status");
@@ -21,7 +21,7 @@ nav_bar_close.addEventListener('click',function(){
 // Soumission du formulaire après sélection d'une image
 // En cliquant sur l'icone Camera
 
-let photo_profil = document.querySelector('.user_icon');
+let photo_profil = document.querySelector('.user__icon');
 let input_profil = document.getElementById('photo_user');
 if(photo_profil !== null){
     photo_profil.addEventListener('click', function(){
@@ -38,7 +38,7 @@ if(photo_profil !== null){
 // En cliquant sur l'icone Camera
 
 let photo_def = document.querySelector('.user_icon_def');
-let input_def = document.getElementById('modify_photo');
+let input_def = document.getElementById('modify__photo');
 if(photo_def !==null){
     photo_def.addEventListener('click', function(){
         input_def.click();
@@ -56,21 +56,21 @@ if(photo_def !==null){
 // Insertion du texte dans la "div"
 // Si elle existe, ajout de la class "hidden" pour la faire disparaître
 //
-let link = document.querySelector('.env_link_img');
-let parent_link = document.querySelector('.env_link');
+let link = document.querySelector('.env__link_img');
+let parent_link = document.querySelector('.env__link');
 
 if(link!=null){
     link.addEventListener('click', (e)=>{
         e.preventDefault();
-        let verify = !!document.querySelector('.env_new_link');
+        let verify = !!document.querySelector('.env__new_link');
         if (verify === false){
             let link_p = document.createElement('div');
-            link_p.setAttribute('class', 'env_new_link');
+            link_p.setAttribute('class', 'env__new_link');
             let link_txt =document.createTextNode('Adresse à copier pour vos proches :\n'+link.href);
             link_p.appendChild(link_txt);
             parent_link.appendChild(link_p);
         } else {
-            let link_p = document.querySelector('.env_new_link');
+            let link_p = document.querySelector('.env__new_link');
             link_p.classList.toggle('hidden');
         }
     });
@@ -80,8 +80,8 @@ if(link!=null){
 //
 // Affichage du sous menu du bouton "Fiche"
 
-let button = document.querySelector('.user_myDefuncts');
-let container = document.querySelector('.user_list_defuncts');
+let button = document.querySelector('.user__myDefuncts');
+let container = document.querySelector('.user__list_defuncts');
 if(button !== null){
     button.addEventListener('click', function(){
         container.classList.toggle('hidden');
@@ -93,7 +93,7 @@ if(button !== null){
 // Soumission du formulaire après sélection d'une image
 // En cliquant sur l'icone Appareil Photo
 
-let camera = document.querySelector('.env_add_photo');
+let camera = document.querySelector('.env__add_photo');
 let file = document.getElementById('file_env');
 if(camera !== null){
     camera.addEventListener('click', function(){
@@ -117,14 +117,14 @@ if(camera !== null){
 // Test si le fichier de profil existe ou pas
 // Insertion du commentaire avec photo de profil de l'utilisateur dans le DOM
 
-let comment_env = document.querySelectorAll('.env_comment_form');
+let comment_env = document.querySelectorAll('.env__comment_form');
 
 if(comment_env != null) {
     for(let i of comment_env) {
         i.addEventListener('submit', function(e) {
             e.preventDefault();
-            let com_div = this.parentNode.querySelector('.env_comment');
-            let comment = this.querySelector('.env_comment_txt');
+            let com_div = this.parentNode.querySelector('.env__comment');
+            let comment = this.querySelector('.env__comment_txt');
             let id_def = this.querySelector('.id_def');
             let photo_id = this.querySelector('.photo_id');
             let user_id = this.querySelector('.user_id');
@@ -151,7 +151,7 @@ if(comment_env != null) {
                     image='public/pictures/site/noone.jpg'; 
                 }
                 http.onerror = console.clear();
-                let content = '<div class="container_com_user"><div class="env_profil"><img class="img" src="'+image+'" ></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env_user_name" href="index.php?page=environment&id='+user_id.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
+                let content = '<div class="container_com_user"><div class="env__profil"><img class="img" src="'+image+'" ></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env__user_name" href="index.php?page=environment&id='+user_id.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
                 if(comment.value != '') {
                     com_div.innerHTML += content;
                 }
@@ -165,8 +165,8 @@ if(comment_env != null) {
 
 /////////////////Dossier des photos d'un defunt/////////////////////////////////
 
-let listPhoto = document.querySelector('.env_folder_link');
-let folder = document.querySelector('.env_photos_list');
+let listPhoto = document.querySelector('.env__folder_link');
+let folder = document.querySelector('.env__photos_list');
 if(listPhoto != null){
 listPhoto.addEventListener('click', function(e){
     e.preventDefault();
@@ -180,7 +180,7 @@ listPhoto.addEventListener('click', function(e){
 // Récupération de l'attribut correspondant au bouton sélectionné
 // Exécution de la commande qui affectera l'élement texte sélectionné
 
-const elements = document.querySelectorAll('.card_edit');
+const elements = document.querySelectorAll('.card__edit');
 
     elements.forEach( element =>{
         element.addEventListener('click', ()=>{
@@ -200,7 +200,7 @@ const elements = document.querySelectorAll('.card_edit');
 
 
 let nom = document.getElementById('lastname_insee');
-let madiv = document.querySelector('.search_result_insee');
+let madiv = document.querySelector('.search__result_insee');
 
 if ( nom != null){
 nom.addEventListener('keyup', ()=> {
@@ -228,16 +228,16 @@ nom.addEventListener('keyup', ()=> {
 
 //////////////////Récupération du texte d'une carte ////////////////////////////
 
-let edit_btn = document.getElementById('card_val'); // bouton "confirmer"
+let edit_btn = document.getElementById('card__val'); // bouton "confirmer"
 let content = document.querySelector('.content');   // contenu du texte
 
 if (edit_btn != null){
     edit_btn.addEventListener('click',()=>{
         let card_text = content.textContent;                              // contenu du texte
-        let card_id = document.getElementById('card_id').innerHTML;       // id de la carte sélectionné
-        let card_nb = document.getElementById('card_nb');                 // span où s'affiche le nombre de cartes
-        let container_tab = document.getElementById('card_container_tab');// tableau
-        let total = document.getElementById('card_total');                // total du tableau
+        let card_id = document.getElementById('card__id').innerHTML;       // id de la carte sélectionné
+        let card_nb = document.getElementById('card__nb');                 // span où s'affiche le nombre de cartes
+        let container_tab = document.getElementById('card__container_tab');// tableau
+        let total = document.getElementById('card__total');                // total du tableau
         
         let formdata = new FormData();
         formdata.append('content', card_text);
@@ -258,9 +258,9 @@ if (edit_btn != null){
 ////////////////////////Gestion des bouquets de fleurs//////////////////////////
 
 localStorage.clear();
-let flower_content =document.getElementById('flower_container_tab');
+let flower_content =document.getElementById('flower__container_tab');
 let flower_id=document.querySelectorAll('.flower_id');
-let div_total = document.querySelector('.flower_total');
+let div_total = document.querySelector('.flower__total');
 
 if (flower_id!=null){
     for(let i=0; i<flower_id.length;i++){               // bouton checkbox
@@ -310,7 +310,7 @@ new_photos.addEventListener('click',()=>{
 
 /////////////Message d'Alerte pour la suppression de photo/////////////////////////
 
-let delete_p = document.getElementsByClassName('env_delete_photo');
+let delete_p = document.getElementsByClassName('env__delete_photo');
 if(delete_p!=null) {
     for(d of delete_p) {
         d.addEventListener('click', function(e) {
@@ -325,7 +325,7 @@ if(delete_p!=null) {
 /////////////////////////Dossier des contacts///////////////////////////////////
 
 let link_contact = document.getElementById('contacts');
-let folder_contact = document.querySelector('.home_user_contact_list');
+let folder_contact = document.querySelector('.home_user__contact_list');
 if(link_contact!=null){
     link_contact.addEventListener('click',function(e){
         e.preventDefault;
@@ -336,14 +336,14 @@ if(link_contact!=null){
 
 ///////////////////////Gestion des demandes d'amis//////////////////////////////
 let btn_friend = document.getElementById('newFriend');
-let ask_friend = document.querySelector('.user_ask_friend');
+let ask_friend = document.querySelector('.user__ask_friend');
 
 if(btn_friend!=null){
     btn_friend.addEventListener('click', (e)=>{
         e.preventDefault();
         let number_f = document.querySelector('.number_f').innerHTML;
         if (number_f !=0){
-            let user_id = document.querySelector('.user_ajax').innerHTML; // récupération de l'Id de l'utilisateur
+            let user_id = document.querySelector('.user__ajax').innerHTML; // récupération de l'Id de l'utilisateur
             let test = document.getElementById('newFriend').getElementsByClassName('icon_anim');
             if (test){
                 let formdata = new FormData();
@@ -370,15 +370,15 @@ if(btn_friend!=null){
 
 ///////////////////////Gestion des messages du chat/////////////////////////////
 
-let form = document.querySelector('.tchat_form');
+let form = document.querySelector('.tchat__form');
 
 if (form != null){
     form.addEventListener('submit',(e)=>{
         e.preventDefault();
         let tchat = document.getElementById('content_tchat'); 
         let friend_id = document.querySelector('.friend_id');
-        let mycontent = document.getElementById('tchat_my_content');
-        let tchat_container = document.querySelector('.tchat_container');
+        let mycontent = document.getElementById('tchat__my_content');
+        let tchat_container = document.querySelector('.tchat__container');
         
         let formdata = new FormData();
         if (tchat.value!==''){
@@ -396,9 +396,9 @@ if (form != null){
                                 if (count > 0) {
                                         for (let i=0; i<count; i++){
                                             if (data[0].user_id != data[i].friend_id){
-                                                mycontent.innerHTML += '<span class="tchat_return">'+data[i].content+'</span><p class="tchat_date">'+data[i].date_crea+'</p>';
+                                                mycontent.innerHTML += '<div class="tchat__return">'+data[i].content+'</div><p class="tchat__date">'+data[i].date_crea+'</p>';
                                             } else {
-                                                mycontent.innerHTML += '<span class="tchat_friend">'+data[i].content+'</span><p class="tchat_date">'+data[i].date_crea+'</p>';
+                                                mycontent.innerHTML += '<div class="tchat__friend">'+data[i].content+'</div><p class="tchat__date">'+data[i].date_crea+'</p>';
                                             }
                                         }
                                 }
@@ -409,6 +409,7 @@ if (form != null){
         }
     });
 }
+
 /////////////////////////////Slider/////////////////////////////////////////////
 $(document).ready(function(){
       $('.slider').slick({

@@ -5,19 +5,21 @@ ob_start();
 ?>
 <section>
     <div class="profil">
-        <h1 class="profil_title">Mes informations</h1>
+        <h1 class="profil__title">Mes informations</h1>
         <img class="img dim40" src="public/pictures/site/Info.png" alt="icon information">
-        <h3 class="profil_name"><?=$_SESSION['user']['lastname'].' '.$_SESSION['user']['firstname']?></h3>
-        <div class="profil_form">
+        <h3 class="profil__name"><?=$_SESSION['user']['lastname'].' '.$_SESSION['user']['firstname']?></h3>
+        <div class="profil__form">
             <form method="POST" action="?page=profil">
-                <div class="profil_form_info">
+                <div class="profil__form_info">
                     <label for="email">Votre email :</label>
                     <input name="email" id="email" type="email" value="<?=$info_user['email']?>">
                     <?php if ($info_user['pseudo']): ?>
                     <label for="pseudo">Votre pseudo :</label>
                     <input name="pseudo" id="maj_pseudo" type="text" value="<?=$info_user['pseudo']?>">
+                    <p class="profil__message">[Actif à votre prochaine connexion]</p>
                     <?php else :?>
                     <label for="pseudo">Vous n'avez pas de pseudo</label>
+                    <p class="profil__message">[Actif à votre prochaine connexion]</p>
                     <input name="pseudo" id="pseudo" type="text">
                     <?php endif ?>
                     <p>Votre adresse :</p>
@@ -31,11 +33,11 @@ ob_start();
                     <input type="text" name="city" value="<?=$info_user['city']?>">
                 </div>
                 <?php if ($defunct_list!=null) :?>
-                <div class="profil_admin">
+                <div class="profil__admin">
                     <h4>Modifier ces <?=$nbr?> fiches :</h4>
                     <?=$defunct_list?>
                 </div>
-                <div class="profil_change">
+                <div class="profil__change">
                     <label for ="new_user">Transférer vos fiches à un autre utilisateur.</label>
                     <label>Entrer son Email :</label>
                     <input type="email" name="new_user" placeholder="email@delapersonne.ici">

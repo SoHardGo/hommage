@@ -6,8 +6,8 @@ ob_start();
 ?>
 <section>
     <div class="register">
-        <h1 class="register_title">Inscription</h1>
-        <div class="register_form">
+        <h1 class="register__title">Inscription</h1>
+        <div class="register__form">
             <form method="POST" action="?page=registration">
                 <label for="lastname">Nom:</label>
                     <input type="text" name="lastname" id="lastname" required="required">
@@ -27,7 +27,7 @@ ob_start();
                     <input type="email" name="email" id="email" required="required">
                 <label for="pwd">Mot de passe:</label>
                     <input type="password" name="pwd" id="pwd" required="required">
-                    <p class="register_pwd">[minimum 5 caractères dont un Nombre, une Majuscule et un caractère spécial (!@#$%€£)]</p>
+                    <p class="register__pwd">[minimum 5 caractères dont un Nombre, une Majuscule et un caractère spécial (!@#$%€£)]</p>
                     <input type="hidden" name="token" value="<?=$token?>">
                 <div class="buttons">
                     <input class="button" type="submit" name="submit" value="Valider">

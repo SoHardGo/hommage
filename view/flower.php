@@ -4,21 +4,25 @@ $title='Nos bouquets';
 ob_start();
 ?>
 <section>
-  <article class="flower_article">
+  <h2>Nos Bouquets</h2>
+  <article class="flower__article">
+    <h4>Provenance Française</h4>
     <p>Nous vous proposons une séléction de bouquets de fleurs fraîches à livrer à votre domicile ou à faire livrer par nos soins sur la tombe du défunt concerné.</p>
   </article>
 </section>
 <section>
   <div class="flower">
-    <form class="flower_form" method="POST" action="?page=flower">
-      <div class="flower_container">
+    <form class="flower__form" method="POST" action="?page=flower">
+      <div class="flower__container">
 <?php foreach($flowerList as $f) :?>
           <div class="flower">
             <img class="img dim200" src="public/pictures/flowers/<?=$f['name']?>" alt="bouquet de fleurs">
             <div>
               <p><?=$f['info']?></p>
               <p><?=$f['price']?><span> €</span></p>
+  <?php if (isset($_SESSION['user']['id'])) :?>
               <input class="flower_id" type="checkbox" name ="check[]" value="<?=$f['id']?>">
+  <?php endif ?>
             </div>
           </div>
 <?php endforeach ?>
@@ -26,7 +30,7 @@ ob_start();
 <?php if(isset($_SESSION['user']['id'])) :?>
       <fieldset>
         <label for="select_defunct">Sélectionner le défunt</label>
-        <div class="flower_dest">
+        <div class="flower__dest">
           <select name="select_def">
             <option value="">--Liste des défunts sur le site--</option>
             <?=$select?>
@@ -39,19 +43,19 @@ ob_start();
       <h3>Vous avez sélectionné  <?=$nb_flower?> bouquets.</h3>
       <?=$message?>
       <?=$verifAddress?>
-      <table class="flower_table">
+      <table class="flower__table">
         <thead>
           <tr>
             <th>Nom du bouquet</th>
             <th>Tarif</th>
           </tr>
         </thead>
-        <tbody id="flower_container_tab">
+        <tbody id="flower__container_tab">
           <?=$tab_flower?>
         </tbody>
         <tfoot>
           <td>Total avec TVA :</td>
-          <td class="flower_total"><?=$total?> €</td>
+          <td class="flower__total"><?=$total?> €</td>
         </tfoot>
       </table>
       <label for="confirm">Réglement</label>

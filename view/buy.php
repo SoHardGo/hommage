@@ -6,24 +6,24 @@ ob_start();
 <section>
     <h1>Mes achats</h1>
         <?=$messBuy?>
-    <?php if (isset($_SESSION['user_send']) && isset($_SESSION['total_card'])) :?>
+    <?php if (isset($_SESSION['user_send']) && isset($_SESSION['total_card']) && $view!=1) :?>
         <?=$tab?>
     <div class="buy <?=$pay?>">
         <hr>
         <img class="img dim100" src="public/pictures/site/cartes.jpg" alt="carte visa">
         <p><b>Entrer vos coordonnées bancaire pour valider le paiement.</b></p>
-        <fieldset class="buy_form">
+        <fieldset class="buy__form">
             <form method="POST" action="?page=buy#pay">
-                <label for="buy_total"> Montant :</label>
-                <input type="text" name="buy_total" id="buy_total" value="<?=$_SESSION['total_card']?> €" readonly>
-                <label for="buy_day"> Date :</label>
-                <input type="text" name="buy_day" id="buy_day" value="<?=date('d/m/Y H:m:s')?>" readonly>
-                <label for="buy_cart"> N° de carte (sans espace) : </label>
-                <input type="number" name="buy_cart" id="buy_cart" required="required">
-                <label for="buy_code">N° de CVV (au dos de la carte) :</label>
-                <input type="number" name="buy_code" id="buy_code" required="required">
-                <label for="buy_tel">Téléphone :</label>
-                <input type="tel" name="buy_tel" id="buy_tel" required="required">
+                <label for="buy__total"> Montant :</label>
+                <input type="text" name="buy_total" id="buy__total" value="<?=$_SESSION['total_card']?> €" readonly>
+                <label for="buy__day"> Date :</label>
+                <input type="text" name="buy_day" id="buy__day" value="<?=date('d/m/Y H:m:s')?>" readonly>
+                <label for="buy__cart"> N° de carte (sans espace) : </label>
+                <input type="number" name="buy_cart" id="buy__cart" required="required">
+                <label for="buy__code">N° de CVV (au dos de la carte) :</label>
+                <input type="number" name="buy_code" id="buy__code" required="required">
+                <label for="buy__tel">Téléphone :</label>
+                <input type="tel" name="buy_tel" id="buy__tel" required="required">
                 <label for="submit" id="buy_submit"></label>
                 <input class="button" type="submit" name ="buy_submit" id="submit" value="Payer">
                 <input type="hidden" name="token" value="<?=$token?>">
@@ -37,7 +37,7 @@ ob_start();
 </section>
 <section>
     <hr>
-    <div class="buy_message">
+    <div class="buy__message">
     <?php if (isset($_SESSION['user']['id'])) :?>
         <?php if ($valid_pay || empty($_SESSION['nbCard'])) :?>
         <h2>Liste de mes précédents achats.</h2>
@@ -50,13 +50,13 @@ ob_start();
     <?php endif ?>
     </div>
     <?php if ($list) :?>
-    <div class="buy_list">
-        <table class="buy_table">
+    <div class="buy__list">
+        <table class="buy__table">
             <thead>
                 <tr>
                     <th>Articles</th>
                     <th>Prix</th>
-                    <th>Destinataire</th>
+                    <th>Défunt</th>
                     <th>Contenu</th>
                 </tr>
             </thead>

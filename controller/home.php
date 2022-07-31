@@ -13,7 +13,7 @@ $slider ='<div class="slider">';
 foreach($lastDef as $r){
     $idDef = $getInfo->getIdDefPhoto($r['name']);
  
-    $slider.='<a href="?page=environment&id='.$idDef['defunct_id'].'"><div class="home_slick"><img class="img" src="public/pictures/photos/'.$r['user_id'].'/'.$r['name'].'" alt="photo de defunt"></div></a>';
+    $slider.='<a href="?page=environment&id='.$idDef['defunct_id'].'"><div class="home__slick"><img class="img" src="public/pictures/photos/'.$r['user_id'].'/'.$r['name'].'" alt="photo de defunt"></div></a>';
 }
 $slider .= '</div>';
 

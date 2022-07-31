@@ -26,7 +26,7 @@ if ($friend_id){
 
 // Supression d'un contact
 if(isset($_GET['friend_del'])){
-    $message = '<div class="tchat_message"><form method="POST" action="?page=home_user&friendDel='.$friend_id.'"><input class="button" type="submit" name="tchatsubmit" value="Confirmer la suppression"></form></div>';
+    $message = '<div class="tchat__message"><form method="POST" action="?page=home_user&friendDel='.$friend_id.'"><input class="button" type="submit" name="tchatsubmit" value="Confirmer la suppression"></form></div>';
 }
 // Mise à jour de la consultation des message <- user, icone nouveau message
 if (isset($_GET['consult'])){

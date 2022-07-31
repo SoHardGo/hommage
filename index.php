@@ -17,6 +17,7 @@ if (isset($_SESSION['user'])){
         session_destroy();
     }
 }
+
 $page = $_GET['page']??'';
 
 $user_content = $globalClass->setUserEnv();

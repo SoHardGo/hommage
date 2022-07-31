@@ -161,7 +161,7 @@ class GetInfos extends Manage {
     // Liste des achats d'un utilisateur
     public function getOrdersList(int $user_id) :array {
         $data = ['user_id'=>$user_id];
-        $query = "SELECT date_crea, total, user_send_id, cards_id, flowers_id FROM orders WHERE user_id=:user_id";
+        $query = "SELECT date_crea, total, user_send_id, lastname_send, cards_id, flowers_id FROM orders WHERE user_id=:user_id";
         return $this->getQuery($query,$data)->fetchAll();
     }
     // Liste des contenus de cartes par Id d'enregistrement 

@@ -40,7 +40,7 @@ if(isset($_POST['submit'])){
             $defunct_info = $getInfo->getInfoDefunct(htmlspecialchars(trim($_POST['select_def'])))->fetch();
             $user_defunct = $globalClass->verifUserAdmin($defunct_info['user_id'])->fetch();
             if($user_defunct['flower']){
-                $message = 'Envoi de vos bouquets à : '.$user_defunct['lastname'].' '.$user_defunct['firstname'];
+                $message = 'Envoi de vos bouquets à : '.$defunct_info['lastname'].' '.$defunct_info['firstname'];
             } else {
                 $message = '<p class="message">L\'administrateur de la fiche ne souhaite pas recevoir de bouquets.</p><p>Par défaut l\'envoi s\'effectuera à votre domicile.</p>';
 // Vérification si l'utilisateur à fournit son adresse pour l'expédition

@@ -18,9 +18,9 @@ if(!isset($_SESSION['id_tchat'])) $_SESSION['id_tchat'] = array();
 
 // sous menu dans Modifier une fiche avec la liste des defunts
 if ($nbr){
-    $list_def ='<div class="user_list_defuncts hidden">';
+    $list_def ='<div class="user__list_defuncts hidden">';
     for ($i=0; $i<$nbr; $i++){
-        $list_def.= '<a class="user_name_defuncts" href="?page=modifydef&id_def='.$info_def[$i]['id'].'">'.ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname']).'</a>';
+        $list_def.= '<a class="user__name_defuncts" href="?page=modifydef&id_def='.$info_def[$i]['id'].'">'.ucfirst($info_def[$i]['lastname']).' '.ucfirst($info_def[$i]['firstname']).'</a>';
     }
     $list_def.='</div>';
 } 

@@ -65,7 +65,7 @@ if(isset($_SESSION['user']['id'])) {
             $result = $globalClass->verifyFiles($source, $size, $dest, $name);
             if (!$result){
                 $register->deletePhoto($photo_id);
-                $messFile =  '<p class="message env_warning"><img class="dim40" src="public/pictures/site/warning-icon.png" alt="icone warning"><sup> Fichier non conforme !! </sup><img class="dim40" src="public/pictures/site/warning-icon.png" alt="icone warning"></p>';
+                $messFile =  '<p class="message env__warning"><img class="dim40" src="public/pictures/site/warning-icon.png" alt="icone warning"><sup> Fichier non conforme !! </sup><img class="dim40" src="public/pictures/site/warning-icon.png" alt="icone warning"></p>';
             } else {
                 $register->updatePhoto(['id' => $photo_id, 'name'=>$name]);
             }
