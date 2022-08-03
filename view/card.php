@@ -6,20 +6,20 @@ ob_start();
     <div class="card">
         <h1 class="card__title">Cartes</h1>
         <h2>Selectionner une des cartes afin de pouvoir y ajouter le contenu de votre choix.</h2>
-<?php if(isset($cardsList)) :?>
+<?php if (isset($cardsList)) :?>
     <?php foreach($cardsList as $r) :?>
        <div class="card__item">
            <div class="card__image">
                <img class="img card__select_img" src="public/pictures/cards/<?=$r['name']?>" alt="<?=$r['info']?>">
             </div>
            <p>Tarif : <?=$r['price']?>  Euros</p>
-        <?php if(isset($_SESSION['user']['id'])) :?>
+        <?php if (isset($_SESSION['user']['id'])) :?>
            <a class="button" href = "?page=card&id=<?=$r['id']?>">Selectionner</a>
         <?php endif ?>
         </div>
     <?php endforeach ?>
 <?php endif ?>
-<?php if(isset($_SESSION['user']['id'])) :?>
+<?php if (isset($_SESSION['user']['id'])) :?>
         <div class="card__editor">
         <h1>Ecrivez votre texte</h1>    
             <div class="card__editor_main">

@@ -25,19 +25,19 @@ if ($friend_id){
 }
 
 // Supression d'un contact
-if(isset($_GET['friend_del'])){
+if (isset($_GET['friend_del'])){
     $message = '<div class="tchat__message"><form method="POST" action="?page=home_user&friendDel='.$friend_id.'"><input class="button" type="submit" name="tchatsubmit" value="Confirmer la suppression"></form></div>';
 }
 // Mise à jour de la consultation des message <- user, icone nouveau message
 if (isset($_GET['consult'])){
-        if(isset($_SESSION['number_m']) && $_SESSION['number_m'] >0){
+        if (isset($_SESSION['number_m']) && $_SESSION['number_m'] >0){
             $register->updateTchatRead(htmlspecialchars(trim($_SESSION['user']['id'])),$friend_id);
             $_SESSION['number_m'] = $_SESSION['number_m'] -1;
             $tab =[];
-            $nb =count($_SESSION['id_tchat']);
+            $nb = count($_SESSION['id_tchat']);
             for ($i=0;$i<=$nb-1;$i++){
                if ($_SESSION['id_tchat'][$i] != $friend_id){
-                    $tab[]= $_SESSION['id_tchat'][$i];
+                    $tab[] = $_SESSION['id_tchat'][$i];
                 }
             }
             $_SESSION['id_tchat'] = $tab;

@@ -13,10 +13,10 @@ $pay = '';
 $list = $_GET['list']??0;
 $view = $_GET['view']??0;
 
-// récupération des informations du destinataire pour les cartes
+// Récupération des informations du destinataire pour les cartes
 if (isset($_SESSION['user_send'])){
-//$user_send = $getInfo->getInfoUser($_SESSION['user_send']);
-// enregistrement des achats de cartes dans la BBD
+    
+// Enregistrement des achats de cartes dans la BBD
     if (isset($_SESSION['total_card']) && $_SESSION['total_card'] != '0' ) {
         $tab = '<div class="buy__price">
                     <h4>Vos achats d\'aujourd\'hui :</h4>
@@ -45,7 +45,7 @@ if (isset($_SESSION['user_send'])){
 
 // Contrôle des informations de paiement
     if (isset($_POST['buy_submit'])){
-        if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
+        if (isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
             if (isset($_POST['buy_cart']) && is_numeric($_POST['buy_cart']) && !empty($_POST['buy_cart'])){
                 $replace = array('-', '.', ' ');
                 $replace = str_replace($replace, '', $_POST['buy_cart']);
@@ -90,7 +90,6 @@ if (isset($_SESSION['user_send'])){
                      ];
             //mise à jour du destinataire du dernier enregistrement effectué par "recordCard"
             $orders = $register->setOrders($data);
-                        var_dump($orders);
             $register->updateContentCard($orders, htmlspecialchars(trim($_SESSION['id_admin'])));
             $valid_pay = 1;
             $messFinal = '<p class="message">Paiement effectué avec succès. Reception du colis d\'ici 3 jours.</p><p class="message"> Merci pour votre confiance.</p>';
@@ -104,15 +103,15 @@ if (isset($_SESSION['user_send'])){
 } else {
         $messBuy = '<p class="buy__empty">Votre panier est actuellement vide</p>';
     }
-// liste des achats précedent
+// Liste des achats précedent
 $tab_list = '';
 $total = 0;
 
 if ($list){
     $pay = 'hidden';
-    // récupération liste des enregistrements, contenu, date et le destinataire
+    // Récupération liste des enregistrements, contenu, date et le destinataire
     $listing = $getInfo->getListBuyUser(htmlspecialchars(trim($_SESSION['user']['id'])));
-    if(!empty($listing)){
+    if (!empty($listing)){
         foreach ($listing['idcards'] as $l){
             $nb = count($l);
             if ($l!= null){

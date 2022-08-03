@@ -20,7 +20,7 @@ $id_delete = $_GET['id_delete']??null;
 // Vérification des informations de connexion
 
 try {
-    if ( isset($_POST['email']) && isset($_POST['pwd'])){
+    if (isset($_POST['email']) && isset($_POST['pwd'])){
         // Vérification de la validité du format d'émail
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
                 throw new Exception("Format d'Email incorrect.");
@@ -47,7 +47,7 @@ try {
 }
 
 // Si l'utilisateur n'existe pas -> redirection Connexion
-if(!isset($_SESSION['user']['id'])) {
+if (!isset($_SESSION['user']['id'])) {
     header('Location: index.php?page=connexion');
     exit;
 }
@@ -100,7 +100,7 @@ foreach ($friendList as $f){
             $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user__friend_container"><span class="home_user__friend_mess">'.$new_mess.'</span><img class="img home_user__friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user__mark" src="public/pictures/site/mark.png" title="En attente de confirmation" alt="icon point d\'interrogation"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
         case 2 :
-            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user__friend_container"><span class="home_user__friend_mess">'.$new_mess.'</span><img class="img home_user__friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user_mark" src="public/pictures/site/forbidden.png" title="Demande refusée, cliquer pour supprimer dans le Tchat" alt="icon de refus"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
+            $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user__friend_container"><span class="home_user__friend_mess">'.$new_mess.'</span><img class="img home_user__friend_img" src="'.$profil.'" alt="photo d\'un ami"><img class="img dim50 home_user__mark" src="public/pictures/site/forbidden.png" title="Demande refusée, cliquer pour supprimer dans le Tchat" alt="icon de refus"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
             break;
         case 1 :
             $friends .='<a class="friend_user" href="?page=tchat&friendId='.$friend_id.'&consult=1"><div class="home_user__friend_container"><span class="home_user__friend_mess">'.$new_mess.'</span><img class="img home_user__friend_img" src="'.$profil.'" alt="photo d\'un ami"><p>'.$userFriend['lastname'].' '.$userFriend['firstname'].'</p></div></a>';
@@ -113,7 +113,7 @@ foreach ($friendList as $f){
 // Suppression d'un ami
 if (isset($_GET['friendDel'])){
     $friendDel = htmlspecialchars(trim($_GET['friendDel']));
-    if(isset($_POST['tchatsubmit'])){
+    if (isset($_POST['tchatsubmit'])){
        $message = '<p class="message">Contact supprimé avec succès</p>';
        $register->deleteFriend($friendDel, htmlspecialchars(trim($_SESSION['user']['id'])));
     }
@@ -151,7 +151,7 @@ if (count($info_def)){
             </a>
             <a class="home_user__card_defunct" href="?page=environment&id='.$info_def[$i]['id'].'">
             <div class="home_user__img">';
-            if ( !file_exists($path_photo) ){
+            if (!file_exists($path_photo) ){
                 $path_photo = 'public/pictures/site/noone.jpg';
             }
         $list_def.= '<img class ="img" src="'.$path_photo.'" alt="photo defunt"></div>
@@ -188,7 +188,7 @@ if (count($info_def)){
 } 
 
 // Suppression d'une fiche de défunt
-if($id_delete && !isset($_SESSION['token'])){
+if ($id_delete && !isset($_SESSION['token'])){
     $token = $register->setToken();
     $message = '<form method="POST" action="">
                   <label for="delete_def">Etes vous sûr ? Cela entraînera la suppression définitive de toutes les photos et commentaires de cette fiche !</label>
@@ -199,11 +199,11 @@ if($id_delete && !isset($_SESSION['token'])){
                 </form>';
 }
 // Bouton annuler
-if(isset($_POST['cancel_def'])){
+if (isset($_POST['cancel_def'])){
     $message ='';
 }
 // Suppression définitive d'un defunct et ses photos du dossier de l'utilisateur
-if(isset($_POST['delete_def'])){
+if (isset($_POST['delete_def'])){
     if (isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
         $listPhoto = $getInfo->photoDefByUser(htmlspecialchars(trim($_SESSION['user']['id'])), $id_delete);
         foreach ($listPhoto as $l){
@@ -219,7 +219,7 @@ if(isset($_POST['delete_def'])){
     }
 }
 // Ouverture de la div contact lors du clic sur le bouton nouveau message
-if(isset($_GET['show'])){
+if (isset($_GET['show'])){
     $show = 'visible';
 }
 

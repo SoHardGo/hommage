@@ -6,7 +6,7 @@ $title = "Login";
 $errorMsg = '';
 
 // Message d'erreur lors de la connexion
-if(isset($_GET['error'])){
+if (isset($_GET['error'])){
     $errorMsg = htmlspecialchars(trim($_GET['error']));
 }
 require 'viewAdmin/adminLog.php';

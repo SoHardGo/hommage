@@ -26,7 +26,7 @@ foreach ($info_users as $users){
 }
 
 // Affichage des informations d'un utilisateur
-if(isset($_GET['show'])){
+if (isset($_GET['show'])){
  $users = $adminRequest->getInfoOneUser(htmlspecialchars(trim($_GET['show'])));
  $result_show = '<div class="admin_show_users">
                    <p>ID : '.$users['id'].'</p>
@@ -43,7 +43,7 @@ if(isset($_GET['show'])){
 }
 
 // Mise à jour des informations utilisateurs
-if(isset($_GET['update'])){
+if (isset($_GET['update'])){
   $users = $adminRequest->getInfoOneUser(htmlspecialchars(trim($_GET['update'])));
   $result_show = '<div class="admin_update_users">
                    <form method="POST" action="">
@@ -69,16 +69,16 @@ if(isset($_GET['update'])){
 }
 
 //Update des informations utilisateur
-if(isset($_POST['submit'])){
+if (isset($_POST['submit'])){
  $users = $adminRequest->getInfoOneUser(htmlspecialchars(trim($_GET['update'])));
- if(isset($_POST['lastname'])) {
+ if (isset($_POST['lastname'])) {
   if (strlen($_POST['lastname']) < 30 && $_POST['lastname'] != ''){
       $data['lastname'] = htmlspecialchars(trim(ucfirst($_POST['lastname'])));
   } else {
       $data['lastname'] = $users['lastname'];
   }
  }
- if(isset($_POST['firstname'])) {
+ if (isset($_POST['firstname'])) {
      if (strlen($_POST['firstname']) < 30 && $_POST['firstname'] != ''){
          $data['firstname'] = htmlspecialchars(trim(ucfirst($_POST['firstname'])));
      } else {
@@ -93,36 +93,36 @@ if(isset($_POST['submit'])){
       $data['email'] = $users['email'];
   }
  }
- if(isset($_POST['pseudo'])) {
+ if (isset($_POST['pseudo'])) {
      if (strlen($_POST['pseudo']) < 30 && $_POST['pseudo'] != ''){
          $data['pseudo'] = htmlspecialchars(trim(ucfirst($_POST['pseudo'])));
      } else {
          $data['pseudo'] = $users['pseudo'];
      }
  }
- if(isset($_POST['number_road'])) {
+ if (isset($_POST['number_road'])) {
      if (is_numeric($_POST['number_road']) && strlen($_POST['number_road']) < 20 && $_POST['number_road'] != ''){
          $data['number_road'] = htmlspecialchars(trim($_POST['number_road']));
      } else {
          $data['number_road'] = $users['number_road'];
      }
  }
- if(isset($_POST['address'])) {
+ if (isset($_POST['address'])) {
      if (strlen($_POST['address']) < 50 && $_POST['address'] != ''){
          $data['address'] = htmlspecialchars(trim($_POST['address']));
      } else {
          $data['address'] = $users['address'];
      }
  }
- if(isset($_POST['postal_code'])) {
+ if (isset($_POST['postal_code'])) {
      $code_postal = htmlspecialchars(trim($_POST['postal_code']));
-     if(preg_match('\'^[0-9]{5}$\'', $code_postal) && $_POST['postal_code'] != ''){
+     if (preg_match('\'^[0-9]{5}$\'', $code_postal) && $_POST['postal_code'] != ''){
         $data['postal_code'] = htmlspecialchars(trim($_POST['postal_code']));
      } else {
          $data['postal_code'] = $users['postal_code'];
      }
  }
- if(isset($_POST['city'])) {
+ if (isset($_POST['city'])) {
      if (strlen($_POST['city']) < 30  && $_POST['city'] != ''){
          $data['city'] = htmlspecialchars(trim(ucfirst($_POST['city'])));
      } else {
@@ -134,7 +134,7 @@ if(isset($_POST['submit'])){
 }
 
 // Suppression d'un utilisateur
-if(isset($_GET['delete'])){
+if (isset($_GET['delete'])){
  $adminRequest->deleteOneUser(htmlspecialchars(trim($_GET['delete'])));
  $adminRequest->supprFolder(htmlspecialchars(trim($_GET['delete'])), '../public/pictures/photos/');
  $adminRequest->supprFolder(htmlspecialchars(trim($_GET['delete'])), '../public/pictures/users/');

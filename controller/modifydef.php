@@ -33,18 +33,18 @@ if (isset($_FILES['photodef']) && !empty($_FILES['photodef']) && !empty($_FILES[
 }
 
 if (isset($_POST['submitmodif'])){
-    if(isset($_SESSION['token']) && isset($_POST['token']) && ($_SESSION['token'] === $_POST['token'])) {
-        if(isset($_POST['modify_lastname']) && $_POST['modify_lastname'] != $info_def['lastname']){
+    if (isset($_SESSION['token']) && isset($_POST['token']) && ($_SESSION['token'] === $_POST['token'])) {
+        if (isset($_POST['modify_lastname']) && $_POST['modify_lastname'] != $info_def['lastname']){
             $data['lastname'] = htmlspecialchars(trim($_POST['modify_lastname']));
             } else {
              $data['lastname'] = $info_def['lastname'];
         }
-        if(isset($_POST['modify_firstname']) && $_POST['modify_firstname'] != $info_def['firstname']){
+        if (isset($_POST['modify_firstname']) && $_POST['modify_firstname'] != $info_def['firstname']){
             $data['firstname'] = htmlspecialchars(trim($_POST['modify_firstname']));
             } else {
             $data['firstname'] = $info_def['firstname'];  
         }
-        if(isset($_POST['modify_birthdate']) && $_POST['modify_birthdate'] != $info_def['birthdate']){
+        if (isset($_POST['modify_birthdate']) && $_POST['modify_birthdate'] != $info_def['birthdate']){
             $result = $globalClass->verifyDateFormat(htmlspecialchars(trim($_POST['modify_birthdate'])));
             if($result){
             $data['birthdate'] = htmlspecialchars(trim($_POST['modify_birthdate']));     
@@ -52,12 +52,12 @@ if (isset($_POST['submitmodif'])){
         } else {
                 $data['birthdate'] = $info_def['birthdate'];
             }
-        if(isset($_POST['modify_city_birth']) && $_POST['modify_city_birth'] != $info_def['city_birth']){
+        if (isset($_POST['modify_city_birth']) && $_POST['modify_city_birth'] != $info_def['city_birth']){
             $data['city_birth'] = htmlspecialchars(trim($_POST['modify_city_birth'])); 
             } else {
                $data['city_birth'] =  $info_def['city_birth'];
             }
-        if(isset($_POST['modify_death_date']) && $_POST['modify_death_date'] != $info_def['death_date']){
+        if (isset($_POST['modify_death_date']) && $_POST['modify_death_date'] != $info_def['death_date']){
             $result = $globalClass->verifyDateFormat(htmlspecialchars(trim($_POST['modify_death_date'])));
             if($result){
             $data['death_date'] = htmlspecialchars(trim($_POST['modify_death_date']));     
@@ -65,19 +65,19 @@ if (isset($_POST['submitmodif'])){
         } else {
                 $data['death_date'] = $info_def['death_date'];
             }
-        if(isset($_POST['modify_city_death']) && $_POST['modify_city_death'] != $info_def['city_death']){
+        if (isset($_POST['modify_city_death']) && $_POST['modify_city_death'] != $info_def['city_death']){
             $data['city_death'] = htmlspecialchars(trim($_POST['modify_city_death'])); 
             } else {
                 $data['city_death'] = $info_def['city_death'];
             }
-        if(isset($_POST['modify_cemetery']) && $_POST['modify_cemetery'] != $info_def['cemetery']){
+        if (isset($_POST['modify_cemetery']) && $_POST['modify_cemetery'] != $info_def['cemetery']){
             $data['cemetery'] = htmlspecialchars(trim($_POST['modify_cemetery'])); 
             } else {
                 $data['cemetery'] = $info_def['cemetery'];
             }
-        if(isset($_POST['modify_postalcode']) && $_POST['modify_postalcode'] != $info_def['postal_code']){
+        if (isset($_POST['modify_postalcode']) && $_POST['modify_postalcode'] != $info_def['postal_code']){
             $code_postal = htmlspecialchars(trim($_POST['modify_postalcode']) );
-            if(preg_match('\'^[0-9]{5}$\'', $code_postal)){
+            if (preg_match('\'^[0-9]{5}$\'', $code_postal)){
                $data['postal_code'] = htmlspecialchars(trim($_POST['modify_postalcode']));
             } else {
                 $data['postal_code'] = $info_def['postal_code'];

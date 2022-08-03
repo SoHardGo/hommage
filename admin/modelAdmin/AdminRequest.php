@@ -7,7 +7,7 @@ class AdminRequest extends Manage {
         $data = ['admin_id'=>$admin_user];
         $query = "SELECT id, admin_id, admin_pass FROM adminlog WHERE admin_id=:admin_id";
         $result = $this->getQuery($query,$data);
-        if($result->rowCount()) {
+        if ($result->rowCount()) {
             $data = $result->fetch();
             if (password_verify($admin_pwd, $data['admin_pass'])) {
                 return $data;

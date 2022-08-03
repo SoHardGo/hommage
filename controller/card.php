@@ -29,17 +29,17 @@ if (isset($_GET['empty']) && $_GET['empty']){
 } 
 
 // Initialisation d'un tableau pour les Id d'enregistrement des cartes
-if(!isset($_SESSION['nbCard'])) $_SESSION['nbCard'] = array();
+if (!isset($_SESSION['nbCard'])) $_SESSION['nbCard'] = array();
 
 // Initialisation des informations la carte 
-if($id != null){
+if ($id != null){
     $cardInfo = $getInfo->getProductInfo($id);
 }
 
 // Vérification si l'utilisateur à fournit son adresse
 if (isset($_SESSION['user'])){
     $infos_user = $getInfo->getInfoUser($_SESSION['user']['id']);
-    if($info_user['number_road'] = 0 || $info_user['address'] = '' || $info_user['postal_code'] = 0 || $info_user['city'] = ''){
+    if ($info_user['number_road'] = 0 || $info_user['address'] = '' || $info_user['postal_code'] = 0 || $info_user['city'] = ''){
         $mess_dest = '<p class="message">Votre adresse est incomplète, veuillez la mettre à jour dans la rubrique "Mon compte"</p><a class="button button-a" href="?page=profil">Compléter</a>';
         $needAddress = 0;
     } else {
@@ -48,8 +48,8 @@ if (isset($_SESSION['user'])){
 }
 // Choix du defunt
 if (isset($_POST['submit_def'])){
-    if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
-        if(isset($_POST['select_def']) && !empty($_POST['select_def'])){
+    if (isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
+        if (isset($_POST['select_def']) && !empty($_POST['select_def'])){
         $user_admin = $getInfo->getAdminDefunct(htmlspecialchars(trim($_POST['select_def'])));
         $valid_def = 1;
         $_SESSION['id_admin'] = $user_admin['user_id'];
@@ -81,12 +81,12 @@ if (isset($_SESSION['id_admin'])){
 }
 // Validation du mode d'envoi au créateur de la fiche du défunt
 if (isset($_POST['sub_send'])){
-    if(isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'email'){
+    if (isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'email'){
         $mess_dest = '<p class="message">Confirmation de l\'envoi par Email</p>';
         //$_SESSION['user_send'] = $_SESSION['id_admin'];
         //$_SESSION['lastname_send'] = $infoAdmin['lastname'];
         $valid_def = 1;
-    } else if(isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'postal'){
+    } else if (isset($_POST['radio']) && $_POST['radio'] != null && $_POST['radio'] == 'postal'){
         $mess_dest = '<p class="message">Confirmation de l\'envoi par voix Postal</p>';
         //$_SESSION['user_send'] = $_SESSION['id_admin'];
         //$_SESSION['lastname_send'] = $infoAdmin['lastname'];

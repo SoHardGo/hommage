@@ -23,7 +23,7 @@ nav_bar_close.addEventListener('click',function(){
 
 let photo_profil = document.querySelector('.user__icon');
 let input_profil = document.getElementById('photo_user');
-if(photo_profil !== null){
+if (photo_profil !== null){
     photo_profil.addEventListener('click', function(){
         input_profil.click();
         input_profil.addEventListener('change', function(){
@@ -39,7 +39,7 @@ if(photo_profil !== null){
 
 let photo_def = document.querySelector('.user_icon_def');
 let input_def = document.getElementById('modify__photo');
-if(photo_def !==null){
+if (photo_def !==null){
     photo_def.addEventListener('click', function(){
         input_def.click();
         input_def.addEventListener('change', function(){
@@ -59,7 +59,7 @@ if(photo_def !==null){
 let link = document.querySelector('.env__link_img');
 let parent_link = document.querySelector('.env__link');
 
-if(link!=null){
+if (link!=null){
     link.addEventListener('click', (e)=>{
         e.preventDefault();
         let verify = !!document.querySelector('.env__new_link');
@@ -82,7 +82,7 @@ if(link!=null){
 
 let button = document.querySelector('.user__myDefuncts');
 let container = document.querySelector('.user__list_defuncts');
-if(button !== null){
+if (button !== null){
     button.addEventListener('click', function(){
         container.classList.toggle('hidden');
     });
@@ -95,7 +95,7 @@ if(button !== null){
 
 let camera = document.querySelector('.env__add_photo');
 let file = document.getElementById('file_env');
-if(camera !== null){
+if (camera !== null){
     camera.addEventListener('click', function(){
         file.click();
         file.addEventListener('change', function(){
@@ -119,8 +119,8 @@ if(camera !== null){
 
 let comment_env = document.querySelectorAll('.env__comment_form');
 
-if(comment_env != null) {
-    for(let i of comment_env) {
+if (comment_env != null) {
+    for (let i of comment_env) {
         i.addEventListener('submit', function(e) {
             e.preventDefault();
             let com_div = this.parentNode.querySelector('.env__comment');
@@ -145,14 +145,14 @@ if(comment_env != null) {
                 let http=new XMLHttpRequest();
                 http.open("HEAD",url,false);
                 http.send();
-                if(http.status !== 404){                                   
+                if (http.status !== 404){                                   
                     image='public/pictures/users/'+user_id.value+'/photo'+user_id.value+'.jpg';
                 } else {
                     image='public/pictures/site/noone.jpg'; 
                 }
                 http.onerror = console.clear();
                 let content = '<div class="container_com_user"><div class="env__profil"><img class="img" src="'+image+'" ></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env__user_name" href="index.php?page=environment&id='+user_id.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
-                if(comment.value != '') {
+                if (comment.value != '') {
                     com_div.innerHTML += content;
                 }
                 comment.value = '';
@@ -167,7 +167,7 @@ if(comment_env != null) {
 
 let listPhoto = document.querySelector('.env__folder_link');
 let folder = document.querySelector('.env__photos_list');
-if(listPhoto != null){
+if (listPhoto != null){
 listPhoto.addEventListener('click', function(e){
     e.preventDefault();
     folder.classList.toggle('hidden');
@@ -194,8 +194,7 @@ const elements = document.querySelectorAll('.card__edit');
 //
 // Utilisation de l'API de l'INSEE, point d'entrée (endpoint)->https://insee.arbre.app
 // Avec retour au format JSON
-// Retour de la requête effectué par "Nom" (min 3 lettres avant envoi)
-// Bouclage, pour récupérer chaque paquet de 10 
+// Retour de la requête effectué par "Nom" (min 3 lettres)
 // Affichage dans un "select"
 
 
@@ -210,11 +209,11 @@ nom.addEventListener('keyup', ()=> {
             .then(response => response.json())
             .then(data=>{ 
                 let nb = data.count;
-                for(let i=0; i<nb; i+=10){
+                for (let i=0; i<nb; i+=10){
                     fetch('https://insee.arbre.app/persons?offset='+i+'&surname='+search)
                     .then(response => response.json())
                     .then(data=>{ 
-                        for(let i of data.results) {
+                        for (let i of data.results) {
                             madiv.innerHTML += "<option value="+i+">"+i.prenom+"  -Né(e) le : "+i.birthDate+"<p>-Décédé(e) le : "+i.deathDate+"-  à : "+i.deathPlace+"</p></option>";
                         }
                     })
@@ -233,7 +232,7 @@ let content = document.querySelector('.content');   // contenu du texte
 
 if (edit_btn != null){
     edit_btn.addEventListener('click',()=>{
-        let card_text = content.textContent;                              // contenu du texte
+        let card_text = content.textContent;                               // contenu du texte
         let card_id = document.getElementById('card__id').innerHTML;       // id de la carte sélectionné
         let card_nb = document.getElementById('card__nb');                 // span où s'affiche le nombre de cartes
         let container_tab = document.getElementById('card__container_tab');// tableau
@@ -244,7 +243,7 @@ if (edit_btn != null){
         formdata.append('card_id', card_id);
 
         let obj = { 'method':'POST', 'body':formdata };
-        fetch('ajax/recordCard.php', obj)                                 // nom du fichier de traitement
+        fetch('ajax/recordCard.php', obj)                                  
                         .then(response => response.json())
                         .then(data=>{
                             card_nb.innerHTML = data.carte;
@@ -256,14 +255,16 @@ if (edit_btn != null){
 }
 
 ////////////////////////Gestion des bouquets de fleurs//////////////////////////
+// Stockage des choix validés par les "checkbox" dans le "localStorage"
 
 localStorage.clear();
+
 let flower_content =document.getElementById('flower__container_tab');
 let flower_id=document.querySelectorAll('.flower_id');
 let div_total = document.querySelector('.flower__total');
 
 if (flower_id!=null){
-    for(let i=0; i<flower_id.length;i++){               // bouton checkbox
+    for (let i=0; i<flower_id.length;i++){               // bouton checkbox
        flower_id[i].addEventListener('click',detect);
     }
 }
@@ -271,7 +272,7 @@ if (flower_id!=null){
 function detect(e){
 
     let local=JSON.parse(localStorage.getItem('bouquet')) || [];
-    if(e.target.checked){
+    if (e.target.checked){
         local.push({'id':e.target.value});
         localStorage.setItem('bouquet',JSON.stringify(local));
     } else {
@@ -303,16 +304,17 @@ function detect(e){
 let new_photos = document.querySelector('.new_photos');
 let container_lastP = document.querySelector('.container_lastP');
 if (new_photos != null){
-new_photos.addEventListener('click',()=>{
+    new_photos.addEventListener('click',()=>{
     container_lastP.classList.toggle('hidden');
-});
+    });
 }
 
 /////////////Message d'Alerte pour la suppression de photo/////////////////////////
+// Utilisation de la boîte "confirm" du navigateur
 
 let delete_p = document.getElementsByClassName('env__delete_photo');
-if(delete_p!=null) {
-    for(d of delete_p) {
+if (delete_p!=null) {
+    for (d of delete_p) {
         d.addEventListener('click', function(e) {
             e.preventDefault();
             if (window.confirm("Attention les commentaires liés à cette photo seront également supprimés !!!")) {
@@ -326,7 +328,7 @@ if(delete_p!=null) {
 
 let link_contact = document.getElementById('contacts');
 let folder_contact = document.querySelector('.home_user__contact_list');
-if(link_contact!=null){
+if (link_contact!=null){
     link_contact.addEventListener('click',function(e){
         e.preventDefault;
         folder_contact.classList.toggle('hidden');
@@ -335,10 +337,12 @@ if(link_contact!=null){
 
 
 ///////////////////////Gestion des demandes d'amis//////////////////////////////
+// Affichage d'un formulaire pour chaque demande d'ami
+
 let btn_friend = document.getElementById('newFriend');
 let ask_friend = document.querySelector('.user__ask_friend');
 
-if(btn_friend!=null){
+if (btn_friend!=null){
     btn_friend.addEventListener('click', (e)=>{
         e.preventDefault();
         let number_f = document.querySelector('.number_f').innerHTML;
@@ -356,7 +360,7 @@ if(btn_friend!=null){
                                 let count = data.length;
                                 if (count > 0 ) {
                                     for (let i=0; i<count; i++){
-                                         if(data[i].validate === 3){
+                                         if (data[i].validate === 3){
                                         ask_friend.innerHTML += '<form method="POST" action="?page=home_user&id_friend='+data[i].user_id+'"><label>Acceptez-vous la demande d\'ami de '+data[i].lastname+' '+data[i].firstname+' ?</label>Oui<input type="radio" name="friend" value="1">Non<input type="radio" name="friend" value="2"><br><input class="button" type="submit" name="submit" value="Valider"></form>';
                                         }
                                     }
@@ -369,6 +373,7 @@ if(btn_friend!=null){
 }
 
 ///////////////////////Gestion des messages du chat/////////////////////////////
+// Récupération et Réinjection des messsages
 
 let form = document.querySelector('.tchat__form');
 
@@ -411,6 +416,8 @@ if (form != null){
 }
 
 /////////////////////////////Slider/////////////////////////////////////////////
+// Slider en JQuery
+
 $(document).ready(function(){
       $('.slider').slick({
         autoplay: true,

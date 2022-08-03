@@ -13,7 +13,7 @@ $mess_transfer = '';
 $confirm_transfer ='';
 $new_user = null;
 
-if(isset($_SESSION['user']['id'])){
+if (isset($_SESSION['user']['id'])){
     $info_user = $getInfo->getInfoUser($_SESSION['user']['id']);
     
     // Vérification de l'email pour le transfert de compte
@@ -38,7 +38,7 @@ if(isset($_SESSION['user']['id'])){
     }
     // Formulaire de désinscription, message avant confirmation définitif
     if (isset($_POST['signOff'])){
-        if(empty($_SESSION['verif_email'])){
+        if (empty($_SESSION['verif_email'])){
         $message = '<div class="profil__unsubscribe">
                     <h2>Etes-vous sûr de vouloir vous désinscrire ?</h2>
                     <h3 class="message">Vos informations seront définitivement supprimées.</h3>
@@ -78,7 +78,7 @@ if(isset($_SESSION['user']['id'])){
     
     // Modification des informations de l'utilisateur
     if (isset($_POST['submit'])){
-        if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
+        if (isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
            $data['id'] = htmlspecialchars(trim($_SESSION['user']['id']));
            // Vérification sur l'email en cas de changement
             if (isset($_POST['email']) || $_POST['email'] = ''){
@@ -108,8 +108,8 @@ if(isset($_SESSION['user']['id'])){
             } else {
                  $data['address'] = $info_user['address'];
             }
-            if(!is_numeric($_POST['postal_code']) || $_POST['postal_code'] = ''){
-                if(preg_match('\'^[0-9]{5}$\'', $code_postal)){
+            if (!is_numeric($_POST['postal_code']) || $_POST['postal_code'] = ''){
+                if (preg_match('\'^[0-9]{5}$\'', $code_postal)){
                     $data['postal_code'] = htmlspecialchars(trim($_POST['postal_code']));
                 }
             } else {

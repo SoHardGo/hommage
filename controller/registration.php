@@ -13,26 +13,26 @@ $data = array();
 
 if (isset($_POST['submit'])) {
     // Vérification si le formulaire vient bien du site
-    if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token']===$_POST['token']) {
+    if (isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token']===$_POST['token']) {
         //Vérification du bon format de mot de passe
-        if(isset($_POST['pwd']) && !empty($_POST['pwd'])){
+        if (isset($_POST['pwd']) && !empty($_POST['pwd'])){
             $pwd = htmlspecialchars(trim($_POST['pwd']));
-            if(!preg_match('\'^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%€£])[0-9A-Za-z!@#$%€£]{5,20}$\'', $pwd)) {
+            if (!preg_match('\'^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%€£])[0-9A-Za-z!@#$%€£]{5,20}$\'', $pwd)) {
                 header('location: index.php?page=registration');
                 exit;
             }
         } 
         //Vérification de la validité du format de l'émail
-        if(isset($_POST['email']) && filter_var((htmlspecialchars(trim($_POST['email']))), FILTER_VALIDATE_EMAIL)){
+        if (isset($_POST['email']) && filter_var((htmlspecialchars(trim($_POST['email']))), FILTER_VALIDATE_EMAIL)){
             $result = $getInfo->getEmail(htmlspecialchars(trim($_POST['email'])))->fetch();
-            if($result){
+            if ($result){
                 $confirm = '<p class="message">Vous êtes déjà inscrit sur notre site, connectez-vous</p>';
                 header('location: index.php?page=connexion');
                 exit;
             }else{
                 $data['email'] = htmlspecialchars(trim($_POST['email']));
                 
-                if(isset($_POST['lastname'])) {
+                if (isset($_POST['lastname'])) {
                     if (strlen($_POST['lastname']) < 30){
                         $data['lastname'] = htmlspecialchars(trim(ucfirst($_POST['lastname'])));
                     } else {
@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
                         exit;
                     }
                 }
-                if(isset($_POST['firstname'])) {
+                if (isset($_POST['firstname'])) {
                     if (strlen($_POST['firstname']) < 30){
                         $data['firstname'] = htmlspecialchars(trim(ucfirst($_POST['firstname'])));
                     } else {
@@ -48,43 +48,43 @@ if (isset($_POST['submit'])) {
                         exit;
                     }
                 }
-                if(isset($_POST['pseudo'])) {
+                if (isset($_POST['pseudo'])) {
                     if (strlen($_POST['pseudo']) < 30){
                         $data['pseudo'] = htmlspecialchars(trim(ucfirst($_POST['pseudo'])));
                     } else {
                         $data['pseudo'] = '';
                     }
                 }
-                if(isset($_POST['number_road'])) {
+                if (isset($_POST['number_road'])) {
                     if (is_numeric($_POST['number_road']) && strlen($_POST['number_road']) < 20){
                         $data['number_road'] = htmlspecialchars(trim($_POST['number_road']));
                     } else {
                         $data['number_road'] = 0;
                     }
                 }
-                if(isset($_POST['address'])) {
+                if (isset($_POST['address'])) {
                     if (strlen($_POST['address']) < 50){
                         $data['address'] = htmlspecialchars(trim($_POST['address']));
                     } else {
                         $data['address'] = '';
                     }
                 }
-                if(isset($_POST['cp'])) {
+                if (isset($_POST['cp'])) {
                     $code_postal = htmlspecialchars(trim($_POST['cp']));
-                    if(preg_match('\'^[0-9]{5}$\'', $code_postal) && is_numeric($_POST['cp'])){
+                    if (preg_match('\'^[0-9]{5}$\'', $code_postal) && is_numeric($_POST['cp'])){
                        $data['postal_code'] = htmlspecialchars(trim($_POST['cp']));
                     } else {
                         $data['postal_code'] = 0;
                     }
                 }
-                if(isset($_POST['city'])) {
+                if (isset($_POST['city'])) {
                     if (strlen($_POST['city']) < 30){
                         $data['city'] = htmlspecialchars(trim(ucfirst($_POST['city'])));
                     } else {
                         $data['city'] = '';
                     }
                 }
-                if(isset($_POST['pwd'])) {
+                if (isset($_POST['pwd'])) {
                     if (strlen($_POST['pwd']) < 30){
                     $data['password'] = htmlspecialchars(trim($_POST['pwd']));
                     } else {

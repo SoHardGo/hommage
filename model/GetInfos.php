@@ -81,7 +81,7 @@ class GetInfos extends Manage {
         $query = "SELECT id, user_id, comment, profil_user, date_crea FROM comments WHERE photo_id=:photo_id";
         $result = $this->getQuery($query,$data);
         return $result->fetchAll();
-    }    
+    } 
     
     // Liste des photos liés à un defunt pour l'environnement
     public function photoListDefunct(int $id) :object {

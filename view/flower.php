@@ -27,7 +27,7 @@ ob_start();
           </div>
 <?php endforeach ?>
       </div>
-<?php if(isset($_SESSION['user']['id'])) :?>
+<?php if (isset($_SESSION['user']['id'])) :?>
       <fieldset>
         <label for="select_defunct">Sélectionner le défunt</label>
         <div class="flower__dest">

@@ -9,12 +9,12 @@ $confirm = '';
 $message = '';
 
 if (isset($_POST['submit'])) {
-    if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
+    if (isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
         if (isset($_SESSION['user']['lastname'])){
             $data['lastname'] = htmlspecialchars(trim(ucfirst($_SESSION['user']['lastname'])));
         } else {
             if (isset($_POST['lastname']) && $_POST['lastname'] != ''){
-                if(strlen($_POST['lastname']) < 30){
+                if (strlen($_POST['lastname']) < 30){
                    $data['lastname'] =  htmlspecialchars(trim(ucfirst($_POST['lastname'])));
                 } else {
                 header('location: index.php?page=contact');
@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
             }
         }
         if (isset($_POST['message'])){
-            if(!empty($_POST['message']) && strlen($_POST['message']) < 300){
+            if (!empty($_POST['message']) && strlen($_POST['message']) < 300){
                $data['message'] =  htmlspecialchars(trim(ucfirst($_POST['message'])));
             } else {
             header('location: index.php?page=contact');
@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
         if (isset($_SESSION['user']['email'])){
             $data['email'] = htmlspecialchars(trim(ucfirst($_SESSION['user']['email'])));
         } else {
-            if(isset($_POST['email']) && filter_var((htmlspecialchars(trim($_POST['email']))), FILTER_VALIDATE_EMAIL)){
+            if (isset($_POST['email']) && filter_var((htmlspecialchars(trim($_POST['email']))), FILTER_VALIDATE_EMAIL)){
                     $data['email'] = htmlspecialchars(trim($_POST['email']));
                 } else {
                 header('location: index.php?page=contact');

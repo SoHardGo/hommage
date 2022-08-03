@@ -10,7 +10,7 @@ ob_start();
         <h3><?=$confirm?></h3>
         <form id="modifydefform" method="POST" action="?page=modifydef&id_def=<?=$info_def['id']?>" enctype="multipart/form-data">
             <div class="modifydef__form">
-            <?php if(file_exists($profil)) :?>
+            <?php if (file_exists($profil)) :?>
                 <img class="img dim200" src="<?=$profil?>?<?=rand()?>" alt="photo de profil">
             <?php else :?>
                 <img class="img dim200" src="public/pictures/site/noone.jpg"<?=rand()?> alt="photo de profil">

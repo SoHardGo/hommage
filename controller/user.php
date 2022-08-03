@@ -14,7 +14,7 @@ $messFile = '';
 $list_def = "";
 
 // Initialisation d'un tableau pour les Id des nouveaux messages
-if(!isset($_SESSION['id_tchat'])) $_SESSION['id_tchat'] = array();
+if (!isset($_SESSION['id_tchat'])) $_SESSION['id_tchat'] = array();
 
 // sous menu dans Modifier une fiche avec la liste des defunts
 if ($nbr){
@@ -52,7 +52,7 @@ foreach ($result as $r){
 }
 //Affichage du nombre de nouveaux message depuis la dernière connexion et récupération de l'ID de l'expéditeur
 // Message non lu -> read = 0
-if(!isset($_SESSION['number_m'])){
+if (!isset($_SESSION['number_m'])){
     $result = $getInfo->getNewTchat(htmlspecialchars(trim($_SESSION['user']['id'])));
     $nb = count($result);
     if ($nb){

@@ -13,10 +13,10 @@ $info = array();
 
 //test si defunt existe déjà
 if (isset($_POST['submit'])){
-    if(isset($_SESSION['token']) && isset($_POST['token']) && ($_SESSION['token'] === $_POST['token'])) {
-            if(isset($_POST['lastname']) && isset($_POST['firstname']) && isset($_POST['death_date'])){
+    if (isset($_SESSION['token']) && isset($_POST['token']) && ($_SESSION['token'] === $_POST['token'])) {
+            if (isset($_POST['lastname']) && isset($_POST['firstname']) && isset($_POST['death_date'])){
             // Test longueur des champs
-                if(isset($_POST['lastname'])){
+                if (isset($_POST['lastname'])){
                     if (strlen($_POST['lastname']) < 30){
                     $data['lastname'] = htmlspecialchars(trim(ucfirst($_POST['lastname'])));
                     } else {
@@ -24,7 +24,7 @@ if (isset($_POST['submit'])){
                      exit;
                     }
                 }
-                if(isset($_POST['firstname'])){
+                if (isset($_POST['firstname'])){
                     if (strlen($_POST['firstname']) < 30){
                     $data['firstname'] = htmlspecialchars(trim(ucfirst($_POST['firstname'])));
                     } else {
@@ -47,13 +47,13 @@ if (isset($_POST['submit'])){
                 'death_date'=>htmlspecialchars(trim($_POST['death_date']))
                 ];
             $verify = $globalclass->verifyDefunct($test)->fetch();
-                if($verify) {
+                if ($verify) {
                     $message = '<p class="message">La fiche de '.$_POST['lastname'].' '.$_POST['lastname'].' existe déjà, vous pouvez la consulter ici -><a href="?page=environnement&id_def='.$verify['id'].'">FICHE</a></p>';
                     header('location: index.php?page=creatform');
                     exit;
                 }
                 // test du format de date
-                if(isset($_POST['birthdate'])){
+                if (isset($_POST['birthdate'])){
                     $result = $globalClass->verifyDateFormat(htmlspecialchars(trim($_POST['birthdate'])));
                     if ($result){
                         $data['birthdate'] = htmlspecialchars(trim($_POST['birthdate']));
@@ -67,26 +67,26 @@ if (isset($_POST['submit'])){
                 // Vérification du format de code postal
                 if (isset($_POST['postal_code'])) {
                         $code_postal = htmlspecialchars(trim($_POST['postal_code']) );
-                    if(preg_match('\'^[0-9]{5}$\'', $code_postal)){
+                    if (preg_match('\'^[0-9]{5}$\'', $code_postal)){
                        $data['postal_code'] = htmlspecialchars(trim($_POST['postal_code']));
                     } else {
                         $data['postal_code'] = 0;
                     }
                 }
-                if(isset($_POST['cemetery'])) {
+                if (isset($_POST['cemetery'])) {
                     if (strlen($_POST['cemetery']) < 30){
                         $data['cemetery'] = htmlspecialchars(trim($_POST['cemetery']));
                     } else {
                         $data['cemetery'] = '';
                     }
                 }
-                if(isset($_POST['city_birth'])) {
+                if (isset($_POST['city_birth'])) {
                     if (strlen($_POST['city_birth']) < 30){
                         $data['city_birth'] = htmlspecialchars(trim(ucfirst($_POST['city_birth'])));
                     } else {
                         $data['city_birth'] = '';
                 }
-                if(isset($_POST['city_death'])) {
+                if (isset($_POST['city_death'])) {
                     if (strlen($_POST['city_death']) < 30){
                         $data['city_death'] = htmlspecialchars(ucfirst($_POST['city_death']));
                     } else {

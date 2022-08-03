@@ -387,7 +387,6 @@ input[name="token"] {
 }
 .profil__message {
     font-size: 0.8rem;
-    margin-top: -1rem;
 }
 .profil__message + p{
     margin: 1rem;
@@ -546,6 +545,9 @@ input[name="new_user"], input[name="new_admin"]{
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+.c-paragraph {
+    text-align: center;
 }
 /**********/
 .card {
@@ -981,11 +983,13 @@ input[name="photodef"]{
 }
 .admin_user {
     position: relative;
+    width: 90%;
+    margin: 0 auto;
 }
 .friend_add {
     position: absolute;
     top: 0rem;
-    right: 3rem;
+    right: 0rem;
 }
 .friend_mess {
     text-align:center;
@@ -1376,6 +1380,9 @@ textarea[name='message'] {
     width: 80%;
     margin: 0 auto;
 }
+.contact__address {
+    margin-top: 2rem;
+}
 /*******************************************************************************/
 /**********************************CREATFORM************************************/
 /*******************************************************************************/
@@ -1555,9 +1562,9 @@ input {
     width: 5.25rem;
     height: 5.25rem;
 }
-.friend_add {
-        right: 4rem;
-    }
+.admin_user {
+    width: 75%;
+}
 /*****CREATEFORM*****/
 .createform__title {
     font-size: 2rem;
@@ -1728,8 +1735,8 @@ input {
     .env__add_photo label:first-child {
         font-size: 1.1rem;
     }
-    .friend_add {
-        right: 11rem;
+    .admin_user {
+        width: 45%;
     }
     /*****CARD*****/
     .card__form {
@@ -1864,8 +1871,8 @@ input {
     .env__photos_list {
        width: 60%;
     }
-    .friend_add {
-        right: 17.5rem;
+    .admin_user {
+        width: 35%;
     }
     /*****CARD*****/
     .card {
@@ -1985,8 +1992,8 @@ input {
     .env__photos_list {
        width: 50%;
     }
-    .friend_add {
-        right: 24rem;
+    .admin_user {
+        width: 26%;
     }
     /*****CREATFORM*****/
     .createform__info {
@@ -2076,8 +2083,8 @@ input {
     .env__container {
         width: 45%;
     }
-    .friend_add {
-        right: 32rem;
+    .admin_user {
+        width: 21%;
     }
     /*****CREATFORM*****/
     .createform__info {

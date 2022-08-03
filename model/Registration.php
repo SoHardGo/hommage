@@ -174,7 +174,7 @@ class Registration extends Manage {
     // supprimer une fiche d'un défunt et sa photo de profil
     public function deleteOneDefunct(int $defunct, int $user_id) :void{
         $folder = 'public/pictures/users/'.$user_id;
-            if(is_dir($folder)){
+            if (is_dir($folder)){
                 unlink ($folder.'/photodef'.$defunct.'.jpg');
             }
         $data = ['defunct_id'=>$defunct, 'user_id'=>$user_id];

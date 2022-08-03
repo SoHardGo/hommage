@@ -34,7 +34,7 @@ $idPhoto = $_GET['idPhoto']??null;
 
 ////////////// Si user connecté et créateur d'une fiche
 
-if(isset($_SESSION['user']['id'])) {
+if (isset($_SESSION['user']['id'])) {
 
 //Supprimer une photo de l'environnement utilisateur
         if ($idPhoto) {
@@ -55,7 +55,7 @@ if(isset($_SESSION['user']['id'])) {
 
 //Enregistrement d'une photo télécharger
     if (isset($_FILES['file_env']) && !empty($_FILES['file_env'])){
-        if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
+        if (isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
             $source = $_FILES['file_env']['tmp_name'];
             $size = $_FILES['file_env']['size'];
             $dest = 'public/pictures/photos/'.htmlspecialchars(trim($_SESSION['user']['id']));
@@ -83,7 +83,7 @@ if ($id_def) {
     $com_list = [];
 
 //Récupération des commentaires selon la photo du defunt
-    if(count($defunct_photos)) {
+    if (count($defunct_photos)) {
         foreach($defunct_photos as $r) {
             $com_list[$r['id']] = $getInfo->getListComment(intval($r['id']));
         }
@@ -94,8 +94,8 @@ if ($id_def) {
 }
 
 //Nombre de commentaires et photos ajoutées depuis la dernière connexion
-if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['user']['id']){
-    if(isset($_SESSION['user']['last_log'])){
+if (isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['user']['id']){
+    if (isset($_SESSION['user']['last_log'])){
         $recentComment = $getInfo->getRecentComments($id_def, htmlspecialchars(trim($_SESSION['user']['last_log'])), htmlspecialchars(trim($_SESSION['user']['id'])))->rowCount();
         $recentPhoto = $getInfo->getRecentPhotos($id_def, htmlspecialchars(trim($_SESSION['user']['last_log'])), htmlspecialchars(trim($_SESSION['user']['id'])))->rowCount();
     } else {
@@ -106,7 +106,7 @@ if(isset($_SESSION['user']['id']) && $defunct_infos['user_id'] == $_SESSION['use
 
 //Ajouter un contact
 // liste des amis déjà existant
-if(isset($_SESSION['user']['id'])){
+if (isset($_SESSION['user']['id'])){
 $friendList = $getInfo->getFriendsList($_SESSION['user']['id']);
 foreach ($friendList as $key =>$f){
     // affichage de l'icone Ajouter un contact si non dans la liste

@@ -10,7 +10,7 @@ ob_start();
         <div class="lost__form">
             <form method="POST" action="?page=lost">
                 <div class="<?=$_SESSION['lost_email']?>">
-                <?php if(!isset($_SESSION['user']['id_tmp'])):?>
+                <?php if (!isset($_SESSION['user']['id_tmp'])):?>
                     <?=$message_email?>
                     <label for="email_user">Entrez votre Email pour recevoir un code de réinitialisation :</label>
                     <input type="email" name="email" id="email_user" placeholder="votre@email.ici" required="required">

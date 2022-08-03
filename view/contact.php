@@ -29,6 +29,10 @@ ob_start();
         <div class="contact__confirm">
             <?=$confirm?>
         </div>
+        <div class="contact__address">
+            <p>HOMMAGE - Place de Ralliement - 49100 ANGERS</p>
+            <p>Tel: 02 41 36 90 12 Email: hommage@live.fr</p>
+        </div>
 </section>
 <?php
 

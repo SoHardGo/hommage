@@ -56,7 +56,7 @@ if (isset($_POST['submitAdmin'])){
         }
         if (isset($_POST['password']) && !empty($_POST['password'])){
             $pwd = htmlspecialchars(trim($_POST['password']));
-            if(!preg_match('\'^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%€£])[0-9A-Za-z!@#$%€£]{5,20}$\'', $pwd)) {
+            if (!preg_match('\'^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%€£])[0-9A-Za-z!@#$%€£]{5,20}$\'', $pwd)) {
                 header('location: index.php?page=post');
                 exit;
             } else {

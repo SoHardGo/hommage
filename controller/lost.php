@@ -23,14 +23,14 @@ if (isset($_POST['cancel'])){
 }
 
 if (isset($_POST['subemail'])){
-    if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
+    if (isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
         // Vérification si l'utilisateur est inscrit dans la BBD
         if (!isset($_SESSION['user']['identify']) || $_SESSION['user']['identify'] != true){
             // vérification de la validité de l'email
             // récup l'id du user
             $id = $getinfo->getEmail(htmlspecialchars(trim($_POST['email'])));
             $id = $id->fetch();
-            if(isset($id['id'])){
+            if (isset($id['id'])){
                 $_SESSION['user']['id_tmp'] = $id['id'];
                 $_SESSION['user']['email'] = htmlspecialchars(trim($_POST['email']));
                 $_SESSION['user']['identify'] = true;
@@ -57,14 +57,14 @@ if (isset($_POST['subcode']) && isset($_SESSION['user']['identify'])) {
     }
 }
 // enregistrement du nouveau mot de passe
-if(isset($_POST['subpass'])){
-    if(strlen($_POST['new_password']) < 30 && !empty($_POST['new_password'])){
+if (isset($_POST['subpass'])){
+    if (strlen($_POST['new_password']) < 30 && !empty($_POST['new_password'])){
         $pwd = htmlspecialchars(trim($_POST['new_password']));
-        if(!preg_match('\'^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%€£])[0-9A-Za-z!@#$%€£]{5,20}$\'', $pwd)) {
+        if (!preg_match('\'^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%€£])[0-9A-Za-z!@#$%€£]{5,20}$\'', $pwd)) {
             header('location: index.php?page=lost');
             exit;
         }
-        if(isset($_POST['new_password']) && isset($_POST['pass_again']) && !empty($_POST['new_password']) && !empty($_POST['pass_again']) && $_POST['new_password'] == $_POST['pass_again']){
+        if (isset($_POST['new_password']) && isset($_POST['pass_again']) && !empty($_POST['new_password']) && !empty($_POST['pass_again']) && $_POST['new_password'] == $_POST['pass_again']){
             $register->updatePassword(htmlspecialchars(trim($_POST['new_password'])), intval($_SESSION['user']['id_tmp']));
             header('location: index.php?page=connexion&mess=1');
             exit;

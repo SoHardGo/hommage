@@ -24,9 +24,9 @@ $flowerList = $getInfo->getProductsList($categories)->fetchAll();
 $select = $getInfo->defunctSelect();
 
 // Récupération des informations des bouquets sélectionnés
-if(isset($_POST['submit'])){
-    if(isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
-        if(!empty($_POST['check'])){
+if (isset($_POST['submit'])){
+    if (isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
+        if (!empty($_POST['check'])){
             $nb_flower = sizeof($_POST['check']);
             foreach($_POST['check'] as $value){
                 $info_flower = $getInfo->getProductInfo($value);
@@ -39,13 +39,13 @@ if(isset($_POST['submit'])){
         if (isset($_POST['select_def']) && !empty($_POST['select_def'])){
             $defunct_info = $getInfo->getInfoDefunct(htmlspecialchars(trim($_POST['select_def'])))->fetch();
             $user_defunct = $globalClass->verifUserAdmin($defunct_info['user_id'])->fetch();
-            if($user_defunct['flower']){
+            if ($user_defunct['flower']){
                 $message = 'Envoi de vos bouquets à : '.$defunct_info['lastname'].' '.$defunct_info['firstname'];
             } else {
                 $message = '<p class="message">L\'administrateur de la fiche ne souhaite pas recevoir de bouquets.</p><p>Par défaut l\'envoi s\'effectuera à votre domicile.</p>';
 // Vérification si l'utilisateur à fournit son adresse pour l'expédition
                 $info_user = $getInfo->getInfoUser(htmlspecialchars(trim($_SESSION['user']['id'])));
-                if(!$info_user['number_road'] || !$info_user['address'] || !$info_user['city'] || !$info_user['postal_code']){
+                if (!$info_user['number_road'] || !$info_user['address'] || !$info_user['city'] || !$info_user['postal_code']){
                     $verifAddress = '<p class="message">Vos coordonnées ne sont pas complètes, veuillez compléter votre compte pour pouvoir valider l\'envoi à votre domicile</p><a class="button button-a" href="?page=profil">Compléter</a>';
 
                 } else {

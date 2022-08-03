@@ -25,14 +25,14 @@
             <a id="nav__bar-close" href="#" class="nav__bar-a close">×</a>
             <ul>
                 <li><a class="nav__bar-a" href="?"><i class="fas fa-home"></i>&nbsp; Accueil</a></li>
-                <?php if(!isset($_SESSION['user']['id']) || empty($_SESSION['user']['id']) && !isset($_SESSION['user']['identify']) || isset($_SESSION['user']['identify']) && $_SESSION['user']['identify'] == true) :?>
+                <?php if (!isset($_SESSION['user']['id']) || empty($_SESSION['user']['id']) && !isset($_SESSION['user']['identify']) || isset($_SESSION['user']['identify']) && $_SESSION['user']['identify'] == true) :?>
                 <li><a class="nav__bar-a" href="?page=home_user"><i class="fas fa-power-off"></i>&nbsp;Connexion</a>
                 </li>
                 <?php else :?>
                 <li><a class="nav__bar-a" href="?deco"><i class="fas fa-power-off"></i>&nbsp;Déconnexion</a>
                 </li>
                 <?php endif ?>
-                <?php if(empty($_SESSION['user']['id'])) :?>
+                <?php if (empty($_SESSION['user']['id'])) :?>
                 <li><a class="nav__bar-a" href="?page=registration"><i class="fas fa-user-circle"></i>&nbsp;S'inscrire</a>
                 </li>
                 <?php endif ?>

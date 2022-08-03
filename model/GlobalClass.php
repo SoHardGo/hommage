@@ -46,7 +46,7 @@ class GlobalClass extends Manage {
         $data = ['email'=> $email];
         $query = "SELECT id, lastname, firstname, pseudo, email, password, last_log FROM users WHERE email=:email";
         $result =  $this->getQuery($query,$data);
-        if($result->rowCount()) {
+        if ($result->rowCount()) {
             $data = $result->fetch();
             if(password_verify($pwd, $data['password'])) {
                 return $data;
@@ -152,7 +152,7 @@ class GlobalClass extends Manage {
     // Vérification des fichiers téléchargés et enregistrement
     public function verifyFiles(string $source, string $size, string $dest, string $name) :bool {
         $mimes_ok = array('png' => 'image/png','jpeg' => 'image/jpeg', 'jpg' => 'image/jpeg');
-        if(!in_array(finfo_file(finfo_open(FILEINFO_MIME_TYPE), $source), $mimes_ok)){
+        if (!in_array(finfo_file(finfo_open(FILEINFO_MIME_TYPE), $source), $mimes_ok)){
             $result = false;
         } else {
             if ($size > 2000000){
