@@ -37,7 +37,8 @@ if (isset($_POST['subemail'])){
                 $_SESSION['lost_email'] = 'hidden';
                 $message_email = '<p class="message">Email identifié.</p>';
             } else {
-                $message_email = '<p class="message">Votre email n\'a pas été identifié.</p>';
+                header('location: index.php?page=connexion');
+                exit;
             }
         }
     } else {
@@ -52,16 +53,16 @@ if (isset($_POST['subcode']) && isset($_SESSION['user']['identify'])) {
         $_SESSION['lost_email'] = 'hidden';
         $_SESSION['lost_code'] = 'hidden';
     } else {
-        $message =  '<p class="message">Code non valide.</p>';
+        header('location: index.php?page=connexion');
+        exit;
     }
 }
 // enregistrement du nouveau mot de passe
 if (isset($_POST['subpass'])){
-    echo 'aaaaaaa';
     if (strlen($_POST['new_password']) < 30 && strlen($_POST['new_password']) > 5){
         $pwd = htmlspecialchars(trim($_POST['new_password']));
         if (!preg_match('\'^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%€£])[0-9A-Za-z!@#$%€£]{5,20}$\'', $pwd)) {
-            header('location: index.php?page=lost');
+            header('location: index.php?page=connexion');
             exit;
         }
         if (isset($_POST['new_password']) && isset($_POST['pass_again']) && !empty($_POST['new_password']) && !empty($_POST['pass_again']) && $_POST['new_password'] === $_POST['pass_again']){
@@ -69,10 +70,11 @@ if (isset($_POST['subpass'])){
             header('location: index.php?page=connexion&mess=1');
             exit;
         } else {
-            $passMess = '<p class="message">Les mots de passe ne sont pas identiques, ou les champs sont vides .</p>';
+            header('location: index.php?page=connexion');
+            exit;
         }
     } else {
-        header('location: index.php?page=lost');
+        header('location: index.php?page=connexion');
         exit;
     }
 }
