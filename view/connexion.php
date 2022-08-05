@@ -15,7 +15,9 @@ ob_start();
                 <input type="password" id="pwd_user" name="pwd" required="required">
                 <div class="connexion__buttons">
                     <input class="button" type="submit" name="submit" value="Valider">
+                    <?php if (!isset($_GET['mess'])) :?>
                     <a class="button button-a" href="?page=lost">Mot de passe oublié</a>
+                    <?php endif ?>
                     <a class="button button-a" href="?page=registration">S'inscrire</a>
                 </div>
             <form>

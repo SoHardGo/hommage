@@ -18,10 +18,9 @@ $_SESSION['lost_code'] = isset($_SESSION['lost_code'])??'';
 if (isset($_POST['cancel'])){
     session_destroy();
     $_SESSION = [];
-    header('location: index.php?page=connexion');
+    header('location: index.php?page=home');
     exit;
 }
-
 if (isset($_POST['subemail'])){
     if (isset($_SESSION['token']) && isset($_POST['token']) && $_SESSION['token'] === $_POST['token']) {
         // Vérification si l'utilisateur est inscrit dans la BBD
@@ -47,7 +46,7 @@ if (isset($_POST['subemail'])){
 }
 // vérifiaction du code envoyé [user][identify] = true, quand Email ok 
 if (isset($_POST['subcode']) && isset($_SESSION['user']['identify'])) {
-    if (isset($_POST['code']) && $_POST['code'] == $_SESSION['code']) {
+    if (isset($_POST['code']) && !empty ($_POST['code']) && $_POST['code'] == $_SESSION['code']) {
         $message =  '<p class="message">Code correct.</p>';
         $_SESSION['verif_code'] = true;
         $_SESSION['lost_email'] = 'hidden';
@@ -58,13 +57,14 @@ if (isset($_POST['subcode']) && isset($_SESSION['user']['identify'])) {
 }
 // enregistrement du nouveau mot de passe
 if (isset($_POST['subpass'])){
-    if (strlen($_POST['new_password']) < 30 && !empty($_POST['new_password'])){
+    echo 'aaaaaaa';
+    if (strlen($_POST['new_password']) < 30 && strlen($_POST['new_password']) > 5){
         $pwd = htmlspecialchars(trim($_POST['new_password']));
         if (!preg_match('\'^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%€£])[0-9A-Za-z!@#$%€£]{5,20}$\'', $pwd)) {
             header('location: index.php?page=lost');
             exit;
         }
-        if (isset($_POST['new_password']) && isset($_POST['pass_again']) && !empty($_POST['new_password']) && !empty($_POST['pass_again']) && $_POST['new_password'] == $_POST['pass_again']){
+        if (isset($_POST['new_password']) && isset($_POST['pass_again']) && !empty($_POST['new_password']) && !empty($_POST['pass_again']) && $_POST['new_password'] === $_POST['pass_again']){
             $register->updatePassword(htmlspecialchars(trim($_POST['new_password'])), intval($_SESSION['user']['id_tmp']));
             header('location: index.php?page=connexion&mess=1');
             exit;

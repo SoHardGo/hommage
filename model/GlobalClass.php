@@ -113,7 +113,6 @@ class GlobalClass extends Manage {
             unlink($folder.'/'.$name);
         }
     }
-    
     // Supprimer le dossier de photos d'un utilisateur et fichier de son profil
      public function supprFolder(int $user_id) :void{
         $folder = 'public/pictures/photos/'.$user_id;

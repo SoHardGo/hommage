@@ -39,7 +39,7 @@ if (isset($_SESSION['user']['id'])) {
 //Supprimer une photo de l'environnement utilisateur
         if ($idPhoto) {
             $register->deletePhoto($idPhoto);
-            $photoFile = 'public/pictures/photos/'.$_SESSION['user']['id'].'/'.$_SESSION['user']['id'].'-'.$idPhoto.'.jpg';
+            $photoFile = 'public/pictures/photos/'.$_SESSION['user']['id'].'/'.$id_def.'-'.$idPhoto.'.jpg';
             if (file_exists($photoFile)){
                 unlink($photoFile);
             }

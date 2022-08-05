@@ -28,7 +28,7 @@ ob_start();
                     <p class="message"><?=$_SESSION['user']['email']?> est bien identifié sur le site :</p>
                     <h4>Votre code d'accès est : <?=$_SESSION['code']?></h4>
                     <label for="code">Entrer le code réçu par email</label>
-                    <input type="text" name="code" id="code" required="required">
+                    <input type="number" name="code" id="code">
                     <label for="subcode"></label>
                     <input class="button" type="submit" name="subcode" id="subcode" value="Valider">
                     <label for="cancel"></label>
