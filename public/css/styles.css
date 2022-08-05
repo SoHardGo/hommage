@@ -21,14 +21,14 @@ main :is(h1,h2,h3,h4,h5){
     text-align:center;
     margin: 1rem;
 }
+main :is(tr, td, th){
+    border: 0.06rem solid var(--color-black);
+}
 table {
     border-collapse:collapse;
     border: 0.06rem solid var(--color-black);
     text-align:center; 
     margin:0 auto;
-}
-main :is(tr, td, th){
-    border: 0.06rem solid var(--color-black);
 }
 :any-link {
     text-decoration:none;

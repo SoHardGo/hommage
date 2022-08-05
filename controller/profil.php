@@ -12,6 +12,7 @@ $message = '';
 $mess_transfer = '';
 $confirm_transfer ='';
 $new_user = null;
+$hidden = '';
 
 if (isset($_SESSION['user']['id'])){
     $info_user = $getInfo->getInfoUser($_SESSION['user']['id']);
@@ -38,6 +39,7 @@ if (isset($_SESSION['user']['id'])){
     }
     // Formulaire de désinscription, message avant confirmation définitif
     if (isset($_POST['signOff'])){
+        $hidden = 'hidden';
         if (empty($_SESSION['verif_email'])){
         $message = '<div class="profil__unsubscribe">
                     <h2>Etes-vous sûr de vouloir vous désinscrire ?</h2>

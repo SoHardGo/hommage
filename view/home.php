@@ -25,7 +25,11 @@ ob_start();
                 </div>
             </div>
             <div class="home__button">
-                 <a class="button button-a" href="?page=registration" title="S'inscrire">S'inscrire</a>
+                <?php if(!isset($_SESSION['user']['id'])) :?>
+                <a class="button button-a" href="?page=registration" title="S'inscrire">S'inscrire</a>
+                <?php else :?>
+                <a class="button button-a" href="?page=home_user" title="Espace membre">Espace Membre</a>
+                <?php endif ?>
             </div>
         </div>
         <hr>
@@ -42,7 +46,9 @@ ob_start();
                 </div>
             </div>
             <div class="home__button">
+                <?php if(!isset($_SESSION['user']['id'])) :?>
                 <a class="button button-a" href="index.php?page=registration" title="S'inscrire">S'inscrire</a>
+                <?php endif ?>
             </div>
         </div>
         <hr>

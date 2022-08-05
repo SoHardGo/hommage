@@ -51,7 +51,7 @@ ob_start();
                 <?=$confirm_transfer?>
                 <h3>- Désincription -</h3>
                 <?php if (empty($_SESSION['verif_email'])) :?>
-                <input class="button" type="submit" name="signOff" value="Se désinscrire">
+                <input class="button <?=$hidden?>" type="submit" name="signOff" value="Se désinscrire">
                 <?php else :?>
                 <input class="button" type="submit" name="signoff_final" value="Confirmer la désinscription">
                 <?php endif ?>

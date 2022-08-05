@@ -125,11 +125,11 @@ $useradmin['user_id'] = $_GET['useradmin']??'';
 $newFriend = $_GET['id_friend']??3;
 if (isset($_POST['friend'])){
     if ($_POST['friend'] == 2){
-        $register->updateFriend(2, htmlspecialchars(trim($_SESSION['user']['id'])), htmlspecialchars(trim($newFriend)));
+        $register->updateFriend(2, htmlspecialchars(trim($_SESSION['user']['id'])), htmlspecialchars(trim(intval($newFriend))));
         $_SESSION['number_f'] = $_SESSION['number_f'] -1;
     }
     if ($_POST['friend'] == 1){
-        $register->updateFriend(1, htmlspecialchars(trim($_SESSION['user']['id'])), htmlspecialchars(trim($newFriend)));
+        $register->updateFriend(1, htmlspecialchars(trim($_SESSION['user']['id'])), htmlspecialchars(trim(intval($newFriend))));
         $_SESSION['number_f'] = $_SESSION['number_f'] -1; 
     }
 }
