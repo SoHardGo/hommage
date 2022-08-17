@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
             }
         } 
         //Vérification de la validité du format de l'émail
-        if (isset($_POST['email']) && filter_var((htmlspecialchars(trim($_POST['email']))), FILTER_VALIDATE_EMAIL)){
+        if (isset($_POST['email']) && filter_var(htmlspecialchars(trim($_POST['email'])), FILTER_VALIDATE_EMAIL)){
             $result = $getInfo->getEmail(htmlspecialchars(trim($_POST['email'])))->fetch();
             if ($result){
                 $confirm = '<p class="message">Vous êtes déjà inscrit sur notre site, connectez-vous</p>';

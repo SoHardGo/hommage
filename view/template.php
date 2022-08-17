@@ -12,8 +12,6 @@
     <link rel="stylesheet" type="text/css" href="public/slick/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="public/slick/slick/slick-theme.css"/>
     <link rel="stylesheet" href="public/css/styles.css" type="text/css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    
 </head>
 <body>
 <header class="header">
@@ -79,6 +77,7 @@
         </div>
     </div>
 </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="public/slick/slick/slick.min.js"></script>

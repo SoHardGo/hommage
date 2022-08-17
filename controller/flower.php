@@ -17,6 +17,7 @@ $mess_buy ='';
 $buy ='';
 $message = '';
 $verifAddress = '';
+$addressOk = false;
 
 // Liste des bouquets
 $flowerList = $getInfo->getProductsList($categories)->fetchAll();
@@ -32,6 +33,8 @@ if (isset($_POST['submit'])){
                 $info_flower = $getInfo->getProductInfo($value);
                 $tab_flower .= '<tr><td>'.$info_flower['info'].'</td><td>'.$info_flower['price'].' € </td></tr>';
                 $total += intval($info_flower['price']);
+                $_SESSION['total_card'] = $total;
+                $_SESSION['tab_card'] = $tab_flower;
             }
         }
 
@@ -41,15 +44,16 @@ if (isset($_POST['submit'])){
             $user_defunct = $globalClass->verifUserAdmin($defunct_info['user_id'])->fetch();
             if ($user_defunct['flower']){
                 $message = 'Envoi de vos bouquets à : '.$defunct_info['lastname'].' '.$defunct_info['firstname'];
+                $_SESSION['lastname_send'] = $defunct_info['lastname'].' '.$defunct_info['firstname'];
             } else {
                 $message = '<p class="message">L\'administrateur de la fiche ne souhaite pas recevoir de bouquets.</p><p>Par défaut l\'envoi s\'effectuera à votre domicile.</p>';
 // Vérification si l'utilisateur à fournit son adresse pour l'expédition
                 $info_user = $getInfo->getInfoUser(htmlspecialchars(trim($_SESSION['user']['id'])));
                 if (!$info_user['number_road'] || !$info_user['address'] || !$info_user['city'] || !$info_user['postal_code']){
                     $verifAddress = '<p class="message">Vos coordonnées ne sont pas complètes, veuillez compléter votre compte pour pouvoir valider l\'envoi à votre domicile</p><a class="button button-a" href="?page=profil">Compléter</a>';
-
                 } else {
                     $verifAddress = 'Adresse de destination  :'.$info_user['number_road'].' '.$info_user['address'].' '.$info_user['postal_code'].' '.$info_user['city'];
+                    $addressOk = true;
                 }
             }
         }
@@ -59,6 +63,10 @@ if (isset($_POST['submit'])){
     } 
 }
 
+if (isset($_POST['confirm'])){
+    header ('location: index.php?page=buy');
+    exit;
+}
 
 $token = $register->setToken();
 require 'view/flower.php';

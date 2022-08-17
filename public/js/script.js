@@ -106,14 +106,10 @@ if (camera !== null){
 
 //////////////// Gestion des commentaires //////////////////////////
 //
-// Gestion de l'ajout d'un commentaire dans l'environnement du défunt
-// Soumission du formulaire après chaque appui sur la touche "Entrée"
-// Identification du parent du formulaire
-// Identification des différentes "class" contenu dans le formulaire
+// Identification du Parent du formulaire
 // Création d'une instance de l'objet Formdata
 // Ajout des clés/valeurs dans le Formdata
 // Création d'une requête "fetch"
-// Récupération de la réponse au format texte
 // Test si le fichier de profil existe ou pas
 // Insertion du commentaire avec photo de profil de l'utilisateur dans le DOM
 
@@ -151,7 +147,7 @@ if (commentEnv != null) {
                     image='public/pictures/site/noone.jpg'; 
                 }
                 http.onerror = console.clear();
-                let content = '<div class="container_com_user"><div class="env__profil"><img class="img" src="'+image+'" ></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env__user_name" href="index.php?page=environment&id='+userId.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
+                let content = '<div class="container_com_user"><div class="env__profil"><img class="img" src="'+image+'" ></div><div class="comment_post">'+comment.value+'</div><div class="icon_delete"><a class ="env__user_name" href="index.php?page=environment&id='+idDef.value+'&idCom='+data+'" title="Supprimer"><i class="fas fa-trash-alt"></i></a></div>';
                 if (comment.value != '') {
                     comDiv.innerHTML += content;
                 }
@@ -236,7 +232,7 @@ if (editBtn != null){
         let cardId = document.getElementById('card__id').innerHTML;       // id de la carte sélectionné
         let cardNb = document.getElementById('card__nb');                 // span où s'affiche le nombre de cartes
         let containerTab = document.getElementById('card__container_tab');// tableau
-        let total = document.getElementById('card__total');                // total du tableau
+        let total = document.getElementById('card__total');               // total du tableau
         
         let formdata = new FormData();
         formdata.append('content', cardText);
@@ -260,24 +256,25 @@ if (editBtn != null){
 sessionStorage.clear();
 
 let flowerContent =document.getElementById('flower__container_tab');
-let flowerId=document.querySelectorAll('.flower_id');
+let flowerId=document.querySelectorAll('.flower_id');        // boutons checkbox
 let divTotal = document.querySelector('.flower__total');
 
 if (flowerId!=null){
-    for (let i=0; i<flowerId.length;i++){               // bouton checkbox
+    for (let i=0; i<flowerId.length;i++){               
        flowerId[i].addEventListener('click',detect);
     }
 }
-// fonction détection de la sélection des bouquets et stockage dans le localStorage
+// fonction détection de la sélection des bouquets et stockage dans le sessionStorage
 function detect(e){
 
     let local=JSON.parse(sessionStorage.getItem('bouquet')) || [];
-    if (e.target.checked){
-        local.push({'id':e.target.value});
+    
+    if (e.target.checked){                                       // ajout de celles cochées
+        local.push({"id":e.target.value});
         sessionStorage.setItem('bouquet',JSON.stringify(local));
-    } else {
-        let findId=local.find(key => e.target.value);  
-        let newArray=local.filter((key)=>key.id !== findId.id);
+    } else {                                                     // suppression de celles décochées
+        let findId=local.find(key => e.target.value); 
+        let newArray=local.filter(key=>key.id !== findId.id);
         sessionStorage.setItem('bouquet',JSON.stringify(newArray));
     }
     

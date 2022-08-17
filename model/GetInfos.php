@@ -62,19 +62,7 @@ class GetInfos extends Manage {
         }
         return $select;
     }
-    
-    // Affichage à faire de la ville et code postal dans recherche
-    public function getTown(string $ville) :array {
-        $data = ['nom'=>$res.'%',
-        'cp'=>$res .'%'];
-        $query = "SELECT cp, nom FROM maps_ville WHERE nom LIKE :nom OR :cp";
-        $result = $this->getQuery($query,$data);
-        $result1 = $result->fetch();
-        $nb = $result->rowCount();
-        $tab[nb] = $nb;
-        $tab1 = array_merge($tab,$result1);
-        return $tab1;
-    }
+
     // Récupération de la liste des commentaires liés à une photo
     public function getListComment(int $id) :array {
         $data = ['photo_id'=>$id];

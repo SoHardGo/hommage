@@ -14,7 +14,7 @@ $list = $_GET['list']??0;
 $view = $_GET['view']??0;
 
 // Récupération des informations du destinataire pour les cartes
-if (isset($_SESSION['user_send'])){
+if (isset($_SESSION['user_send']) || isset($_SESSION['destFlower'])){
     
 // Enregistrement des achats de cartes dans la BBD
     if (isset($_SESSION['total_card']) && $_SESSION['total_card'] != '0' ) {
@@ -26,7 +26,7 @@ if (isset($_SESSION['user_send'])){
                                 <th colspan="2">Destinataire : '.$_SESSION['lastname_send'].'</th>
                             </tr>
                             <tr>
-                                <th class="tab_card">Cartes</th>
+                                <th class="tab_card">Produits</th>
                                 <th class="tab_price">Prix</th>
                             </tr>
                         </thead>
