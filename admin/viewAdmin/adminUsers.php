@@ -2,7 +2,7 @@
 ob_start(); 
 ?>
 <section>
-<h1 class="admin_title">Manage Users</h1>
+    <h1 class="admin_title">Manage Users</h1>
     <div class="admin_users">
         <?=$result_show?>
     </div>

@@ -116,9 +116,33 @@ class AdminRequest extends Manage {
 
 ////////////////////////////////DEFUNCTS////////////////////////////////////////
     
-    // liste des défunts
+    // Liste des défunts
     public function getInfoAllDefuncts() :array{
         $query = "SELECT id, user_id, lastname, firstname, birthdate, death_date, cemetery, city_birth, city_death, postal_code, photo, date_crea FROM defuncts ORDER by lastname";
         return $this->getQuery($query)->fetchAll();
+    }
+    // Information d'un défunt
+    public function getInfoOneDefunct(int $id) :array {
+        $data = ['id'=>$id];
+        $query = "SELECT id, user_id, lastname, firstname, birthdate, death_date, cemetery, city_birth, date_crea, city_death, postal_code, photo FROM defuncts WHERE id=:id";
+        return $this->getQuery($query, $data)->fetch();
+    }
+    // Mise à jour des informations d'un défunt
+    public function updateInfoOneDefunct(array $data) : void{
+        $query = "UPDATE defuncts SET user_id=:user_id, lastname=:lastname, firstname=:firstname, birthdate=:birthdate, death_date=:death_date, cemetery=:cemetery, city_birth=:city_birth, city_birth=:city_death, postal_code=:postal_code WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    
+/////////////////////////////DIVERS/////////////////////////////////////////////
+
+    // Vérification du format des dates 
+    public function verifyDateFormat(string $date) :bool{
+        $format = DateTime::createFromFormat('Y-m-d', $date);
+        if ($format){
+            $result = true;
+        } else {
+            $result = false;
+        }
+        return $result;
     }
 }
