@@ -47,7 +47,7 @@ if (isset($_GET['show'])){
 if(isset($_GET['update'])){
     $defunct = $adminRequest->getInfoOneDefunct(htmlspecialchars(trim($_GET['update'])));
     $result_show = '<div class="admin_update_defuncts">
-                       <form method="POST" action="" enctype="multipart/form-data">
+                       <form method="POST" action="">
                         <label>Admin</label>
                         <input type="text" name="admin" placeholder="'.$defunct['user_id'].'">
                         <label>Nom défunt</label>
@@ -66,8 +66,6 @@ if(isset($_GET['update'])){
                         <input type="text" name="cemetery" placeholder="'.$defunct['cemetery'].'">
                         <label>Code postal</label>
                         <input type="number" name="postal_code" placeholder="'.$defunct['postal_code'].'">
-                        <label>Photo : '.$defunct['photo'].'</label>
-                        <input type="file" name="photo">
                         <input class="button" type="submit" name="submit" value="Mettre à jour">
                        </form>
                     </div>';
@@ -145,6 +143,6 @@ if (isset($_POST['submit'])){
     $data['id'] = htmlspecialchars(trim($users['id']));
     $update = $adminRequest->updateInfoOneDefunct($data);
 }
-// Mise à jour de la photo du défunt
+
 
 require 'viewAdmin/adminDefuncts.php';
