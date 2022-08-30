@@ -55,11 +55,11 @@ if(isset($_GET['update'])){
                         <label>Prénom défunt</label>
                         <input type="text" name="firstname" placeholder="'.$defunct['firstname'].'">
                         <label>Date naissance</label>
-                        <input type="date" name="birthdate" placeholder="'.$defunct['birthdate'].'">
+                        <input type="text" name="birthdate" placeholder="'.$defunct['birthdate'].'">
                         <label>Lieu naissance</label>
                         <input type="text" name="city_birth" placeholder="'.$defunct['city_birth'].'">
                         <label>Date décès</label>
-                        <input type="date" name="death_date" placeholder="'.$defunct['death_date'].'">
+                        <input type="text" name="death_date" placeholder="'.$defunct['death_date'].'">
                         <label>Lieu décès</label>
                         <input type="text" name="city_death" placeholder="'.$defunct['city_death'].'">
                         <label>Cimetière</label>
