@@ -118,7 +118,7 @@ class AdminRequest extends Manage {
     
     // Liste des défunts
     public function getInfoAllDefuncts() :array{
-        $query = "SELECT id, user_id, lastname, firstname, birthdate, death_date, cemetery, city_birth, city_death, postal_code, photo, date_crea FROM defuncts ORDER by lastname";
+        $query = "SELECT id, user_id, lastname, firstname, birthdate, death_date, cemetery, city_birth, city_death, postal_code, photo, date_crea FROM defuncts ORDER by id";
         return $this->getQuery($query)->fetchAll();
     }
     // Information d'un défunt
@@ -128,9 +128,35 @@ class AdminRequest extends Manage {
         return $this->getQuery($query, $data)->fetch();
     }
     // Mise à jour des informations d'un défunt
-    public function updateInfoOneDefunct(array $data) : void{
+    public function updateInfoOneDefunct(array $data) :void{
         $query = "UPDATE defuncts SET user_id=:user_id, lastname=:lastname, firstname=:firstname, birthdate=:birthdate, death_date=:death_date, cemetery=:cemetery, city_birth=:city_birth, city_birth=:city_death, postal_code=:postal_code WHERE id=:id";
         $this->getQuery($query,$data);
+    }
+    // Suppression d'un défunt
+    public function deleteOneDefunct(int $id) :void{
+        $data =['id'=>$id];
+        $query = "DELETE FROM defuncts WHERE id=:id";
+        $this->getQuery($query,$data);
+        $data =['defunct_id'=>$id];
+        $query = "DELETE FROM user_admin WHERE defunct_id=:defunct_id";
+        $this->getQuery($query,$data);
+    }
+    // Suppression des photos associées à un défunt
+    public function deletePhotosDefunct(int $id) :void{
+        $admin = $this->getInfoOneDefunct($id);
+        unlink('../public/pictures/users/'.$admin['user_id'].'/photodef'.$id.'.jpg');
+        $folder = scandir('../public/pictures/photos/');
+        foreach ($folder as $f){
+            if ($f != '.' && $f != '..'){
+            $files = scandir('../public/pictures/photos/'.$f.'/');
+                foreach($files as $fi){
+                    if ($fi != '.' && $fi != '..' && substr($fi,0,1) == $id){
+                        $folder = '../public/pictures/photos/'.$f.'/'.$fi;
+                        unlink($folder);
+                    }
+                }
+            }
+        }
     }
     
 /////////////////////////////DIVERS/////////////////////////////////////////////

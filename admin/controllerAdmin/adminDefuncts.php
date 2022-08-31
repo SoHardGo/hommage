@@ -144,5 +144,10 @@ if (isset($_POST['submit'])){
     $update = $adminRequest->updateInfoOneDefunct($data);
 }
 
+// Suppression d'un défunt et ses photos associées
+if (isset($_GET['delete'])){
+    $adminRequest->deleteOneDefunct(htmlspecialchars(trim($_GET['delete'])));
+    $adminRequest->deletePhotosDefunct(htmlspecialchars(trim($_GET['delete'])));
+}
 
 require 'viewAdmin/adminDefuncts.php';
