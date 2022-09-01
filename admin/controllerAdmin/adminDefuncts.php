@@ -75,27 +75,27 @@ if(isset($_GET['update'])){
 if (isset($_POST['submit'])){
     $defunct = $adminRequest->getInfoOneDefunct(htmlspecialchars(trim($_GET['update'])));
     if (isset($_POST['admin'])){
-        if (strlen($_POST['admin']) < 30 && $_POST['admin'] != ''){
+        if (strlen($_POST['admin']) < 30 && !empty($_POST['admin'])){
             $data['user_id'] = htmlspecialchars(trim(ucfirst($_POST['admin'])));
         } else {
             $data['user_id'] = $defunct['admin'];
         }
     }
     if (isset($_POST['lastname'])){
-        if (strlen($_POST['lastname']) < 30 && $_POST['lastname'] != ''){
+        if (strlen($_POST['lastname']) < 30 && !empty($_POST['lastname'])){
             $data['lastname'] = htmlspecialchars(trim(ucfirst($_POST['lastname'])));
         } else {
             $data['lastname'] = $defunct['lastname'];
         }
     }
     if (isset($_POST['firstname'])){
-        if (strlen($_POST['firstname']) < 30 && $_POST['firstname'] != ''){
+        if (strlen($_POST['firstname']) < 30 && !empty($_POST['firstname'])){
             $data['firstname'] = htmlspecialchars(trim(ucfirst($_POST['firstname'])));
         } else {
             $data['firstname'] = $defunct['firstname'];
         }
     }
-    if (isset($_POST['birthdate'])){
+    if (isset($_POST['birthdate']) && !empty($_POST['birthdate'])){
         $result = $adminRequest->verifyDateFormat(htmlspecialchars(trim($_POST['birthdate'])));
         if ($result){
             $data['birthdate'] = htmlspecialchars(trim($_POST['birthdate']));
@@ -104,13 +104,13 @@ if (isset($_POST['submit'])){
         }
     }
     if (isset($_POST['city_birth'])){
-        if (strlen($_POST['city_birth']) <30 && $_POST['city_birth'] != ''){
+        if (strlen($_POST['city_birth']) <30 && !empty($_POST['city_birth'])){
             $data['city_birth'] = htmlspecialchars(trim(ucfirst($_POST['city_birth'])));
         } else {
             $data['city_birth'] = $defunct['city_birth'];
         }
     }
-    if (isset($_POST['death_date'])){
+    if (isset($_POST['death_date']) && !empty($_POST['death_date']){
         $result = $adminRequest->verifyDateFormat(htmlspecialchars(trim($_POST['death_date'])));
         if ($result){
             $data['death_date'] = htmlspecialchars(trim($_POST['death_date']));
@@ -119,21 +119,21 @@ if (isset($_POST['submit'])){
         }
     }
     if (isset($_POST['city_death'])){
-        if (strlen($_POST['city_death']) <30 && $_POST['city_death'] != ''){
+        if (strlen($_POST['city_death']) <30 && !empty($_POST['city_death'])){
             $data['city_death'] = htmlspecialchars(trim(ucfirst($_POST['city_death'])));
         } else {
             $data['city_death'] = $defunct['city_death'];
         }
     }
     if (isset($_POST['cemetery'])){
-        if (strlen($_POST['cemetery']) <30 && $_POST['cemetery'] != ''){
+        if (strlen($_POST['cemetery']) <30 && !empty($_POST['cemetery'])){
             $data['cemetery'] = htmlspecialchars(trim(ucfirst($_POST['cemetery'])));
         } else {
             $data['cemetery'] = $defunct['cemetery'];
         }
     }
-    if (isset($_POST['postal_code'])){
-        $code_postal = htmlspecialchars(trim($_POST['postal_code']) );
+    if (isset($_POST['postal_code']) && !empty($_POST['postal_code'])){
+        $code_postal = htmlspecialchars(trim($_POST['postal_code']));
         if (preg_match('\'^[0-9]{5}$\'', $code_postal)){
            $data['postal_code'] = htmlspecialchars(trim($_POST['postal_code']));
         } else {

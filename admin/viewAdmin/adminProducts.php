@@ -2,6 +2,16 @@
 ob_start(); 
 ?>
 <section>
+    <h1>Ajouter un produit</h1>
+    <a class="button button-a" href="?page=products&add_product">Ajouter un produit</a>
+    <div class="new_product">
+        <?=$newProduct?>
+    </div>
+</section>
+    <div class="admin_product">
+        <?=$result_show?>
+    </div>
+<section>
     <h1>Manage Users</h1>
     <div class="admin_list">
         <table class="admin_table">
@@ -15,15 +25,9 @@ ob_start();
                 <?=$content_products?>
             </tbody>
         </table> 
-        <a class="button button-a" href="?page=products&add_product">Ajouter un produit</a>
     </div>
 </section>
-<section>
-    <h1>Ajouter un produit</h1>
-    <div class="new_product">
-        <?=$newProduct?>
-    </div>
-</section>
+
 <?php
 $content_admin = ob_get_clean(); 
 require 'template.php';

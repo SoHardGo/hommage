@@ -10,7 +10,7 @@ ob_start();
         <input type="text" id="admin_user" name="admin_user">
         <label for="admin_pwd">Mot de passe</label>
         <input type="password" id="admin_pwd" name="admin_pwd">
-        <input class="button" type="submit">
+        <input class="button" type="submit" name="submit" value="Connecter">
         </div>
     </form>
     <a class="button button-a" href="../../index.php?page=home">Accès Site</a>

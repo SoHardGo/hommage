@@ -75,6 +75,17 @@ class AdminRequest extends Manage {
         $query = "SELECT id, categories, name, price, info FROM products";
         return $this->getQuery($query)->fetchAll();
     }
+    // Information sur un produit
+    public function getInfoOneProduct(int $id) :array{
+        $data = ['id'=>$id];
+        $query = "SELECT id, categories, name, price, info FROM products WHERE id=:id";
+        return $this->getQuery($query,$data)->fetch();
+    }
+    // Mise à jour d'un produit
+    public function UpdateInfoOneProduct(array $data) : void{
+        $query = "UPDATE products SET categories=:categories, name=:name, price=:price, info=:info WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
 
 /////////////////////////////////CONTACTS///////////////////////////////////////
     
