@@ -33,16 +33,21 @@ if (isset($_GET['show'])){
  $result_show = '<div class="admin_show_products">
                    <p>ID : '.$products['id'].'</p>
                    <p>Catégorie : '.$products['categories'].'</p>
-                   <p>Nom : '.$products['name'].'</p>
-                   <p>Prix: '.$products['price'].'</p>
+                   <p>Nom : '.$products['name'].'</p>';
+                    if ($products['categories'] == 'cartes'){
+                        $result_show .= '<img class="dim200" src="../public/pictures/cards/'.$products['name'].'" alt="image carte">';
+                    } else if ($products['categories'] == 'fleurs'){
+                        $result_show .= '<img class="dim200" src="../public/pictures/flowers/'.$products['name'].'" alt="image carte">'; 
+                    }
+  $result_show .='<p>Prix: '.$products['price'].'</p>
                    <p>Info : '.$products['info'].'</p>
                  </div>';
 }
 
 // Formulaire de mise à jour des informations d'un produit
 if (isset($_GET['update'])){
-  $products = $adminRequest->getInfoOneProduct(htmlspecialchars(trim($_GET['update'])));
-  $result_show = '<div class="admin_update_products">
+    $products = $adminRequest->getInfoOneProduct(htmlspecialchars(trim($_GET['update'])));
+    $result_show = '<div class="admin_update_products">
                    <form method="POST" action="">
                    <label>Catégorie</label>
                     <input type="text" name="categories" placeholder="'.$products['categories'].'">
