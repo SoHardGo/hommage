@@ -110,7 +110,7 @@ if (isset($_POST['submit'])){
             $data['city_birth'] = $defunct['city_birth'];
         }
     }
-    if (isset($_POST['death_date']) && !empty($_POST['death_date']){
+    if (isset($_POST['death_date']) && !empty($_POST['death_date'])){
         $result = $adminRequest->verifyDateFormat(htmlspecialchars(trim($_POST['death_date'])));
         if ($result){
             $data['death_date'] = htmlspecialchars(trim($_POST['death_date']));

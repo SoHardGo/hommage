@@ -4,7 +4,7 @@ ob_start();
 <section>
     <h1>Ajouter un produit</h1>
     <a class="button button-a" href="?page=products&add_product">Ajouter un produit</a>
-    <div class="new_product">
+    <div class="admin_new_product">
         <?=$newProduct?>
     </div>
 </section>

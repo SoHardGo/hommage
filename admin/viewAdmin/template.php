@@ -24,9 +24,9 @@
 </main>
 <footer class="admin_footer">
 </footer>
-<script type="text/javascript" src="../public/js/script.js"></script>
-</body>
-<script>
+    <script type="text/javascript" src="../public/js/script.js"></script>
+    <script>
         if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href );}
-</script>
+    </script>
+</body>
 </html>

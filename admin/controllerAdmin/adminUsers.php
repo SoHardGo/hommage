@@ -79,7 +79,7 @@ if (isset($_POST['submit'])){
   }
  }
  if (isset($_POST['firstname'])) {
-     if (strlen($_POST['firstname']) < 30 && !empty$_POST['firstname'])){
+     if (strlen($_POST['firstname']) < 30 && !empty($_POST['firstname'])){
          $data['firstname'] = htmlspecialchars(trim(ucfirst($_POST['firstname'])));
      } else {
          $data['firstname'] = $users['firstname'];

@@ -76,14 +76,30 @@ class AdminRequest extends Manage {
         return $this->getQuery($query)->fetchAll();
     }
     // Information sur un produit
-    public function getInfoOneProduct(int $id) :array{
+    public function getInfoOneProduct(int $id) :?array{
         $data = ['id'=>$id];
         $query = "SELECT id, categories, name, price, info FROM products WHERE id=:id";
-        return $this->getQuery($query,$data)->fetch();
+        $result = $this->getQuery($query,$data)->fetch();
+        if (!$result){
+            return null;
+        } else {
+            return $result;
+        }
     }
     // Mise à jour d'un produit
     public function UpdateInfoOneProduct(array $data) : void{
         $query = "UPDATE products SET categories=:categories, name=:name, price=:price, info=:info WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    // Ajout d'un produit
+    public function addOneProduct(array $data) :void{
+        $query = "INSERT INTO products SET categories=:categories, name=:name, price=:price, info=:info";
+        $this->getQuery($query,$data);
+    }
+    // Supprimer un produit
+    public function deleteOneProduct(int $id) :void{
+        $data = ['id'=>$id];
+        $query = "DELETE FROM products WHERE id=:id";
         $this->getQuery($query,$data);
     }
 

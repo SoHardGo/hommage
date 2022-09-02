@@ -18,7 +18,7 @@ ob_start();
             <?php else :?>
                 <img class="img" src="public/pictures/site/noone.jpg"<?=rand()?> alt="photo de profil">
             <?php endif ?>
-                <input type="file" name="photo" id="photo_user" accept=".jpg, .jpeg, .png">
+                <input type="file" name="photo" id="photo_user" accept="image/jpg, image/jpeg, image/png">
                 <img class="img dim35 user__icon" src="public/pictures/site/camera-icon.png" alt="icone home utilisateur">
         </div>
     </form>
