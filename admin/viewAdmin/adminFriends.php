@@ -1,7 +1,10 @@
 <?php
 ob_start(); 
 ?>
-<h2>Manage Others</h2>
+<h1>Manage Others</h1>
+<div class="admin_friends">
+        <?=$result_show?>
+</div>
 <div class="admin_list">
     <table class="admin_table">
         <tbody>
@@ -9,6 +12,7 @@ ob_start();
                 <th>DATE</th>
                 <th>USER</th>
                 <th>FRIEND</th>
+                <th>VALIDATE</th>
                 <th colspan="3"></th>
             </tr>
             <?=$content_friends?>

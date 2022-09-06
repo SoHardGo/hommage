@@ -135,10 +135,29 @@ class AdminRequest extends Manage {
    
     // Liste des informations sur les demandes d'amis
     public function getInfoAllFriends() : array{
-        $query = "SELECT id, user_id, friend_id, date_crea, validate FROM friends ORDER BY user_id";
+        $query = "SELECT id, user_id, friend_id, date_crea, validate FROM friends ORDER BY id";
         return $this->getQuery($query)->fetchAll();
     }
     
+    // Information sur un ami
+    public function getInfoOneFriend(int $id) :array{
+        $data = ['id'=>$id];
+        $query = "SELECT id, user_id, friend_id, date_crea, validate FROM friends WHERE id=:id";
+        return $this->getQuery($query,$data)->fetch();
+    }
+    
+    // Mise à jour d'un ami
+    public function updateInfoOneFriend(array $data) :void{
+        $query = "UPDATE friends SET user_id=:user_id, friend_id=:friend_id, validate=:validate WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    
+    // Suppression d'un ami
+    public function deleteOneFriend(int $id) :void{
+        $data = ['id'=>$id];
+        $query = "DELETE FROM friends WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
 ////////////////////////////////COMMENTAIRES////////////////////////////////////
     
     // Liste de tous les commentaires
