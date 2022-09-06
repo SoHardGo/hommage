@@ -107,8 +107,28 @@ class AdminRequest extends Manage {
     
     // Liste des demandes de contacts (messages)
     public function getInfoAllContacts() :array{
-        $query = "SELECT id, email, user_id, message, date_crea FROM contact ORDER BY date_crea DESC";
+        $query = "SELECT id, email, user_id, message, date_crea, status FROM contact ORDER BY date_crea DESC";
         return $this->getQuery($query)->fetchAll();
+    }
+    
+    // Information pour un message
+    public function getInfoOneContact(int $id) :array{
+        $data = ['id'=>$id];
+        $query = "SELECT id, lastname, email, user_id, message, date_crea, status FROM contact WHERE id=:id";
+        return $this->getQuery($query,$data)->fetch();
+    }
+    
+    // Mise à jour des informations de contact
+    public function updateInfoOneContact(array $data) :void{
+        $query = "UPDATE contact SET lastname=:lastname, email=:email, user_id=:user_id, status=:status WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    
+    // Supprimer un message
+    public function deleteOneContact(int $id) :void{
+        $data = ['id'=>$id];
+        $query = "DELETE FROM contact WHERE id=:id";
+        $this->getQuery($query,$data);
     }
 
 /////////////////////////////////FRIENDS////////////////////////////////////////
