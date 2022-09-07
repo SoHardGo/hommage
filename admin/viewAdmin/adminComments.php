@@ -2,6 +2,9 @@
 ob_start(); 
 ?>
 <h1>Manage Comments</h1>
+<div class="admin_comments">
+        <?=$result_show?>
+</div>
 <div class="admin_list">
     <table class="admin_table">
         <tbody>

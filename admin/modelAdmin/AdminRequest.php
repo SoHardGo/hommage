@@ -166,6 +166,28 @@ class AdminRequest extends Manage {
         return $this->getQuery($query)->fetchAll();
     }
     
+    // Information lié à un commentaire
+    public function getInfoOneComment(int $id) :array{
+        $data = ['id'=>$id];
+        $query = "SELECT id, comment, user_id, defunct_id, date_crea, photo_id, profil_user FROM comments WHERE id=:id";
+        return $this->getQuery($query,$data)->fetch();
+    }
+    
+    // Mise à jour d'un commentaire
+    public function updateInfoOneComment(array $data) :void{
+        $query = "UPDATE comments SET user_id=:user_id, defunct_id=:defunct_id, photo_id=:photo_id, profil_user=:profil_user, comment=:comment WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    
+    // Suppression d'un commentaire
+    public function deleteOneComment(int $id) :void{
+        $data = ['id'=>$id];
+        $query = "DELETE FROM comments WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    
+////////////////////////////////////TCHAT/////////////////////////////////////// 
+
     // Liste des contenus de Tchat
     public function getInfoAllTchats() :array{
         $query = "SELECT id, user_id, content, date_crea, friend_id FROM tchat ORDER BY date_crea DESC";
