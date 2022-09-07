@@ -194,6 +194,26 @@ class AdminRequest extends Manage {
         return $this->getQuery($query)->fetchAll();
     }
     
+    // Information sur un Tchat
+    public function getInfoOneTchat(int $id) :array{
+        $data = ['id'=>$id];
+        $query = "SELECT id, user_id, content, date_crea, `read`, friend_id FROM tchat WHERE id=:id";
+        return $this->getQuery($query,$data)->fetch();
+    }
+    
+    // Mise à jour d'un Tchat
+    public function updateInfoOneTchat(array $data) :void{
+        $query = "UPDATE tchat SET user_id=:user_id, friend_id=:friend_id, content=:content WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    
+    // Supprimer un Tchat
+    public function deleteOneTchat(int $id) :void{
+        $data = ['id'=>$id];
+        $query = "DELETE FROM tchat WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    
 /////////////////////////////////ORDERS/////////////////////////////////////////
     
     // Liste des commandes

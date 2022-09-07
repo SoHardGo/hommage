@@ -2,6 +2,9 @@
 ob_start(); 
 ?>
 <h1>Manage Tchats</h1>
+<div class="admin_tchats">
+        <?=$result_show?>
+</div>
 <div class="admin_list">
     <table class="admin_table">
         <tbody>
