@@ -218,8 +218,15 @@ class AdminRequest extends Manage {
     
     // Liste des commandes
     public function getInfoAllOrders() :array{
-        $query = "SELECT id, lastname, firstname, date_crea, total, lastname_send, tel, email, user_send_id, cards_id, flowers_id FROM orders ORDER BY date_crea DESC";
+        $query = "SELECT id, user_id, lastname, firstname, date_crea, total, lastname_send, tel, email, user_send_id, cards_id, flowers_id FROM orders ORDER BY date_crea DESC";
         return $this->getQuery($query)->fetchAll();
+    }
+    
+    // Information sur une commande
+    public function getInfoOneOrder(int $id) :array{
+        $data = ['id'=>$id];
+        $query = "SELECT id, lastname, user_id, firstname, date_crea, total, lastname_send, tel, email, user_send_id, cards_id, flowers_id FROM orders WHERE id=:id";
+        return $this->getQuery($query,$data)->fetch();
     }
 
 ////////////////////////////////DEFUNCTS////////////////////////////////////////

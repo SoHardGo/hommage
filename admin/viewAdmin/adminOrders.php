@@ -2,6 +2,9 @@
 ob_start(); 
 ?>
 <h1>Manage Orders</h1>
+<div class="admin_orders">
+        <?=$result_show?>
+</div>
 <div class="admin_list">
     <table class="admin_table">
         <tbody>
