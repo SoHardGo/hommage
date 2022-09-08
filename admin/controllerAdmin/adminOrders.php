@@ -63,12 +63,6 @@ if (isset($_GET['update'])){
                     <input type="number" name="user_send_id" placeholder="'.$order['user_send_id'].'">
                     <label>Nom destinataire</label>
                     <input type="text" name="lastname_send" placeholder="'.$order['lastname_send'].'">
-                    <label>Id Cartes</label>
-                    <input type="number" name="cards_id" placeholder="'.$order['cards_id'].'">
-                    <label>Id Fleurs</label>
-                    <input type="number" name="flowers_id" placeholder="'.$order['flowers_id'].'"                    
-                    <label>Total</label>
-                    <input type="text" name="total" placeholder="'.$order['total'].'">
                     <input class="button" type="submit" name="submit" value="Mettre à jour">
                    </form>
                  </div>';
@@ -106,7 +100,35 @@ if (isset($_POST['submit'])){
         $data['email'] = $order['email'];
     }
     if (isset($_POST['tel']) && !empty($_POST['tel'])){
-        
+        if (preg_match('#^0[1-68]([-. ]?[0-9]{2}){4}$#', $_POST['tel'])){
+                        $replace = array('-', '.', ' ');
+                    	$tel = str_replace($replace, '', $_POST['tel']);
+                    	$tel = chunk_split($_POST['tel'], 2, '\r');
+            $data['tel'] = htmlspecialchars(trim($tel));
+        }
+    } else {
+        $data['tel'] = $order['tel'];
     }
+    if (isset($_POST['user_send_id']) && !empty($_POST['user_send_id'])){
+        if (is_numeric($_POST['user_send_id'])){
+            $data['user_send_id'] = htmlspecialchars(trim(intval($_POST['user_send_id'])));
+        }
+    } else {
+        $data['user_send_id'] = $order['user_send_id'];
+    }
+    if (isset($_POST['lastname_send']) && !empty($_POST['lastname_send'])){
+        if (strlen($_POST['lastname_send']) <30){
+            $data['lastname_send'] = htmlspecialchars(trim(ucfirst($_POST['lastname_send'])));
+        }
+    } else {
+        $data['lastname_send'] = $order['lastname_send'];
+    }
+    $data['id'] = $order['id'];
+    $adminRequest->updateInfoOneOrder($data);
+}
+
+// Supprimer une commande
+if (isset($_GET['delete'])){
+    $adminRequest->deleteOneOrder(htmlspecialchars(trim($_GET['delete'])));
 }
 require 'viewAdmin/adminOrders.php';

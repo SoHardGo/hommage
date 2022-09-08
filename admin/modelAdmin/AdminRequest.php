@@ -228,7 +228,20 @@ class AdminRequest extends Manage {
         $query = "SELECT id, lastname, user_id, firstname, date_crea, total, lastname_send, tel, email, user_send_id, cards_id, flowers_id FROM orders WHERE id=:id";
         return $this->getQuery($query,$data)->fetch();
     }
-
+    
+    // Mise à jour Information d'une commande
+    public function updateInfoOneOrder(array $data) :void{
+        $query = "UPDATE orders SET lastname=:lastname, user_id=:user_id, firstname=:firstname, lastname_send=:lastname_send, tel=:tel, email=:email, user_send_id=:user_send_id WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    
+    // Supprimer une commande
+    public function deleteOneOrder(int $id) :void{
+        $data = ['id'=>$id];
+        $query = "DELETE FROM orders WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+ 
 ////////////////////////////////DEFUNCTS////////////////////////////////////////
     
     // Liste des défunts
