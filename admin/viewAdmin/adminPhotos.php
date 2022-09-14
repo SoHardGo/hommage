@@ -1,7 +1,10 @@
 <?php
 ob_start(); 
 ?>
-<h2>Manage Photos</h2>
+<h1>Manage Photos</h1>
+<div class="admin_photos">
+        <?=$result_show?>
+</div>
 <div class="admin_list">
     <table class="admin_table">
         <tbody>

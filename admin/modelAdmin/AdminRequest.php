@@ -67,6 +67,28 @@ class AdminRequest extends Manage {
         $query = "SELECT id, name, user_id, defunct_id, date_crea FROM photos ORDER BY name";
         return $this->getQuery($query)->fetchAll();
     }
+    // Informations sur une photo
+    public function getInfoOnePhoto(int $id) :array{
+        $data = ['id'=>$id];
+        $query = "SELECT id, name, user_id, defunct_id, date_crea FROM photos WHERE id=:id";
+        return $this->getQuery($query,$data)->fetch();
+    }
+    // Mise à jour Information d'une photo
+    public function updateInfoOnePhoto(array $data) :void{
+        $query = "UPDATE photos SET user_id=:user_id, name=:name, defunct_id=:defunct_id WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
+    // Suppression des informations d'une photo + la photo
+    public function deleteOnePhoto(int $id) :void{
+        $info = $this->getInfoOnePhoto(intval($id));
+        $folder = '../public/pictures/photos/'.$info['user_id'];
+        if (is_dir($folder)){
+            unlink($folder.'/'.$info['name']);
+        }
+        $data = ['id'=>$id];
+        $query = "DELETE FROM photos WHERE id=:id";
+        $this->getQuery($query,$data);
+    }
 
 /////////////////////////////////PRODUITS///////////////////////////////////////
     
